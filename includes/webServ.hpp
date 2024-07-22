@@ -6,21 +6,11 @@
 
 class webServ
 {
-private:
-	/* data */
-public:
-	webServ(/* args */);
-	~webServ();
+	private:
+
+	public:
+		webServ();
+		~webServ();
 };
-
-webServ::webServ(/* args */)
-{
-}
-
-webServ::~webServ()
-{
-}
-
-
 
 #endif
