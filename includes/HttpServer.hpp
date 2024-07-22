@@ -8,7 +8,8 @@
 #include <netinet/in.h>
 #include <sys/types.h>
 #include <sys/socket.h>
-
+#include <fstream>
+#include <sstream>
 
 class HttpServer
 {
@@ -18,6 +19,7 @@ class HttpServer
 		int			new_socket;
 		const int	port;
 		int			addrelen;
+		std::string	requestedPath;
 
 		struct sockaddr_in	address;
 
@@ -28,6 +30,8 @@ class HttpServer
 		void	acceptConnection();
 		void	readRequest();
 		void	sendResponse();
+
+		std::string readFileContent(const std::string& filePath);
 
 	public:
 		HttpServer(int port);
