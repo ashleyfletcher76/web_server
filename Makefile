@@ -6,7 +6,7 @@
 #    By: asfletch <asfletch@student.42heilbronn.    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/03/22 10:21:25 by asfletch          #+#    #+#              #
-#    Updated: 2024/07/22 11:17:28 by asfletch         ###   ########.fr        #
+#    Updated: 2024/07/22 14:57:51 by asfletch         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -21,11 +21,11 @@ COLOUR_END = \033[0m
 CC = c++
 RM = rm -f
 CFLAGS = -Wall -Wextra -Werror -I./includes/ -g -std=c++98 -fsanitize=address -fsanitize=undefined
-SRCS = main.cpp
+SRCS = main.cpp HttpServer.cpp
 OBJ_DIR = obj
 SRC_DIR = src/
 OBJ = $(addprefix $(OBJ_DIR)/, $(SRCS:.cpp=.o))
-DEPS = $(addprefix $(SRC_DIR)/, $(SRCS)) ./includes/webServ.hpp
+DEPS = $(addprefix $(SRC_DIR)/, $(SRCS)) ./includes/HttpServer.hpp
 
 NAME = webserv
 
