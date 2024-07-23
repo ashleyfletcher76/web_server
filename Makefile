@@ -1,15 +1,3 @@
-# **************************************************************************** #
-#                                                                              #
-#                                                         :::      ::::::::    #
-#    Makefile                                           :+:      :+:    :+:    #
-#                                                     +:+ +:+         +:+      #
-#    By: asfletch <asfletch@student.42heilbronn.    +#+  +:+       +#+         #
-#                                                 +#+#+#+#+#+   +#+            #
-#    Created: 2024/03/22 10:21:25 by asfletch          #+#    #+#              #
-#    Updated: 2024/07/23 10:27:20 by asfletch         ###   ########.fr        #
-#                                                                              #
-# **************************************************************************** #
-
 .SILENT:
 
 COLOUR_DEFAULT = \033[0m
@@ -21,33 +9,35 @@ COLOUR_END = \033[0m
 CC = c++
 RM = rm -f
 CFLAGS = -Wall -Wextra -Werror -I./includes/ -g -std=c++98 -fsanitize=address -fsanitize=undefined
-SRCS = main.cpp HttpServer.cpp handleRequest.cpp readMethods.cpp utils.cpp
+
+SRCS = main.cpp server/HttpServer.cpp server/handleRequest.cpp server/readMethods.cpp \
+	server/utils.cpp config/config.cpp
 OBJ_DIR = obj
 SRC_DIR = src/
-OBJ = $(addprefix $(OBJ_DIR)/, $(SRCS:.cpp=.o))
-DEPS = $(addprefix $(SRC_DIR)/, $(SRCS)) ./includes/HttpServer.hpp
+OBJ = $(SRCS:%.cpp=$(OBJ_DIR)/%.o)
+DEPS = $(SRCS:%.cpp=$(SRC_DIR)/%.cpp) ./includes/HttpServer.hpp ./includes/config.hpp
 
 NAME = webserv
 
-$(NAME): $(OBJ_DIR) $(OBJ)
+# Default target
+all: $(NAME)
+
+# Link objects into the executable
+$(NAME): $(OBJ)
 	$(CC) $(CFLAGS) $(OBJ) -o $(NAME)
 	echo "$(COLOUR_GREEN)$(NAME) compiled successfully!$(COLOUR_END)"
 
-$(OBJ_DIR):
-	mkdir -p $(OBJ_DIR)
-
 $(OBJ_DIR)/%.o: $(SRC_DIR)%.cpp $(DEPS)
+	@mkdir -p $(@D)  # Ensure the directory exists
 	$(CC) $(CFLAGS) -c $< -o $@
-
-all: $(NAME)
 
 clean:
 	$(RM) -rf $(OBJ_DIR)
-	@echo "$(COLOUR_BLUE)$(NAME) objects removed successfully..$(COLOUR_END)"
+	@echo "$(COLOUR_BLUE)Objects removed successfully.$(COLOUR_END)"
 
 fclean: clean
 	$(RM) $(NAME)
-	echo "$(COLOUR_MAGENTA)$(NAME) cleaned successfully..$(COLOUR_END)"
+	echo "$(COLOUR_MAGENTA)Executable cleaned.$(COLOUR_END)"
 
 re: fclean all
 
