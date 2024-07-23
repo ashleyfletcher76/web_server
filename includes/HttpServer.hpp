@@ -43,7 +43,8 @@ class HttpServer
 
 
 		// Error
-		void	sendErrorResponse(int statusCode, const std::string& reasonPhrase);
+		void		sendErrorResponse(int statusCode, const std::string& reasonPhrase);
+		std::string	getErrorFilePath(int statusCode);
 
 	public:
 		HttpServer(int port);

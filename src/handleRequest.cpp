@@ -13,10 +13,12 @@ void	HttpServer::handleGetRequest(const std::string& path)
 
 void	HttpServer::handlePostRequest(const std::string& path)
 {
+	(void)path;
 	sendResponse();
 }
 
 void	HttpServer::handleDeleteRequest(const std::string& path)
 {
+	(void)path;
 	sendResponse();
 }
