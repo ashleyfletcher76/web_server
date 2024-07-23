@@ -81,9 +81,9 @@ void	HttpServer::readRequest()
 	std::string path;
 	requestStream >> method >> path;
 	if (path == "/profile")
-		requestedPath = "/profile.html";  // Correct file path
+		requestedPath = "/Users/asfletch/Desktop/working_on/web_server/html/profile.html";  // Correct file path
 	else if (path == "/")
-		requestedPath = "html/index.html";
+		requestedPath = "/Users/asfletch/Desktop/working_on/web_server/html/index.html";
 	else
 		requestedPath = "html" + path;  // Default mapping
 }
@@ -94,40 +94,39 @@ void	HttpServer::sendResponse()
 	std::string response;
 	std::string content;
 
-
 	std::cout << "Path = " << requestedPath << std::endl;
-	if (requestedPath == "/profile")
-	{
-		std::cout << "Requested by me" << std::endl;
-		content = readFileContent("../html/profile.html");
-	}
-	else if(requestedPath == "/")
-		content = readFileContent("html/index.html");
-	else if (requestedPath == "/favicon.ico")
-	{
-		// Respond with 204 No Content for favicon.ico
-		response = "HTTP/1.1 204 No Content\n\n";
-		write(new_socket, response.c_str(), response.length());
-		std::cout << "Favicon request ignored\n";
-		return ;
-	}
-	else
-		content = "";
+	content = readFileContent(requestedPath);
 	if (!content.empty())
-		response = "HTTP/1.1 200 OK\nContent-Type: text/html\nContent-Length: "
-		+ std::to_string(content.length()) + "\n\n" + content;
+	{
+		response = "HTTP/1.1 200 OK\nContent-Type: text/html\nContent-Length: " + std::to_string(content.length()) + "\n\n" + content;
+		std::cout << "Repsonse sent with content length: " << content.length() << std::endl;
+	}
 	else
+	{
 		response = "HTTP/1.1 404 Not Found\nContent-Type: text/html\nContent-Length: 13\n\n404 Not Found";
+		std::cout << "File not found, 404 response" << std::endl;
+	}
 	write(new_socket, response.c_str(), response.length());
 	std::cout << "Response sent\n";
+}
+
+std::string getCurrentWorkingDirectory()
+{
+	char	temp[PATH_MAX];
+	return (getcwd(temp, sizeof(temp)) ? std::string(temp) : std::string(""));
 }
 
 std::string HttpServer::readFileContent(const std::string& filePath)
 {
 	std::ifstream file(filePath);
 	if (!file)
+	{
+		std::cerr << "Failed to open file: " << filePath << std::endl;
+		std::cerr << "Current working directory: " << getCurrentWorkingDirectory() << std::endl;
 		return ("");
+	}
 	std::stringstream buffer;
 	buffer << file.rdbuf();
 	return (buffer.str());
 }
+
