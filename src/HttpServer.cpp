@@ -82,10 +82,7 @@ void	HttpServer::sendResponse()
 		std::cout << "Repsonse sent with content length: " << content.length() << std::endl;
 	}
 	else
-	{
-		response = "HTTP/1.1 404 Not Found\nContent-Type: text/html\nContent-Length: 13\n\n404 Not Found";
-		std::cout << "File not found, 404 response" << std::endl;
-	}
+		sendErrorResponse(404, "Not Found");
 	write(new_socket, response.c_str(), response.length());
 	std::cout << "Response sent\n";
 }
