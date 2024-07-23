@@ -31,7 +31,13 @@ class HttpServer
 		void	readRequest();
 		void	sendResponse();
 
+		// GET
+		void	handleGetRequest(const std::string& path);
+
 		std::string readFileContent(const std::string& filePath);
+
+		// Error
+		void	sendErrorResponse(int statusCode, const std::string& reasonPhrase);
 
 	public:
 		HttpServer(int port);
