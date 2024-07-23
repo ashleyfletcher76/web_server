@@ -14,6 +14,10 @@ void	HttpServer::readRequest()
 	requestStream >> method >> path;
 	if (method == "GET")
 		handleGetRequest(path);
+	else if (method == "POST")
+		handlePostRequest(path);
+	else if (method == "DELETE")
+		handleDeleteRequest(path);
 	else
 		sendErrorResponse(405, "Method Not Allowed");
 }

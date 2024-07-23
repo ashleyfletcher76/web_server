@@ -10,3 +10,13 @@ void	HttpServer::handleGetRequest(const std::string& path)
 		requestedPath = "html" + path;  // Default mapping
 	sendResponse();
 }
+
+void	HttpServer::handlePostRequest(const std::string& path)
+{
+	sendResponse();
+}
+
+void	HttpServer::handleDeleteRequest(const std::string& path)
+{
+	sendResponse();
+}

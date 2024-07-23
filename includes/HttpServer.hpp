@@ -30,11 +30,17 @@ class HttpServer
 		void	acceptConnection();
 		void	readRequest();
 		void	sendResponse();
+		std::string readFileContent(const std::string& filePath);
 
 		// GET
 		void	handleGetRequest(const std::string& path);
 
-		std::string readFileContent(const std::string& filePath);
+		// POST
+		void	handlePostRequest(const std::string& path);
+
+		// DELETE
+		void	handleDeleteRequest(const std::string& path);
+
 
 		// Error
 		void	sendErrorResponse(int statusCode, const std::string& reasonPhrase);
