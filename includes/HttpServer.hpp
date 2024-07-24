@@ -11,6 +11,8 @@
 #include <fstream>
 #include <sstream>
 
+#include "config.hpp";
+
 class HttpServer
 {
 	private:
@@ -19,6 +21,7 @@ class HttpServer
 		int			new_socket;
 		const int	port;
 		int			addrelen;
+		config		settings;
 		std::string	requestedPath;
 
 		struct sockaddr_in	address;
