@@ -2,6 +2,7 @@
 
 void	HttpServer::handleGetRequest(const std::string& path)
 {
+	std::cout << path << '\n';
 	if (path == "/profile")
 		requestedPath = "html/profile.html";  // Correct file path
 	else if (path == "/")

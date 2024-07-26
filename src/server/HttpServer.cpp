@@ -39,9 +39,12 @@ void	HttpServer::bindSocket()
 	address.sin_family = AF_INET;
 	address.sin_addr.s_addr = INADDR_ANY;
 	address.sin_port = htons(port);
-	if (bind(server_fd, (struct sockaddr *)&address, sizeof(address)) < 0)
+	try {
+		bind(server_fd, (struct sockaddr *)&address, sizeof(address));
+	}
+	catch(const std::exception& e)
 	{
-		std::cerr << "Bind failed" << std::endl;
+		std::cerr << "Bind failed! " << e.what() << std::endl;
 		exit(EXIT_FAILURE);
 	}
 }
@@ -74,15 +77,12 @@ void	HttpServer::sendResponse()
 	std::string response;
 	std::string content;
 
-	std::cout << "Path = " << requestedPath << std::endl;
 	content = readFileContent(requestedPath);
 	if (!content.empty())
 	{
 		response = "HTTP/1.1 200 OK\nContent-Type: text/html\nContent-Length: " + std::to_string(content.length()) + "\n\n" + content;
-		std::cout << "Repsonse sent with content length: " << content.length() << std::endl;
 	}
 	else
 		sendErrorResponse(404, "Not Found");
 	write(new_socket, response.c_str(), response.length());
-	std::cout << "Response sent\n";
 }

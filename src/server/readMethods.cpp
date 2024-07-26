@@ -5,7 +5,6 @@ void	HttpServer::readRequest()
 	//read request
 	char buffer[30000] = {0};
 	read(new_socket, buffer, 30000);
-	std::cout << "Recieved request:\n" << buffer << std::endl;
 
 	//parse request to get path
 	std::istringstream requestStream(buffer);
