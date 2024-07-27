@@ -1,25 +1,25 @@
 #include "HttpServer.hpp"
 
-void	HttpServer::handleGetRequest(const std::string& path)
+void	HttpServer::handleGetRequest(const std::string& path, int client_socket)
 {
+	clientInfoMap[client_socket].responseReady = true;
 	std::cout << path << '\n';
 	if (path == "/profile")
-		requestedPath = "html/profile.html";  // Correct file path
+		clientInfoMap[client_socket].requestedPath = "html/profile.html";
 	else if (path == "/")
-		requestedPath = "html/index.html";
+		clientInfoMap[client_socket].requestedPath = "html/index.html";
 	else
-		requestedPath = "html" + path;  // Default mapping
-	sendResponse();
+		clientInfoMap[client_socket].requestedPath = "html" + path;  // Default mapping
 }
 
-void	HttpServer::handlePostRequest(const std::string& path)
+void	HttpServer::handlePostRequest(const std::string& path, int client_socket)
 {
-	(void)path;
-	sendResponse();
+	clientInfoMap[client_socket].responseReady = true;
+	clientInfoMap[client_socket].requestedPath = path;
 }
 
-void	HttpServer::handleDeleteRequest(const std::string& path)
+void	HttpServer::handleDeleteRequest(const std::string& path, int client_socket)
 {
-	(void)path;
-	sendResponse();
+	clientInfoMap[client_socket].responseReady = true;
+	clientInfoMap[client_socket].requestedPath = path;
 }
