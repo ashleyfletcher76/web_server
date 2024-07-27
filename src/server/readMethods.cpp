@@ -32,7 +32,6 @@ void HttpServer::readRequest(int client_socket)
 	else
 		sendErrorResponse(client_socket, 405, "Method Not Allowed");
 
-	std::cout << "here" << std::endl;
 	for (std::vector<struct pollfd>::iterator it = poll_fds.begin(); it != poll_fds.end(); it++)
 	{
 		if ((*it).fd == client_socket)

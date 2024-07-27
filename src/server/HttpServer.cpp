@@ -87,7 +87,6 @@ void HttpServer::startListening()
 		std::cerr << "Listen failed" << std::endl;
 		exit(EXIT_FAILURE);
 	}
-
 	std::cout << "Server is listening on PORT " << port << std::endl;
 }
 
@@ -118,7 +117,6 @@ void HttpServer::acceptConnection()
 void HttpServer::sendResponse(int client_socket)
 {
 	// Send response
-	std::cout << clientInfoMap[client_socket].responseReady << std::endl;
 	if (clientInfoMap[client_socket].responseReady)
 	{
 		std::string response;
@@ -129,7 +127,9 @@ void HttpServer::sendResponse(int client_socket)
 			response = "HTTP/1.1 200 OK\nContent-Type: text/html\nContent-Length: " + std::to_string(content.length()) + "\n\n" + content;
 		}
 		else
+		{
 			sendErrorResponse(client_socket, 404, "Not Found");
+		}
 		write(client_socket, response.c_str(), response.length());
 		close(client_socket);
 		clientInfoMap.erase(client_socket); 
