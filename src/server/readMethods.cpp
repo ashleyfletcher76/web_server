@@ -7,11 +7,8 @@ void HttpServer::readRequest(int client_socket)
 	int valread = read(client_socket, buffer, 30000);
 	if (valread <= 0)
 	{
-		if (errno != EWOULDBLOCK && errno != EAGAIN)
-		{
-			close(client_socket);
-			clientInfoMap.erase(client_socket);
-		}
+		close(client_socket);
+		clientInfoMap.erase(client_socket);
 		return;
 	}
 
