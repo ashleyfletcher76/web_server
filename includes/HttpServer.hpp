@@ -14,46 +14,56 @@
 #include <poll.h>
 #include <vector>
 #include <unordered_map>
+#include <limits.h>
+#include <sys/wait.h>
+
+
+struct ClientInfo {
+	std::string	method;
+	std::string	requestedPath;
+	std::string postData;
+	bool		responseReady;
+};
+
 
 class HttpServer
 {
 	private:
 		// variables;
+		const int	port;
 		int			server_fd;
 		int			new_socket;
-		const int	port;
 		int			addrelen;
-		std::string	requestedPath;
+	
 		struct sockaddr_in	address;
-		std::unordered_map<int, std::string> clients;
+
 		std::vector<struct pollfd> &poll_fds;
-
-		struct ClientInfo {
-			std::string method;
-			std::string requestedPath;
-			bool responseReady;
-		};
-
+		std::unordered_map<int, std::string> clients;
 		std::unordered_map<int, ClientInfo> clientInfoMap;
 
 		// methods
 		void	init();
+		void	mainLoop();
 		void	bindSocket();
 		void	startListening();
 		void	acceptConnection();
+
+
 		void	readRequest(int client_socket);
 		void	sendResponse(int client_socket);
+
+		std::string readPostData(int content_length);
 		std::string readFileContent(const std::string& filePath);
 
 		// GET
 		void	handleGetRequest(const std::string& path, int client_socket);
-
-		// POST
-		void	handlePostRequest(const std::string& path, int client_socket);
-
+		
 		// DELETE
 		void	handleDeleteRequest(const std::string& path, int client_socket);
 
+		// POST
+		void	handlePostRequest(const std::string &path, int client_socket, char buffer[30000]);
+		std::string	sendResponsePost(int client_socket, ClientInfo &clientInfo);
 
 		// Error
 		void		sendErrorResponse(int client_socket, int statusCode, const std::string &reasonPhrase);

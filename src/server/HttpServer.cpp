@@ -25,7 +25,11 @@ void HttpServer::begin()
 	server_pollfd.events = POLLIN;
 
 	poll_fds.push_back(server_pollfd);
+	mainLoop();
+}
 
+void HttpServer::mainLoop()
+{
 	while (true)
 	{
 		int poll_count = poll(poll_fds.data(), poll_fds.size(), -1);
@@ -34,24 +38,17 @@ void HttpServer::begin()
 			std::cerr << "Poll failed" << std::endl;
 			exit(EXIT_FAILURE);
 		}
-
 		for (size_t i = 0; i < poll_fds.size(); ++i)
 		{
 			if (poll_fds[i].revents && POLLIN)
 			{
 				if (poll_fds[i].fd == server_fd)
-				{
 					acceptConnection();
-				}
 				else
-				{
 					readRequest(poll_fds[i].fd);
-				}
 			}
 			if (poll_fds[i].revents & POLLOUT)
-			{
 				sendResponse(poll_fds[i].fd);
-			}
 		}
 	}
 }
@@ -64,6 +61,18 @@ void HttpServer::init()
 		std::cerr << "Socket creation failed" << std::endl;
 		exit(EXIT_FAILURE);
 	}
+
+	int opt = 1;
+	if (setsockopt(server_fd, SOL_SOCKET, SO_REUSEADDR, &opt, sizeof(opt)))
+	{
+		std::cerr << "setsockopt(SO_REUSEADDR) failed: " << strerror(errno) << std::endl;
+		exit(EXIT_FAILURE);
+	}
+	if (setsockopt(server_fd, SOL_SOCKET, SO_REUSEPORT, &opt, sizeof(opt)))
+	{
+		std::cerr << "setsockopt(SO_REUSEPORT) failed: " << strerror(errno) << std::endl;
+		exit(EXIT_FAILURE);
+	}
 }
 
 void HttpServer::bindSocket()
@@ -74,7 +83,7 @@ void HttpServer::bindSocket()
 	address.sin_port = htons(port);
 	if (bind(server_fd, (struct sockaddr *)&address, sizeof(address)) < 0)
 	{
-		std::cerr << "Bind failed" << std::endl;
+		std::cerr << "Bind failed: " << strerror(errno) << std::endl;
 		exit(EXIT_FAILURE);
 	}
 }
@@ -104,34 +113,10 @@ void HttpServer::acceptConnection()
 		}
 		return;
 	}
-
 	fcntl(client_socket, F_SETFL, O_NONBLOCK);
 	struct pollfd client_pollfd;
 	client_pollfd.fd = client_socket;
 	client_pollfd.events = POLLIN;
 	poll_fds.push_back(client_pollfd);
-
 	clientInfoMap[client_socket] = ClientInfo();
-}
-
-void HttpServer::sendResponse(int client_socket)
-{
-	// Send response
-	if (clientInfoMap[client_socket].responseReady)
-	{
-		std::string response;
-		std::string content = readFileContent(clientInfoMap[client_socket].requestedPath);
-
-		if (!content.empty())
-		{
-			response = "HTTP/1.1 200 OK\nContent-Type: text/html\nContent-Length: " + std::to_string(content.length()) + "\n\n" + content;
-		}
-		else
-		{
-			sendErrorResponse(client_socket, 404, "Not Found");
-		}
-		write(client_socket, response.c_str(), response.length());
-		close(client_socket);
-		clientInfoMap.erase(client_socket); 
-	}
 }
