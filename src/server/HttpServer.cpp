@@ -8,49 +8,18 @@ HttpServer::~HttpServer()
 	close(server_fd);
 	for (std::unordered_map<int, ClientInfo>::iterator it; it != clientInfoMap.end(); it++)
 	{
-		close((*it).first);
+		close(it->first);
 	}
 }
+
 
 void HttpServer::begin()
 {
 	init();
 	bindSocket();
 	startListening();
-
-	fcntl(server_fd, F_SETFL, O_NONBLOCK);
-
-	struct pollfd server_pollfd;
-	server_pollfd.fd = server_fd;
-	server_pollfd.events = POLLIN;
-
-	poll_fds.push_back(server_pollfd);
+	set_pollfd();
 	mainLoop();
-}
-
-void HttpServer::mainLoop()
-{
-	while (true)
-	{
-		int poll_count = poll(poll_fds.data(), poll_fds.size(), -1);
-		if (poll_count < 0)
-		{
-			std::cerr << "Poll failed" << std::endl;
-			exit(EXIT_FAILURE);
-		}
-		for (size_t i = 0; i < poll_fds.size(); ++i)
-		{
-			if (poll_fds[i].revents && POLLIN)
-			{
-				if (poll_fds[i].fd == server_fd)
-					acceptConnection();
-				else
-					readRequest(poll_fds[i].fd);
-			}
-			if (poll_fds[i].revents & POLLOUT)
-				sendResponse(poll_fds[i].fd);
-		}
-	}
 }
 
 void HttpServer::init()
@@ -61,7 +30,6 @@ void HttpServer::init()
 		std::cerr << "Socket creation failed" << std::endl;
 		exit(EXIT_FAILURE);
 	}
-
 	int opt = 1;
 	if (setsockopt(server_fd, SOL_SOCKET, SO_REUSEADDR, &opt, sizeof(opt)))
 	{
@@ -97,6 +65,42 @@ void HttpServer::startListening()
 		exit(EXIT_FAILURE);
 	}
 	std::cout << "Server is listening on PORT " << port << std::endl;
+}
+
+void HttpServer::set_pollfd()
+{
+	fcntl(server_fd, F_SETFL, O_NONBLOCK);
+
+	struct pollfd server_pollfd;
+	server_pollfd.fd = server_fd;
+	server_pollfd.events = POLLIN;
+
+	poll_fds.push_back(server_pollfd);
+}
+
+void HttpServer::mainLoop()
+{
+	while (true)
+	{
+		int poll_count = poll(poll_fds.data(), poll_fds.size(), -1);
+		if (poll_count < 0)
+		{
+			std::cerr << "Poll failed" << std::endl;
+			exit(EXIT_FAILURE);
+		}
+		for (size_t i = 0; i < poll_fds.size(); ++i)
+		{
+			if (poll_fds[i].revents && POLLIN)
+			{
+				if (poll_fds[i].fd == server_fd)
+					acceptConnection();
+				else
+					readRequest(poll_fds[i].fd);
+			}
+			if (poll_fds[i].revents & POLLOUT)
+				sendResponse(poll_fds[i].fd);
+		}
+	}
 }
 
 void HttpServer::acceptConnection()

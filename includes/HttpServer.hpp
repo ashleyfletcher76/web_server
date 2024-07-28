@@ -44,6 +44,7 @@ class HttpServer
 		// methods
 		void	init();
 		void	mainLoop();
+		void	set_pollfd();
 		void	bindSocket();
 		void	startListening();
 		void	acceptConnection();
@@ -52,7 +53,6 @@ class HttpServer
 		void	readRequest(int client_socket);
 		void	sendResponse(int client_socket);
 
-		std::string readPostData(int content_length);
 		std::string readFileContent(const std::string& filePath);
 
 		// GET

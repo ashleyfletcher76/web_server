@@ -17,6 +17,7 @@ int main()
 	postData.resize(contentLength);
 	std::cin.read(&postData[0], contentLength);
 
+	std::cout << "am i here ? " << '\n';
 	std::cout << "Content-type: text/html\r\n\r\n";
 	std::cout << "<html><body><h1>Post Data Received</h1><p>" << postData << "</p></body></html>";
 

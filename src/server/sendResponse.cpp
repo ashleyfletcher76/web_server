@@ -21,10 +21,25 @@ std::string HttpServer::sendResponsePost(int client_socket, ClientInfo &clientIn
 		dup2(pipefd[1], STDERR_FILENO);
 		close(pipefd[1]);
 
-		setenv("CONTENT_LENGTH", std::to_string(clientInfo.postData.size()).c_str(), 1);
-		setenv("REQUEST_METHOD", "POST", 1);
+		std::string scriptPath = "./cgi" + clientInfo.requestedPath;
 
-		execl(clientInfo.requestedPath.c_str(), clientInfo.requestedPath.c_str(), NULL);
+		std::vector<std::string> envp;
+		envp.push_back("CONTENT_LENGTH=" + std::to_string(clientInfo.postData.size()));
+		envp.push_back("REQUEST_METHOD=POST");
+		envp.push_back("SCRIPT_NAME=" + scriptPath);
+		envp.push_back("QUERY_STRING=");
+		envp.push_back("SERVER_PROTOCOL=HTTP/1.1");
+		envp.push_back("GATEWAY_INTERFACE=CGI/1.1");
+
+		std::vector<const char *> env;
+		for (std::vector<std::string>::iterator it = envp.begin(); it != envp.end(); ++it)
+		{
+			env.push_back(it->c_str());
+		}
+		env.push_back(nullptr);
+		const char *argv[] = {scriptPath.c_str(), nullptr};
+
+		execve(scriptPath.c_str(), const_cast<char *const *>(argv), const_cast<char *const *>(env.data()));
 		exit(EXIT_FAILURE);
 	}
 	else
@@ -48,13 +63,8 @@ void HttpServer::sendResponse(int client_socket)
 {
 	// Send response
 	ClientInfo &clientInfo = clientInfoMap[client_socket];
-
-
 	if (clientInfo.responseReady)
 	{
-		std::cout << "Sending response for method: " << clientInfo.method << std::endl;
-		std::cout << "Requested path: " << clientInfo.requestedPath << std::endl;
-		std::cout << "Response ready: " << clientInfo.responseReady << std::endl;
 		std::string response;
 		std::string content;
 
