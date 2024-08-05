@@ -59,6 +59,25 @@ std::string HttpServer::sendResponsePost(int client_socket, ClientInfo &clientIn
 	}
 }
 
+// void	HttpServer::sendResponse(int client_socket)
+// {
+// 	ClientInfo &clientInfo = clientInfoMap[client_socket];
+// 	//Send response
+// 	std::string response;
+// 	std::string content;
+
+// 	std::cout << "Path = " << clientInfo.requestedPath << std::endl;
+// 	content = readFileContent(clientInfo.requestedPath);
+// 	if (!content.empty())
+// 	{
+// 		response = "HTTP/1.1 200 OK\nContent-Type: text/html\nContent-Length: " + std::to_string(content.length()) + "\n\n" + content;
+// 		std::cout << "Repsonse sent with content length: " << content.length() << std::endl;
+// 	}
+// 	else
+// 		sendErrorResponse(client_socket, 404, "Not Found");
+// 	write(new_socket, response.c_str(), response.length());
+// }
+
 void HttpServer::sendResponse(int client_socket)
 {
 	// Send response
@@ -79,7 +98,7 @@ void HttpServer::sendResponse(int client_socket)
 
 		if (!content.empty())
 		{
-			response = "HTTP/1.1 200 OK\nContent-Type: text/html\nContent-Length: " + std::to_string(content.length()) + "\n\n" + content;
+			response = "HTTP/1.1 " + std::to_string(clientInfoMap[client_socket].statusCode) + " OK\nContent-Type: text/html\nContent-Length: " + std::to_string(content.length()) + "\n\n" + content;
 		}
 		else
 		{

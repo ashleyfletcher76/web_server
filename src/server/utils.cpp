@@ -34,3 +34,9 @@ void HttpServer::sendErrorResponse(int client_socket, int statusCode, const std:
 	close(client_socket);
 	clientInfoMap.erase(client_socket);
 }
+
+void	HttpServer::log(const std::string& level, const std::string& msg)
+{
+	std::cerr << "-------" << std::endl;
+	std::cerr << "[ " << level << " ] " << msg << std::endl;
+}

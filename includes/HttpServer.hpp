@@ -27,6 +27,7 @@ struct ClientInfo {
 	std::string	requestedPath;
 	std::string postData;
 	bool		responseReady;
+	int			statusCode;
 };
 
 
@@ -75,6 +76,9 @@ class HttpServer
 		// Error
 		void		sendErrorResponse(int client_socket, int statusCode, const std::string &reasonPhrase);
 		std::string	getErrorFilePath(int statusCode);
+
+		//Log
+		void	log(const std::string& level, const std::string& msg);
 
 	public:
 		HttpServer(int port, std::vector<struct pollfd> &poll_fds);

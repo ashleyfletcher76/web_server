@@ -7,8 +7,10 @@ void HttpServer::readRequest(int client_socket)
 	int valread = read(client_socket, buffer, 30000);
 	if (valread <= 0)
 	{
+		//log("ERROR", "Read failed or connection closed by client FD: " + std::to_string(client_socket));
 		return ;
 	}
+	//log("INFO", "Request received from FD: " + std::to_string(client_socket));
 	// parse request to get path
 	std::istringstream requestStream(buffer);
 	std::string method;
@@ -16,6 +18,7 @@ void HttpServer::readRequest(int client_socket)
 	requestStream >> method >> path;
 	clientInfoMap[client_socket].requestedPath = path;
 	clientInfoMap[client_socket].method = method;
+	//log("INFO", "Request method: " + method + ", path: " + path + " from FD: " + std::to_string(client_socket));
 
 	if (method == "GET")
 	{

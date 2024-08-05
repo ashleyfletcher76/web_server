@@ -81,31 +81,46 @@ void HttpServer::setKqueueEvent()
 void HttpServer::mainLoop()
 {
 	struct kevent event;
+	log("INFO", "Main loop started.");
 	while (true)
 	{
-		int nev = kevent(kq, NULL, 0, &event, 1, NULL);
+		struct timespec timeout = {1, 0};
+		int nev = kevent(kq, NULL, 0, &event, 1, &timeout);
 		if (nev < 0)
 		{
-			perror("Kevent wait");
+			//log("ERROR", "Error on kevent wait: " + std::string(strerror(errno)));
 			continue ;
 		}
 		else if (nev > 0)
 		{
+			//log("INFO", "Event received: " + std::to_string(event.filter));
 			if (event.flags & EV_EOF)
 			{
+				//log("INFO", "Connection closed by client: " + std::to_string(event.ident));
 				close(event.ident);
 				clientInfoMap. erase(event.ident);
 			}
 			else if (event.filter == EVFILT_READ)
 			{
+				//log("INFO", "Ready to read from FD: " + std::to_string(event.ident));
 				if (event.ident == server_fd)
+				{
+					//log("INFO", "New connection on server FD");
 					acceptConnection();
+				}
 				else
+				{
+					//log("INFO", "Reading request from FD: " + std::to_string(event.ident));
 					readRequest(event.ident);
+				}
 			}
 			else if (event.filter == EVFILT_WRITE)
+			{
+				//log("INFO", "Ready to write to FD: " + std::to_string(event.ident));
 				sendResponse(event.ident);
+			}
 		}
+		//log("ERROR", "After all options");
 	}
 }
 
@@ -121,6 +136,7 @@ void HttpServer::acceptConnection()
 		return ;
 	}
 
+	//log("INFO", "Accepted connection from FD: " + std::to_string(client_socket));
 	fcntl(client_socket, F_SETFL, O_NONBLOCK);
 	struct kevent change;
 	EV_SET(&change, client_socket, EVFILT_READ, EV_ADD | EV_ENABLE, 0, 0, NULL);
