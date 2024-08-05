@@ -9,7 +9,7 @@ struct	routeConfig
 	std::vector<std::string> allowedMethods;
 	std::string directoryListing;
 	std::string handler;
-}
+};
 
 class config
 {

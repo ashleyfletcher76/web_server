@@ -6,6 +6,16 @@ int	main()
 
 	HttpServer server(8080, poll_fds);
 
-	server.begin();
+	try
+	{
+		server.begin();
+
+	}
+	catch(const std::exception& e)
+	{
+		std::cerr << e.what() << '\n';
+		return (EXIT_FAILURE);
+	}
+
 	return (0);
 }

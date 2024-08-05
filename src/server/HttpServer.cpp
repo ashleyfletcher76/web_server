@@ -18,28 +18,30 @@ void HttpServer::begin()
 	init();
 	bindSocket();
 	startListening();
-	set_pollfd();
+	setKqueueEvent();
 	mainLoop();
 }
 
 void HttpServer::init()
 {
 	// Create socket FD
+	kq = kqueue();
+	if (kq == -1)
+	{
+		throw std::runtime_error("Kqueue creation failed: " + std::string(strerror(errno)));
+	}
 	if ((server_fd = socket(AF_INET, SOCK_STREAM, 0)) == 0)
 	{
-		std::cerr << "Socket creation failed" << std::endl;
-		exit(EXIT_FAILURE);
+		throw std::runtime_error("Socket creation failed: " + std::string(strerror(errno)));
 	}
 	int opt = 1;
 	if (setsockopt(server_fd, SOL_SOCKET, SO_REUSEADDR, &opt, sizeof(opt)))
 	{
-		std::cerr << "setsockopt(SO_REUSEADDR) failed: " << strerror(errno) << std::endl;
-		exit(EXIT_FAILURE);
+		throw std::runtime_error ("setsockopt(SO_REUSEADDR) failed: " + std::string(strerror(errno)));
 	}
 	if (setsockopt(server_fd, SOL_SOCKET, SO_REUSEPORT, &opt, sizeof(opt)))
 	{
-		std::cerr << "setsockopt(SO_REUSEPORT) failed: " << strerror(errno) << std::endl;
-		exit(EXIT_FAILURE);
+		throw std::runtime_error ("setsockopt(SO_REUSEPORT) failed: " + std::string(strerror(errno)));
 	}
 }
 
@@ -51,8 +53,7 @@ void HttpServer::bindSocket()
 	address.sin_port = htons(port);
 	if (bind(server_fd, (struct sockaddr *)&address, sizeof(address)) < 0)
 	{
-		std::cerr << "Bind failed: " << strerror(errno) << std::endl;
-		exit(EXIT_FAILURE);
+		throw std::runtime_error("Bind failed: " + std::string(strerror(errno)));
 	}
 }
 
@@ -61,44 +62,49 @@ void HttpServer::startListening()
 	// start listening
 	if (listen(server_fd, 3) < 0)
 	{
-		std::cerr << "Listen failed" << std::endl;
-		exit(EXIT_FAILURE);
+		throw std::runtime_error ("Listen failed");
 	}
 	std::cout << "Server is listening on PORT " << port << std::endl;
 }
 
-void HttpServer::set_pollfd()
+void HttpServer::setKqueueEvent()
 {
-	fcntl(server_fd, F_SETFL, O_NONBLOCK);
+	struct kevent change;
 
-	struct pollfd server_pollfd;
-	server_pollfd.fd = server_fd;
-	server_pollfd.events = POLLIN;
-
-	poll_fds.push_back(server_pollfd);
+	EV_SET(&change, server_fd, EVFILT_READ, EV_ADD | EV_ENABLE, 0, 0, NULL);
+	if (kevent(kq, &change, 1, NULL, 0, NULL) == -1)
+	{
+		throw std::runtime_error ("Kevent registration failure: " + std::string(strerror(errno)));
+	}
 }
 
 void HttpServer::mainLoop()
 {
+	struct kevent event;
 	while (true)
 	{
-		int poll_count = poll(poll_fds.data(), poll_fds.size(), -1);
-		if (poll_count < 0)
+		int nev = kevent(kq, NULL, 0, &event, 1, NULL);
+		if (nev < 0)
 		{
-			std::cerr << "Poll failed" << std::endl;
-			exit(EXIT_FAILURE);
+			perror("Kevent wait");
+			continue ;
 		}
-		for (size_t i = 0; i < poll_fds.size(); ++i)
+		else if (nev > 0)
 		{
-			if (poll_fds[i].revents && POLLIN)
+			if (event.flags & EV_EOF)
 			{
-				if (poll_fds[i].fd == server_fd)
+				close(event.ident);
+				clientInfoMap. erase(event.ident);
+			}
+			else if (event.filter == EVFILT_READ)
+			{
+				if (event.ident == server_fd)
 					acceptConnection();
 				else
-					readRequest(poll_fds[i].fd);
+					readRequest(event.ident);
 			}
-			if (poll_fds[i].revents & POLLOUT)
-				sendResponse(poll_fds[i].fd);
+			else if (event.filter == EVFILT_WRITE)
+				sendResponse(event.ident);
 		}
 	}
 }
@@ -110,17 +116,16 @@ void HttpServer::acceptConnection()
 	int client_socket = accept(server_fd, (struct sockaddr *)&client_adress, &client_addrlen);
 	if (client_socket < 0)
 	{
-		if (errno != EWOULDBLOCK && errno != EAGAIN)
-		{
-			std::cerr << "Accept failed" << std::endl;
-			exit(EXIT_FAILURE);
-		}
-		return;
+		throw std::runtime_error ("Accept failed: " + std::string(strerror(errno)));
 	}
+
 	fcntl(client_socket, F_SETFL, O_NONBLOCK);
-	struct pollfd client_pollfd;
-	client_pollfd.fd = client_socket;
-	client_pollfd.events = POLLIN;
-	poll_fds.push_back(client_pollfd);
+	struct kevent change;
+	EV_SET(&change, client_socket, EVFILT_READ, EV_ADD | EV_ENABLE, 0, 0, NULL);
+	if (kevent(kq, &change, 1, NULL, 0, NULL) == -1)
+	{
+		perror("Kevent register client");
+		close(client_socket);
+	}
 	clientInfoMap[client_socket] = ClientInfo();
 }

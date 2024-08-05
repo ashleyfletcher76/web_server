@@ -85,7 +85,6 @@ void HttpServer::sendResponse(int client_socket)
 		{
 			sendErrorResponse(client_socket, 404, "Not Found");
 		}
-
 		write(client_socket, response.c_str(), response.length());
 		close(client_socket);
 		clientInfoMap.erase(client_socket);

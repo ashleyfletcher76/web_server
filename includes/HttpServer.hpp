@@ -14,8 +14,12 @@
 #include <poll.h>
 #include <vector>
 #include <unordered_map>
+#include <map>
 #include <limits.h>
 #include <sys/wait.h>
+#include <sys/event.h>
+#include <sys/time.h>
+#include <exception>
 
 
 struct ClientInfo {
@@ -26,16 +30,17 @@ struct ClientInfo {
 };
 
 
-#include "config.hpp";
+#include "config.hpp"
 
 class HttpServer
 {
 	private:
 		// variables;
 		const int	port;
-		int			server_fd;
+		uintptr_t	server_fd;
 		int			new_socket;
 		int			addrelen;
+		int			kq;
 
 		struct sockaddr_in	address;
 
@@ -46,7 +51,7 @@ class HttpServer
 		// methods
 		void	init();
 		void	mainLoop();
-		void	set_pollfd();
+		void	setKqueueEvent();
 		void	bindSocket();
 		void	startListening();
 		void	acceptConnection();
