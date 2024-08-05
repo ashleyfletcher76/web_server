@@ -116,7 +116,9 @@ void HttpServer::acceptConnection()
 	int client_socket = accept(server_fd, (struct sockaddr *)&client_adress, &client_addrlen);
 	if (client_socket < 0)
 	{
-		throw std::runtime_error ("Accept failed: " + std::string(strerror(errno)));
+		if (errno != EAGAIN && errno != EWOULDBLOCK)
+			throw std::runtime_error("Accept failed: " + std::string(strerror(errno)));
+		return ;
 	}
 
 	fcntl(client_socket, F_SETFL, O_NONBLOCK);
@@ -124,8 +126,8 @@ void HttpServer::acceptConnection()
 	EV_SET(&change, client_socket, EVFILT_READ, EV_ADD | EV_ENABLE, 0, 0, NULL);
 	if (kevent(kq, &change, 1, NULL, 0, NULL) == -1)
 	{
-		perror("Kevent register client");
-		close(client_socket);
+		std::string error_msg = "Kevent registration failed: " + std::string(strerror(errno));
+		throw std::runtime_error(error_msg);
 	}
 	clientInfoMap[client_socket] = ClientInfo();
 }
