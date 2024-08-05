@@ -6,9 +6,19 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<title>Home Page</title>
 </head>
+
 <body>
 	<h1>Welcome to the Home Page</h1>
 	<button onclick="location.href='/profile.html'">Go to Profile page</button>
+
+	<h2>Test POST Request</h2>
+	<form action="/post_handler.cpp" method="POST">
+		<label for="name">Name:</label>
+		<input type="text" id="name" name="name"><br><br>
+		<label for="email">Email:</label>
+		<input type="email" id="email" name="email"><br><br>
+		<input type="submit" value="Submit">
+	</form>
 </body>
 
 </html>

@@ -1,43 +1,46 @@
 #include "HttpServer.hpp"
 
-void	HttpServer::readRequest()
+void HttpServer::readRequest(int client_socket)
 {
-	//read request
+	// read request
 	char buffer[30000] = {0};
-	read(new_socket, buffer, 30000);
-	std::cout << "Recieved request:\n" << buffer << std::endl;
-
-	//parse request to get path
+	int valread = read(client_socket, buffer, 30000);
+	if (valread <= 0)
+	{
+		return ;
+	}
+	// parse request to get path
 	std::istringstream requestStream(buffer);
 	std::string method;
 	std::string path;
 	requestStream >> method >> path;
+	clientInfoMap[client_socket].requestedPath = path;
+	clientInfoMap[client_socket].method = method;
+
 	if (method == "GET")
-		handleGetRequest(path);
-	else if (method == "POST")
-		handlePostRequest(path);
-	else if (method == "DELETE")
-		handleDeleteRequest(path);
-	else
-		sendErrorResponse(405, "Method Not Allowed");
-}
-
-std::string getCurrentWorkingDirectory()
-{
-	char	temp[PATH_MAX];
-	return (getcwd(temp, sizeof(temp)) ? std::string(temp) : std::string(""));
-}
-
-std::string HttpServer::readFileContent(const std::string& filePath)
-{
-	std::ifstream file(filePath);
-	if (!file)
 	{
-		std::cerr << "Failed to open file: " << filePath << std::endl;
-		std::cerr << "Current working directory: " << getCurrentWorkingDirectory() << std::endl;
-		return ("");
+		handleGetRequest(path, client_socket);
 	}
-	std::stringstream buffer;
-	buffer << file.rdbuf();
-	return (buffer.str());
+	else if (method == "POST")
+	{
+		handlePostRequest(path, client_socket, buffer);
+	}
+	else if (method == "DELETE")
+	{
+		handleDeleteRequest(path, client_socket);
+	}
+	else
+	{
+		sendErrorResponse(client_socket, 405, "Method Not Allowed");
+	}
+
+	for (std::vector<struct pollfd>::iterator it = poll_fds.begin(); it != poll_fds.end(); ++it)
+	{
+		if ((*it).fd == client_socket)
+		{
+			(*it).events = POLLOUT;
+			break;
+		}
+	}
 }
+
