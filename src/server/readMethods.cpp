@@ -18,7 +18,6 @@ void HttpServer::readRequest(int client_socket)
 	clientInfoMap[client_socket].requestedPath = path;
 	clientInfoMap[client_socket].method = method;
 	log("INFO", "Request method: " + method + ", path: " + path + " from FD: " + std::to_string(client_socket), NOSTATUS);
-
 	if (method == "GET")
 	{
 		handleGetRequest(path, client_socket);
@@ -35,14 +34,5 @@ void HttpServer::readRequest(int client_socket)
 	{
 		sendErrorResponse(client_socket, 405, "Method Not Allowed");
 	}
-
-	// for (std::vector<struct pollfd>::iterator it = poll_fds.begin(); it != poll_fds.end(); ++it)
-	// {
-	// 	if ((*it).fd == client_socket)
-	// 	{
-	// 		(*it).events = POLLOUT;
-	// 		break;
-	// 	}
-	// }
 }
 

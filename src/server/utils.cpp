@@ -46,9 +46,9 @@ void	HttpServer::log(const std::string& level, const std::string& msg, int clien
 	std::ofstream logFile("log.txt", std::ios_base::app);
 	if (logFile.is_open())
 	{
-		if (client_socket == -5)
+		if (client_socket == NOSTATUS)
 		{
-			logFile << timestamp << " [" << level << "]" << " - " << msg  << std::endl;
+			logFile << timestamp << " [" << level << "]" << " - " << msg << "HTTP" << std::endl;
 			logFile.close();
 		}
 		else
@@ -59,7 +59,7 @@ void	HttpServer::log(const std::string& level, const std::string& msg, int clien
 	}
 	else
 		std::cerr << "Unable to open log file" << std::endl;
-	if (client_socket == -5)
+	if (client_socket == NOSTATUS)
 	{
 		std::cout << timestamp << " [" << level << "]" << " - " << msg  << std::endl;
 		logFile.close();

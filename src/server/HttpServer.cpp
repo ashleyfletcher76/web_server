@@ -146,10 +146,8 @@ void HttpServer::acceptConnection()
 			throw std::runtime_error("Accept failed: " + std::string(strerror(errno)));
 		return ;
 	}
-
 	char client_ip[INET_ADDRSTRLEN];
 	inet_ntop(AF_INET, &client_address.sin_addr, client_ip, INET_ADDRSTRLEN);
-
 	log("INFO", "Accepted connection from IP: " + std::string(client_ip) + " on socket: " + std::to_string(client_socket), NOSTATUS);
 	fcntl(client_socket, F_SETFL, O_NONBLOCK);
 	struct kevent change;

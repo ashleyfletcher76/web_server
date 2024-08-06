@@ -1,10 +1,10 @@
 #include "HttpServer.hpp"
 
-std::string getCurrentWorkingDirectory()
-{
-	char temp[PATH_MAX];
-	return (getcwd(temp, sizeof(temp)) ? std::string(temp) : std::string(""));
-}
+// std::string getCurrentWorkingDirectory()
+// {
+// 	char temp[PATH_MAX];
+// 	return (getcwd(temp, sizeof(temp)) ? std::string(temp) : std::string(""));
+// }
 
 std::string HttpServer::readFileContent(const std::string &filePath)
 {
@@ -12,7 +12,7 @@ std::string HttpServer::readFileContent(const std::string &filePath)
 	if (!file)
 	{
 		std::cerr << "Failed to open file: " << filePath << std::endl;
-		std::cerr << "Current working directory: " << getCurrentWorkingDirectory() << std::endl;
+		//std::cerr << "Current working directory: " << getCurrentWorkingDirectory() << std::endl;
 		return ("");
 	}
 	std::stringstream buffer;
@@ -27,21 +27,21 @@ void HttpServer::handleGetRequest(const std::string &path, int client_socket)
 	{
 		clientInfoMap[client_socket].requestedPath = "html/profile.html";
 		clientInfoMap[client_socket].statusCode = 200;
-		log ("INFO", "Recieved GET request: /profile.html", client_socket);
+		//log ("INFO", "Recieved GET request: " + path, client_socket);
 		sendResponse(client_socket);
 	}
 	else if (path == "/" || path == "/index.html")
 	{
 		clientInfoMap[client_socket].requestedPath = "html/index.html";
 		clientInfoMap[client_socket].statusCode = 200;
-		log ("INFO", "Recieved GET request: /index", client_socket);
+		//log ("INFO", "Recieved GET request: " + path, client_socket);
 		sendResponse(client_socket);
 	}
 	else
 	{
 		clientInfoMap[client_socket].requestedPath = "html" + path;
 		clientInfoMap[client_socket].statusCode = 200;
-		log ("INFO", "Recieved GET request: /" + path + ".html", client_socket);
+		//log ("INFO", "Recieved GET request: " + path + ".html", client_socket);
 		sendResponse(client_socket);
 	}
 }
