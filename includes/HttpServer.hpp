@@ -68,7 +68,7 @@ class HttpServer
 		void	readRequest(int client_socket);
 		void	sendResponse(int client_socket);
 
-		std::string readFileContent(const std::string& filePath);
+		std::string readFileContent(const std::string& filePath, int client_socket);
 
 		// GET
 		void	handleGetRequest(const std::string& path, int client_socket);

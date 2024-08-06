@@ -69,7 +69,7 @@ void HttpServer::sendResponse(int client_socket)
 		std::string content;
 		if (clientInfo.method == "GET")
 		{
-			content = readFileContent(clientInfo.requestedPath);
+			content = readFileContent(clientInfo.requestedPath, client_socket);
 		}
 		else if (clientInfo.method == "POST")
 		{
@@ -82,7 +82,6 @@ void HttpServer::sendResponse(int client_socket)
 			if (clientInfo.method == "GET")
 				log ("INFO", "HTTP/1.1 " + std::to_string(clientInfoMap[client_socket].statusCode) + " OK - " " Recieved GET request: " + clientInfo.requestedPath + " OK\nContent-Type: text/html\nContent-Length: "
 					+ std::to_string(content.length()) + "\n\n", client_socket);
-			//std::cout << response << std::endl;
 		}
 		else
 		{

@@ -17,7 +17,7 @@ std::string HttpServer::getErrorFilePath(int statusCode)
 void HttpServer::sendErrorResponse(int client_socket, int statusCode, const std::string &reasonPhrase)
 {
 	std::string errorFilePath = getErrorFilePath(statusCode);
-	std::string htmlContent = readFileContent(errorFilePath);
+	std::string htmlContent = readFileContent(errorFilePath, client_socket);
 
 	if (htmlContent.empty())
 	{
@@ -43,30 +43,15 @@ void	HttpServer::log(const std::string& level, const std::string& msg, int clien
 	char timestamp[20];
 	std::strftime(timestamp, sizeof(timestamp), "%Y-%m-%d %H:%M:%S", localTime);
 
+	(void)client_socket;
 	std::ofstream logFile("log.txt", std::ios_base::app);
 	if (logFile.is_open())
 	{
-		if (client_socket == NOSTATUS)
-		{
-			logFile << timestamp << " [" << level << "]" << " - " << msg << "HTTP" << std::endl;
-			logFile.close();
-		}
-		else
-		{
-			logFile << timestamp << " [" << level << "]" << " - " << msg << " - Status code: " << clientInfoMap[client_socket].statusCode << std::endl;
-			logFile.close();
-		}
+		logFile << timestamp << " [" << level << "]" << " - " << msg << std::endl;
+		logFile.close();
 	}
 	else
 		std::cerr << "Unable to open log file" << std::endl;
-	if (client_socket == NOSTATUS)
-	{
-		std::cout << timestamp << " [" << level << "]" << " - " << msg  << std::endl;
-		logFile.close();
-	}
-	else
-	{
-		std::cout << timestamp << " [" << level << "]" << " - " << msg << " - Status code: " << clientInfoMap[client_socket].statusCode << std::endl;
-		logFile.close();
-	}
+	std::cout << timestamp << " [" << level << "]" << " - " << msg  << std::endl;
+	logFile.close();
 }
