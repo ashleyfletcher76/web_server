@@ -5,6 +5,22 @@ HttpServer::HttpServer(int port, std::vector<struct pollfd> &poll_fds) : port(po
 
 HttpServer::~HttpServer()
 {
+	log("INFO", "Shutting down server..", NOSTATUS);
+	std::ofstream logFile("log.txt", std::ios::app);
+	if (logFile.is_open())
+		logFile.close();
+
+	std::ifstream file("log.txt");
+	if (file.good())
+	{
+		file.close();
+		if (remove("log.txt") != 0)
+			std::cerr << "Error deleting log file: " << strerror(errno) << std::endl;
+		else
+			std::cout << "Log file successfully deleted" << std::endl;
+	}
+	else
+		std::cerr << "Log file does not exist or cannot be accessed" << std::endl;
 	close(server_fd);
 	for (std::unordered_map<int, ClientInfo>::iterator it; it != clientInfoMap.end(); it++)
 	{
@@ -38,10 +54,6 @@ void HttpServer::init()
 	if (setsockopt(server_fd, SOL_SOCKET, SO_REUSEADDR, &opt, sizeof(opt)))
 	{
 		throw std::runtime_error ("setsockopt(SO_REUSEADDR) failed: " + std::string(strerror(errno)));
-	}
-	if (setsockopt(server_fd, SOL_SOCKET, SO_REUSEPORT, &opt, sizeof(opt)))
-	{
-		throw std::runtime_error ("setsockopt(SO_REUSEPORT) failed: " + std::string(strerror(errno)));
 	}
 }
 
@@ -82,7 +94,7 @@ void HttpServer::mainLoop()
 {
 	struct kevent event;
 	log("INFO", "Main loop started.", NOSTATUS);
-	while (true)
+	while (!shutdownFlag)
 	{
 		struct timespec timeout = {1, 0};
 		int nev = kevent(kq, NULL, 0, &event, 1, &timeout);
@@ -120,6 +132,7 @@ void HttpServer::mainLoop()
 			}
 		}
 	}
+
 }
 
 void HttpServer::acceptConnection()

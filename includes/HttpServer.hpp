@@ -15,19 +15,17 @@
 #include <map>
 #include <limits.h>
 #include <cstdio>
-
 #include <sys/types.h>
 #include <sys/socket.h>
 #include <sys/wait.h>
 #include <sys/event.h>
 #include <sys/time.h>
-
 #include <exception>
-
 #include <ctime>
 #include <iomanip>
-
 #include <arpa/inet.h>
+#include <csignal>
+#include <cstdio>
 
 #define NOSTATUS -5
 
@@ -95,5 +93,8 @@ class HttpServer
 
 		void	begin();
 };
+
+extern volatile sig_atomic_t shutdownFlag;
+void	signalHandler(int signum);
 
 #endif

@@ -1,5 +1,13 @@
 #include "HttpServer.hpp"
 
+volatile sig_atomic_t shutdownFlag = 0;
+
+void	signalHandler(int signum)
+{
+	shutdownFlag = 1;
+	(void)signum;
+}
+
 int	main()
 {
 	signal(SIGINT, signalHandler);
