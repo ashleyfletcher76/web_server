@@ -64,7 +64,7 @@ void HttpServer::startListening()
 	{
 		throw std::runtime_error ("Listen failed");
 	}
-	std::cout << "Server is listening on PORT " << port << std::endl;
+	log("INFO", "Server is listening on PORT " + std::to_string(port), NOSTATUS);
 }
 
 void HttpServer::setKqueueEvent()
@@ -81,54 +81,52 @@ void HttpServer::setKqueueEvent()
 void HttpServer::mainLoop()
 {
 	struct kevent event;
-	log("INFO", "Main loop started.");
+	log("INFO", "Main loop started.", NOSTATUS);
 	while (true)
 	{
 		struct timespec timeout = {1, 0};
 		int nev = kevent(kq, NULL, 0, &event, 1, &timeout);
 		if (nev < 0)
 		{
-			//log("ERROR", "Error on kevent wait: " + std::string(strerror(errno)));
+			log("ERROR", "Error on kevent wait: " + std::string(strerror(errno)), NOSTATUS);
 			continue ;
 		}
 		else if (nev > 0)
 		{
-			//log("INFO", "Event received: " + std::to_string(event.filter));
+			log("INFO", "Event received: " + std::to_string(event.filter), NOSTATUS);
 			if (event.flags & EV_EOF)
 			{
-				//log("INFO", "Connection closed by client: " + std::to_string(event.ident));
+				log("INFO", "Connection closed by client: " + std::to_string(event.ident), NOSTATUS);
 				close(event.ident);
-				clientInfoMap. erase(event.ident);
+				clientInfoMap.erase(event.ident);
 			}
 			else if (event.filter == EVFILT_READ)
 			{
-				//log("INFO", "Ready to read from FD: " + std::to_string(event.ident));
+				log("INFO", "Ready to read from FD: " + std::to_string(event.ident), NOSTATUS);
 				if (event.ident == server_fd)
 				{
-					//log("INFO", "New connection on server FD");
+					log("INFO", "New connection on server FD", NOSTATUS);
 					acceptConnection();
 				}
 				else
 				{
-					//log("INFO", "Reading request from FD: " + std::to_string(event.ident));
+					log("INFO", "Reading request from FD: " + std::to_string(event.ident), NOSTATUS);
 					readRequest(event.ident);
 				}
 			}
 			else if (event.filter == EVFILT_WRITE)
 			{
-				//log("INFO", "Ready to write to FD: " + std::to_string(event.ident));
-				sendResponse(event.ident);
+				log("INFO", "Ready to write to FD: " + std::to_string(event.ident), NOSTATUS);
 			}
 		}
-		//log("ERROR", "After all options");
 	}
 }
 
 void HttpServer::acceptConnection()
 {
-	struct sockaddr_in client_adress;
-	socklen_t client_addrlen = sizeof(client_adress);
-	int client_socket = accept(server_fd, (struct sockaddr *)&client_adress, &client_addrlen);
+	struct sockaddr_in client_address;
+	socklen_t client_addrlen = sizeof(client_address);
+	int client_socket = accept(server_fd, (struct sockaddr *)&client_address, &client_addrlen);
 	if (client_socket < 0)
 	{
 		if (errno != EAGAIN && errno != EWOULDBLOCK)
@@ -136,7 +134,10 @@ void HttpServer::acceptConnection()
 		return ;
 	}
 
-	//log("INFO", "Accepted connection from FD: " + std::to_string(client_socket));
+	char client_ip[INET_ADDRSTRLEN];
+	inet_ntop(AF_INET, &client_address.sin_addr, client_ip, INET_ADDRSTRLEN);
+
+	log("INFO", "Accepted connection from IP: " + std::string(client_ip) + " on socket: " + std::to_string(client_socket), NOSTATUS);
 	fcntl(client_socket, F_SETFL, O_NONBLOCK);
 	struct kevent change;
 	EV_SET(&change, client_socket, EVFILT_READ, EV_ADD | EV_ENABLE, 0, 0, NULL);

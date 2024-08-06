@@ -2,6 +2,7 @@
 
 int	main()
 {
+	signal(SIGINT, signalHandler);
 	std::vector<struct pollfd> poll_fds;
 
 	HttpServer server(8090, poll_fds);

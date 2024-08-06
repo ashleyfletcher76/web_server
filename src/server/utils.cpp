@@ -35,8 +35,38 @@ void HttpServer::sendErrorResponse(int client_socket, int statusCode, const std:
 	clientInfoMap.erase(client_socket);
 }
 
-void	HttpServer::log(const std::string& level, const std::string& msg)
+void	HttpServer::log(const std::string& level, const std::string& msg, int client_socket)
 {
-	std::cerr << "-------" << std::endl;
-	std::cerr << "[ " << level << " ] " << msg << std::endl;
+	std::time_t currentTime = std::time(0);
+	std::tm* localTime = std::localtime(&currentTime);
+
+	char timestamp[20];
+	std::strftime(timestamp, sizeof(timestamp), "%Y-%m-%d %H:%M:%S", localTime);
+
+	std::ofstream logFile("log.txt", std::ios_base::app);
+	if (logFile.is_open())
+	{
+		if (client_socket == -5)
+		{
+			logFile << timestamp << " [" << level << "]" << " - " << msg  << std::endl;
+			logFile.close();
+		}
+		else
+		{
+			logFile << timestamp << " [" << level << "]" << " - " << msg << " - Status code: " << clientInfoMap[client_socket].statusCode << std::endl;
+			logFile.close();
+		}
+	}
+	else
+		std::cerr << "Unable to open log file" << std::endl;
+	if (client_socket == -5)
+	{
+		std::cout << timestamp << " [" << level << "]" << " - " << msg  << std::endl;
+		logFile.close();
+	}
+	else
+	{
+		std::cout << timestamp << " [" << level << "]" << " - " << msg << " - Status code: " << clientInfoMap[client_socket].statusCode << std::endl;
+		logFile.close();
+	}
 }

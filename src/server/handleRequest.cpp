@@ -15,7 +15,6 @@ std::string HttpServer::readFileContent(const std::string &filePath)
 		std::cerr << "Current working directory: " << getCurrentWorkingDirectory() << std::endl;
 		return ("");
 	}
-	std::cout << "Switch between pages" << std::endl;
 	std::stringstream buffer;
 	buffer << file.rdbuf();
 	return (buffer.str());
@@ -23,25 +22,26 @@ std::string HttpServer::readFileContent(const std::string &filePath)
 
 void HttpServer::handleGetRequest(const std::string &path, int client_socket)
 {
-		log ("INFO", "Recieved GET request: /profile");
 	clientInfoMap[client_socket].responseReady = true;
-	if (path == "/profile")
+	if (path == "/profile.html")
 	{
 		clientInfoMap[client_socket].requestedPath = "html/profile.html";
 		clientInfoMap[client_socket].statusCode = 200;
+		log ("INFO", "Recieved GET request: /profile.html", client_socket);
 		sendResponse(client_socket);
 	}
-	else if (path == "/")
+	else if (path == "/" || path == "/index.html")
 	{
 		clientInfoMap[client_socket].requestedPath = "html/index.html";
 		clientInfoMap[client_socket].statusCode = 200;
-		//log ("INFO", "Recieved GET request: /profile");
+		log ("INFO", "Recieved GET request: /index", client_socket);
 		sendResponse(client_socket);
 	}
 	else
 	{
 		clientInfoMap[client_socket].requestedPath = "html" + path;
 		clientInfoMap[client_socket].statusCode = 200;
+		log ("INFO", "Recieved GET request: /" + path + ".html", client_socket);
 		sendResponse(client_socket);
 	}
 }

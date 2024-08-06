@@ -6,8 +6,6 @@
 #include <cstring>
 #include <unistd.h>
 #include <netinet/in.h>
-#include <sys/types.h>
-#include <sys/socket.h>
 #include <fstream>
 #include <sstream>
 #include <fcntl.h>
@@ -16,10 +14,22 @@
 #include <unordered_map>
 #include <map>
 #include <limits.h>
+#include <cstdio>
+
+#include <sys/types.h>
+#include <sys/socket.h>
 #include <sys/wait.h>
 #include <sys/event.h>
 #include <sys/time.h>
+
 #include <exception>
+
+#include <ctime>
+#include <iomanip>
+
+#include <arpa/inet.h>
+
+#define NOSTATUS -5
 
 
 struct ClientInfo {
@@ -29,7 +39,6 @@ struct ClientInfo {
 	bool		responseReady;
 	int			statusCode;
 };
-
 
 #include "config.hpp"
 
@@ -78,7 +87,7 @@ class HttpServer
 		std::string	getErrorFilePath(int statusCode);
 
 		//Log
-		void	log(const std::string& level, const std::string& msg);
+		void	log(const std::string& level, const std::string& msg, int client_socket);
 
 	public:
 		HttpServer(int port, std::vector<struct pollfd> &poll_fds);
