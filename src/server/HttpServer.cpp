@@ -149,7 +149,7 @@ void HttpServer::acceptConnection()
 	char client_ip[INET_ADDRSTRLEN];
 	inet_ntop(AF_INET, &client_address.sin_addr, client_ip, INET_ADDRSTRLEN);
 	log("INFO", "Accepted connection from IP: " + std::string(client_ip) + " on socket: " + std::to_string(client_socket), NOSTATUS);
-	fcntl(client_socket, F_SETFL, O_NONBLOCK);
+	fcntl(client_socket, F_SETFL, O_NONBLOCK); // sets to non blocking mode
 	struct kevent change;
 	EV_SET(&change, client_socket, EVFILT_READ, EV_ADD | EV_ENABLE, 0, 0, NULL);
 	if (kevent(kq, &change, 1, NULL, 0, NULL) == -1)
