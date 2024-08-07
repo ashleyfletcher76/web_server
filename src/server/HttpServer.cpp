@@ -12,7 +12,6 @@ HttpServer::~HttpServer()
 	std::ofstream logFile("log.txt", std::ios::app);
 	if (logFile.is_open())
 		logFile.close();
-
 	std::ifstream file("log.txt");
 	if (file.good())
 	{
@@ -136,29 +135,4 @@ void HttpServer::mainLoop()
 		}
 	}
 
-}
-
-void HttpServer::acceptConnection()
-{
-	struct sockaddr_in client_address;
-	socklen_t client_addrlen = sizeof(client_address);
-	int client_socket = accept(server_fd, (struct sockaddr *)&client_address, &client_addrlen);
-	if (client_socket < 0)
-	{
-		if (errno != EAGAIN && errno != EWOULDBLOCK)
-			throw std::runtime_error("Accept failed: " + std::string(strerror(errno)));
-		return ;
-	}
-	char client_ip[INET_ADDRSTRLEN];
-	inet_ntop(AF_INET, &client_address.sin_addr, client_ip, INET_ADDRSTRLEN);
-	log("INFO", "Accepted connection from IP: " + std::string(client_ip) + " on socket: " + std::to_string(client_socket), NOSTATUS);
-	fcntl(client_socket, F_SETFL, O_NONBLOCK); // sets to non blocking mode
-	struct kevent change;
-	EV_SET(&change, client_socket, EVFILT_READ, EV_ADD | EV_ENABLE, 0, 0, NULL);
-	if (kevent(kq, &change, 1, NULL, 0, NULL) == -1)
-	{
-		std::string error_msg = "Kevent registration failed: " + std::string(strerror(errno));
-		throw std::runtime_error(error_msg);
-	}
-	clientInfoMap[client_socket] = ClientInfo();
 }

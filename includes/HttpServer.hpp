@@ -65,6 +65,7 @@ class HttpServer
 		void	bindSocket();
 		void	startListening();
 		void	acceptConnection();
+		void	setupKevent(int client_socket);
 
 
 		void	readRequest(int client_socket);
