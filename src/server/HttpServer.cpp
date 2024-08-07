@@ -39,10 +39,7 @@ void HttpServer::init()
 	{
 		throw std::runtime_error ("setsockopt(SO_REUSEADDR) failed: " + std::string(strerror(errno)));
 	}
-	if (setsockopt(server_fd, SOL_SOCKET, SO_REUSEPORT, &opt, sizeof(opt)))
-	{
-		throw std::runtime_error ("setsockopt(SO_REUSEPORT) failed: " + std::string(strerror(errno)));
-	}
+
 }
 
 void HttpServer::bindSocket()
