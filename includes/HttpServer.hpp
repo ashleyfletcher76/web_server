@@ -1,6 +1,7 @@
 #ifndef HTTPSERVER_HPP
 # define HTTPSERVER_HPP
 
+#include "config.hpp"
 #include <iostream>
 #include <string>
 #include <cstring>
@@ -44,6 +45,7 @@ class HttpServer
 {
 	private:
 		// variables;
+		config		conf;
 		const int	port;
 		uintptr_t	server_fd;
 		int			new_socket;
@@ -88,9 +90,9 @@ class HttpServer
 		void	log(const std::string& level, const std::string& msg, int client_socket);
 
 	public:
-		HttpServer(int port, std::vector<struct pollfd> &poll_fds);
+		HttpServer(std::string confpath, int port, std::vector<struct pollfd> &poll_fds);
 		~HttpServer();
-
+		config getConfig() {return(conf);}
 		void	begin();
 };
 
