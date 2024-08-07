@@ -64,8 +64,10 @@ class HttpServer
 		void	setKqueueEvent();
 		void	bindSocket();
 		void	startListening();
+		// connection handlers
 		void	acceptConnection();
 		void	setupKevent(int client_socket);
+		void	configureSocketNonBlocking(int client_socket);
 
 
 		void	readRequest(int client_socket);
