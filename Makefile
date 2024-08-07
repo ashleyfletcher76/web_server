@@ -10,8 +10,15 @@ CC = c++
 RM = rm -f
 CFLAGS = -Wall -Wextra -Werror -I./includes/ -g -std=c++98 -fsanitize=address -fsanitize=undefined
 
-SRCS = main.cpp server/HttpServer.cpp server/handleRequest.cpp server/readMethods.cpp server/sendResponse.cpp\
-	server/utils.cpp config/config.cpp
+SRCS =	main.cpp \
+		server/HttpServer.cpp \
+		server/handleRequest.cpp \
+		server/readMethods.cpp \
+		server/sendResponse.cpp \
+		server/utils.cpp \
+		config/config.cpp \
+		config/utils.cpp \
+
 OBJ_DIR = obj
 SRC_DIR = src/
 OBJ = $(SRCS:%.cpp=$(OBJ_DIR)/%.o)

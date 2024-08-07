@@ -8,22 +8,25 @@ void	signalHandler(int signum)
 	(void)signum;
 }
 
-int	main()
-{
-	signal(SIGINT, signalHandler);
-	std::vector<struct pollfd> poll_fds;
 
-	HttpServer server(8090, poll_fds);
+int	main(int ac, char **av)
+{
+	if (ac != 2)
+	{
+		std::cerr << "Wrong usage!" << std::endl;
+		return (EXIT_FAILURE);
+	}
 	try
 	{
-		server.begin();
-
+		signal(SIGINT, signalHandler);
+		std::vector<struct pollfd> poll_fds;
+		HttpServer sv(av[1], 8090, poll_fds);
+		std::cout << sv.getConfig() << '\n';
+		sv.begin();
 	}
 	catch(const std::exception& e)
 	{
 		std::cerr << e.what() << '\n';
-		return (EXIT_FAILURE);
 	}
-
 	return (0);
 }
