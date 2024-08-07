@@ -1,7 +1,7 @@
 #ifndef CONFIG_HPP
 # define CONFIG_HPP
 
-#include "HttpServer.hpp"
+#include <iostream>
 #include <fstream>
 #include <sstream>
 #include <string>
@@ -25,8 +25,8 @@ struct	cgiConfig
 
 struct	server
 {
-	std::vector<routeConfig> routes;
-	std::vector<cgiConfig>	cgis;
+	std::vector<routeConfig>	routes;
+	std::vector<cgiConfig>		cgis;
 };
 
 class config

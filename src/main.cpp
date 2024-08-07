@@ -9,9 +9,10 @@ int	main(int ac, char **av)
 	}
 	try
 	{
-		config conf(av[1]);
-		conf.begin();
-		std::cout << conf << '\n';
+		std::vector<struct pollfd> poll_fds;
+		HttpServer sv(av[1], 8080, poll_fds);
+		std::cout << sv.getConfig() << '\n';
+		sv.begin();
 	}
 	catch(const std::exception& e)
 	{
