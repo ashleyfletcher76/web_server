@@ -24,15 +24,9 @@ void HttpServer::sendErrorResponse(int client_socket, int statusCode, const std:
 		htmlContent = "<html><head><title>Error</title></head><body><h1>" + std::to_string(statusCode) + " " + reasonPhrase + "</h1><p>The requested method is not supported.</p></body></html>";
 	}
 
-	std::string response = "HTTP/1.1 " + std::to_string(statusCode) + " " + reasonPhrase + "\r\n"
-																						   "Content-Type: text/html\r\n"
-																						   "Content-Length: " +
-						   std::to_string(htmlContent.size()) + "\r\n"
-																"Connection: close\r\n\r\n" +
-						   htmlContent;
-	write(client_socket, response.c_str(), response.size());
-	close(client_socket);
-	clientInfoMap.erase(client_socket);
+	std::string response = formatHttpResponse(statusCode, reasonPhrase, htmlContent);
+	clientInfoMap[client_socket].response = response;
+	writeResponse(client_socket);
 }
 
 void	HttpServer::log(const std::string& level, const std::string& msg, int client_socket)
@@ -54,4 +48,9 @@ void	HttpServer::log(const std::string& level, const std::string& msg, int clien
 		std::cerr << "Unable to open log file" << std::endl;
 	std::cout << timestamp << " [" << level << "]" << " - " << msg  << std::endl;
 	logFile.close();
+}
+
+std::string HttpServer::getFilePath(const std::string& uri)
+{
+	return ("html" + uri);
 }

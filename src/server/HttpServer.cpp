@@ -126,13 +126,14 @@ void HttpServer::mainLoop()
 				{
 					log("INFO", "Reading request from FD: " + std::to_string(event.ident), NOSTATUS);
 					readRequest(event.ident);
+					handleRequest(event.ident);
 				}
 			}
 			else if (event.filter == EVFILT_WRITE)
 			{
 				log("INFO", "Ready to write to FD: " + std::to_string(event.ident), NOSTATUS);
+				writeResponse(event.ident);
 			}
 		}
 	}
-
 }

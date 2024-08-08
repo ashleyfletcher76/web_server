@@ -16,6 +16,7 @@ SRCS =	main.cpp \
 		server/readMethods.cpp \
 		server/sendResponse.cpp \
 		server/connectionHandler.cpp \
+		server/responseRequest.cpp \
 		server/utils.cpp \
 		config/config.cpp \
 		config/utils.cpp \

@@ -31,12 +31,35 @@
 #define NOSTATUS -5
 
 
-struct ClientInfo {
-	std::string	method;
-	std::string	requestedPath;
-	std::string postData;
-	bool		responseReady;
-	int			statusCode;
+// struct ClientInfo {
+// 	std::string	method;
+// 	std::string	requestedPath;
+// 	std::string postData;
+// 	bool		responseReady;
+// 	int			statusCode;
+// };
+
+struct HttpRequest
+{
+	std::string method;
+	std::string uri;
+	std::string body;
+	std::string version;
+	std::map<std::string, std::string> headers;
+};
+
+struct HttpResponse
+{
+	int statusCode;
+	std::string reason;
+	std::string body;
+	std::map<std::string, std::string> headers;
+};
+
+struct ClientInfo
+{
+	HttpRequest request;
+	std::string response;
 };
 
 #include "config.hpp"
@@ -71,12 +94,18 @@ class HttpServer
 
 
 		void	readRequest(int client_socket);
-		void	sendResponse(int client_socket);
+		void	handleRequest(int client_Socket);
+
+		void	writeResponse(int client_socket);
+		std::string getFilePath(const std::string& uri);
+
+		bool	parseHttpRequest(const std::string& requesStr, HttpRequest& request);
+		std::string formatHttpResponse(int status_code, const std::string& reason_phrase, const std::string& body);
 
 		std::string readFileContent(const std::string& filePath, int client_socket);
 
 		// GET
-		void	handleGetRequest(const std::string& path, int client_socket);
+		void	handleGetRequest(int client_socket);
 
 		// DELETE
 		void	handleDeleteRequest(const std::string& path, int client_socket);
