@@ -30,7 +30,6 @@
 
 #define NOSTATUS -5
 
-
 // struct ClientInfo {
 // 	std::string	method;
 // 	std::string	requestedPath;
@@ -60,6 +59,9 @@ struct ClientInfo
 {
 	HttpRequest request;
 	std::string response;
+	bool	shouldclose;
+
+	ClientInfo() : shouldclose(true) {}
 };
 
 #include "config.hpp"
@@ -92,17 +94,19 @@ class HttpServer
 		void	setupKevent(int client_socket);
 		void	configureSocketNonBlocking(int client_socket);
 
-
+		// request
 		void	readRequest(int client_socket);
 		void	handleRequest(int client_Socket);
 
+		// content
 		void	writeResponse(int client_socket);
 		std::string getFilePath(const std::string& uri);
-
-		bool	parseHttpRequest(const std::string& requesStr, HttpRequest& request);
-		std::string formatHttpResponse(int status_code, const std::string& reason_phrase, const std::string& body);
-
 		std::string readFileContent(const std::string& filePath, int client_socket);
+
+		// response
+		bool	parseHttpRequest(const std::string& requesStr, HttpRequest& request);
+		std::string formatHttpResponse(int status_code, const std::string& reasonPhrase, const std::string& body);
+
 
 		// GET
 		void	handleGetRequest(int client_socket);

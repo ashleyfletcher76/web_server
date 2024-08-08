@@ -19,6 +19,9 @@ void	HttpServer::handleRequest(int client_socket)
 {
 	HttpRequest& request = clientInfoMap[client_socket].request;
 
+	// decide to keep connection open based on HTTP response
+	clientInfoMap[client_socket].shouldclose = (request.headers["Connection"] != "keep-alive");
+
 	if (request.method == "GET")
 		handleGetRequest(client_socket);
 	else

@@ -2,6 +2,7 @@
 
 std::string HttpServer::readFileContent(const std::string& filePath, int client_socket)
 {
+	// takes file path and searches for a valid file
 	std::ifstream file(filePath);
 	if (!file.is_open())
 	{
@@ -19,6 +20,8 @@ void	HttpServer::readRequest(int client_socket)
 	std::string request;
 	int	bytesRead;
 
+	// reads from client_socket and stores into a local buffer
+	// until complete HTTP request recieved
 	while((bytesRead = recv(client_socket, buffer, sizeof(buffer), 0)) > 0)
 	{
 		request.append(buffer, bytesRead);
@@ -33,7 +36,7 @@ void	HttpServer::readRequest(int client_socket)
 		return ;
 	}
 	log("INFO", "Recieved request: " + request, client_socket);
-	if (!parseHttpRequest(request, clientInfoMap[client_socket].request))
+	if (!parseHttpRequest(request, clientInfoMap[client_socket].request)) // stores the response from web browser and gives to method
 		sendErrorResponse(client_socket, 400, "Bad request");
 }
 
