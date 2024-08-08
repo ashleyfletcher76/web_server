@@ -11,7 +11,8 @@ void	HttpServer::writeResponse(int client_socket)
 	// only closed if not keep-alive in HTTP response
 	if (clientInfoMap[client_socket].shouldclose)
 	{
-		close(client_socket);
+		//close(client_socket);
+		closeSocket(client_socket);
 		clientInfoMap.erase(client_socket);
 	}
 }

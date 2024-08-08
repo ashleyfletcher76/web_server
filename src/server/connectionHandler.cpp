@@ -41,6 +41,7 @@ void HttpServer::acceptConnection()
 				throw std::runtime_error("Accept failed: " + std::string(strerror(errno)));
 			return ; // just exit when no critical error
 		}
+		openSockets.insert(client_socket);
 		// log IP address of accepted connection
 		char client_ip[INET_ADDRSTRLEN];
 		inet_ntop(AF_INET, &client_address.sin_addr, client_ip, INET_ADDRSTRLEN);
@@ -53,6 +54,9 @@ void HttpServer::acceptConnection()
 	{
 		log("ERROR", e.what(), NOSTATUS);
 		if (client_socket >= 0) // if opened succesfully but an error occured
-			close(client_socket);
+		{
+			closeSocket(client_socket);
+			//close(client_socket);
+		}
 	}
 }

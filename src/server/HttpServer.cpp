@@ -28,6 +28,14 @@ HttpServer::~HttpServer()
 	{
 		close(it->first);
 	}
+	if (openSockets.empty())
+		std::cout << "No sockets left open" << std::endl;
+	else
+		std::cout << "Socket left open" << std::endl;
+	pid_t pid = getpid();
+	std::string command = "./utils/check_open_fds.sh " + std::to_string(pid);
+	std::cout << "Running shell script to check open fd's..." << std::endl;
+	system(command.c_str());
 }
 
 
@@ -111,7 +119,8 @@ void HttpServer::mainLoop()
 			if (event.flags & EV_EOF)
 			{
 				log("INFO", "Connection closed by client: " + std::to_string(event.ident), NOSTATUS);
-				close(event.ident);
+				//close(event.ident);
+				closeSocket(event.ident);
 				clientInfoMap.erase(event.ident);
 			}
 			else if (event.filter == EVFILT_READ)

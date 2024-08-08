@@ -27,6 +27,7 @@
 #include <arpa/inet.h>
 #include <csignal>
 #include <cstdio>
+#include <set>
 
 #define NOSTATUS -5
 
@@ -82,6 +83,7 @@ class HttpServer
 		std::vector<struct pollfd> &poll_fds;
 		std::unordered_map<int, std::string> clients;
 		std::unordered_map<int, ClientInfo> clientInfoMap;
+		std::set<int> openSockets;
 
 		// methods
 		void	init();
@@ -93,6 +95,7 @@ class HttpServer
 		void	acceptConnection();
 		void	setupKevent(int client_socket);
 		void	configureSocketNonBlocking(int client_socket);
+		void	closeSocket(int client_socket);
 
 		// request
 		void	readRequest(int client_socket);

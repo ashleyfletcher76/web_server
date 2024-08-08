@@ -1,32 +1,17 @@
 #include "HttpServer.hpp"
 
-std::string HttpServer::getErrorFilePath(int statusCode)
+void	HttpServer::closeSocket(int client_socket)
 {
-	std::string path = "errors/";
-	switch (statusCode)
-	{
-	case 404:
-		return (path + "404.html");
-	case 500:
-		return (path + "500.html");
-	default:
-		return (path + "default.html");
-	}
-}
-
-void HttpServer::sendErrorResponse(int client_socket, int statusCode, const std::string &reasonPhrase)
-{
-	std::string errorFilePath = getErrorFilePath(statusCode);
-	std::string htmlContent = readFileContent(errorFilePath, client_socket);
-
-	if (htmlContent.empty())
-	{
-		htmlContent = "<html><head><title>Error</title></head><body><h1>" + std::to_string(statusCode) + " " + reasonPhrase + "</h1><p>The requested method is not supported.</p></body></html>";
-	}
-
-	std::string response = formatHttpResponse(statusCode, reasonPhrase, htmlContent);
-	clientInfoMap[client_socket].response = response;
-	writeResponse(client_socket);
+	struct kevent change;
+	EV_SET(&change, client_socket, EVFILT_READ, EV_ADD | EV_ENABLE, 0, 0, NULL);
+	if (kevent(kq, &change, 1, NULL, 0, NULL) == -1)
+		log("ERROR", "Failed to remove read event from kqueue for FD: " + std::to_string(client_socket), NOSTATUS);
+	EV_SET(&change, client_socket, EVFILT_WRITE, EV_DELETE, 0, 0, NULL);
+	if (kevent(kq, &change, 1, NULL, 0, NULL) == -1)
+		log("ERROR", "Failed to remove write event from kqueue for FD: " + std::to_string(client_socket), NOSTATUS);
+	close(client_socket);
+	openSockets.erase(client_socket);
+	log("INFO", "Closed client socket FD: " + std::to_string(client_socket), NOSTATUS);
 }
 
 void	HttpServer::log(const std::string& level, const std::string& msg, int client_socket)

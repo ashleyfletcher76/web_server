@@ -31,7 +31,8 @@ void	HttpServer::readRequest(int client_socket)
 	if (bytesRead < 0)
 	{
 		log("ERROR", "Error reading from socket: " + std::string(strerror(errno)), client_socket);
-		close(client_socket);
+		closeSocket(client_socket);
+		//close(client_socket);
 		clientInfoMap.erase(client_socket);
 		return ;
 	}

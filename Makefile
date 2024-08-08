@@ -8,7 +8,7 @@ COLOUR_END = \033[0m
 
 CC = c++
 RM = rm -f
-CFLAGS = -Wall -Wextra -Werror -I./includes/ -g -std=c++98 -fsanitize=address -fsanitize=undefined
+CFLAGS = -Wall -Wextra -Werror -I./includes/ -g -fsanitize=address -fsanitize=undefined
 
 SRCS =	main.cpp \
 		server/HttpServer.cpp \
@@ -17,6 +17,7 @@ SRCS =	main.cpp \
 		server/sendResponse.cpp \
 		server/connectionHandler.cpp \
 		server/responseRequest.cpp \
+		server/errorMethods.cpp \
 		server/utils.cpp \
 		config/config.cpp \
 		config/utils.cpp \

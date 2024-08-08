@@ -12,8 +12,6 @@ void	HttpServer::handleGetRequest(int client_socket)
 		return ;
 	}
 	// read the whole content of the file
-	// first iterator points to beginning of the file
-	// second used an end marker, correct syntax
 	std::string fileContent((std::istreambuf_iterator<char>(file)), std::istreambuf_iterator<char>()); // istreambuf_iterator is efficient for unformated data reading(raw bytes)
 	file.close();
 	// set response in the clients info
@@ -35,6 +33,21 @@ void	HttpServer::handleRequest(int client_socket)
 	// set up write event for client response
 	struct kevent change;
 	EV_SET(&change, client_socket, EVFILT_WRITE, EV_ADD | EV_ENABLE, 0, 0, NULL);
-	if (kevent(kq, &change, 1, NULL, 0, NULL) == -1)
-		log("ERROR", "Kevent registration failure for sriting: " + std::string(strerror(errno)), client_socket);
+
+	// validate fd before using
+	if (fcntl(client_socket, F_GETFL) != -1)
+	{
+		if (kevent(kq, &change, 1, NULL, 0, NULL) == -1)
+			log("ERROR", "Kevent registration failure for writing: " + std::string(strerror(errno)), client_socket);
+		else
+			log("INFO", "Succesfully registered kevent for socket: " + std::to_string(client_socket), NOSTATUS);
+	}
+	else
+	{
+		log ("ERROR", "Attempted to register kevent for invalid FD: " + std::to_string(client_socket), NOSTATUS);
+		closeSocket(client_socket);
+	}
 }
+
+// first iterator points to beginning of the file
+// second used as end marker, correct syntax
