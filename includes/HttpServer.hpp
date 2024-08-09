@@ -28,6 +28,7 @@
 #include <csignal>
 #include <cstdio>
 #include <set>
+#include <cctype>
 
 #define NOSTATUS -5
 
@@ -62,7 +63,7 @@ struct ClientInfo
 	std::string response;
 	bool	shouldclose;
 
-	ClientInfo() : shouldclose(true) {}
+	ClientInfo() : shouldclose(false) {}
 };
 
 #include "config.hpp"

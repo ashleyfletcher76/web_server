@@ -19,11 +19,22 @@ void	HttpServer::readRequest(int client_socket)
 	char buffer[1024];
 	std::string request;
 	int	bytesRead;
+	const size_t MAX_REQUEST_SIZE = 8192; // max size (8kb)
+	size_t totalBytesRead = 0;
 
 	// reads from client_socket and stores into a local buffer
 	// until complete HTTP request recieved
 	while((bytesRead = recv(client_socket, buffer, sizeof(buffer), 0)) > 0)
 	{
+		totalBytesRead += bytesRead;
+		if (totalBytesRead > MAX_REQUEST_SIZE)
+		{
+			log("ERROR", "Request too large", NOSTATUS);
+			sendErrorResponse(client_socket, 413, "Payload too large");
+			closeSocket(client_socket);
+			clientInfoMap.erase(client_socket);
+			return ;
+		}
 		request.append(buffer, bytesRead);
 		if (request.find("\r\n\r\n") != std::string::npos)
 			break ;
@@ -37,7 +48,11 @@ void	HttpServer::readRequest(int client_socket)
 		return ;
 	}
 	log("INFO", "Recieved request: " + request, client_socket);
-	if (!parseHttpRequest(request, clientInfoMap[client_socket].request)) // stores the response from web browser and gives to method
+	if (request.empty() || !parseHttpRequest(request, clientInfoMap[client_socket].request)) // stores the response from web browser and gives to method
+	{
+		closeSocket(client_socket);
+		clientInfoMap.erase(client_socket);
 		sendErrorResponse(client_socket, 400, "Bad request");
+	}
 }
 

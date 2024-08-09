@@ -1,5 +1,20 @@
 #include "HttpServer.hpp"
 
+std::string HttpServer::formatHttpResponse(int status_code, const std::string& reasonPhrase,
+	const std::string& body)
+{
+	std::ostringstream response;
+
+	// constructs proper format for HTTP response
+	response << "HTTP/1.1 " << status_code << " " << reasonPhrase << "\r\n";
+	response << "Content-Length: " << body.size() << "\r\n";
+	response << "Content-Type: text/html; charset=UTF-8\r\n";
+	response << "Connection: close\r\n";
+	response << "\r\n";
+	response << body;
+	return (response.str());
+}
+
 void	HttpServer::closeSocket(int client_socket)
 {
 	struct kevent change;
