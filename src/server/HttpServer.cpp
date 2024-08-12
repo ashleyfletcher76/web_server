@@ -106,8 +106,8 @@ void HttpServer::mainLoop()
 	log("INFO", "Main loop started.", NOSTATUS);
 	while (!shutdownFlag)
 	{
-		struct timespec timeout = {1, 0};
-		int nev = kevent(kq, NULL, 0, &event, 1, &timeout);
+		//struct timespec timeout = {1, 0};
+		int nev = kevent(kq, NULL, 0, &event, 1, NULL);
 		if (nev < 0)
 		{
 			log("ERROR", "Error on kevent wait: " + std::string(strerror(errno)), NOSTATUS);

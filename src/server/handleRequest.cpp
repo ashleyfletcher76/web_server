@@ -26,37 +26,15 @@ void	HttpServer::handleRequest(int client_socket)
 	if (request.headers.find("connection") != request.headers.end())
 	{
 		std::string connectionValue = request.headers["connection"];
-		std::cout << connectionValue.size() << std::endl;
-		for (std::string::iterator iter = connectionValue.begin(); iter != connectionValue.end(); iter++)
-			std::cout << *iter << " (" << std::setw(3) << static_cast<int>(*iter) << ")" << std::endl;;
 		trim(connectionValue);
-		std::cout << "Second try" << std::endl;
-		for (std::string::iterator iter = connectionValue.begin(); iter != connectionValue.end(); iter++)
-			std::cout << *iter << " (" << std::setw(3) << static_cast<int>(*iter) << ")" << std::endl;;
 		std::transform(connectionValue.begin(), connectionValue.end(), connectionValue.begin(), ::tolower);
-		std::cout << connectionValue.size() << std::endl;
 		if (connectionValue == "keep-alive")
-		{
-			std::cout << "inside the false for keep-alive" << std::endl;
 			clientInfoMap[client_socket].shouldclose = false;
-		}
 		else
-		{
-			std::cout << "inside the true for keep-alive" << std::endl;
 			clientInfoMap[client_socket].shouldclose = true;
-		}
 	}
 	else
-	{
-		std::cout << "In the else" << std::endl;
 		clientInfoMap[client_socket].shouldclose = true;
-	}
-	std::cout << "Check boolean in handle request: " << clientInfoMap[client_socket].shouldclose << std::endl;
-	if (request.headers.find("connection") != request.headers.end())
-		std::cout << "Did find" << std::endl;
-	else
-		std::cout << "Did not find" << std::endl;
-
 	if (request.method == "GET")
 		handleGetRequest(client_socket);
 	else

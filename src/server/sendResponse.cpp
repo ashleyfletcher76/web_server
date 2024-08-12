@@ -12,9 +12,15 @@ void	HttpServer::writeResponse(int client_socket)
 	if (clientInfoMap[client_socket].shouldclose)
 	{
 		//close(client_socket);
-		std::cout << "Here" << std::endl;
 		closeSocket(client_socket);
 		clientInfoMap.erase(client_socket);
+	}
+	else
+	{
+		struct kevent change;
+		EV_SET(&change, client_socket, EVFILT_WRITE, EV_DELETE, 0, 0, NULL);
+		if (kevent(kq, &change, 1, NULL, 0, NULL) == -1)
+			log("ERROR", "Failed to remove write event for FD: " + std::to_string(client_socket), NOSTATUS);
 	}
 }
 

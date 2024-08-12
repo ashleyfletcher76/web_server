@@ -49,7 +49,6 @@ void HttpServer::acceptConnection()
 		configureSocketNonBlocking(client_socket);
 		setupKevent(client_socket);
 		clientInfoMap[client_socket] = ClientInfo();
-		std::cout << "Check boolean in accept connection: " << clientInfoMap[client_socket].shouldclose << std::endl;
 	}
 	catch(const std::exception& e)
 	{
