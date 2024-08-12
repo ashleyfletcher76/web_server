@@ -1,9 +1,9 @@
 #include "HttpServer.hpp"
 
 // Constructors
-HttpServer::HttpServer(std::string confpath, int port, std::vector<struct pollfd> &poll_fds) : conf(config(confpath)), port(port), addrelen(sizeof(address)), poll_fds(poll_fds)
+HttpServer::HttpServer(std::string confpath) : config(confpath), port(stof(_settings["listen"]))
 {
-	conf.begin();
+	port = stof(_settings["listen"]);
 }
 
 HttpServer::~HttpServer()

@@ -32,14 +32,6 @@
 
 #define NOSTATUS -5
 
-// struct ClientInfo {
-// 	std::string	method;
-// 	std::string	requestedPath;
-// 	std::string postData;
-// 	bool		responseReady;
-// 	int			statusCode;
-// };
-
 struct HttpRequest
 {
 	std::string method;
@@ -68,20 +60,17 @@ struct ClientInfo
 
 #include "config.hpp"
 
-class HttpServer
+class HttpServer : public config
 {
 	private:
 		// variables;
-		config		conf;
-		const int	port;
 		uintptr_t	server_fd;
 		int			new_socket;
-		int			addrelen;
 		int			kq;
+		int			port;
 
 		struct sockaddr_in	address;
 
-		std::vector<struct pollfd> &poll_fds;
 		std::unordered_map<int, std::string> clients;
 		std::unordered_map<int, ClientInfo> clientInfoMap;
 		std::set<int> openSockets;
@@ -130,9 +119,8 @@ class HttpServer
 		void	log(const std::string& level, const std::string& msg, int client_socket);
 
 	public:
-		HttpServer(std::string confpath, int port, std::vector<struct pollfd> &poll_fds);
+		HttpServer(std::string confpath);
 		~HttpServer();
-		config getConfig() {return(conf);}
 		void	begin();
 };
 

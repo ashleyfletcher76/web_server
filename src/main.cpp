@@ -19,9 +19,7 @@ int	main(int ac, char **av)
 	try
 	{
 		signal(SIGINT, signalHandler);
-		std::vector<struct pollfd> poll_fds;
-		HttpServer sv(av[1], 8090, poll_fds);
-		std::cout << sv.getConfig() << '\n';
+		HttpServer sv(av[1]);
 		sv.begin();
 	}
 	catch(const std::exception& e)

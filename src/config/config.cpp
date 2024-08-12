@@ -1,7 +1,10 @@
 #include "config.hpp"
 
 // Constructors
-config::config(std::string confile) : _confile(confile) {}
+config::config(std::string confile) : _confile(confile)
+{
+	begin();
+}
 
 config::~config() {}
 

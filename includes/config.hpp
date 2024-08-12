@@ -31,7 +31,7 @@ struct	server
 
 class config
 {
-	private:
+	protected:
 		//variables
 		std::string	_confile;
 		std::map<std::string, std::string> _settings;
