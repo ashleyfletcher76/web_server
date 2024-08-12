@@ -9,7 +9,8 @@ std::string HttpServer::readFileContent(const std::string& filePath, int client_
 		log("ERROR", "Failed to open error file: " + filePath, client_socket);
 		return ("");
 	}
-	std::string content((std::istreambuf_iterator<char>(file)), std::istreambuf_iterator<char>());
+	std::string content((std::istreambuf_iterator<char>(file)),
+		std::istreambuf_iterator<char>());
 	file.close();
 	return (content);
 }

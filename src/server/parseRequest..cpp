@@ -19,12 +19,7 @@ bool	isValidMethod(const std::string& method)
 	return (validMethods.find(method) != validMethods.end());
 }
 
-struct isNotSpace
-{
-	bool operator()(unsigned char ch) const { return (!std::isspace(ch)); }
-};
-
-void	trim(std::string& str)
+void	HttpServer::trim(std::string& str)
 {
 	str.erase(str.begin(), std::find_if(str.begin(), str.end(), isNotSpace()));
 	str.erase(std::find_if(str.rbegin(), str.rend(), isNotSpace()).base(), str.end());
@@ -51,7 +46,8 @@ bool HttpServer::parseHttpRequest(const std::string& requestStr, HttpRequest& re
 	// extract method, URI and version from request line
 	if (!(lineStream >> request.method >> request.uri >> request.version))
 		return (false);
-	if (!isValidMethod(request.method) || !isValidUri(request.uri) || !isValidVersion(request.version))
+	if (!isValidMethod(request.method) || !isValidUri(request.uri)
+		|| !isValidVersion(request.version))
 		return (false);
 
 	while (std::getline(requestStream, line) && line != "\r")
@@ -67,6 +63,7 @@ bool HttpServer::parseHttpRequest(const std::string& requestStr, HttpRequest& re
 			return (false);
 		normaliseHeader(headerName);
 		request.headers[headerName] = headerValue;
+		//std::cout << headerName << " = " << headerValue << std::endl;
 	}
 	return (true);
 }

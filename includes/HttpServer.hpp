@@ -32,6 +32,13 @@
 
 #define NOSTATUS -5
 
+struct isNotSpace
+	{
+		bool operator()(unsigned char ch) const {
+			return (!(std::isspace(ch) || ch == '\r' || ch == '\n'));
+		}
+	};
+
 struct HttpRequest
 {
 	std::string method;
@@ -117,6 +124,9 @@ class HttpServer : public config
 
 		//Log
 		void	log(const std::string& level, const std::string& msg, int client_socket);
+
+		//Utils
+		void	trim(std::string& str);
 
 	public:
 		HttpServer(std::string confpath);

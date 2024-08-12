@@ -12,6 +12,7 @@ void	HttpServer::writeResponse(int client_socket)
 	if (clientInfoMap[client_socket].shouldclose)
 	{
 		//close(client_socket);
+		std::cout << "Here" << std::endl;
 		closeSocket(client_socket);
 		clientInfoMap.erase(client_socket);
 	}
