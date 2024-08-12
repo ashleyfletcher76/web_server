@@ -20,7 +20,6 @@ int	main(int ac, char **av)
 	{
 		signal(SIGINT, signalHandler);
 		HttpServer sv(av[1]);
-		sv.begin();
 	}
 	catch(const std::exception& e)
 	{

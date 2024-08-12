@@ -1,9 +1,9 @@
 #include "HttpServer.hpp"
 
 // Constructors
-HttpServer::HttpServer(std::string confpath) : config(confpath), port(stof(_settings["listen"]))
+HttpServer::HttpServer(std::string confpath) : config(confpath), port(serverInfos[0].listen)
 {
-	port = stof(_settings["listen"]);
+	begin();
 }
 
 HttpServer::~HttpServer()

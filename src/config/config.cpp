@@ -1,9 +1,10 @@
 #include "config.hpp"
 
 // Constructors
-config::config(std::string confile) : _confile(confile)
+config::config(std::string confile) : size(0), _confile(confile)
 {
 	begin();
+	std::cout << *this << '\n';
 }
 
 config::~config() {}
@@ -26,24 +27,25 @@ bool config::parseConfig(const std::string &filename)
 		line = trim(line);
 		if (line.empty() || line[0] == '#')
 			continue;
-		std::cout << line << '\n';
 		if (line == "server {")
 		{
-			parseServerBlock(file);
+			serverInfo srv;
+			parseServerBlock(file, srv);
+			serverInfos.push_back(srv);
 		}
 	}
 	return (true);
 }
 
-void config::parseServerBlock(std::ifstream &file)
+void config::parseServerBlock(std::ifstream &file, serverInfo &srv)
 {
-	server srv;
 	std::string line;
+
 	while (std::getline(file, line))
 	{
 		line = trim(line);
 		if (line == "}")
-			break; // End of server block
+			break;
 
 		if (line.find("route {") != std::string::npos)
 		{
@@ -55,13 +57,12 @@ void config::parseServerBlock(std::ifstream &file)
 		}
 		else
 		{
-			parseLine(line);
+			parseLine(line, srv);
 		}
 	}
-	servers.push_back(srv);
 }
 
-void config::parseRouteBlock(std::ifstream &file, server &srv)
+void config::parseRouteBlock(std::ifstream &file, serverInfo &srv)
 {
 	std::string line;
 	routeConfig route;
@@ -69,7 +70,7 @@ void config::parseRouteBlock(std::ifstream &file, server &srv)
 	{
 		line = trim(line);
 		if (line == "}")
-			break; // End of route block
+			break;
 
 		if (line.find("path") != std::string::npos)
 		{
@@ -100,7 +101,7 @@ void config::parseRouteBlock(std::ifstream &file, server &srv)
 	srv.routes.push_back(route);
 }
 
-void config::parseCGIBlock(std::ifstream &file, server &srv)
+void config::parseCGIBlock(std::ifstream &file, serverInfo &srv)
 {
 	std::string line;
 	cgiConfig cgiHandler;
@@ -108,8 +109,7 @@ void config::parseCGIBlock(std::ifstream &file, server &srv)
 	{
 		line = trim(line);
 		if (line == "}")
-			break; // End of CGI block
-
+			break;
 		if (line.find("extension") != std::string::npos)
 		{
 			cgiHandler.extension = line.substr(line.find(" ") + 1);
@@ -122,23 +122,41 @@ void config::parseCGIBlock(std::ifstream &file, server &srv)
 	srv.cgis.push_back(cgiHandler);
 }
 
-void config::parseLine(const std::string &line)
+void config::parseLine(const std::string &line, serverInfo &srv)
 {
 	size_t pos = line.find(' ');
 	if (pos == std::string::npos)
-		return; // Invalid line
+		return ;
 
 	std::string key = line.substr(0, pos);
 	std::string value = trim(line.substr(pos + 1));
 
-	if (key == "listen" || key == "host" || key == "server_name" ||
-		key == "document_root" || key == "default_file" ||
-		key == "client_max_body_size" || key == "directory_listing")
+	if (key == "listen")
 	{
-		_settings[key] = value;
+		srv.listen = std::atoi(value.c_str());
 	}
-	else if (key == "error_page")
+	else if (key == "host")
 	{
-		_settings[key] = value;
+		srv.host = value;
+	}
+	else if (key == "server_name")
+	{
+		srv.server_name = value;
+	}
+	else if (key == "document_root")
+	{
+		srv.document_root = value;
+	}
+	else if (key == "default_file")
+	{
+		srv.default_file = value;
+	}
+	else if (key == "client_max_body_size")
+	{
+		srv.client_max_body_size = value;
+	}
+	else if (key == "directory_listing")
+	{
+		srv.directory_listing = value;
 	}
 }
