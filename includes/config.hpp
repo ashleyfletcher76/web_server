@@ -1,40 +1,8 @@
 #ifndef CONFIG_HPP
 #define CONFIG_HPP
 
-#include <iostream>
-#include <fstream>
-#include <sstream>
-#include <string>
-#include <vector>
-#include <map>
-#include <unordered_map>
+#include "structs.hpp"
 
-struct routeConfig
-{
-	std::string path;
-	std::vector<std::string> allowedMethods;
-	std::string directoryListing;
-	std::string handler;
-};
-
-struct cgiConfig
-{
-	std::string extension;
-	std::string handler;
-};
-
-struct serverInfo
-{
-	int				listen;
-	std::string		host;
-	std::string		server_name;
-	std::string		document_root;
-	std::string		default_file;
-	std::string		client_max_body_size;
-	std::string		directory_listing;
-	std::vector<routeConfig> routes;
-	std::vector<cgiConfig> cgis;
-};
 
 class config
 {

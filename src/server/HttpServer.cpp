@@ -1,9 +1,10 @@
 #include "HttpServer.hpp"
 
 // Constructors
-HttpServer::HttpServer(std::string confpath) : config(confpath), port(serverInfos[0].listen)
+HttpServer::HttpServer(std::string confpath) : config(confpath)
 {
-	begin();
+	init();
+	mainLoop();
 }
 
 HttpServer::~HttpServer()
@@ -12,18 +13,6 @@ HttpServer::~HttpServer()
 	std::ofstream logFile("log.txt", std::ios::app);
 	if (logFile.is_open())
 		logFile.close();
-	std::ifstream file("log.txt");
-	if (file.good())
-	{
-		file.close();
-		if (remove("log.txt") != 0)
-			std::cerr << "Error deleting log file: " << strerror(errno) << std::endl;
-		else
-			std::cout << "Log file successfully deleted" << std::endl;
-	}
-	else
-		std::cerr << "Log file does not exist or cannot be accessed" << std::endl;
-	close(server_fd);
 	for (std::unordered_map<int, ClientInfo>::iterator it; it != clientInfoMap.end(); it++)
 	{
 		close(it->first);
@@ -38,100 +27,79 @@ HttpServer::~HttpServer()
 	system(command.c_str());
 }
 
-
-void HttpServer::begin()
-{
-	init();
-	bindSocket();
-	startListening();
-	setKqueueEvent();
-	mainLoop();
-}
-
 void HttpServer::init()
 {
-	// Create socket FD
 	kq = kqueue();
 	if (kq == -1)
 	{
 		throw std::runtime_error("Kqueue creation failed: " + std::string(strerror(errno)));
 	}
-	if ((server_fd = socket(AF_INET, SOCK_STREAM, 0)) == 0)
+	for (auto &srv : serverInfos)
 	{
-		throw std::runtime_error("Socket creation failed: " + std::string(strerror(errno)));
-	}
-	int opt = 1;
-	if (setsockopt(server_fd, SOL_SOCKET, SO_REUSEADDR, &opt, sizeof(opt)))
-	{
-		throw std::runtime_error ("setsockopt(SO_REUSEADDR) failed: " + std::string(strerror(errno)));
+		servers.emplace_back(srv);
+		servers.back().setKqueueEvent(kq);
 	}
 }
 
-void HttpServer::bindSocket()
+void printKevent(const struct kevent &event)
 {
-	// Bind socket to Network and Port
-	address.sin_family = AF_INET;
-	address.sin_addr.s_addr = INADDR_ANY;
-	address.sin_port = htons(port);
-	if (bind(server_fd, (struct sockaddr *)&address, sizeof(address)) < 0)
-	{
-		throw std::runtime_error("Bind failed: " + std::string(strerror(errno)));
-	}
-}
-
-void HttpServer::startListening()
-{
-	// start listening
-	if (listen(server_fd, 3) < 0)
-	{
-		throw std::runtime_error ("Listen failed");
-	}
-	log("INFO", "Server is listening on PORT " + std::to_string(port), NOSTATUS);
-}
-
-void HttpServer::setKqueueEvent()
-{
-	struct kevent change;
-
-	EV_SET(&change, server_fd, EVFILT_READ, EV_ADD | EV_ENABLE, 0, 0, NULL);
-	if (kevent(kq, &change, 1, NULL, 0, NULL) == -1)
-	{
-		throw std::runtime_error ("Kevent registration failure: " + std::string(strerror(errno)));
-	}
+	std::cout << "kevent Details:" << std::endl;
+	std::cout << "  ident:   " << event.ident << std::endl;
+	std::cout << "  filter:  " << event.filter << std::endl;
+	std::cout << "  flags:   " << event.flags << std::endl;
+	std::cout << "  fflags:  " << event.fflags << std::endl;
+	std::cout << "  data:    " << event.data << std::endl;
+	std::cout << "  udata:   " << event.udata << std::endl;
 }
 
 void HttpServer::mainLoop()
 {
-	struct kevent event;
+	struct kevent events[1024];
 	log("INFO", "Main loop started.", NOSTATUS);
+	for (auto &srv : servers)
+	{
+		log("INFO", "Server is listening to : " + std::to_string(srv.getserverInfo().listen), NOSTATUS);
+	}
+
 	while (!shutdownFlag)
 	{
-		struct timespec timeout = {1, 0};
-		int nev = kevent(kq, NULL, 0, &event, 1, &timeout);
+		struct timespec timeout = {1, 0}; // Timeout of 1 second
+		int nev = kevent(kq, NULL, 0, events, 1024, &timeout);
 		if (nev < 0)
 		{
 			log("ERROR", "Error on kevent wait: " + std::string(strerror(errno)), NOSTATUS);
-			continue ;
+			continue;
 		}
-		else if (nev > 0)
+
+		for (int i = 0; i < nev; ++i)
 		{
+			struct kevent &event = events[i];
+			printKevent(event);
 			log("INFO", "Event received: " + std::to_string(event.filter), NOSTATUS);
+
 			if (event.flags & EV_EOF)
 			{
 				log("INFO", "Connection closed by client: " + std::to_string(event.ident), NOSTATUS);
-				//close(event.ident);
 				closeSocket(event.ident);
 				clientInfoMap.erase(event.ident);
 			}
 			else if (event.filter == EVFILT_READ)
 			{
 				log("INFO", "Ready to read from FD: " + std::to_string(event.ident), NOSTATUS);
-				if (event.ident == server_fd)
+
+				bool isServerSocket = false;
+				for (auto &srv : servers)
 				{
-					log("INFO", "New connection on server FD", NOSTATUS);
-					acceptConnection();
+					if (event.ident == srv.getSocket())
+					{
+						log("INFO", "New connection on server FD: " + std::to_string(event.ident), NOSTATUS);
+						acceptConnection(srv.getSocket());
+						isServerSocket = true;
+						break;
+					}
 				}
-				else
+
+				if (!isServerSocket)
 				{
 					log("INFO", "Reading request from FD: " + std::to_string(event.ident), NOSTATUS);
 					readRequest(event.ident);

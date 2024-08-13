@@ -4,7 +4,6 @@
 config::config(std::string confile) : size(0), _confile(confile)
 {
 	begin();
-	std::cout << *this << '\n';
 }
 
 config::~config() {}
@@ -32,6 +31,7 @@ bool config::parseConfig(const std::string &filename)
 			serverInfo srv;
 			parseServerBlock(file, srv);
 			serverInfos.push_back(srv);
+			++size;
 		}
 	}
 	return (true);

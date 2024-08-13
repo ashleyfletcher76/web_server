@@ -43,11 +43,10 @@ void	HttpServer::readRequest(int client_socket)
 	{
 		log("ERROR", "Error reading from socket: " + std::string(strerror(errno)), client_socket);
 		closeSocket(client_socket);
-		//close(client_socket);
 		clientInfoMap.erase(client_socket);
 		return ;
 	}
-	log("INFO", "Recieved request: " + request, client_socket);
+	//log("INFO", "Recieved request: " + request, client_socket);
 	if (request.empty() || !parseHttpRequest(request, clientInfoMap[client_socket].request)) // stores the response from web browser and gives to method
 	{
 		closeSocket(client_socket);
