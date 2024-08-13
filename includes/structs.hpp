@@ -3,6 +3,13 @@
 
 #include "includes.hpp"
 
+struct isNotSpace
+{
+	bool operator()(unsigned char ch) const {
+		return (!(std::isspace(ch) || ch == '\r' || ch == '\n'));
+	}
+};
+
 struct HttpRequest
 {
 	std::string method;

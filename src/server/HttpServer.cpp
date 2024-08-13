@@ -23,7 +23,6 @@ HttpServer::~HttpServer()
 		std::cout << "Socket left open" << std::endl;
 	pid_t pid = getpid();
 	std::string command = "./utils/check_open_fds.sh " + std::to_string(pid);
-	std::cout << "Running shell script to check open fd's..." << std::endl;
 	system(command.c_str());
 }
 

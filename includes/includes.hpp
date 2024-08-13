@@ -32,7 +32,6 @@
 #include <stdexcept>
 #include <cctype>
 
-
 void	log(const std::string& level, const std::string& msg, int client_socket);
 extern volatile sig_atomic_t shutdownFlag;
 void	signalHandler(int signum);

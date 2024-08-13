@@ -3,7 +3,6 @@
 
 #include "structs.hpp"
 
-
 class config
 {
 protected:

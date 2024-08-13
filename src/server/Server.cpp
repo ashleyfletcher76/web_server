@@ -1,4 +1,4 @@
-#include "Server.hpp"
+#include "server.hpp"
 
 Server::Server(const serverInfo &srinfo) : info(srinfo), server_fd(-1), _kq(-1)
 {
@@ -35,7 +35,7 @@ void Server::createSocket()
 
 	bindSocket();
 	startListening();
-	
+
 	log("INFO", "Server socket setup correctly for port: " + std::to_string(info.listen), NOSTATUS);
 }
 

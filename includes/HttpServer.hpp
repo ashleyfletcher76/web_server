@@ -1,7 +1,7 @@
 #ifndef HTTPSERVER_HPP
 # define HTTPSERVER_HPP
 
-#include "Server.hpp"
+#include "server.hpp"
 
 class HttpServer : public config
 {
@@ -54,6 +54,9 @@ class HttpServer : public config
 		// Error
 		void		sendErrorResponse(int client_socket, int statusCode, const std::string &reasonPhrase);
 		std::string	getErrorFilePath(int statusCode);
+
+		// Utils
+		void	trim(std::string& str);
 
 
 	public:
