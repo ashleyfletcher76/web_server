@@ -29,7 +29,7 @@ void	HttpServer::closeSocket(int client_socket)
 	log("INFO", "Closed client socket FD: " + std::to_string(client_socket), NOSTATUS);
 }
 
-void	HttpServer::log(const std::string& level, const std::string& msg, int client_socket)
+void	log(const std::string& level, const std::string& msg, int client_socket)
 {
 	std::time_t currentTime = std::time(0);
 	std::tm* localTime = std::localtime(&currentTime);

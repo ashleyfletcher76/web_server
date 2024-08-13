@@ -14,17 +14,17 @@ std::ostream &operator<<(std::ostream &out, const config &conf)
 {
 	out << "Configuration File: " << conf._confile << "\n\n";
 
-	out << "Settings:\n";
-	std::map<std::string, std::string>::const_iterator it;
-	for (it = conf._settings.begin(); it != conf._settings.end(); ++it)
+	for (std::vector<serverInfo>::const_iterator srvIt = conf.serverInfos.begin(); srvIt != conf.serverInfos.end(); ++srvIt)
 	{
-		out << it->first << " = " << it->second << "\n";
-	}
-
-	out << "\nServers:\n";
-	for (std::vector<server>::const_iterator srvIt = conf.servers.begin(); srvIt != conf.servers.end(); ++srvIt)
-	{
-		out << "Server:\n";
+		out << "ServerInfo:\n";
+		out << "  Settings:\n";
+		out << "    listen               : " << srvIt->listen << '\n';
+		out << "    host                 : " << srvIt->host << '\n';
+		out << "    server_name          : " << srvIt->server_name << '\n';
+		out << "    document_root        : " << srvIt->document_root << '\n';
+		out << "    default_file         : " << srvIt->default_file << '\n';
+		out << "    client_max_body_size : " << srvIt->client_max_body_size << '\n';
+		out << "    directory_listing    : " << srvIt->directory_listing << '\n';
 		for (std::vector<routeConfig>::const_iterator routeIt = srvIt->routes.begin(); routeIt != srvIt->routes.end(); ++routeIt)
 		{
 			out << "  Route:\n";

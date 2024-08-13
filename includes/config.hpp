@@ -1,62 +1,35 @@
 #ifndef CONFIG_HPP
-# define CONFIG_HPP
+#define CONFIG_HPP
 
-#include <iostream>
-#include <fstream>
-#include <sstream>
-#include <string>
-#include <vector>
-#include <map>
-#include <unordered_map>
+#include "structs.hpp"
 
-struct	routeConfig
-{
-	std::string path;
-	std::vector<std::string> allowedMethods;
-	std::string directoryListing;
-	std::string handler;
-};
-
-struct	cgiConfig
-{
-	std::string extension;
-	std::string handler;
-};
-
-struct	server
-{
-	std::vector<routeConfig>	routes;
-	std::vector<cgiConfig>		cgis;
-};
 
 class config
 {
-	protected:
-		//variables
-		std::string	_confile;
-		std::map<std::string, std::string> _settings;
-		std::vector<server> servers;
+protected:
+	// variables
+	size_t					size;
+	std::string				_confile;
+	std::vector<serverInfo>	serverInfos;
 
-		//methods
-		bool	parseConfig(const std::string &filename);
-		void	parseServerBlock(std::ifstream& file);
-		void	parseLine(const std::string &line);
-		void	parseCGIBlock(std::ifstream &file, server &srv);
-		void	parseRouteBlock(std::ifstream &file, server &srv);
+	// methods
+	bool parseConfig(const std::string &filename);
+	void parseServerBlock(std::ifstream &file, serverInfo &srv);
+	void parseLine(const std::string &line, serverInfo &srv);
+	void parseCGIBlock(std::ifstream &file, serverInfo &srv);
+	void parseRouteBlock(std::ifstream &file, serverInfo &srv);
 
-		//utils
-		std::string trim(const std::string& str);
+	// utils
+	std::string trim(const std::string &str);
 
-	public:
-		config(std::string confile);
-		~config();
-		
-		std::string getFilename() const;
+public:
+	config(std::string confile);
+	virtual ~config();
 
-		void	begin();
-		friend std::ostream& operator<<(std::ostream& out, const config& conf);
+	std::string getFilename() const;
 
+	virtual void begin();
+	friend std::ostream &operator<<(std::ostream &out, const config &conf);
 };
-
 
 #endif
