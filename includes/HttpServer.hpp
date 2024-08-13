@@ -33,11 +33,11 @@
 #define NOSTATUS -5
 
 struct isNotSpace
-	{
-		bool operator()(unsigned char ch) const {
-			return (!(std::isspace(ch) || ch == '\r' || ch == '\n'));
-		}
-	};
+{
+	bool operator()(unsigned char ch) const {
+		return (!(std::isspace(ch) || ch == '\r' || ch == '\n'));
+	}
+};
 
 struct HttpRequest
 {
@@ -115,7 +115,7 @@ class HttpServer : public config
 		void	handleDeleteRequest(const std::string& path, int client_socket);
 
 		// POST
-		void	handlePostRequest(const std::string &path, int client_socket, char buffer[30000]);
+		void	handlePostRequest(int client_socket);
 		std::string	sendResponsePost(int client_socket, ClientInfo &clientInfo);
 
 		// Error

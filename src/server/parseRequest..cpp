@@ -63,7 +63,6 @@ bool HttpServer::parseHttpRequest(const std::string& requestStr, HttpRequest& re
 			return (false);
 		normaliseHeader(headerName);
 		request.headers[headerName] = headerValue;
-		//std::cout << headerName << " = " << headerValue << std::endl;
 	}
 	return (true);
 }
