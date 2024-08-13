@@ -30,14 +30,14 @@ void	HttpServer::handlePostRequest(int client_socket)
 			for (std::map<std::string, std::string>::const_iterator iter = formData.begin(); iter != formData.end(); iter++)
 				logFile << iter->first << ": " << iter->second << std::endl;
 			logFile << "--------------\n";
-			log("INFO", "New log file updated", NOSTATUS);
+			logger.logMethod("INFO", "New log file updated", NOSTATUS);
 			logFile.close();
 			std::cout << "Here inside logFile success" << std::endl;
 		}
 		else
 		{
 			std::cout << "Here inside logFile fail" << std::endl;
-			log("ERROR", "Could not open log file.", NOSTATUS);
+			logger.logMethod("ERROR", "Could not open log file.", NOSTATUS);
 		}
 		// create response from form data
 		responseBody = "<html><body>POST data recieved:<br>"; // change for an actual html file
@@ -101,13 +101,13 @@ void	HttpServer::handleRequest(int client_socket)
 	if (fcntl(client_socket, F_GETFL) != -1)
 	{
 		if (kevent(kq, &change, 1, NULL, 0, NULL) == -1)
-			log("ERROR", "Kevent registration failure for writing: " + std::string(strerror(errno)), client_socket);
+			logger.logMethod("ERROR", "Kevent registration failure for writing: " + std::string(strerror(errno)), client_socket);
 		else
-			log("INFO", "Succesfully registered kevent for socket: " + std::to_string(client_socket), NOSTATUS);
+			logger.logMethod("INFO", "Succesfully registered kevent for socket: " + std::to_string(client_socket), NOSTATUS);
 	}
 	else
 	{
-		log ("ERROR", "Attempted to register kevent for invalid FD: " + std::to_string(client_socket), NOSTATUS);
+		logger.logMethod ("ERROR", "Attempted to register kevent for invalid FD: " + std::to_string(client_socket), NOSTATUS);
 		closeSocket(client_socket);
 	}
 }

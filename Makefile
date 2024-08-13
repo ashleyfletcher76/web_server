@@ -22,11 +22,13 @@ SRCS =	main.cpp \
 		server/Server.cpp \
 		config/config.cpp \
 		config/utils.cpp \
+		logs/logs.cpp \
 
 OBJ_DIR = obj
 SRC_DIR = src/
 OBJ = $(SRCS:%.cpp=$(OBJ_DIR)/%.o)
-DEPS = $(SRCS:%.cpp=$(SRC_DIR)/%.cpp) ./includes/HttpServer.hpp ./includes/config.hpp
+DEPS = $(SRCS:%.cpp=$(SRC_DIR)/%.cpp) ./includes/HttpServer.hpp ./includes/config.hpp \
+	./includes/includes.hpp ./includes/log.hpp ./includes/server.hpp ./includes/structs.hpp
 
 NAME = webserv
 

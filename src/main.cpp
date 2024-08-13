@@ -16,10 +16,11 @@ int	main(int ac, char **av)
 		std::cerr << "Wrong usage!" << std::endl;
 		return (EXIT_FAILURE);
 	}
+	Logger logger;
 	try
 	{
 		signal(SIGINT, signalHandler);
-		HttpServer sv(av[1]);
+		HttpServer sv(av[1], logger);
 	}
 	catch(const std::exception& e)
 	{

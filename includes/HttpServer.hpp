@@ -2,6 +2,7 @@
 # define HTTPSERVER_HPP
 
 #include "server.hpp"
+#include "log.hpp"
 
 class HttpServer : public config
 {
@@ -17,6 +18,8 @@ class HttpServer : public config
 		std::unordered_map<int, std::string> clients;
 		std::unordered_map<int, ClientInfo> clientInfoMap;
 		std::set<int> openSockets;
+
+		Logger& logger;
 
 		// methods
 		void	init();
@@ -60,7 +63,7 @@ class HttpServer : public config
 
 
 	public:
-		HttpServer(std::string confpath);
+		HttpServer(std::string confpath, Logger& loggerRef);
 		~HttpServer();
 };
 

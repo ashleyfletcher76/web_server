@@ -8,10 +8,10 @@ void HttpServer::setupKevent(int client_socket)
 	if (kevent(kq, &change, 1, NULL, 0, NULL) == -1)
 	{
 		std::string error_msg = "Kevent registration failed for socket " + std::to_string(client_socket) + ": " + std::string(strerror(errno));
-		log("ERROR", error_msg, NOSTATUS);
+		logger.logMethod("ERROR", error_msg, NOSTATUS);
 		throw std::runtime_error(error_msg);
 	}
-	log("INFO", "Successfully registered kevent for socket: " + std::to_string(client_socket), NOSTATUS);
+	logger.logMethod("INFO", "Successfully registered kevent for socket: " + std::to_string(client_socket), NOSTATUS);
 }
 
 // configure a given socket for non-blocking mode
@@ -20,10 +20,10 @@ void HttpServer::configureSocketNonBlocking(int client_socket)
 	if (fcntl(client_socket, F_SETFL, O_NONBLOCK) < 0)
 	{
 		std::string errMsg = "Failed to set non-blocking mode for socket: " + std::to_string(client_socket);
-		log("ERROR", errMsg, NOSTATUS);
+		logger.logMethod("ERROR", errMsg, NOSTATUS);
 		throw std::runtime_error(errMsg);
 	}
-	log("Info", "Socket configured to non-blocking mode: " + std::to_string(client_socket), NOSTATUS);
+	logger.logMethod("Info", "Socket configured to non-blocking mode: " + std::to_string(client_socket), NOSTATUS);
 }
 
 void HttpServer::acceptConnection(int serverSocket)
@@ -35,7 +35,7 @@ void HttpServer::acceptConnection(int serverSocket)
 	{
 		if (errno != EAGAIN && errno != EWOULDBLOCK)
 		{
-			log("ERROR", "Accept failed: " + std::string(strerror(errno)), NOSTATUS);
+			logger.logMethod("ERROR", "Accept failed: " + std::string(strerror(errno)), NOSTATUS);
 		}
 		return;
 	}
@@ -44,7 +44,7 @@ void HttpServer::acceptConnection(int serverSocket)
 
 	char client_ip[INET_ADDRSTRLEN];
 	inet_ntop(AF_INET, &client_address.sin_addr, client_ip, INET_ADDRSTRLEN);
-	log("INFO", "Accepted connection from IP: " + std::string(client_ip) + " on socket: " + std::to_string(client_socket), NOSTATUS);
+	logger.logMethod("INFO", "Accepted connection from IP: " + std::string(client_ip) + " on socket: " + std::to_string(client_socket), NOSTATUS);
 
 	configureSocketNonBlocking(client_socket);
 	setupKevent(client_socket);

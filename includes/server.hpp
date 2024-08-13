@@ -3,6 +3,7 @@
 
 #include "config.hpp"
 #include "includes.hpp"
+#include "log.hpp"
 
 class Server
 {
@@ -10,9 +11,10 @@ private:
 	serverInfo			info;
 	uintptr_t			server_fd;
 	struct sockaddr_in	address;
+	Logger&					logger;
 
 public:
-	Server(const serverInfo &srinfo);
+	Server(const serverInfo &srinfo, Logger& loggerRef);
 	~Server();
 	int					_kq;
 

@@ -1,6 +1,7 @@
 #include "server.hpp"
 
-Server::Server(const serverInfo &srinfo) : info(srinfo), server_fd(-1), _kq(-1)
+Server::Server(const serverInfo &srinfo, Logger& loggerRef) : info(srinfo), server_fd(-1),
+	logger(loggerRef), _kq(-1)
 {
 	createSocket();
 }
@@ -36,7 +37,7 @@ void Server::createSocket()
 	bindSocket();
 	startListening();
 
-	log("INFO", "Server socket setup correctly for port: " + std::to_string(info.listen), NOSTATUS);
+	logger.logMethod("INFO", "Server socket setup correctly for port: " + std::to_string(info.listen), NOSTATUS);
 }
 
 void Server::bindSocket()
@@ -46,7 +47,7 @@ void Server::bindSocket()
 		close(server_fd);
 		throw std::runtime_error("Bind failed: " + std::string(strerror(errno)));
 	}
-	log("INFO", "binding correctly seted up for " + std::to_string(info.listen), NOSTATUS);
+	logger.logMethod("INFO", "binding correctly seted up for " + std::to_string(info.listen), NOSTATUS);
 }
 
 void Server::startListening()
@@ -56,7 +57,7 @@ void Server::startListening()
 		close(server_fd);
 		throw std::runtime_error("Listen failed: " + std::string(strerror(errno)));
 	}
-	log("INFO", "listen correctly seted up for " + std::to_string(info.listen), NOSTATUS);
+	logger.logMethod("INFO", "listen correctly seted up for " + std::to_string(info.listen), NOSTATUS);
 }
 
 void Server::setKqueueEvent(int kq)
@@ -68,7 +69,7 @@ void Server::setKqueueEvent(int kq)
 	{
 		throw std::runtime_error("Kevent setup failed: " + std::string(strerror(errno)));
 	}
-	log("INFO", "kevent correctly seted up for " + std::to_string(info.listen), NOSTATUS);
+	logger.logMethod("INFO", "kevent correctly seted up for " + std::to_string(info.listen), NOSTATUS);
 }
 
 uintptr_t Server::getSocket() const { return server_fd; }
