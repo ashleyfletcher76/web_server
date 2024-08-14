@@ -23,10 +23,7 @@ void	HttpServer::writeResponse(int client_socket)
 	if (!clientInfoMap[client_socket].shouldclose)
 	{
 		if (openSockets.find(client_socket) != openSockets.end())
-		{
-			std::cout << "modify inside the writeResponse" << std::endl;
 			modifyEvent(client_socket, EVFILT_WRITE, EV_DELETE);
-		}
 		else
 		logger.logMethod("WARNING", "Socket already closed or removed from open sockets when trying to modify event.", NOSTATUS);
 	}
