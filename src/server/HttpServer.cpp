@@ -1,8 +1,11 @@
 #include "HttpServer.hpp"
 
 // Constructors
-HttpServer::HttpServer(std::string confpath, Logger &loggerRef) : config(confpath), logger(loggerRef)
+HttpServer::HttpServer(std::string confpath, Logger& loggerRef, Database& databaseRef) : config(confpath),
+	logger(loggerRef), database(databaseRef)
 {
+	//database.createTable();
+	(void)databaseRef;
 	init();
 	mainLoop();
 }

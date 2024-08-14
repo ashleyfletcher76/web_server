@@ -31,6 +31,8 @@
 #include <netdb.h>
 #include <stdexcept>
 #include <cctype>
+#include <sqlite3.h>
+#include <sys/stat.h>
 
 extern volatile sig_atomic_t shutdownFlag;
 void	signalHandler(int signum);

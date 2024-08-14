@@ -37,7 +37,7 @@ void	HttpServer::modifyEvent(int fd, int filter, int flags)
 void	HttpServer::logSocketAction(const std::string& action, int fd)
 {
 	std::stringstream ss;
-	ss << "Socket FD: " << fd << " Action: " << action << " Open sockets count: " << openSockets.size();
+	ss << "Socket FD: " << fd << " Action: " << action << ". Open sockets count: " << openSockets.size();
 	logger.logMethod("DEBUG", ss.str(), NOSTATUS);
 }
 
