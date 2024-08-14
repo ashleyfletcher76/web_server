@@ -30,6 +30,8 @@ HttpServer::~HttpServer()
 
 void HttpServer::init()
 {
+	pid_t pid = getpid();
+	std::cout << "MY PID is: " << pid << std::endl;
 	kq = kqueue();
 	if (kq == -1)
 	{
@@ -84,10 +86,10 @@ void HttpServer::mainLoop()
 			logger.logMethod("ERROR", "Error on kevent wait: " + std::string(strerror(errno)), NOSTATUS);
 			continue;
 		}
-		std::cout << "nev = " << nev << '\n';
 		for (int i = 0; i < nev; ++i)
 		{
 			struct kevent &event = events[i];
+			//printKevent(event);
 			logger.logMethod("INFO", "Event received: " + std::to_string(event.filter), NOSTATUS);
 
 			std::cout << "event ident = " << event.ident << '\n';
@@ -109,6 +111,7 @@ void HttpServer::mainLoop()
 					acceptConnection(serverIt->second->getSocket());
 				}
 				else
+				if (!isServerSocket)
 				{
 					logger.logMethod("INFO", "Reading request from FD: " + std::to_string(event.ident), NOSTATUS);
 					readRequest(static_cast<int>(event.ident));

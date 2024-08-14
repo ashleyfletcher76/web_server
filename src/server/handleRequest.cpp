@@ -47,7 +47,7 @@ void	HttpServer::handlePostRequest(int client_socket)
 	}
 	else if (request.headers["Content-Type"] == "application/json")
 		responseBody = "<html><body>JSON data recieved</body></html>";
-	clientInfoMap[client_socket].response = formatHttpResponse(200, "OK", responseBody);
+	clientInfoMap[client_socket].response = formatHttpResponse(200, "OK", responseBody, clientInfoMap[client_socket].shouldclose);
 	writeResponse(client_socket);
 }
 
@@ -66,7 +66,7 @@ void	HttpServer::handleGetRequest(int client_socket)
 	std::string fileContent((std::istreambuf_iterator<char>(file)), std::istreambuf_iterator<char>()); // istreambuf_iterator is efficient for unformated data reading(raw bytes)
 	file.close();
 	// set response in the clients info
-	clientInfoMap[client_socket].response = formatHttpResponse(200, "OK", fileContent);
+	clientInfoMap[client_socket].response = formatHttpResponse(200, "OK", fileContent, clientInfoMap[client_socket].shouldclose);
 }
 
 void	HttpServer::handleRequest(int client_socket)

@@ -24,7 +24,7 @@ void HttpServer::sendErrorResponse(int client_socket, int statusCode, const std:
 		htmlContent = "<html><head><title>Error</title></head><body><h1>" + std::to_string(statusCode) + " " + reasonPhrase + "</h1><p>The requested method is not supported.</p></body></html>";
 	}
 
-	std::string response = formatHttpResponse(statusCode, reasonPhrase, htmlContent);
+	std::string response = formatHttpResponse(statusCode, reasonPhrase, htmlContent, clientInfoMap[client_socket].shouldclose);
 	clientInfoMap[client_socket].response = response;
 	writeResponse(client_socket);
 }

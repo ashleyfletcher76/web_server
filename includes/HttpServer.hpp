@@ -29,6 +29,8 @@ class HttpServer : public config
 		void	setupKevent(int client_socket);
 		void	configureSocketNonBlocking(int client_socket);
 		void	closeSocket(int client_socket);
+		void	modifyEvent(int fd, int filter, int flags);
+		void	logSocketAction(const std::string& action, int fd);
 
 		// request
 		void	readRequest(int client_socket);
@@ -41,7 +43,8 @@ class HttpServer : public config
 
 		// response
 		bool	parseHttpRequest(const std::string& requesStr, HttpRequest& request);
-		std::string formatHttpResponse(int status_code, const std::string& reasonPhrase, const std::string& body);
+		std::string formatHttpResponse(int status_code, const std::string& reasonPhrase,
+			const std::string& body, int keepAlive);
 
 		// GET
 		void	handleGetRequest(int client_socket);

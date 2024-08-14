@@ -1,0 +1,74 @@
+2024-08-14 14:20:26 [INFO] - Log started
+2024-08-14 14:20:26 [INFO] - binding correctly seted up for 8080
+2024-08-14 14:20:26 [INFO] - listen correctly seted up for 8080
+2024-08-14 14:20:26 [INFO] - Server socket setup correctly for port: 8080
+2024-08-14 14:20:26 [INFO] - kevent correctly seted up for 8080
+2024-08-14 14:20:26 [INFO] - Main loop started.
+2024-08-14 14:20:26 [INFO] - Server is listening to : 8080
+2024-08-14 14:20:28 [INFO] - Event received: -1
+2024-08-14 14:20:28 [INFO] - Ready to read from FD: 5
+2024-08-14 14:20:28 [INFO] - New connection on server FD: 5
+2024-08-14 14:20:28 [INFO] - Accepted connection from IP: 127.0.0.1 on socket: 6
+2024-08-14 14:20:28 [Info] - Socket configured to non-blocking mode: 6
+2024-08-14 14:20:28 [INFO] - Successfully registered kevent for socket: 6
+2024-08-14 14:20:28 [INFO] - Event received: -1
+2024-08-14 14:20:28 [INFO] - Ready to read from FD: 6
+2024-08-14 14:20:28 [INFO] - Reading request from FD: 6
+2024-08-14 14:20:28 [INFO] - Recieved request: GET /index.html HTTP/1.1
+Host: localhost:8080
+User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:127.0) Gecko/20100101 Firefox/127.0
+Accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,*/*;q=0.8
+Accept-Language: en-US,en;q=0.5
+Accept-Encoding: gzip, deflate, br, zstd
+Connection: keep-alive
+Upgrade-Insecure-Requests: 1
+Sec-Fetch-Dest: document
+Sec-Fetch-Mode: navigate
+Sec-Fetch-Site: none
+Sec-Fetch-User: ?1
+Priority: u=1
+
+
+2024-08-14 14:20:28 [INFO] - Succesfully registered kevent for socket: 6
+2024-08-14 14:20:28 [INFO] - Event received: -2
+2024-08-14 14:20:28 [INFO] - Ready to write to FD: 6
+2024-08-14 14:20:28 [INFO] - Response successfully sent to FD: 6
+2024-08-14 14:20:28 [DEBUG] - Socket FD: 6 Action: Modifying event Open sockets count: 1
+2024-08-14 14:20:28 [INFO] - Successfully modified event for FD: 6
+2024-08-14 14:20:28 [INFO] - Event received: -1
+2024-08-14 14:20:28 [INFO] - Ready to read from FD: 6
+2024-08-14 14:20:28 [INFO] - Reading request from FD: 6
+2024-08-14 14:20:28 [INFO] - Recieved request: GET /favicon.ico HTTP/1.1
+Host: localhost:8080
+User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:127.0) Gecko/20100101 Firefox/127.0
+Accept: image/avif,image/webp,*/*
+Accept-Language: en-US,en;q=0.5
+Accept-Encoding: gzip, deflate, br, zstd
+Connection: keep-alive
+Referer: http://localhost:8080/index.html
+Sec-Fetch-Dest: image
+Sec-Fetch-Mode: no-cors
+Sec-Fetch-Site: same-origin
+Priority: u=6
+
+
+2024-08-14 14:20:28 [INFO] - Response successfully sent to FD: 6
+2024-08-14 14:20:28 [DEBUG] - Socket FD: 6 Action: Modifying event Open sockets count: 1
+2024-08-14 14:20:28 [ERROR] - Failed to modify event: (2) No such file or directory for FD: 6
+2024-08-14 14:20:28 [INFO] - Succesfully registered kevent for socket: 6
+2024-08-14 14:20:28 [INFO] - Event received: -2
+2024-08-14 14:20:28 [INFO] - Ready to write to FD: 6
+2024-08-14 14:20:28 [INFO] - Response successfully sent to FD: 6
+2024-08-14 14:20:28 [DEBUG] - Socket FD: 6 Action: Modifying event Open sockets count: 1
+2024-08-14 14:20:28 [INFO] - Successfully modified event for FD: 6
+2024-08-14 14:20:28 [INFO] - Event received: -1
+2024-08-14 14:20:28 [INFO] - Connection closed by client: 6
+2024-08-14 14:20:28 [DEBUG] - Socket FD: 6 Action: Modifying event Open sockets count: 1
+2024-08-14 14:20:28 [INFO] - Successfully modified event for FD: 6
+2024-08-14 14:20:28 [DEBUG] - Socket FD: 6 Action: Modifying event Open sockets count: 1
+2024-08-14 14:20:28 [ERROR] - Failed to modify event: (2) No such file or directory for FD: 6
+2024-08-14 14:20:28 [INFO] - Closed client socket FD: 6
+2024-08-14 14:20:28 [DEBUG] - Socket FD: 6 Action: Closed Open sockets count: 0
+2024-08-14 14:24:23 [ERROR] - Error on kevent wait: Interrupted system call
+2024-08-14 14:24:23 [INFO] - Shutting down server..
+2024-08-14 14:24:23 [INFO] - Log closed.
