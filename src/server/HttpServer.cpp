@@ -16,7 +16,6 @@ HttpServer::~HttpServer()
 	while (iter != clientInfoMap.end())
 	{
 		closeSocket(iter->first);
-		std::cout << "here" << '\n';
 		iter = clientInfoMap.begin();
 	}
 	if (openSockets.empty())
@@ -86,8 +85,6 @@ void HttpServer::mainLoop()
 		{
 			struct kevent &event = events[i];
 			logger.logMethod("INFO", "Event received: " + std::to_string(event.filter), NOSTATUS);
-
-			std::cout << "event ident = " << event.ident << '\n';
 			if (event.flags & EV_EOF)
 			{
 				logger.logMethod("INFO", "Connection closed by client: " + std::to_string(event.ident), NOSTATUS);
