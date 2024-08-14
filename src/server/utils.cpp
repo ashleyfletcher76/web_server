@@ -20,6 +20,7 @@ std::string HttpServer::formatHttpResponse(int status_code, const std::string& r
 
 void	HttpServer::modifyEvent(int fd, int filter, int flags)
 {
+	logSocketAction("Modifying event", fd);
 	if (openSockets.find(fd) == openSockets.end())
 	{
 		logger.logMethod("WARNING", "Attempt to modify event for closed or non-existent FD: " + std::to_string(fd), NOSTATUS);
@@ -31,6 +32,13 @@ void	HttpServer::modifyEvent(int fd, int filter, int flags)
 		logger.logMethod("ERROR", "Failed to modify event: ("  + std::to_string(flags) + ") " + std::string(strerror(errno)) + " for FD: " + std::to_string(fd), NOSTATUS);
 	else
 		logger.logMethod("INFO", "Successfully modified event for FD: " + std::to_string(fd), NOSTATUS);
+}
+
+void	HttpServer::logSocketAction(const std::string& action, int fd)
+{
+	std::stringstream ss;
+	ss << "Socket FD: " << fd << " Action: " << action << " Open sockets count: " << openSockets.size();
+	logger.logMethod("DEBUG", ss.str(), NOSTATUS);
 }
 
 void	HttpServer::closeSocket(int client_socket)
@@ -46,6 +54,7 @@ void	HttpServer::closeSocket(int client_socket)
 	openSockets.erase(client_socket);
 	clientInfoMap.erase(client_socket);
 	logger.logMethod("INFO", "Closed client socket FD: " + std::to_string(client_socket), NOSTATUS);
+	logSocketAction("Closed", client_socket);
 }
 
 std::string HttpServer::getFilePath(const std::string& uri)

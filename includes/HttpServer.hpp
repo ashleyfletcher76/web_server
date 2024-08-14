@@ -31,6 +31,7 @@ class HttpServer : public config
 		void	configureSocketNonBlocking(int client_socket);
 		void	closeSocket(int client_socket);
 		void	modifyEvent(int fd, int filter, int flags);
+		void	logSocketAction(const std::string& action, int fd);
 
 		// request
 		void	readRequest(int client_socket);

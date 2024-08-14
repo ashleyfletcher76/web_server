@@ -25,6 +25,8 @@ HttpServer::~HttpServer()
 
 void HttpServer::init()
 {
+	pid_t pid = getpid();
+	std::cout << "MY PID is: " << pid << std::endl;
 	kq = kqueue();
 	if (kq == -1)
 	{
