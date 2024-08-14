@@ -10,18 +10,19 @@ HttpServer::HttpServer(std::string confpath, Logger &loggerRef) : config(confpat
 HttpServer::~HttpServer()
 {
 	logger.logMethod("INFO", "Shutting down server..", NOSTATUS);
-	std::cout << clientInfoMap.size() << std::endl;
-	for (std::unordered_map<int, ClientInfo>::iterator it; it != clientInfoMap.end(); it++)
+	std::cout << "Number socket still open: " << clientInfoMap.size() << std::endl;
+
+	auto iter = clientInfoMap.begin();
+	while (iter != clientInfoMap.end())
 	{
+		closeSocket(iter->first);
 		std::cout << "here" << '\n';
-		//close(it->first);
-		closeSocket(it->first);
+		iter = clientInfoMap.begin();
 	}
 	if (openSockets.empty())
 		std::cout << "No sockets left open" << std::endl;
 	else
 		std::cout << "Socket left open" << std::endl;
-
 	for (auto &entry : servers)
 	{
 		close(entry.second->getSocket());
