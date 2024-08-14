@@ -34,5 +34,6 @@
 
 extern volatile sig_atomic_t shutdownFlag;
 void	signalHandler(int signum);
+bool	checkSocket(int fd);
 
 #endif

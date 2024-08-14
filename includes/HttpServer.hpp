@@ -8,7 +8,6 @@ class HttpServer : public config
 {
 	private:
 		// variables;
-		uintptr_t	server_fd;
 		std::vector<Server> servers;
 		int			new_socket;
 		int			kq;

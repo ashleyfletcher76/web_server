@@ -30,7 +30,7 @@ void HttpServer::acceptConnection(int serverSocket)
 {
 	struct sockaddr_in client_address;
 	socklen_t client_addrlen = sizeof(client_address);
-	int client_socket = accept(serverSocket, (struct sockaddr *)&client_address, &client_addrlen);
+	uintptr_t client_socket = accept(serverSocket, (struct sockaddr *)&client_address, &client_addrlen);
 	if (client_socket < 0)
 	{
 		if (errno != EAGAIN && errno != EWOULDBLOCK)

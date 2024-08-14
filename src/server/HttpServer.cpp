@@ -1,7 +1,7 @@
 #include "HttpServer.hpp"
 
 // Constructors
-HttpServer::HttpServer(std::string confpath, Logger& loggerRef) : config(confpath), logger(loggerRef)
+HttpServer::HttpServer(std::string confpath, Logger &loggerRef) : config(confpath), logger(loggerRef)
 {
 	init();
 	mainLoop();
@@ -32,8 +32,18 @@ void HttpServer::init()
 	}
 	for (auto &srv : serverInfos)
 	{
-		servers.emplace_back(srv, logger);
-		servers.back().setKqueueEvent(kq);
+		try
+		{
+			servers.emplace_back(srv, logger);
+			servers.back().setKqueueEvent(kq);
+			if (!checkSocket(servers.back().getSocket())) {continue;}
+			logger.logMethod("INFO", "Server is listening to : " + std::to_string(servers.back().getserverInfo().listen), NOSTATUS);
+		}
+		catch (const std::exception &e)
+		{
+			logger.logMethod("ERROR", "Failed to initialize server: " + std::string(e.what()), NOSTATUS);
+			continue;
+		}
 	}
 }
 
@@ -52,10 +62,6 @@ void HttpServer::mainLoop()
 {
 	struct kevent events[1024];
 	logger.logMethod("INFO", "Main loop started.", NOSTATUS);
-	for (auto &srv : servers)
-	{
-		logger.logMethod("INFO", "Server is listening to : " + std::to_string(srv.getserverInfo().listen), NOSTATUS);
-	}
 
 	while (!shutdownFlag)
 	{
@@ -78,6 +84,7 @@ void HttpServer::mainLoop()
 				logger.logMethod("INFO", "Connection closed by client: " + std::to_string(event.ident), NOSTATUS);
 				closeSocket(event.ident);
 				clientInfoMap.erase(event.ident);
+				openSockets.erase(event.ident);
 			}
 			else if (event.filter == EVFILT_READ)
 			{
@@ -86,8 +93,9 @@ void HttpServer::mainLoop()
 				bool isServerSocket = false;
 				for (auto &srv : servers)
 				{
-					if (event.ident == srv.getSocket())
+					if (static_cast<int>(event.ident) == srv.getSocket())
 					{
+						if (!checkSocket(srv.getSocket())) {continue;}
 						logger.logMethod("INFO", "New connection on server FD: " + std::to_string(event.ident), NOSTATUS);
 						acceptConnection(srv.getSocket());
 						isServerSocket = true;
@@ -98,15 +106,16 @@ void HttpServer::mainLoop()
 				if (!isServerSocket)
 				{
 					logger.logMethod("INFO", "Reading request from FD: " + std::to_string(event.ident), NOSTATUS);
-					readRequest(event.ident);
-					handleRequest(event.ident);
+					readRequest(static_cast<int>(event.ident));
+					handleRequest(static_cast<int>(event.ident));
 				}
 			}
 			else if (event.filter == EVFILT_WRITE)
 			{
 				logger.logMethod("INFO", "Ready to write to FD: " + std::to_string(event.ident), NOSTATUS);
-				writeResponse(event.ident);
+				writeResponse(static_cast<int>(event.ident));
 			}
 		}
 	}
 }
+

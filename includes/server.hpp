@@ -9,7 +9,7 @@ class Server
 {
 private:
 	serverInfo			info;
-	uintptr_t			server_fd;
+	int			server_fd;
 	struct sockaddr_in	address;
 	Logger&					logger;
 
@@ -22,7 +22,7 @@ public:
 	void		bindSocket();
 	void		startListening();
 	void		setKqueueEvent(int kq);
-	uintptr_t	getSocket() const;
+	int			getSocket() const;
 	serverInfo	getserverInfo() const;
 };
 

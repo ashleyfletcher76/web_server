@@ -1,7 +1,7 @@
 #include "server.hpp"
 
-Server::Server(const serverInfo &srinfo, Logger& loggerRef) : info(srinfo), server_fd(-1),
-	logger(loggerRef), _kq(-1)
+Server::Server(const serverInfo &srinfo, Logger &loggerRef) : info(srinfo), server_fd(-1),
+															  logger(loggerRef), _kq(-1)
 {
 	createSocket();
 }
@@ -30,6 +30,7 @@ void Server::createSocket()
 		throw std::runtime_error("setsockopt(SO_REUSEADDR) failed: " + std::string(strerror(errno)));
 	}
 
+	memset(&address, 0, sizeof(address));
 	address.sin_family = AF_INET;
 	address.sin_port = htons(info.listen);
 	address.sin_addr.s_addr = htonl(INADDR_ANY); // Bind to all interfaces
@@ -52,6 +53,10 @@ void Server::bindSocket()
 
 void Server::startListening()
 {
+	if (server_fd < 0)
+	{
+		throw std::runtime_error("Invalid socket file descriptor.");
+	}
 	if (listen(server_fd, SOMAXCONN) == -1)
 	{
 		close(server_fd);
@@ -72,6 +77,6 @@ void Server::setKqueueEvent(int kq)
 	logger.logMethod("INFO", "kevent correctly seted up for " + std::to_string(info.listen), NOSTATUS);
 }
 
-uintptr_t Server::getSocket() const { return server_fd; }
+int Server::getSocket() const { return server_fd; }
 
 serverInfo Server::getserverInfo() const { return info; }
