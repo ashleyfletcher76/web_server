@@ -6,26 +6,27 @@
 class config
 {
 protected:
-	// variables
-	size_t					size;
-	std::string				_confile;
-	std::vector<serverInfo>	serverInfos;
+	size_t size;
+	std::string _confile;
+	std::vector<serverInfo> serverInfos;
 
-	// methods
+	// Parsing methods
 	bool parseConfig(const std::string &filename);
 	void parseServerBlock(std::ifstream &file, serverInfo &srv);
 	void parseLine(const std::string &line, serverInfo &srv);
 	void parseCGIBlock(std::ifstream &file, serverInfo &srv);
 	void parseRouteBlock(std::ifstream &file, serverInfo &srv);
 
-	// utils
+	// Utility methods
 	std::string trim(const std::string &str);
+	void handleError(const std::string &message);
 
 public:
-	config(std::string confile);
+	config(const std::string &confile);
 	virtual ~config();
 
 	std::string getFilename() const;
+	const std::vector<serverInfo> &getServerInfos() const;
 
 	virtual void begin();
 	friend std::ostream &operator<<(std::ostream &out, const config &conf);

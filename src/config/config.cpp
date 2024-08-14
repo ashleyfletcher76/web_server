@@ -1,14 +1,20 @@
 #include "config.hpp"
 
 // Constructors
-config::config(std::string confile) : size(0), _confile(confile)
+config::config(const std::string &confile) : size(0), _confile(confile)
 {
 	begin();
 }
 
 config::~config() {}
 
-void config::begin() { parseConfig(_confile); }
+void config::begin()
+{
+	if (!parseConfig(_confile))
+	{
+		handleError("Failed to parse configuration file.");
+	}
+}
 
 bool config::parseConfig(const std::string &filename)
 {
@@ -17,8 +23,8 @@ bool config::parseConfig(const std::string &filename)
 
 	if (!file.is_open())
 	{
-		std::cerr << "Failed to open config file." << std::endl;
-		return (false);
+		handleError("Failed to open config file: " + filename);
+		return false;
 	}
 
 	while (std::getline(file, line))
@@ -34,7 +40,7 @@ bool config::parseConfig(const std::string &filename)
 			++size;
 		}
 	}
-	return (true);
+	return true;
 }
 
 void config::parseServerBlock(std::ifstream &file, serverInfo &srv)
@@ -126,18 +132,26 @@ void config::parseLine(const std::string &line, serverInfo &srv)
 {
 	size_t pos = line.find(' ');
 	if (pos == std::string::npos)
-		return ;
+		return;
 
 	std::string key = line.substr(0, pos);
 	std::string value = trim(line.substr(pos + 1));
 
 	if (key == "listen")
 	{
-		srv.listen = std::atoi(value.c_str());
+		int port = std::atoi(value.c_str());
+		if (port > 0 && port < 65536) // Validate port range
+		{
+			srv.listen = port;
+		}
+		else
+		{
+			handleError("Invalid port number: " + value);
+		}
 	}
 	else if (key == "host")
 	{
-		srv.host = value;
+		srv.host = value; // Add validation if necessary
 	}
 	else if (key == "server_name")
 	{
@@ -153,10 +167,20 @@ void config::parseLine(const std::string &line, serverInfo &srv)
 	}
 	else if (key == "client_max_body_size")
 	{
-		srv.client_max_body_size = value;
+		srv.client_max_body_size = value; // Add validation if necessary
 	}
 	else if (key == "directory_listing")
 	{
 		srv.directory_listing = value;
 	}
+}
+
+void config::handleError(const std::string &message)
+{
+	std::cerr << "Config error: " << message << std::endl;
+}
+
+const std::vector<serverInfo> &config::getServerInfos() const
+{
+	return serverInfos;
 }

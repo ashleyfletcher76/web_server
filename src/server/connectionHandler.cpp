@@ -4,7 +4,7 @@
 void HttpServer::setupKevent(int client_socket)
 {
 	struct kevent change;
-	EV_SET(&change, client_socket, EVFILT_READ, EV_ADD | EV_ENABLE, 0, 0, NULL);
+	EV_SET(&change, static_cast<uintptr_t>(client_socket), EVFILT_READ, EV_ADD | EV_ENABLE, 0, 0, NULL);
 	if (kevent(kq, &change, 1, NULL, 0, NULL) == -1)
 	{
 		std::string error_msg = "Kevent registration failed for socket " + std::to_string(client_socket) + ": " + std::string(strerror(errno));
@@ -30,7 +30,7 @@ void HttpServer::acceptConnection(int serverSocket)
 {
 	struct sockaddr_in client_address;
 	socklen_t client_addrlen = sizeof(client_address);
-	uintptr_t client_socket = accept(serverSocket, (struct sockaddr *)&client_address, &client_addrlen);
+	int client_socket = accept(serverSocket, (struct sockaddr *)&client_address, &client_addrlen);
 	if (client_socket < 0)
 	{
 		if (errno != EAGAIN && errno != EWOULDBLOCK)

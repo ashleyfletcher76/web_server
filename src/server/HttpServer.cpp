@@ -21,6 +21,11 @@ HttpServer::~HttpServer()
 	pid_t pid = getpid();
 	std::string command = "./utils/check_open_fds.sh " + std::to_string(pid);
 	system(command.c_str());
+	for (auto &entry : servers)
+	{
+		delete entry.second; // Free the memory allocated for each Server*
+	}
+	servers.clear();
 }
 
 void HttpServer::init()
@@ -30,19 +35,26 @@ void HttpServer::init()
 	{
 		throw std::runtime_error("Kqueue creation failed: " + std::string(strerror(errno)));
 	}
-	for (auto &srv : serverInfos)
+	logger.logMethod("INFO", "Kqueue created successfully", NOSTATUS);
+
+	for (const auto &srv : serverInfos)
 	{
 		try
 		{
-			servers.emplace_back(srv, logger);
-			servers.back().setKqueueEvent(kq);
-			if (!checkSocket(servers.back().getSocket())) {continue;}
-			logger.logMethod("INFO", "Server is listening to : " + std::to_string(servers.back().getserverInfo().listen), NOSTATUS);
+			Server *server = new Server(srv, logger);
+			server->setKqueueEvent(kq);
+
+			auto result = servers.emplace(server->getSocket(), server);
+			if (!result.second)
+			{
+				throw std::runtime_error("Duplicate server port: " + std::to_string(srv.listen));
+			}
+
+			logger.logMethod("INFO", "Server is listening on port: " + std::to_string(srv.listen), NOSTATUS);
 		}
 		catch (const std::exception &e)
 		{
 			logger.logMethod("ERROR", "Failed to initialize server: " + std::string(e.what()), NOSTATUS);
-			continue;
 		}
 	}
 }
@@ -72,13 +84,13 @@ void HttpServer::mainLoop()
 			logger.logMethod("ERROR", "Error on kevent wait: " + std::string(strerror(errno)), NOSTATUS);
 			continue;
 		}
-
+		std::cout << "nev = " << nev << '\n';
 		for (int i = 0; i < nev; ++i)
 		{
 			struct kevent &event = events[i];
-			printKevent(event);
 			logger.logMethod("INFO", "Event received: " + std::to_string(event.filter), NOSTATUS);
 
+			std::cout << "event ident = " << event.ident << '\n';
 			if (event.flags & EV_EOF)
 			{
 				logger.logMethod("INFO", "Connection closed by client: " + std::to_string(event.ident), NOSTATUS);
@@ -90,20 +102,13 @@ void HttpServer::mainLoop()
 			{
 				logger.logMethod("INFO", "Ready to read from FD: " + std::to_string(event.ident), NOSTATUS);
 
-				bool isServerSocket = false;
-				for (auto &srv : servers)
+				auto serverIt = servers.find(static_cast<int>(event.ident));
+				if (serverIt != servers.end())
 				{
-					if (static_cast<int>(event.ident) == srv.getSocket())
-					{
-						if (!checkSocket(srv.getSocket())) {continue;}
-						logger.logMethod("INFO", "New connection on server FD: " + std::to_string(event.ident), NOSTATUS);
-						acceptConnection(srv.getSocket());
-						isServerSocket = true;
-						break;
-					}
+					logger.logMethod("INFO", "New connection on server FD: " + std::to_string(event.ident), NOSTATUS);
+					acceptConnection(serverIt->second->getSocket());
 				}
-
-				if (!isServerSocket)
+				else
 				{
 					logger.logMethod("INFO", "Reading request from FD: " + std::to_string(event.ident), NOSTATUS);
 					readRequest(static_cast<int>(event.ident));
@@ -118,4 +123,3 @@ void HttpServer::mainLoop()
 		}
 	}
 }
-

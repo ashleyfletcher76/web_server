@@ -8,7 +8,7 @@ class HttpServer : public config
 {
 	private:
 		// variables;
-		std::vector<Server> servers;
+		std::unordered_map<int, Server*> servers;
 		int			new_socket;
 		int			kq;
 

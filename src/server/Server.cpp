@@ -69,12 +69,12 @@ void Server::setKqueueEvent(int kq)
 {
 	this->_kq = kq;
 	struct kevent event;
-	EV_SET(&event, server_fd, EVFILT_READ, EV_ADD | EV_ENABLE, 0, 0, nullptr);
+	EV_SET(&event, static_cast<uintptr_t>(server_fd), EVFILT_READ, EV_ADD | EV_ENABLE, 0, 0, nullptr);
 	if (kevent(kq, &event, 1, nullptr, 0, nullptr) == -1)
 	{
 		throw std::runtime_error("Kevent setup failed: " + std::string(strerror(errno)));
 	}
-	logger.logMethod("INFO", "kevent correctly seted up for " + std::to_string(info.listen), NOSTATUS);
+	logger.logMethod("INFO", "Kevent correctly set up for " + std::to_string(info.listen), NOSTATUS);
 }
 
 int Server::getSocket() const { return server_fd; }
