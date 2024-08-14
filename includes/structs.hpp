@@ -29,11 +29,12 @@ struct HttpResponse
 
 struct ClientInfo
 {
+	int			server_fd;
 	HttpRequest	request;
 	std::string	response;
 	bool		shouldclose;
 
-	ClientInfo() : shouldclose(false) {}
+	ClientInfo(int fd) : server_fd(fd), shouldclose(false) {}
 };
 
 struct routeConfig
