@@ -95,7 +95,7 @@ void	HttpServer::handleRequest(int client_socket)
 
 	// set up write event for client response
 	struct kevent change;
-	EV_SET(&change, client_socket, EVFILT_WRITE, EV_ADD | EV_ENABLE, 0, 0, NULL);
+	EV_SET(&change, static_cast<uintptr_t>(client_socket), EVFILT_WRITE, EV_ADD | EV_ENABLE, 0, 0, NULL);
 
 	// validate fd before using
 	if (fcntl(client_socket, F_GETFL) != -1)

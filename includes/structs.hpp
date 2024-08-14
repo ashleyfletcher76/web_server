@@ -63,6 +63,4 @@ struct serverInfo
 	std::vector<cgiConfig> cgis;
 };
 
-
-
 #endif

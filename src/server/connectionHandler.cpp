@@ -48,5 +48,5 @@ void HttpServer::acceptConnection(int serverSocket)
 
 	configureSocketNonBlocking(client_socket);
 	setupKevent(client_socket);
-	clientInfoMap[client_socket] = ClientInfo();
+	clientInfoMap[client_socket] =  ClientInfo();
 }

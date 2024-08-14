@@ -10,22 +10,27 @@ HttpServer::HttpServer(std::string confpath, Logger &loggerRef) : config(confpat
 HttpServer::~HttpServer()
 {
 	logger.logMethod("INFO", "Shutting down server..", NOSTATUS);
+	std::cout << clientInfoMap.size() << std::endl;
 	for (std::unordered_map<int, ClientInfo>::iterator it; it != clientInfoMap.end(); it++)
 	{
-		close(it->first);
+		std::cout << "here" << '\n';
+		//close(it->first);
+		closeSocket(it->first);
 	}
 	if (openSockets.empty())
 		std::cout << "No sockets left open" << std::endl;
 	else
 		std::cout << "Socket left open" << std::endl;
-	pid_t pid = getpid();
-	std::string command = "./utils/check_open_fds.sh " + std::to_string(pid);
-	system(command.c_str());
+
 	for (auto &entry : servers)
 	{
+		close(entry.second->getSocket());
 		delete entry.second; // Free the memory allocated for each Server*
 	}
 	servers.clear();
+	pid_t pid = getpid();
+	std::string command = "./utils/check_open_fds.sh " + std::to_string(pid);
+	system(command.c_str());
 }
 
 void HttpServer::init()
@@ -61,16 +66,6 @@ void HttpServer::init()
 	}
 }
 
-void printKevent(const struct kevent &event)
-{
-	std::cout << "kevent Details:" << std::endl;
-	std::cout << "  ident:   " << event.ident << std::endl;
-	std::cout << "  filter:  " << event.filter << std::endl;
-	std::cout << "  flags:   " << event.flags << std::endl;
-	std::cout << "  fflags:  " << event.fflags << std::endl;
-	std::cout << "  data:    " << event.data << std::endl;
-	std::cout << "  udata:   " << event.udata << std::endl;
-}
 
 void HttpServer::mainLoop()
 {
@@ -89,7 +84,6 @@ void HttpServer::mainLoop()
 		for (int i = 0; i < nev; ++i)
 		{
 			struct kevent &event = events[i];
-			//printKevent(event);
 			logger.logMethod("INFO", "Event received: " + std::to_string(event.filter), NOSTATUS);
 
 			std::cout << "event ident = " << event.ident << '\n';
@@ -111,7 +105,6 @@ void HttpServer::mainLoop()
 					acceptConnection(serverIt->second->getSocket());
 				}
 				else
-				if (!isServerSocket)
 				{
 					logger.logMethod("INFO", "Reading request from FD: " + std::to_string(event.ident), NOSTATUS);
 					readRequest(static_cast<int>(event.ident));
