@@ -2,25 +2,32 @@
 
 void	HttpServer::writeResponse(int client_socket)
 {
+	if (clientInfoMap.find(client_socket) == clientInfoMap.end())
+	{
+		logger.logMethod("ERROR", "Attempt to write to non-existent client socket", NOSTATUS);
+		return ;
+	}
 	std::string& response = clientInfoMap[client_socket].response;
 
 	// sends reponse to client(web browser etc.)
 	if (send(client_socket, response.c_str(), response.size(), 0) < 0)
-		logger.logMethod("ERROR", "Error writing to socket: " + std::string(strerror(errno)), client_socket);
-
-	// only closed if not keep-alive in HTTP response
-	if (clientInfoMap[client_socket].shouldclose)
 	{
-		//close(client_socket);
+		logger.logMethod("ERROR", "Error writing to socket: " + std::string(strerror(errno)), client_socket);
 		closeSocket(client_socket);
-		clientInfoMap.erase(client_socket);
+		return ;
 	}
 	else
+		logger.logMethod("INFO", "Response successfully sent to FD: " + std::to_string(client_socket), NOSTATUS);
+
+	// Only modify the event if the socket is still open and not marked for closure
+	if (!clientInfoMap[client_socket].shouldclose)
 	{
-		struct kevent change;
-		EV_SET(&change, client_socket, EVFILT_WRITE, EV_DELETE, 0, 0, NULL);
-		if (kevent(kq, &change, 1, NULL, 0, NULL) == -1)
-			logger.logMethod("ERROR", "Failed to remove write event for FD: " + std::to_string(client_socket), NOSTATUS);
+		if (openSockets.find(client_socket) != openSockets.end())
+			modifyEvent(client_socket, EVFILT_WRITE, EV_DELETE);
+		else
+		logger.logMethod("WARNING", "Socket already closed or removed from open sockets when trying to modify event.", NOSTATUS);
 	}
+	else
+		closeSocket(client_socket);
 }
 

@@ -66,11 +66,10 @@ void HttpServer::mainLoop()
 			logger.logMethod("ERROR", "Error on kevent wait: " + std::string(strerror(errno)), NOSTATUS);
 			continue;
 		}
-
 		for (int i = 0; i < nev; ++i)
 		{
 			struct kevent &event = events[i];
-			printKevent(event);
+			//printKevent(event);
 			logger.logMethod("INFO", "Event received: " + std::to_string(event.filter), NOSTATUS);
 
 			if (event.flags & EV_EOF)
@@ -94,7 +93,6 @@ void HttpServer::mainLoop()
 						break;
 					}
 				}
-
 				if (!isServerSocket)
 				{
 					logger.logMethod("INFO", "Reading request from FD: " + std::to_string(event.ident), NOSTATUS);

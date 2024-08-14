@@ -47,7 +47,7 @@ void	HttpServer::readRequest(int client_socket)
 		clientInfoMap.erase(client_socket);
 		return ;
 	}
-	//logger.logMethod("INFO", "Recieved request: " + request, client_socket);
+	logger.logMethod("INFO", "Recieved request: " + request, client_socket);
 	if (request.empty() || !parseHttpRequest(request, clientInfoMap[client_socket].request)) // stores the response from web browser and gives to method
 	{
 		closeSocket(client_socket);
