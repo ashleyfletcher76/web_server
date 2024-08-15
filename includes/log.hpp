@@ -13,7 +13,7 @@ class Logger
 		Logger();
 		~Logger();
 
-	void	logMethod(const std::string& level, const std::string& msg, int client_socket);
+	void	logMethod(const std::string& level, const std::string& msg);
 };
 
 #endif

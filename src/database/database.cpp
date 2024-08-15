@@ -21,12 +21,12 @@ Database::Database(const std::string& dbPath, Logger& logger) : dbPath(dbPath), 
 	int rc = sqlite3_open(dbPath.c_str(), &db);
 	if (rc)
 	{
-		logger.logMethod("ERROR", "Error opening SQLite3 database: " + std::string(sqlite3_errmsg(db)), NOSTATUS);
+		logger.logMethod("ERROR", "Error opening SQLite3 database: " + std::string(sqlite3_errmsg(db)));
 		sqlite3_close(db);
 		db = nullptr;
 	}
 	else
-		logger.logMethod("INFO", "Opening database successfully.", NOSTATUS);
+		logger.logMethod("INFO", "Opening database successfully.");
 }
 
 Database::~Database()
@@ -34,7 +34,7 @@ Database::~Database()
 	if (db)
 	{
 		sqlite3_close(db);
-		logger.logMethod("INFO", "Database closed.", NOSTATUS);
+		logger.logMethod("INFO", "Database closed.");
 	}
 }
 
@@ -42,7 +42,7 @@ void	Database::createTable()
 {
 	if (!db)
 	{
-		logger.logMethod("ERROR", "Database is not opened.", NOSTATUS);
+		logger.logMethod("ERROR", "Database is not opened.");
 		return ;
 	}
 	const char* sqlCreateTable =
@@ -55,9 +55,9 @@ void	Database::createTable()
 	int rc = sqlite3_exec(db, sqlCreateTable, nullptr, nullptr, &errMsg);
 	if (rc != SQLITE_OK)
 	{
-		logger.logMethod("ERROR", "Failed to create table: " + std::string(errMsg), NOSTATUS);
+		logger.logMethod("ERROR", "Failed to create table: " + std::string(errMsg));
 		sqlite3_free(errMsg);
 	}
 	else
-		logger.logMethod("INFO", "Table created successfully.", NOSTATUS);
+		logger.logMethod("INFO", "Table created successfully.");
 }

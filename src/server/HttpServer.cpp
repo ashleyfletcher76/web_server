@@ -12,7 +12,7 @@ HttpServer::HttpServer(std::string confpath, Logger& loggerRef, Database& databa
 
 HttpServer::~HttpServer()
 {
-	logger.logMethod("INFO", "Shutting down server..", NOSTATUS);
+	logger.logMethod("INFO", "Shutting down server..");
 	std::cout << "Number socket still open: " << clientInfoMap.size() << std::endl;
 
 	auto iter = clientInfoMap.begin();
@@ -45,7 +45,7 @@ void HttpServer::init()
 	{
 		throw std::runtime_error("Kqueue creation failed: " + std::string(strerror(errno)));
 	}
-	logger.logMethod("INFO", "Kqueue created successfully", NOSTATUS);
+	logger.logMethod("INFO", "Kqueue created successfully");
 
 	for (const auto &srv : serverInfos)
 	{
@@ -60,11 +60,11 @@ void HttpServer::init()
 				throw std::runtime_error("Duplicate server port: " + std::to_string(srv.listen));
 			}
 
-			logger.logMethod("INFO", "Server is listening on port: " + std::to_string(srv.listen), NOSTATUS);
+			logger.logMethod("INFO", "Server is listening on port: " + std::to_string(srv.listen));
 		}
 		catch (const std::exception &e)
 		{
-			logger.logMethod("ERROR", "Failed to initialize server: " + std::string(e.what()), NOSTATUS);
+			logger.logMethod("ERROR", "Failed to initialize server: " + std::string(e.what()));
 		}
 	}
 }
@@ -73,7 +73,7 @@ void HttpServer::init()
 void HttpServer::mainLoop()
 {
 	struct kevent events[1024];
-	logger.logMethod("INFO", "Main loop started.", NOSTATUS);
+	logger.logMethod("INFO", "Main loop started.");
 
 	while (!shutdownFlag)
 	{
@@ -81,40 +81,40 @@ void HttpServer::mainLoop()
 		int nev = kevent(kq, NULL, 0, events, 1024, &timeout);
 		if (nev < 0)
 		{
-			logger.logMethod("ERROR", "Error on kevent wait: " + std::string(strerror(errno)), NOSTATUS);
+			logger.logMethod("ERROR", "Error on kevent wait: " + std::string(strerror(errno)));
 			continue;
 		}
 		for (int i = 0; i < nev; ++i)
 		{
 			struct kevent &event = events[i];
-			logger.logMethod("INFO", "Event received: " + std::to_string(event.filter), NOSTATUS);
+			logger.logMethod("INFO", "Event received: " + std::to_string(event.filter));
 			if (event.flags & EV_EOF)
 			{
-				logger.logMethod("INFO", "Connection closed by client: " + std::to_string(event.ident), NOSTATUS);
+				logger.logMethod("INFO", "Connection closed by client: " + std::to_string(event.ident));
 				closeSocket(event.ident);
 				clientInfoMap.erase(event.ident);
 				openSockets.erase(event.ident);
 			}
 			else if (event.filter == EVFILT_READ)
 			{
-				logger.logMethod("INFO", "Ready to read from FD: " + std::to_string(event.ident), NOSTATUS);
+				logger.logMethod("INFO", "Ready to read from FD: " + std::to_string(event.ident));
 
 				auto serverIt = servers.find(static_cast<int>(event.ident));
 				if (serverIt != servers.end())
 				{
-					logger.logMethod("INFO", "New connection on server FD: " + std::to_string(event.ident), NOSTATUS);
+					logger.logMethod("INFO", "New connection on server FD: " + std::to_string(event.ident));
 					acceptConnection(serverIt->second->getSocket());
 				}
 				else
 				{
-					logger.logMethod("INFO", "Reading request from FD: " + std::to_string(event.ident), NOSTATUS);
+					logger.logMethod("INFO", "Reading request from FD: " + std::to_string(event.ident));
 					readRequest(static_cast<int>(event.ident));
 					handleRequest(static_cast<int>(event.ident));
 				}
 			}
 			else if (event.filter == EVFILT_WRITE)
 			{
-				logger.logMethod("INFO", "Ready to write to FD: " + std::to_string(event.ident), NOSTATUS);
+				logger.logMethod("INFO", "Ready to write to FD: " + std::to_string(event.ident));
 				writeResponse(static_cast<int>(event.ident));
 			}
 		}

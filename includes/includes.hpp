@@ -1,8 +1,6 @@
 #ifndef INCLUDES_HPP
 #define INCLUDES_HPP
 
-#define NOSTATUS -5
-
 #include <iostream>
 #include <string>
 #include <cstring>

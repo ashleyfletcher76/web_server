@@ -38,7 +38,7 @@ void Server::createSocket()
 	bindSocket();
 	startListening();
 
-	logger.logMethod("INFO", "Server socket setup correctly for port: " + std::to_string(info.listen), NOSTATUS);
+	logger.logMethod("INFO", "Server socket setup correctly for port: " + std::to_string(info.listen));
 }
 
 void Server::bindSocket()
@@ -48,7 +48,7 @@ void Server::bindSocket()
 		close(server_fd);
 		throw std::runtime_error("Bind failed: " + std::string(strerror(errno)));
 	}
-	logger.logMethod("INFO", "binding correctly seted up for " + std::to_string(info.listen), NOSTATUS);
+	logger.logMethod("INFO", "binding correctly seted up for " + std::to_string(info.listen));
 }
 
 void Server::startListening()
@@ -62,7 +62,7 @@ void Server::startListening()
 		close(server_fd);
 		throw std::runtime_error("Listen failed: " + std::string(strerror(errno)));
 	}
-	logger.logMethod("INFO", "listen correctly seted up for " + std::to_string(info.listen), NOSTATUS);
+	logger.logMethod("INFO", "listen correctly seted up for " + std::to_string(info.listen));
 }
 
 void Server::setKqueueEvent(int kq)
@@ -74,7 +74,7 @@ void Server::setKqueueEvent(int kq)
 	{
 		throw std::runtime_error("Kevent setup failed: " + std::string(strerror(errno)));
 	}
-	logger.logMethod("INFO", "Kevent correctly set up for " + std::to_string(info.listen), NOSTATUS);
+	logger.logMethod("INFO", "Kevent correctly set up for " + std::to_string(info.listen));
 }
 
 int Server::getSocket() const { return server_fd; }

@@ -1,14 +1,13 @@
 #include "log.hpp"
 
-void	Logger::logMethod(const std::string& level, const std::string& msg, int client_socket)
+void	Logger::logMethod(const std::string& level, const std::string& msg)
 {
 	std::time_t currentTime = std::time(0);
 	std::tm* localTime = std::localtime(&currentTime);
 
 	char timestamp[20];
-	std::strftime(timestamp, sizeof(timestamp), "%Y-%m-%d %H:%M:%S", localTime);
+	std::strftime(timestamp, sizeof(timestamp), "%Y-%m-%d_%H-%M-%S", localTime);  // Underscore instead of spaces
 
-	(void)client_socket;
 	if (logFile.is_open())
 		logFile << timestamp << " [" << level << "]" << " - " << msg << std::endl;
 	else
@@ -25,20 +24,21 @@ Logger::Logger()
 	std::tm* localTime = std::localtime(&currentTime);
 
 	char timestamp[20];
-	std::strftime(timestamp, sizeof(timestamp), "%Y-%m-%d %H:%M:%S", localTime);
+	std::strftime(timestamp, sizeof(timestamp), "%Y-%m-%d_%H-%M-%S", localTime);  // Underscore instead of spaces
 	logFilename = "logs/log_" + std::string(timestamp) + ".txt";
 
 	logFile.open(logFilename, std::ios_base::app);
 	if (!logFile.is_open())
-		std::cerr << "Unable to open log file." << logFilename << std::endl;
-	logMethod("INFO", "Log started", NOSTATUS);
+		std::cerr << "Unable to open log file: " << logFilename << std::endl;
+	else
+		logMethod("INFO", "Log started");
 }
 
 Logger::~Logger()
 {
 	if (logFile.is_open())
 	{
-		logMethod("INFO", "Log closed.", NOSTATUS);
+		logMethod("INFO", "Log closed.");
 		logFile.close();
 	}
 }

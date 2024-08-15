@@ -23,29 +23,29 @@ void	HttpServer::modifyEvent(int fd, int filter, int flags)
 	logSocketAction("Modifying event", fd);
 	if (openSockets.find(fd) == openSockets.end())
 	{
-		logger.logMethod("WARNING", "Attempt to modify event for closed or non-existent FD: " + std::to_string(fd), NOSTATUS);
+		logger.logMethod("WARNING", "Attempt to modify event for closed or non-existent FD: " + std::to_string(fd));
 		return;
 	}
 	struct kevent change;
 	EV_SET(&change, static_cast<uintptr_t>(fd), filter, flags, 0, 0, NULL);
 	if (kevent(kq, &change, 1, NULL, 0, NULL) == -1)
-		logger.logMethod("ERROR", "Failed to modify event: ("  + std::to_string(flags) + ") " + std::string(strerror(errno)) + " for FD: " + std::to_string(fd), NOSTATUS);
+		logger.logMethod("ERROR", "Failed to modify event: ("  + std::to_string(flags) + ") " + std::string(strerror(errno)) + " for FD: " + std::to_string(fd));
 	else
-		logger.logMethod("INFO", "Successfully modified event for FD: " + std::to_string(fd), NOSTATUS);
+		logger.logMethod("INFO", "Successfully modified event for FD: " + std::to_string(fd));
 }
 
 void	HttpServer::logSocketAction(const std::string& action, int fd)
 {
 	std::stringstream ss;
 	ss << "Socket FD: " << fd << " Action: " << action << ". Open sockets count: " << openSockets.size();
-	logger.logMethod("DEBUG", ss.str(), NOSTATUS);
+	logger.logMethod("DEBUG", ss.str());
 }
 
 void	HttpServer::closeSocket(int client_socket)
 {
 	if (openSockets.find(client_socket) == openSockets.end())
 	{
-		logger.logMethod("WARNING", "Attempted to close an already closed or non-existent FD: " + std::to_string(client_socket), NOSTATUS);
+		logger.logMethod("WARNING", "Attempted to close an already closed or non-existent FD: " + std::to_string(client_socket));
 		return;
 	}
 	modifyEvent(client_socket, EVFILT_READ, EV_DELETE);
@@ -53,7 +53,7 @@ void	HttpServer::closeSocket(int client_socket)
 	close(client_socket);
 	openSockets.erase(client_socket);
 	clientInfoMap.erase(client_socket);
-	logger.logMethod("INFO", "Closed client socket FD: " + std::to_string(client_socket), NOSTATUS);
+	logger.logMethod("INFO", "Closed client socket FD: " + std::to_string(client_socket));
 	logSocketAction("Closed", client_socket);
 }
 
