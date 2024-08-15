@@ -10,12 +10,11 @@ class Database
 		std::string	dbPath;
 		Logger&		logger;
 		sqlite3		*db;
-		void	ensureDirectoryExist(const std::string& filePath);
+		void	initDatabase();
 
 	public:
 		Database(const std::string& dbPath, Logger& logger);
 		~Database();
-		void	createTable();
 };
 
 #endif
