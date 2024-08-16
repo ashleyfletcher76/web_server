@@ -29,7 +29,6 @@ void	Database::initDatabase()
 
 	result = sqlite3_open(dbPath.c_str(), &db);
 	if (result != SQLITE_OK)
-	if (result != SQLITE_OK)
 	{
 		logger.logMethod("ERROR", "Cannot open database: " + std::string(sqlite3_errmsg(db)));
 		sqlite3_close(db);
