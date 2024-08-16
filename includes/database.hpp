@@ -13,7 +13,7 @@ class Database
 		void	initDatabase();
 
 	public:
-		Database(const std::string& dbPath, Logger& logger);
+		Database(Logger& logger);
 		~Database();
 };
 

@@ -17,7 +17,7 @@ int	main(int ac, char **av)
 		return (EXIT_FAILURE);
 	}
 	Logger logger;
-	Database database("web_server/uploads/profiles/mydatabase.db", logger);
+	Database database(logger);
 	try
 	{
 		signal(SIGINT, signalHandler);
