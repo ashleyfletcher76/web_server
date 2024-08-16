@@ -17,10 +17,11 @@ int	main(int ac, char **av)
 		return (EXIT_FAILURE);
 	}
 	Logger logger;
+	Database database(logger);
 	try
 	{
 		signal(SIGINT, signalHandler);
-		HttpServer sv(av[1], logger);
+		HttpServer sv(av[1], logger, database);
 	}
 	catch(const std::exception& e)
 	{

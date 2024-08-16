@@ -3,6 +3,7 @@
 
 #include "server.hpp"
 #include "log.hpp"
+#include "database.hpp"
 
 class HttpServer : public config
 {
@@ -19,6 +20,7 @@ class HttpServer : public config
 		std::set<int> openSockets;
 
 		Logger& logger;
+		Database& database;
 
 		// methods
 		void	init();
@@ -39,7 +41,7 @@ class HttpServer : public config
 		// content
 		void	writeResponse(int client_socket);
 		std::string getFilePath(const std::string& uri);
-		std::string readFileContent(const std::string& filePath, int client_socket);
+		std::string readFileContent(const std::string& filePath);
 
 		// response
 		bool	parseHttpRequest(const std::string& requesStr, HttpRequest& request);
@@ -65,7 +67,7 @@ class HttpServer : public config
 
 
 	public:
-		HttpServer(std::string confpath, Logger& loggerRef);
+		HttpServer(std::string confpath, Logger& loggerRef, Database& databaseRef);
 		~HttpServer();
 };
 

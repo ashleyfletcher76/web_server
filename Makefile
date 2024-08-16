@@ -9,6 +9,7 @@ COLOUR_END = \033[0m
 CC = c++
 RM = rm -f
 CFLAGS = -Wall -Wextra -Werror -std=c++11 -I./includes/ -g -fsanitize=address -fsanitize=undefined
+LDFLAGS = -lsqlite3
 
 SRCS =	main.cpp \
 		server/HttpServer.cpp \
@@ -23,12 +24,14 @@ SRCS =	main.cpp \
 		config/config.cpp \
 		config/utils.cpp \
 		logs/logs.cpp \
+		database/database.cpp
 
 OBJ_DIR = obj
 SRC_DIR = src/
 OBJ = $(SRCS:%.cpp=$(OBJ_DIR)/%.o)
 DEPS = $(SRCS:%.cpp=$(SRC_DIR)/%.cpp) ./includes/HttpServer.hpp ./includes/config.hpp \
-	./includes/includes.hpp ./includes/log.hpp ./includes/server.hpp ./includes/structs.hpp
+	./includes/includes.hpp ./includes/log.hpp ./includes/server.hpp ./includes/structs.hpp \
+	./includes/database.hpp
 
 NAME = webserv
 
@@ -37,7 +40,7 @@ all: $(NAME)
 
 # Link objects into the executable
 $(NAME): $(OBJ)
-	$(CC) $(CFLAGS) $(OBJ) -o $(NAME)
+	$(CC) $(CFLAGS) $(OBJ) -o $(NAME) $(LDFLAGS)
 	echo "$(COLOUR_GREEN)$(NAME) compiled successfully!$(COLOUR_END)"
 
 $(OBJ_DIR)/%.o: $(SRC_DIR)%.cpp $(DEPS)

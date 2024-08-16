@@ -17,7 +17,7 @@ std::string HttpServer::getErrorFilePath(int statusCode)
 void HttpServer::sendErrorResponse(int client_socket, int statusCode, const std::string &reasonPhrase)
 {
 	std::string errorFilePath = getErrorFilePath(statusCode);
-	std::string htmlContent = readFileContent(errorFilePath, client_socket);
+	std::string htmlContent = readFileContent(errorFilePath);
 
 	if (htmlContent.empty())
 	{
