@@ -11,6 +11,8 @@ class Database
 		Logger&		logger;
 		sqlite3		*db;
 		void	initDatabase();
+		bool	insertUser(const std::string& name, const std::string& email,
+			const std::string& phone, const std::string& description);
 
 	public:
 		Database(Logger& logger);
