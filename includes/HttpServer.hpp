@@ -44,7 +44,7 @@ class HttpServer : public config
 		std::string readFileContent(const std::string& filePath);
 
 		// response
-		bool	parseHttpRequest(const std::string& requesStr, HttpRequest& request);
+		bool	parseHttpRequest(const std::string& requestStream, HttpRequest& request);
 		std::string formatHttpResponse(int status_code, const std::string& reasonPhrase,
 			const std::string& body, int keepAlive);
 
@@ -56,6 +56,7 @@ class HttpServer : public config
 
 		// POST
 		void	handlePostRequest(int client_socket);
+		std::string	urlDecode(const std::string& str);
 		std::string	sendResponsePost(int client_socket, ClientInfo &clientInfo);
 
 		// Error

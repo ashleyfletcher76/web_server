@@ -17,6 +17,8 @@ class Database
 	public:
 		Database(Logger& logger);
 		~Database();
+		bool	addUser(const std::string& name, const std::string& email,
+			const std::string& phone, const std::string& description);
 };
 
 #endif

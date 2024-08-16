@@ -1,5 +1,15 @@
 #include "database.hpp"
 
+bool	Database::addUser(const std::string& name, const std::string& email, const std::string& phone, const std::string& description)
+{
+	if (name.empty() || email.empty() || phone.empty() || description.empty())
+	{
+		logger.logMethod("ERROR", "Attempting to add data that is incomplete.");
+		return (false);
+	}
+	return (insertUser(name, email, phone, description));
+}
+
 bool	Database::insertUser(const std::string& name, const std::string& email, const std::string& phone, const std::string& description)
 {
 	const char* sqlInsert = "INSERT INTO Users (Name, Email, PhoneNumber, Description) VALUES (?, ?, ?, ?);";
