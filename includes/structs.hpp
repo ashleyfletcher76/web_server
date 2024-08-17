@@ -5,7 +5,8 @@
 
 struct isNotSpace
 {
-	bool operator()(unsigned char ch) const {
+	bool operator()(unsigned char ch) const
+	{
 		return (!(std::isspace(ch) || ch == '\r' || ch == '\n'));
 	}
 };
@@ -29,11 +30,12 @@ struct HttpResponse
 
 struct ClientInfo
 {
-	int			server_fd;
-	HttpRequest	request;
-	std::string	response;
-	bool		shouldclose;
+	int server_fd;
+	HttpRequest request;
+	std::string response;
+	bool shouldclose;
 
+	ClientInfo() : server_fd(-1), shouldclose(false) {}
 	ClientInfo(int fd) : server_fd(fd), shouldclose(false) {}
 };
 
@@ -53,13 +55,13 @@ struct cgiConfig
 
 struct serverInfo
 {
-	int				listen;
-	std::string		host;
-	std::string		server_name;
-	std::string		document_root;
-	std::string		default_file;
-	std::string		client_max_body_size;
-	std::string		directory_listing;
+	int listen;
+	std::string host;
+	std::string server_name;
+	std::string document_root;
+	std::string default_file;
+	std::string client_max_body_size;
+	std::string directory_listing;
 	std::vector<routeConfig> routes;
 	std::vector<cgiConfig> cgis;
 };
