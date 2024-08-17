@@ -38,12 +38,15 @@ void	normaliseHeader(std::string& header)
 		header[i] = std::tolower(header[i]);
 }
 
-bool HttpServer::parseHttpRequest(const std::string& requestStr, HttpRequest& request)
+bool HttpServer::parseHttpRequest(const std::string& requestStr, HttpRequest& request, int client_socket)
 {
 	std::istringstream requestStream(requestStr);
 	std::string line;
 	if (!std::getline(requestStream, line) || line.empty()) return (false);
 	std::istringstream lineStream(line);
+	(void)client_socket;
+	// int server_fd = clientInfoMap[client_socket].server_fd;
+	// servers[server_fd]->getserverInfo().client_max_body_size;
 	// extract method, URI and version from request line
 	if (!(lineStream >> request.method >> request.uri >> request.version)) return (false);
 	if (!isValidMethod(request.method) || !isValidUri(request.uri)

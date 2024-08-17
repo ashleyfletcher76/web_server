@@ -44,7 +44,7 @@ class HttpServer : public config
 		std::string readFileContent(const std::string& filePath);
 
 		// response
-		bool	parseHttpRequest(const std::string& requestStream, HttpRequest& request);
+		bool	parseHttpRequest(const std::string& requestStream, HttpRequest& request, int client_socket);
 		std::string formatHttpResponse(int status_code, const std::string& reasonPhrase,
 			const std::string& body, int keepAlive);
 
