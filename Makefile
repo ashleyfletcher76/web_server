@@ -18,13 +18,15 @@ SRCS =	main.cpp \
 		server/sendResponse.cpp \
 		server/connectionHandler.cpp \
 		server/parseRequest..cpp \
+		server/handlePost.cpp \
 		server/errorMethods.cpp \
 		server/utils.cpp \
 		server/Server.cpp \
 		config/config.cpp \
 		config/utils.cpp \
 		logs/logs.cpp \
-		database/database.cpp
+		database/database.cpp \
+		database/databaseMethods.cpp
 
 OBJ_DIR = obj
 SRC_DIR = src/

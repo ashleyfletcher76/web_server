@@ -50,19 +50,31 @@ bool HttpServer::parseHttpRequest(const std::string& requestStr, HttpRequest& re
 		|| !isValidVersion(request.version))
 		return (false);
 
-	while (std::getline(requestStream, line) && line != "\r")
+	// parse headers to start
+	bool headersFinished = false;
+	while (std::getline(requestStream, line))
 	{
-		std::string::size_type colonPos = line.find(':');
+		if (line == "\r" || line.empty())
+		{
+			headersFinished = true;
+			break ;
+		}
+		std::size_t colonPos = line.find(':');
 		if (colonPos == std::string::npos)
-			return (false);
+			continue ;
 		std::string headerName = line.substr(0, colonPos);
 		std::string headerValue = line.substr(colonPos + 2);
 		trim(headerName);
 		trim(headerValue);
-		if (!isValidHeader(headerName, headerValue))
-			return (false);
 		normaliseHeader(headerName);
 		request.headers[headerName] = headerValue;
+	}
+	// parse data after headers(":")
+	if (headersFinished && request.headers["content-type"] == "application/x-www-form-urlencoded")
+	{
+		auto contentLength = request.headers.find("content-length");
+		if (contentLength != request.headers.end())
+			std::getline(requestStream, request.body); // get the content data for POST
 	}
 	return (true);
 }
