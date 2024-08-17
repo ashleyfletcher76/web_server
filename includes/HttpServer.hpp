@@ -66,6 +66,7 @@ class HttpServer : public config
 
 		// Generate Profile
 		std::string	generateProfilePage(const userProfile& profile);
+		void	generateAllProfilesPage(int client_socket);
 
 		// Utils
 		void	trim(std::string& str);
