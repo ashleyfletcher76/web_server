@@ -10,7 +10,6 @@ class HttpServer : public config
 	private:
 		// variables;
 		std::unordered_map<int, Server*> servers;
-		int			new_socket;
 		int			kq;
 
 		struct sockaddr_in	address;
@@ -46,7 +45,7 @@ class HttpServer : public config
 		// response
 		bool	parseHttpRequest(const std::string& requestStream, HttpRequest& request);
 		std::string formatHttpResponse(int status_code, const std::string& reasonPhrase,
-			const std::string& body, int keepAlive);
+		const std::string& body, int keepAlive);
 
 		// GET
 		void	handleGetRequest(int client_socket);
@@ -61,7 +60,7 @@ class HttpServer : public config
 
 		// Error
 		void		sendErrorResponse(int client_socket, int statusCode, const std::string &reasonPhrase);
-		std::string	getErrorFilePath(int statusCode);
+		std::string	getErrorFilePath(int statusCode, int serverFd);
 
 		// Utils
 		void	trim(std::string& str);

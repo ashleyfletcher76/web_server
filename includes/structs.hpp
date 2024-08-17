@@ -64,6 +64,7 @@ struct serverInfo
 	std::string directory_listing;
 	std::vector<routeConfig> routes;
 	std::vector<cgiConfig> cgis;
+	std::unordered_map<int, std::string> errorPages;
 };
 
 #endif

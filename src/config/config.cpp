@@ -52,7 +52,14 @@ void config::parseServerBlock(std::ifstream &file, serverInfo &srv)
 		line = trim(line);
 		if (line == "}")
 			break;
-
+		if (line.find("error_page") != std::string::npos)
+		{
+			std::istringstream iss(line.substr(line.find(" ") + 1));
+			int statusCode;
+			std::string errorPagePath;
+			iss >> statusCode >> errorPagePath;
+			srv.errorPages[statusCode] = errorPagePath;
+		}
 		if (line.find("route {") != std::string::npos)
 		{
 			parseRouteBlock(file, srv);

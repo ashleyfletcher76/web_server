@@ -9,9 +9,9 @@ class Server
 {
 private:
 	serverInfo			info;
-	int			server_fd;
+	int					server_fd;
 	struct sockaddr_in	address;
-	Logger&					logger;
+	Logger&				logger;
 
 public:
 	Server(const serverInfo &srinfo, Logger& loggerRef);
@@ -23,7 +23,7 @@ public:
 	void		startListening();
 	void		setKqueueEvent(int kq);
 	int			getSocket() const;
-	serverInfo	getserverInfo() const;
+	const serverInfo& getServerInfo() const;
 };
 
 #endif

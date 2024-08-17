@@ -1,22 +1,20 @@
 #include "HttpServer.hpp"
 
-std::string HttpServer::getErrorFilePath(int statusCode)
+std::string HttpServer::getErrorFilePath(int statusCode, int serverFd)
 {
-	std::string path = "errors/";
-	switch (statusCode)
+	const serverInfo &srvInfo = servers[serverFd]->getServerInfo();
+
+	auto it = srvInfo.errorPages.find(statusCode);
+	if (it != srvInfo.errorPages.end())
 	{
-	case 404:
-		return (path + "404.html");
-	case 500:
-		return (path + "500.html");
-	default:
-		return (path + "default.html");
+		return it->second;
 	}
+	return ("./errors/default.html");
 }
 
 void HttpServer::sendErrorResponse(int client_socket, int statusCode, const std::string &reasonPhrase)
 {
-	std::string errorFilePath = getErrorFilePath(statusCode);
+	std::string errorFilePath = getErrorFilePath(statusCode, clientInfoMap[client_socket].server_fd);
 	std::string htmlContent = readFileContent(errorFilePath);
 
 	if (htmlContent.empty())

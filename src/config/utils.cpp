@@ -25,6 +25,10 @@ std::ostream &operator<<(std::ostream &out, const config &conf)
 		out << "    default_file         : " << srvIt->default_file << '\n';
 		out << "    client_max_body_size : " << srvIt->client_max_body_size << '\n';
 		out << "    directory_listing    : " << srvIt->directory_listing << '\n';
+		for (const auto &pair : srvIt->errorPages)
+		{
+			out << "    errorpages           : Status Code: " << pair.first << " -> Error Page: " << pair.second << std::endl;
+		}
 		for (std::vector<routeConfig>::const_iterator routeIt = srvIt->routes.begin(); routeIt != srvIt->routes.end(); ++routeIt)
 		{
 			out << "  Route:\n";
