@@ -13,16 +13,16 @@ LDFLAGS = -lsqlite3
 
 SRCS =	main.cpp \
 		server/HttpServer.cpp \
-		server/handleRequest.cpp \
 		server/readMethods.cpp \
 		server/sendResponse.cpp \
-		server/connectionHandler.cpp \
-		server/parseRequest..cpp \
-		server/handlePost.cpp \
-		server/errorMethods.cpp \
-		server/parseUtils.cpp \
-		server/utils.cpp \
 		server/Server.cpp \
+		server/connectionHandler.cpp \
+		server/parseRequest/parseRequest..cpp \
+		server/parseRequest/parseUtils.cpp \
+		server/handleRequest/handleRequest.cpp \
+		server/handleRequest/handlePost.cpp \
+		server/serverUtils/errorMethods.cpp \
+		server/serverUtils/utils.cpp \
 		config/config.cpp \
 		config/utils.cpp \
 		logs/logs.cpp \
