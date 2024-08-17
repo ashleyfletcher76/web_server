@@ -10,6 +10,15 @@ struct isNotSpace
 	}
 };
 
+struct userProfile
+{
+	int			id;
+	std::string	name;
+	std::string	email;
+	std::string	phoneNum;
+	std::string	description;
+};
+
 struct HttpRequest
 {
 	std::string method;
@@ -17,14 +26,7 @@ struct HttpRequest
 	std::string body;
 	std::string version;
 	std::map<std::string, std::string> headers;
-};
-
-struct HttpResponse
-{
-	int statusCode;
-	std::string reason;
-	std::string body;
-	std::map<std::string, std::string> headers;
+	userProfile	userProfile;
 };
 
 struct ClientInfo
