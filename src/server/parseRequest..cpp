@@ -44,9 +44,9 @@ bool HttpServer::parseHttpRequest(const std::string& requestStr, HttpRequest& re
 	std::string line;
 	if (!std::getline(requestStream, line) || line.empty()) return (false);
 	std::istringstream lineStream(line);
-	(void)client_socket;
-	// int server_fd = clientInfoMap[client_socket].server_fd;
-	// servers[server_fd]->getserverInfo().client_max_body_size;
+	int server_fd = clientInfoMap[client_socket].server_fd;
+	std::string size = servers[server_fd]->getServerInfo().client_max_body_size;
+	int maxSize = std::stod(size);
 	// extract method, URI and version from request line
 	if (!(lineStream >> request.method >> request.uri >> request.version)) return (false);
 	if (!isValidMethod(request.method) || !isValidUri(request.uri)
@@ -78,7 +78,7 @@ bool HttpServer::parseHttpRequest(const std::string& requestStr, HttpRequest& re
 		if (iter != request.headers.end())
 		{
 			int contentLength = std::stoi(iter->second);
-			if (contentLength > MAX_ALLOWED_BODY_SIZE)
+			if (contentLength > maxSize)
 			{
 				logger.logMethod("ERROR", "Content body is too large.");
 				// add a new html here

@@ -33,7 +33,6 @@ void	HttpServer::handlePostRequest(int client_socket)
 	if (request.headers["content-type"] != "application/x-www-form-urlencoded")
 	{
 		sendErrorResponse(client_socket, 415, "Unsupported medid type");
-		std::cout << "Here" << std::endl;
 		return ;
 	}
 	std::istringstream bodyStream(request.body);
