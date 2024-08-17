@@ -3,6 +3,7 @@
 
 #include "includes.hpp"
 #include "log.hpp"
+#include "structs.hpp"
 
 class Database
 {
@@ -13,12 +14,14 @@ class Database
 		void	initDatabase();
 		bool	insertUser(const std::string& name, const std::string& email,
 			const std::string& phone, const std::string& description);
+		bool	executeQuery(const std::string& query, const std::vector<std::string>& params, userProfile& profile);
 
 	public:
 		Database(Logger& logger);
 		~Database();
 		bool	addUser(const std::string& name, const std::string& email,
 			const std::string& phone, const std::string& description);
+		bool	getUserProfile(const std::string& name, userProfile& profile);
 };
 
 #endif

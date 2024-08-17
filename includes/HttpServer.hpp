@@ -64,6 +64,9 @@ class HttpServer : public config
 		void		sendErrorResponse(int client_socket, int statusCode, const std::string &reasonPhrase);
 		std::string	getErrorFilePath(int statusCode, int serverFd);
 
+		// Generate Profile
+		std::string	generateProfilePage(const userProfile& profile);
+
 		// Utils
 		void	trim(std::string& str);
 		int		getMaxClientBodySize(int client_socket);

@@ -20,14 +20,17 @@ SRCS =	main.cpp \
 		server/parseRequest/parseRequest..cpp \
 		server/parseRequest/parseUtils.cpp \
 		server/handleRequest/handleRequest.cpp \
+		server/handleRequest/handleGet.cpp \
 		server/handleRequest/handlePost.cpp \
+		server/handleRequest/fillProfile.cpp \
 		server/serverUtils/errorMethods.cpp \
 		server/serverUtils/utils.cpp \
 		config/config.cpp \
 		config/utils.cpp \
 		logs/logs.cpp \
 		database/database.cpp \
-		database/databaseMethods.cpp
+		database/addUser.cpp \
+		database/queryUser.cpp
 
 OBJ_DIR = obj
 SRC_DIR = src/
