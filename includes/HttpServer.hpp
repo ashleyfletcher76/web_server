@@ -44,6 +44,8 @@ class HttpServer : public config
 
 		// response
 		bool	parseHttpRequest(const std::string& requestStream, HttpRequest& request, int client_socket);
+		bool	parseHttpRequestBody(std::istringstream& requestStream, HttpRequest& request, int client_socket);
+		bool	parseHttpRequestHeaders(std::istringstream& requestStream, HttpRequest& request);
 		std::string formatHttpResponse(int status_code, const std::string& reasonPhrase,
 		const std::string& body, int keepAlive);
 
@@ -64,6 +66,7 @@ class HttpServer : public config
 
 		// Utils
 		void	trim(std::string& str);
+		int		getMaxClientBodySize(int client_socket);
 
 
 	public:

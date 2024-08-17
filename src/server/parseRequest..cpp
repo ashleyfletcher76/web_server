@@ -1,7 +1,5 @@
 #include "HttpServer.hpp"
 
-# define MAX_ALLOWED_BODY_SIZE 10000
-
 bool	isValidVersion(const std::string& version)
 {
 	return (version == "HTTP/1.0" || version == "HTTP/1.1"); // support only these versions
@@ -21,12 +19,6 @@ bool	isValidMethod(const std::string& method)
 	return (validMethods.find(method) != validMethods.end());
 }
 
-void	HttpServer::trim(std::string& str)
-{
-	str.erase(str.begin(), std::find_if(str.begin(), str.end(), isNotSpace()));
-	str.erase(std::find_if(str.rbegin(), str.rend(), isNotSpace()).base(), str.end());
-}
-
 bool	isValidHeader(const std::string& name, const std::string& value)
 {
 	return (name.find('\n') == std::string::npos && value.find('\n') == std::string::npos);
@@ -38,29 +30,20 @@ void	normaliseHeader(std::string& header)
 		header[i] = std::tolower(header[i]);
 }
 
-bool HttpServer::parseHttpRequest(const std::string& requestStr, HttpRequest& request, int client_socket)
+bool	HttpServer::parseHttpRequestHeaders(std::istringstream& requestStream, HttpRequest& request)
 {
-	std::istringstream requestStream(requestStr);
-	std::string line;
-	if (!std::getline(requestStream, line) || line.empty()) return (false);
-	std::istringstream lineStream(line);
-	int server_fd = clientInfoMap[client_socket].server_fd;
-	std::string size = servers[server_fd]->getServerInfo().client_max_body_size;
-	int maxSize = std::stod(size);
-	// extract method, URI and version from request line
-	if (!(lineStream >> request.method >> request.uri >> request.version)) return (false);
+	std::string	line;
+	if (!std::getline(requestStream, line) || line.empty())
+		return (false);
+	std::istringstream	lineStream(line);
+	if (!(lineStream >> request.method >> request.uri >> request.version))
+		return (false);
 	if (!isValidMethod(request.method) || !isValidUri(request.uri)
-		|| !isValidVersion(request.version)) return (false);
-
+		|| !isValidVersion(request.version))
+		return (false);
 	// parse headers to start
-	bool headersFinished = false;
-	while (std::getline(requestStream, line))
+	while (std::getline(requestStream, line) && line != "\r" && !line.empty())
 	{
-		if (line == "\r" || line.empty())
-		{
-			headersFinished = true;
-			break ;
-		}
 		std::size_t colonPos = line.find(':');
 		if (colonPos == std::string::npos)
 			continue ;
@@ -71,13 +54,18 @@ bool HttpServer::parseHttpRequest(const std::string& requestStr, HttpRequest& re
 		normaliseHeader(headerName);
 		request.headers[headerName] = headerValue;
 	}
-	// parse data after headers(":")
-	if (headersFinished && request.headers["content-type"] == "application/x-www-form-urlencoded")
+	return (true);
+}
+
+bool	HttpServer::parseHttpRequestBody(std::istringstream& requestStream, HttpRequest& request, int client_socket)
+{
+	if (request.headers["content-type"] == "application/x-www-form-urlencoded")
 	{
 		auto iter = request.headers.find("content-length");
 		if (iter != request.headers.end())
 		{
 			int contentLength = std::stoi(iter->second);
+			int	maxSize = getMaxClientBodySize(client_socket);
 			if (contentLength > maxSize)
 			{
 				logger.logMethod("ERROR", "Content body is too large.");
@@ -86,6 +74,21 @@ bool HttpServer::parseHttpRequest(const std::string& requestStr, HttpRequest& re
 			}
 			std::getline(requestStream, request.body); // get the content data for POST
 		}
+	}
+	return (true);
+}
+
+bool HttpServer::parseHttpRequest(const std::string& requestStr, HttpRequest& request, int client_socket)
+{
+	std::istringstream requestStream(requestStr);
+
+	if (!parseHttpRequestHeaders(requestStream, request))
+		return (false);
+
+	if (!parseHttpRequestBody(requestStream, request, client_socket))
+	{
+		sendErrorResponse(client_socket, 413, "Payload too large.");
+		return (false);
 	}
 	return (true);
 }

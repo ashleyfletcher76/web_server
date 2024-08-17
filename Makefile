@@ -20,6 +20,7 @@ SRCS =	main.cpp \
 		server/parseRequest..cpp \
 		server/handlePost.cpp \
 		server/errorMethods.cpp \
+		server/parseUtils.cpp \
 		server/utils.cpp \
 		server/Server.cpp \
 		config/config.cpp \
