@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<link rel="icon" href="MainBefore.webp" type="image/x-webp">
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Table Tennis Match - Ashley vs Masum</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Table Tennis Match</h1>
+        <div class="match-info">
+            <h2>Ashley vs Masum</h2>
+        </div>
+        <div class="scores">
+            <div class="score">
+                <h3>Ashley</h3>
+                <p id="ashley-score">0</p>
+                <button onclick="updateScore('ashley', 1)">Add Point</button>
+            </div>
+            <div class="score">
+                <h3>Masum</h3>
+                <p id="masum-score">0</p>
+                <button onclick="updateScore('masum', 1)">Add Point</button>
+            </div>
+        </div>
+        <button id="reset-button" onclick="resetScores()">Reset Scores</button>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>

@@ -14,7 +14,7 @@ class HttpServer : public config
 
 		struct sockaddr_in	address;
 
-		std::unordered_map<int, std::string> clients;
+		//std::unordered_map<int, std::string> clients;
 		std::unordered_map<int, ClientInfo> clientInfoMap;
 		std::set<int> openSockets;
 
@@ -39,7 +39,7 @@ class HttpServer : public config
 
 		// content
 		void	writeResponse(int client_socket);
-		std::string getFilePath(const std::string& uri);
+		std::string getFilePath(int server_fd, const std::string &uri);
 		std::string readFileContent(const std::string& filePath);
 
 		// response
