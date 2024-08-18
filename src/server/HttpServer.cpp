@@ -109,7 +109,8 @@ void HttpServer::mainLoop()
 				{
 					logger.logMethod("INFO", "Reading request from FD: " + std::to_string(event.ident));
 					readRequest(static_cast<int>(event.ident));
-					handleRequest(static_cast<int>(event.ident));
+					if (clientInfoMap.find(event.ident) != clientInfoMap.end())
+						handleRequest(event.ident); // check if socket is previously closed
 				}
 			}
 			else if (event.filter == EVFILT_WRITE)

@@ -8,7 +8,7 @@ void	HttpServer::trim(std::string& str)
 
 int	HttpServer::getMaxClientBodySize(int client_socket)
 {
-	int server_fd = clientInfoMap[client_socket].server_fd;
+	int server_fd = clientInfoMap[client_socket]->server_fd;
 	std::string size = servers[server_fd]->getServerInfo().client_max_body_size;
 	int maxSize = std::stod(size);
 	return (maxSize);

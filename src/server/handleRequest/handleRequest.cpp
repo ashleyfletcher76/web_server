@@ -2,7 +2,7 @@
 
 void	HttpServer::handleRequest(int client_socket)
 {
-	HttpRequest& request = clientInfoMap[client_socket].request;
+	HttpRequest& request = clientInfoMap[client_socket]->request;
 
 	// decide to keep connection open based on HTTP response
 	if (request.headers.find("connection") != request.headers.end())
@@ -11,12 +11,12 @@ void	HttpServer::handleRequest(int client_socket)
 		trim(connectionValue);
 		std::transform(connectionValue.begin(), connectionValue.end(), connectionValue.begin(), ::tolower);
 		if (connectionValue == "keep-alive")
-			clientInfoMap[client_socket].shouldclose = false;
+			clientInfoMap[client_socket]->shouldclose = false;
 		else
-			clientInfoMap[client_socket].shouldclose = true;
+			clientInfoMap[client_socket]->shouldclose = true;
 	}
 	else
-		clientInfoMap[client_socket].shouldclose = true;
+		clientInfoMap[client_socket]->shouldclose = true;
 	if (request.method == "GET")
 		handleGetRequest(client_socket);
 	else if (request.method == "POST")

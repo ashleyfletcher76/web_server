@@ -14,7 +14,7 @@ std::string HttpServer::getErrorFilePath(int statusCode, int serverFd)
 
 void HttpServer::sendErrorResponse(int client_socket, int statusCode, const std::string &reasonPhrase)
 {
-	std::string errorFilePath = getErrorFilePath(statusCode, clientInfoMap[client_socket].server_fd);
+	std::string errorFilePath = getErrorFilePath(statusCode, clientInfoMap[client_socket]->server_fd);
 	std::string htmlContent = readFileContent(errorFilePath);
 
 	if (htmlContent.empty())
@@ -22,7 +22,7 @@ void HttpServer::sendErrorResponse(int client_socket, int statusCode, const std:
 		htmlContent = "<html><head><title>Error</title></head><body><h1>" + std::to_string(statusCode) + " " + reasonPhrase + "</h1><p>The requested method is not supported.</p></body></html>";
 	}
 
-	std::string response = formatHttpResponse(statusCode, reasonPhrase, htmlContent, clientInfoMap[client_socket].shouldclose);
-	clientInfoMap[client_socket].response = response;
+	std::string response = formatHttpResponse(statusCode, reasonPhrase, htmlContent, clientInfoMap[client_socket]->shouldclose);
+	clientInfoMap[client_socket]->response = response;
 	writeResponse(client_socket);
 }

@@ -27,7 +27,7 @@ std::string	HttpServer::urlDecode(const std::string& str)
 
 void	HttpServer::handlePostRequest(int client_socket)
 {
-	HttpRequest& request = clientInfoMap[client_socket].request;
+	HttpRequest& request = clientInfoMap[client_socket]->request;
 	std::string responseBody;
 
 	if (request.headers["content-type"] != "application/x-www-form-urlencoded")
@@ -58,6 +58,6 @@ void	HttpServer::handlePostRequest(int client_socket)
 		return ;
 	}
 	responseBody = "<html><body>New user added successfully!</body></html>";
-	clientInfoMap[client_socket].response = formatHttpResponse(200, "OK", responseBody, clientInfoMap[client_socket].shouldclose);
+	clientInfoMap[client_socket]->response = formatHttpResponse(200, "OK", responseBody, clientInfoMap[client_socket]->shouldclose);
 	writeResponse(client_socket);
 }

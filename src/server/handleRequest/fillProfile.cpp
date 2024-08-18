@@ -20,7 +20,7 @@ void	HttpServer::generateAllProfilesPage(int client_socket)
 		for (const auto& profile : profiles)
 			profileLinks += "<li><a href='/profile?id=" + std::to_string(profile.id) + "'>" + profile.name + "</a></li>";
 		replacePlaceholders(pageContent, "<!-- Placeholder -->", profileLinks);
-		clientInfoMap[client_socket].response = formatHttpResponse(200, "OK", pageContent, clientInfoMap[client_socket].shouldclose);
+		clientInfoMap[client_socket]->response = formatHttpResponse(200, "OK", pageContent, clientInfoMap[client_socket]->shouldclose);
 	}
 	else
 		sendErrorResponse(client_socket, 500, "Internal Server Error");
