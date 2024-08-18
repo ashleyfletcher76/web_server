@@ -58,7 +58,6 @@ class HttpServer : public config
 		// POST
 		void	handlePostRequest(int client_socket);
 		std::string	urlDecode(const std::string& str);
-		std::string	sendResponsePost(int client_socket, ClientInfo &clientInfo);
 
 		// Error
 		void		sendErrorResponse(int client_socket, int statusCode, const std::string &reasonPhrase);
@@ -67,6 +66,7 @@ class HttpServer : public config
 		// Generate Profile
 		std::string	generateProfilePage(const userProfile& profile);
 		void	generateAllProfilesPage(int client_socket);
+		bool	findProfileByID(const std::string& uri, int client_socket);
 
 		// Utils
 		void	trim(std::string& str);

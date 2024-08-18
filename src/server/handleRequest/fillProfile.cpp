@@ -13,17 +13,18 @@ void	replacePlaceholders(std::string& content, const std::string& placeholder, c
 void	HttpServer::generateAllProfilesPage(int client_socket)
 {
 	std::vector<userProfile> profiles;
-	// if (database.getAllProfiles(profiles))
-	// {
+	if (database.fetchAllProfiles(profiles))
+	{
 		std::string pageContent = readFileContent("html/allProfiles.html");
 		std::string profileLinks;
 		for (const auto& profile : profiles)
 			profileLinks += "<li><a href='/profile?id=" + std::to_string(profile.id) + "'>" + profile.name + "</a></li>";
 		replacePlaceholders(pageContent, "<!-- Profile links will be dynamically inserted here -->", profileLinks);
 		clientInfoMap[client_socket].response = formatHttpResponse(200, "OK", pageContent, clientInfoMap[client_socket].shouldclose);
-	// }
-	// else
-		//sendErrorResponse(client_socket, 500, "Internal Server Error");
+		std::cout << "Generated HTML Content: \n" << pageContent << std::endl;
+	}
+	else
+		sendErrorResponse(client_socket, 500, "Internal Server Error");
 }
 
 std::string	HttpServer::generateProfilePage(const userProfile& profile)
