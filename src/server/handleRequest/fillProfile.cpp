@@ -19,9 +19,8 @@ void	HttpServer::generateAllProfilesPage(int client_socket)
 		std::string profileLinks;
 		for (const auto& profile : profiles)
 			profileLinks += "<li><a href='/profile?id=" + std::to_string(profile.id) + "'>" + profile.name + "</a></li>";
-		replacePlaceholders(pageContent, "<!-- Profile links will be dynamically inserted here -->", profileLinks);
+		replacePlaceholders(pageContent, "<!-- Placeholder -->", profileLinks);
 		clientInfoMap[client_socket].response = formatHttpResponse(200, "OK", pageContent, clientInfoMap[client_socket].shouldclose);
-		std::cout << "Generated HTML Content: \n" << pageContent << std::endl;
 	}
 	else
 		sendErrorResponse(client_socket, 500, "Internal Server Error");
