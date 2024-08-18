@@ -53,7 +53,7 @@ class HttpServer : public config
 		void	handleGetRequest(int client_socket);
 
 		// DELETE
-		void	handleDeleteRequest(const std::string& path, int client_socket);
+		void	handleDeleteRequest(int client_socket);
 
 		// POST
 		void	handlePostRequest(int client_socket);
