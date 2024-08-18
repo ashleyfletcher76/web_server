@@ -1,7 +1,7 @@
 #include "HttpServer.hpp"
 
-std::string HttpServer::formatHttpResponse(int status_code, const std::string& reasonPhrase,
-	const std::string& body, int keepAlive)
+std::string HttpServer::formatHttpResponse(int status_code, const std::string &reasonPhrase,
+										   const std::string &body, int keepAlive)
 {
 	std::ostringstream response;
 
@@ -18,7 +18,7 @@ std::string HttpServer::formatHttpResponse(int status_code, const std::string& r
 	return (response.str());
 }
 
-void	HttpServer::modifyEvent(int fd, int filter, int flags)
+void HttpServer::modifyEvent(int fd, int filter, int flags)
 {
 	logSocketAction("Modifying event", fd);
 	if (openSockets.find(fd) == openSockets.end())
@@ -29,19 +29,19 @@ void	HttpServer::modifyEvent(int fd, int filter, int flags)
 	struct kevent change;
 	EV_SET(&change, static_cast<uintptr_t>(fd), filter, flags, 0, 0, NULL);
 	if (kevent(kq, &change, 1, NULL, 0, NULL) == -1)
-		logger.logMethod("ERROR", "Failed to modify event: ("  + std::to_string(flags) + ") " + std::string(strerror(errno)) + " for FD: " + std::to_string(fd));
+		logger.logMethod("ERROR", "Failed to modify event: (" + std::to_string(flags) + ") " + std::string(strerror(errno)) + " for FD: " + std::to_string(fd));
 	else
 		logger.logMethod("INFO", "Successfully modified event for FD: " + std::to_string(fd));
 }
 
-void	HttpServer::logSocketAction(const std::string& action, int fd)
+void HttpServer::logSocketAction(const std::string &action, int fd)
 {
 	std::stringstream ss;
 	ss << "Socket FD: " << fd << " Action: " << action << ". Open sockets count: " << openSockets.size();
 	logger.logMethod("DEBUG", ss.str());
 }
 
-void	HttpServer::closeSocket(int client_socket)
+void HttpServer::closeSocket(int client_socket)
 {
 	if (openSockets.find(client_socket) == openSockets.end())
 	{
@@ -56,10 +56,44 @@ void	HttpServer::closeSocket(int client_socket)
 	logger.logMethod("INFO", "Closed client socket FD: " + std::to_string(client_socket));
 	logSocketAction("Closed", client_socket);
 }
-
-std::string HttpServer::getFilePath(const std::string &uri)
+std::string HttpServer::getFilePath(int server_fd, const std::string &uri)
 {
-	return ("html" + uri);
+	auto serverIt = servers.find(server_fd);
+	if (serverIt == servers.end())
+	{
+		return "";
+	}
+
+	const serverInfo &srv = serverIt->second->getServerInfo();
+
+	for (const auto &route : srv.routes)
+	{
+		if (uri.find(route.path) == 0)
+		{
+			std::string filePath = srv.document_root + uri;
+
+			if (uri == route.path)
+			{
+				filePath += srv.default_file;
+			}
+
+			return filePath;
+		}
+	}
+
+	std::string defaultPath = srv.document_root + uri;
+
+	if (uri.back() == '/')
+	{
+		defaultPath += srv.default_file;
+	}
+
+	// If the file exists, return the path
+	if (access(defaultPath.c_str(), F_OK) != -1)
+	{
+		return defaultPath;
+	}
+	return getErrorFilePath(404, server_fd);
 }
 
 bool is_socket_bound(int socket_fd)

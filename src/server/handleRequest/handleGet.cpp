@@ -1,6 +1,6 @@
 #include "HttpServer.hpp"
 
-bool	HttpServer::findProfileByID(const std::string& uri, int client_socket)
+bool HttpServer::findProfileByID(const std::string &uri, int client_socket)
 {
 	std::size_t queryStart = uri.find('?');
 	if (queryStart == std::string::npos)
@@ -34,10 +34,11 @@ bool	HttpServer::findProfileByID(const std::string& uri, int client_socket)
 	return (true);
 }
 
-void	HttpServer::handleGetRequest(int client_socket)
+void HttpServer::handleGetRequest(int client_socket)
 {
 	// checks path from URI provided in request
-	std::string filePath = getFilePath(clientInfoMap[client_socket]->request.uri);
+	int server_fd = clientInfoMap[client_socket]->server_fd;
+	std::string filePath = getFilePath(server_fd, clientInfoMap[client_socket]->request.uri);
 	std::string uri = clientInfoMap[client_socket]->request.uri;
 
 	if (uri == "/allProfiles.html")
@@ -53,7 +54,7 @@ void	HttpServer::handleGetRequest(int client_socket)
 		if (!file.is_open())
 		{
 			sendErrorResponse(client_socket, 404, "Not Found");
-			return ;
+			return;
 		}
 		// read the whole content of the file
 		std::string fileContent((std::istreambuf_iterator<char>(file)), std::istreambuf_iterator<char>()); // istreambuf_iterator is efficient for unformated data reading(raw bytes)

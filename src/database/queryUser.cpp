@@ -64,6 +64,5 @@ bool	Database::getUserProfile(const std::string& name, userProfile& profile)
 {
 	std::string query = "SELECT * FROM Users WHERE id = ?";
 	std::vector<std::string> params = {name};
-	std::cout << name << std::endl;
 	return (executeQuery(query, params, profile));
 }
