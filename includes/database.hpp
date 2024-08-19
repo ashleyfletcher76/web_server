@@ -16,6 +16,7 @@ class Database
 			const std::string& phone, const std::string& description);
 		bool	executeQuery(const std::string& query, const std::vector<std::string>& params, userProfile& profile);
 		bool	getAllProfiles(std::vector<userProfile>& profiles);
+		bool	deleteProfile(int profileID);
 
 	public:
 		Database(Logger& logger);
@@ -24,6 +25,7 @@ class Database
 			const std::string& phone, const std::string& description);
 		bool	getUserProfile(const std::string& name, userProfile& profile);
 		bool	fetchAllProfiles(std::vector<userProfile>& profiles);
+		bool	handleDeleteProfile(const std::string& id);
 };
 
 #endif

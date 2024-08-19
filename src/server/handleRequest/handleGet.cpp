@@ -57,7 +57,8 @@ void HttpServer::handleGetRequest(int client_socket)
 			return;
 		}
 		// read the whole content of the file
-		std::string fileContent((std::istreambuf_iterator<char>(file)), std::istreambuf_iterator<char>()); // istreambuf_iterator is efficient for unformated data reading(raw bytes)
+		std::string fileContent((std::istreambuf_iterator<char>(file)),
+			std::istreambuf_iterator<char>()); // istreambuf_iterator is efficient for unformated data reading(raw bytes)
 		file.close();
 		// set response in the clients info
 		clientInfoMap[client_socket]->response = formatHttpResponse(200, "OK", fileContent, clientInfoMap[client_socket]->shouldclose);

@@ -57,6 +57,7 @@ class HttpServer : public config
 
 		// POST
 		void	handlePostRequest(int client_socket);
+		std::map<std::string, std::string>	parseFormData(const std::string& body);
 
 		// Error
 		void		sendErrorResponse(int client_socket, int statusCode, const std::string &reasonPhrase);

@@ -25,7 +25,7 @@ std::string	urlDecode(const std::string& str)
 	return (decoded);
 }
 
-std::map<std::string, std::string>	parseFormData(const std::string& body)
+std::map<std::string, std::string>	HttpServer::parseFormData(const std::string& body)
 {
 	std::map<std::string, std::string> data;
 	std::istringstream bodyStream(body);
@@ -53,11 +53,11 @@ void	HttpServer::handlePostRequest(int client_socket)
 		sendErrorResponse(client_socket, 415, "Unsupported medid type");
 		return ;
 	}
-	// if (request.uri.find("/deleteProfile") != std::string::npos)
-	// {
-	// 	handleDeleteRequest(client_socket);
-	// 	return ;
-	// }
+	if (request.uri.find("/deleteProfile") != std::string::npos)
+	{
+		handleDeleteRequest(client_socket);
+		return ;
+	}
 	std::map<std::string, std::string> formData = parseFormData(request.body);
 	if (!formData.empty())
 	{
@@ -67,10 +67,8 @@ void	HttpServer::handlePostRequest(int client_socket)
 		{
 			responseBody = "<html><body>New user added successfully!</body></html>";
 			clientInfoMap[client_socket]->response = formatHttpResponse(200, "OK", responseBody, clientInfoMap[client_socket]->shouldclose);
-
 		}
 		else
 			sendErrorResponse(client_socket, 500, "Internal Server Error");
 	}
-	//writeResponse(client_socket);
 }

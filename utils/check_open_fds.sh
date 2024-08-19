@@ -16,3 +16,14 @@ else
 	echo "Open IPv4 and IPv6 file descriptors:"
 	echo "$output"
 fi
+
+# Checking for memory leaks
+echo "Checking for memory leaks in process ID $PID"
+leak_report=$(leaks $PID)
+
+if echo "$leak_report" | grep -q "leaks for"; then
+	echo "Memory leaks detected:"
+	echo "$leak_report"
+else
+	echo "No memory leaks detected."
+fi

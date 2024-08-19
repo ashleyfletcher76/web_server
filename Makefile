@@ -9,7 +9,7 @@ COLOUR_END = \033[0m
 CC = c++
 RM = rm -f
 BASE_CFLAGS = -Wall -Wextra -Werror -std=c++11 -I./includes/
-DEBUG_CFLAGS = $(BASE_CFLAGS) -fsanitize=address -fsanitize=undefined
+DEBUG_CFLAGS = $(BASE_CFLAGS) -fsanitize=address -fsanitize=undefined ASAN_OPTIONS=detect_leaks=1
 RELEASE_CFLAGS = $(BASE_CFLAGS)
 
 LDFLAGS = -lsqlite3
@@ -34,7 +34,8 @@ SRCS =	main.cpp \
 		logs/logs.cpp \
 		database/database.cpp \
 		database/addUser.cpp \
-		database/queryUser.cpp
+		database/queryUser.cpp \
+		database/deleteProfile.cpp
 
 OBJ_DIR = obj
 SRC_DIR = src/
