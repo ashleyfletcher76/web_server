@@ -20,7 +20,7 @@ void	HttpServer::readRequest(int client_socket)
 	char buffer[1024];
 	std::string request;
 	int	bytesRead;
-	const size_t MAX_REQUEST_SIZE = 2100; // max size (8kb)
+	const size_t MAX_REQUEST_SIZE = 2100;
 	size_t totalBytesRead = 0;
 
 	// reads from client_socket and stores into a local buffer
@@ -42,6 +42,7 @@ void	HttpServer::readRequest(int client_socket)
 	if (bytesRead < 0)
 	{
 		logger.logMethod("ERROR", "Error reading from socket: " + std::string(strerror(errno)));
+		sendErrorResponse(client_socket, 404, "Error reading from socket");
 		closeSocket(client_socket);
 		return ;
 	}

@@ -37,6 +37,12 @@ class HttpServer : public config
 		void	readRequest(int client_socket);
 		void	handleRequest(int client_Socket);
 
+		bool	validateServer(int client_socket);
+		bool	validateRouteAndMethod(int client_socket, const HttpRequest &request);
+		void	decideConnectionPersistence(int client_socket, const HttpRequest &request);
+		void	processRequestMethod(int client_socket);
+		void	registerWriteEvent(int client_socket);
+
 		// content
 		void	writeResponse(int client_socket);
 		std::string getFilePath(int server_fd, const std::string &uri);
