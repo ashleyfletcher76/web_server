@@ -82,7 +82,7 @@ void HttpServer::mainLoop()
 		if (nev < 0)
 		{
 			logger.logMethod("ERROR", "Error on kevent wait: " + std::string(strerror(errno)));
-			continue;
+			continue ;
 		}
 		for (int i = 0; i < nev; ++i)
 		{
