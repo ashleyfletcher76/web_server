@@ -1,6 +1,6 @@
 #include "HttpServer.hpp"
 
-std::string	HttpServer::urlDecode(const std::string& str)
+std::string	urlDecode(const std::string& str)
 {
 	std::string decoded;
 	char	hex[3] = {0};
@@ -25,6 +25,24 @@ std::string	HttpServer::urlDecode(const std::string& str)
 	return (decoded);
 }
 
+std::map<std::string, std::string>	parseFormData(const std::string& body)
+{
+	std::map<std::string, std::string> data;
+	std::istringstream bodyStream(body);
+	std::string pair;
+	while (std::getline(bodyStream, pair, '&'))
+	{
+		size_t equals = pair.find('=');
+		if (equals != std::string::npos)
+		{
+			std::string key = pair.substr(0, equals);
+			std::string value = urlDecode(pair.substr(equals + 1));
+			data[key] = value;
+		}
+	}
+	return (data);
+}
+
 void	HttpServer::handlePostRequest(int client_socket)
 {
 	HttpRequest& request = clientInfoMap[client_socket]->request;
@@ -35,29 +53,24 @@ void	HttpServer::handlePostRequest(int client_socket)
 		sendErrorResponse(client_socket, 415, "Unsupported medid type");
 		return ;
 	}
-	std::istringstream bodyStream(request.body);
-	std::string pair;
-	while (std::getline(bodyStream, pair, '&'))
+	// if (request.uri.find("/deleteProfile") != std::string::npos)
+	// {
+	// 	handleDeleteRequest(client_socket);
+	// 	return ;
+	// }
+	std::map<std::string, std::string> formData = parseFormData(request.body);
+	if (!formData.empty())
 	{
-		size_t equals = pair.find('=');
-		if (equals != std::string::npos)
+		// use formData to insert into database
+		if (database.addUser(formData["name"], formData["email"],
+			formData["phone"], formData["description"]))
 		{
-			std::string key = pair.substr(0, equals);
-			std::string value = urlDecode(pair.substr(equals + 1));
-			if (key == "name") request.userProfile.name = value;
-			else if (key == "email") request.userProfile.email = value;
-			else if (key == "phone") request.userProfile.phoneNum = value;
-			else if (key == "description") request.userProfile.description = value;
+			responseBody = "<html><body>New user added successfully!</body></html>";
+			clientInfoMap[client_socket]->response = formatHttpResponse(200, "OK", responseBody, clientInfoMap[client_socket]->shouldclose);
+
 		}
+		else
+			sendErrorResponse(client_socket, 500, "Internal Server Error");
 	}
-	// use formData to insert into database
-	if (!database.addUser(request.userProfile.name, request.userProfile.email,
-		request.userProfile.phoneNum, request.userProfile.description))
-	{
-		sendErrorResponse(client_socket, 500, "Internal Server Error");
-		return ;
-	}
-	responseBody = "<html><body>New user added successfully!</body></html>";
-	clientInfoMap[client_socket]->response = formatHttpResponse(200, "OK", responseBody, clientInfoMap[client_socket]->shouldclose);
-	writeResponse(client_socket);
+	//writeResponse(client_socket);
 }

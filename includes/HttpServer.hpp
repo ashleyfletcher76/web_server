@@ -57,7 +57,6 @@ class HttpServer : public config
 
 		// POST
 		void	handlePostRequest(int client_socket);
-		std::string	urlDecode(const std::string& str);
 
 		// Error
 		void		sendErrorResponse(int client_socket, int statusCode, const std::string &reasonPhrase);

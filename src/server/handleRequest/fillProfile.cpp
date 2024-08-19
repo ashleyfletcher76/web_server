@@ -18,16 +18,22 @@ void	HttpServer::generateAllProfilesPage(int client_socket)
 		std::string pageContent = readFileContent("html/allProfiles.html");
 		std::string profileLinks;
 		for (const auto& profile : profiles)
-			profileLinks += "<li>" + std::to_string(profile.id)
-				+ " - <a href='/profile?id=" + std::to_string(profile.id)
-				+ "'>" + profile.name + "</a> <button onclick=\"location.href='/deleteProfile?id="
-				+ std::to_string(profile.id) + "'\">Delete</button></li>";
+		{
+			profileLinks += "<tr>"  // start of table row
+							"<td>" + std::to_string(profile.id) + "</td>"  // ID column
+							"<td><a href='/profile?id=" + std::to_string(profile.id) + "'>" + profile.name + "</a></td>"  // name column
+							"<td><form action='/deleteProfile' method='POST'>"  // delete button column
+							"<input type='hidden' name='id' value='" + std::to_string(profile.id) + "'>"
+							"<input type='submit' value='Delete'></form></td>"
+							"</tr>";  // end of table row
+		}
 		replacePlaceholders(pageContent, "<!-- Placeholder -->", profileLinks);
 		clientInfoMap[client_socket]->response = formatHttpResponse(200, "OK", pageContent, clientInfoMap[client_socket]->shouldclose);
 	}
 	else
 		sendErrorResponse(client_socket, 500, "Internal Server Error");
 }
+
 
 std::string	HttpServer::generateProfilePage(const userProfile& profile)
 {

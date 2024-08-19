@@ -8,7 +8,10 @@ COLOUR_END = \033[0m
 
 CC = c++
 RM = rm -f
-CFLAGS = -Wall -Wextra -Werror -std=c++11 -I./includes/ -g -fsanitize=address -fsanitize=undefined
+BASE_CFLAGS = -Wall -Wextra -Werror -std=c++11 -I./includes/
+DEBUG_CFLAGS = $(BASE_CFLAGS) -fsanitize=address -fsanitize=undefined
+RELEASE_CFLAGS = $(BASE_CFLAGS)
+
 LDFLAGS = -lsqlite3
 
 SRCS =	main.cpp \
@@ -46,9 +49,14 @@ NAME = webserv
 all: $(NAME)
 
 # Link objects into the executable
+$(NAME): CFLAGS = $(RELEASE_CFLAGS)
 $(NAME): $(OBJ)
 	$(CC) $(CFLAGS) $(OBJ) -o $(NAME) $(LDFLAGS)
 	echo "$(COLOUR_GREEN)$(NAME) compiled successfully!$(COLOUR_END)"
+
+# Debug build target
+debug: CFLAGS = $(DEBUG_CFLAGS)
+debug: $(NAME)
 
 $(OBJ_DIR)/%.o: $(SRC_DIR)%.cpp $(DEPS)
 	@mkdir -p $(@D)  # Ensure the directory exists

@@ -2,7 +2,11 @@
 
 // void	HttpServer::handleDeleteRequest(int client_socket)
 // {
-// 	std::string	uri = clientInfoMap[client_socket]->request.uri;
+// 	HttpRequest& request = clientInfoMap[client_socket]->request;
+
+// 	if (request.headers["path"].find("/deleteProfile") == std::string::npos)
+// 		return ;
+// 	std::string	uri = request.uri;
 // 	std::size_t idPos = uri.find("id=");
 // 	if (idPos == std::string::npos)
 // 	{
@@ -15,4 +19,5 @@
 // 		// log and create a html for successful deletion
 // 	else
 // 		sendErrorResponse(client_socket, 500, "Failed to delete profile");
+// 	return ;
 // }
