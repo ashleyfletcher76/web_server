@@ -59,5 +59,4 @@ void	HttpServer::handlePostRequest(int client_socket)
 	}
 	responseBody = "<html><body>New user added successfully!</body></html>";
 	clientInfoMap[client_socket].response = formatHttpResponse(200, "OK", responseBody, clientInfoMap[client_socket].shouldclose);
-	writeResponse(client_socket);
 }

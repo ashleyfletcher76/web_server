@@ -65,9 +65,9 @@ struct serverInfo
 	std::string server_name;
 	std::string document_root;
 	std::string default_file;
-	std::unordered_map<std::string, routeConfig> routes;
 	std::vector<cgiConfig> cgis;
 	std::unordered_map<int, std::string> errorPages;
+	std::unordered_map<std::string, routeConfig> routes;
 };
 
 #endif

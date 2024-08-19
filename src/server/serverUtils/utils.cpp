@@ -56,6 +56,7 @@ void HttpServer::closeSocket(int client_socket)
 	logger.logMethod("INFO", "Closed client socket FD: " + std::to_string(client_socket));
 	logSocketAction("Closed", client_socket);
 }
+
 std::string HttpServer::getFilePath(int server_fd, const std::string &uri)
 {
 	auto serverIt = servers.find(server_fd);
@@ -65,30 +66,23 @@ std::string HttpServer::getFilePath(int server_fd, const std::string &uri)
 	}
 
 	const serverInfo &srv = serverIt->second->getServerInfo();
-
-	// Check if the URI matches any route in the unordered_map
 	for (const auto &routePair : srv.routes)
 	{
 		const std::string &routePath = routePair.first;
 		const routeConfig &route = routePair.second;
-
-		if (uri.find(routePath) == 0) // If the URI starts with the route path
+		if (uri.find(routePath) == 0)
 		{
-			// Handle redirect if specified in the route config
 			if (!route.redirect.empty())
 			{
-				return route.redirect; // Return the redirect path
+				return route.redirect;
 			}
 
-			// Construct the file path based on the route path and document root
 			std::string filePath = srv.document_root + uri;
 
-			// If the URI exactly matches the route path, append the default file
-			if (uri == routePath)
+			if (uri == "/")
 			{
 				filePath += srv.default_file;
 			}
-
 			return filePath;
 		}
 	}
@@ -100,7 +94,6 @@ std::string HttpServer::getFilePath(int server_fd, const std::string &uri)
 		defaultPath += srv.default_file;
 	}
 
-	// If the file exists, return the path
 	if (access(defaultPath.c_str(), F_OK) != -1)
 	{
 		return defaultPath;
