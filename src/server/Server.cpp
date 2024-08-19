@@ -79,4 +79,4 @@ void Server::setKqueueEvent(int kq)
 
 int Server::getSocket() const { return server_fd; }
 
-const serverInfo& Server::getServerInfo() const { return info; }
+const serverInfo& Server::getServerInfo() const {return info;}

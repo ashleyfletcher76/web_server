@@ -43,7 +43,6 @@ void	HttpServer::readRequest(int client_socket)
 	{
 		logger.logMethod("ERROR", "Error reading from socket: " + std::string(strerror(errno)));
 		closeSocket(client_socket);
-		clientInfoMap.erase(client_socket);
 		return ;
 	}
 	logger.logMethod("INFO", "Recieved request: " + request);
