@@ -4,6 +4,7 @@
 config::config(const std::string &confile) : size(0), _confile(confile)
 {
 	begin();
+	std::cout << *this << '\n';
 }
 
 config::~config() {}
@@ -79,6 +80,7 @@ void config::parseRouteBlock(std::ifstream &file, serverInfo &srv)
 {
 	std::string line;
 	routeConfig route;
+
 	while (std::getline(file, line))
 	{
 		line = trim(line);
@@ -100,7 +102,7 @@ void config::parseRouteBlock(std::ifstream &file, serverInfo &srv)
 		}
 		else if (line.find("directory_listing") != std::string::npos)
 		{
-			route.directoryListing = line.substr(line.find(" ") + 1);
+			route.directoryListing = (line == "on" || line == "true" || line == "1");
 		}
 		else if (line.find("handle_uploads") != std::string::npos)
 		{
@@ -111,7 +113,15 @@ void config::parseRouteBlock(std::ifstream &file, serverInfo &srv)
 			route.handler = line.substr(line.find(" ") + 1);
 		}
 	}
-	srv.routes.push_back(route);
+
+	if (!route.path.empty())
+	{
+		srv.routes[route.path] = route;
+	}
+	else
+	{
+		handleError("Route block does not specify a path.");
+	}
 }
 
 void config::parseCGIBlock(std::ifstream &file, serverInfo &srv)
@@ -174,17 +184,26 @@ void config::parseLine(const std::string &line, serverInfo &srv)
 	}
 	else if (key == "client_max_body_size")
 	{
-		srv.client_max_body_size = value; // Add validation if necessary
+		int size = std::atoi(value.c_str());
+		if (size > 0)
+		{
+			srv.body_size = size;
+		}
+		else
+		{
+			handleError("Invalid client_max_body_size: " + value);
+		}
 	}
 	else if (key == "directory_listing")
 	{
-		srv.directory_listing = value;
+		srv.directory_listing = (value == "on" || value == "true" || value == "1");
 	}
 }
 
 void config::handleError(const std::string &message)
 {
 	std::cerr << "Config error: " << message << std::endl;
+	throw "";
 }
 
 const std::vector<serverInfo> &config::getServerInfos() const

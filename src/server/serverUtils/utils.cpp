@@ -66,13 +66,25 @@ std::string HttpServer::getFilePath(int server_fd, const std::string &uri)
 
 	const serverInfo &srv = serverIt->second->getServerInfo();
 
-	for (const auto &route : srv.routes)
+	// Check if the URI matches any route in the unordered_map
+	for (const auto &routePair : srv.routes)
 	{
-		if (uri.find(route.path) == 0)
+		const std::string &routePath = routePair.first;
+		const routeConfig &route = routePair.second;
+
+		if (uri.find(routePath) == 0) // If the URI starts with the route path
 		{
+			// Handle redirect if specified in the route config
+			if (!route.redirect.empty())
+			{
+				return route.redirect; // Return the redirect path
+			}
+
+			// Construct the file path based on the route path and document root
 			std::string filePath = srv.document_root + uri;
 
-			if (uri == route.path)
+			// If the URI exactly matches the route path, append the default file
+			if (uri == routePath)
 			{
 				filePath += srv.default_file;
 			}
