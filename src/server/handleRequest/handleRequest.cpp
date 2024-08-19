@@ -2,9 +2,9 @@
 
 void HttpServer::handleRequest(int client_socket)
 {
-	HttpRequest &request = clientInfoMap[client_socket].request;
+	HttpRequest &request = clientInfoMap[client_socket]->request;
 
-	auto serverIt = servers.find(clientInfoMap[client_socket].server_fd);
+	auto serverIt = servers.find(clientInfoMap[client_socket]->server_fd);
 	if (serverIt == servers.end())
 	{
 		sendErrorResponse(client_socket, 500, "Internal Server Error");

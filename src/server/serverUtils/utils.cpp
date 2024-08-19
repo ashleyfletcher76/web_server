@@ -52,9 +52,16 @@ void HttpServer::closeSocket(int client_socket)
 	modifyEvent(client_socket, EVFILT_WRITE, EV_DELETE);
 	close(client_socket);
 	openSockets.erase(client_socket);
-	clientInfoMap.erase(client_socket);
-	logger.logMethod("INFO", "Closed client socket FD: " + std::to_string(client_socket));
-	logSocketAction("Closed", client_socket);
+	auto iter = clientInfoMap.find(client_socket);
+	if (iter != clientInfoMap.end())
+	{
+		delete iter->second;
+		clientInfoMap.erase(client_socket);
+		logger.logMethod("INFO", "Closed client socket FD: " + std::to_string(client_socket));
+		logSocketAction("Closed", client_socket);
+	}
+	else
+		logger.logMethod("WARNING", "Client socket FD not found in clientInfoMap: " + std::to_string(client_socket));
 }
 
 std::string HttpServer::getFilePath(int server_fd, const std::string &uri)
