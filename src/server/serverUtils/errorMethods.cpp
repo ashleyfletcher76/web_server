@@ -24,5 +24,4 @@ void HttpServer::sendErrorResponse(int client_socket, int statusCode, const std:
 
 	std::string response = formatHttpResponse(statusCode, reasonPhrase, htmlContent, clientInfoMap[client_socket]->shouldclose);
 	clientInfoMap[client_socket]->response = response;
-	writeResponse(client_socket);
 }
