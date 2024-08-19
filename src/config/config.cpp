@@ -109,7 +109,7 @@ void config::parseRouteBlock(std::ifstream &file, serverInfo &srv)
 		}
 		else if (line.find("redirect") != std::string::npos)
 		{
-			route.handler = line.substr(line.find(" ") + 1);
+			route.redirect = line.substr(line.find(" ") + 1);
 		}
 	}
 

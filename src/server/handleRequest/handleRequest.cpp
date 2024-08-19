@@ -13,7 +13,6 @@ void HttpServer::handleRequest(int client_socket)
 
 	const serverInfo &srv = serverIt->second->getServerInfo();
 
-
 	std::string requestPath = request.uri;
 	auto routeIt = srv.routes.find(requestPath);
 
@@ -24,6 +23,11 @@ void HttpServer::handleRequest(int client_socket)
 		if (std::find(route.allowedMethods.begin(), route.allowedMethods.end(), request.method) == route.allowedMethods.end())
 		{
 			sendErrorResponse(client_socket, 405, "Method Not Allowed");
+			return;
+		}
+		if (!route.redirect.empty())
+		{
+			sendRedirectResponse(client_socket, route.redirect);
 			return;
 		}
 	}
@@ -41,6 +45,7 @@ void HttpServer::handleRequest(int client_socket)
 	}
 	else
 		clientInfoMap[client_socket]->shouldclose = true;
+
 	if (request.method == "GET")
 		handleGetRequest(client_socket);
 	else if (request.method == "POST")
@@ -69,3 +74,13 @@ void HttpServer::handleRequest(int client_socket)
 
 // first iterator points to beginning of the file
 // second used as end marker, correct syntax
+
+void HttpServer::sendRedirectResponse(int client_socket, const std::string &redirectUrl)
+{
+	std::string response = "HTTP/1.1 302 Found\r\n";
+	response += "Location: http://" + redirectUrl + "\r\n";
+	response += "Connection: close\r\n";
+	response += "\r\n";
+
+	send(client_socket, response.c_str(), response.size(), 0);
+}
