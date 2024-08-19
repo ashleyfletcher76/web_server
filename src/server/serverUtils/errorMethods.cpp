@@ -9,7 +9,7 @@ std::string HttpServer::getErrorFilePath(int statusCode, int serverFd)
 	{
 		return it->second;
 	}
-	return ("./errors/default.html");
+	return ("");
 }
 
 void HttpServer::sendErrorResponse(int client_socket, int statusCode, const std::string &reasonPhrase)
@@ -19,10 +19,33 @@ void HttpServer::sendErrorResponse(int client_socket, int statusCode, const std:
 
 	if (htmlContent.empty())
 	{
-		htmlContent = "<html><head><title>Error</title></head><body><h1>" + std::to_string(statusCode) + " " + reasonPhrase + "</h1><p>The requested method is not supported.</p></body></html>";
+		std::string templateContent =
+			"<html>"
+			"<head><title>Error</title></head>"
+			"<body>"
+			"<h1>Error: {statusCode} {reasonPhrase}</h1>"
+			"<p>Go fuck yourself!!.</p>"
+			"</body>"
+			"</html>";
+
+		htmlContent = templateContent;
+		htmlContent = replacePlaceholder(htmlContent, "{statusCode}", std::to_string(statusCode));
+		htmlContent = replacePlaceholder(htmlContent, "{reasonPhrase}", reasonPhrase);
 	}
 
 	std::string response = formatHttpResponse(statusCode, reasonPhrase, htmlContent, clientInfoMap[client_socket]->shouldclose);
 	clientInfoMap[client_socket]->response = response;
 	modifyEvent(client_socket, EVFILT_WRITE, EV_ADD | EV_ENABLE);
+}
+
+std::string HttpServer::replacePlaceholder(const std::string &content, const std::string &placeholder, const std::string &value)
+{
+	std::string result = content;
+	size_t pos = 0;
+	while ((pos = result.find(placeholder, pos)) != std::string::npos)
+	{
+		result.replace(pos, placeholder.length(), value);
+		pos += value.length();
+	}
+	return result;
 }

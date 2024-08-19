@@ -62,6 +62,7 @@ class HttpServer : public config
 		// Error
 		void		sendErrorResponse(int client_socket, int statusCode, const std::string &reasonPhrase);
 		std::string	getErrorFilePath(int statusCode, int serverFd);
+		std::string replacePlaceholder(const std::string &content, const std::string &placeholder, const std::string &value);
 
 		// Generate Profile
 		std::string	generateProfilePage(const userProfile& profile);
