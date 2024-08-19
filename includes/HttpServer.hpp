@@ -52,6 +52,7 @@ class HttpServer : public config
 		bool	parseHttpRequest(const std::string& requestStream, HttpRequest& request, int client_socket);
 		bool	parseHttpRequestBody(std::istringstream& requestStream, HttpRequest& request, int client_socket);
 		bool	parseHttpRequestHeaders(std::istringstream& requestStream, HttpRequest& request);
+		void	sendRedirectResponse(int client_socket, const std::string &redirectUrl);
 		std::string formatHttpResponse(int status_code, const std::string& reasonPhrase,
 		const std::string& body, int keepAlive);
 

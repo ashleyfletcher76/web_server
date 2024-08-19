@@ -19,13 +19,18 @@ bool	HttpServer::validateRouteAndMethod(int client_socket, const HttpRequest& re
 
 	if (routeIt == srv.routes.end())
 	{
-		sendErrorResponse(client_socket, 404, "Not Found");
-		return (false);
+		//sendErrorResponse(client_socket, 404, "Not Found");
+		return (true);
 	}
 	const routeConfig &route = routeIt->second;
 	if (std::find(route.allowedMethods.begin(), route.allowedMethods.end(), request.method) == route.allowedMethods.end())
 	{
 		sendErrorResponse(client_socket, 405, "Method Not Allowed");
+		return (false);
+	}
+	if (!route.redirect.empty())
+	{
+		sendRedirectResponse(client_socket, route.redirect);
 		return (false);
 	}
 	return (true);
@@ -73,7 +78,7 @@ void HttpServer::handleRequest(int client_socket)
 		return;
 	HttpRequest &request = clientInfoMap[client_socket]->request;
 	if (!validateRouteAndMethod(client_socket, request))
-		return;
+		return ;
 	decideConnectionPersistence(client_socket, request);
 	processRequestMethod(client_socket);
 	registerWriteEvent(client_socket);
@@ -103,6 +108,11 @@ void HttpServer::handleRequest(int client_socket)
 // 		if (std::find(route.allowedMethods.begin(), route.allowedMethods.end(), request.method) == route.allowedMethods.end())
 // 		{
 // 			sendErrorResponse(client_socket, 405, "Method Not Allowed");
+// 			return;
+// 		}
+// 		if (!route.redirect.empty())
+// 		{
+// 			sendRedirectResponse(client_socket, route.redirect);
 // 			return;
 // 		}
 // 	}
@@ -145,3 +155,15 @@ void HttpServer::handleRequest(int client_socket)
 // 		closeSocket(client_socket);
 // 	}
 // }
+// first iterator points to beginning of the file
+// second used as end marker, correct syntax
+
+void HttpServer::sendRedirectResponse(int client_socket, const std::string &redirectUrl)
+{
+	std::string response = "HTTP/1.1 302 Found\r\n";
+	response += "Location: http://" + redirectUrl + "\r\n";
+	response += "Connection: close\r\n";
+	response += "\r\n";
+
+	send(client_socket, response.c_str(), response.size(), 0);
+}
