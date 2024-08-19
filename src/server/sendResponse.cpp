@@ -4,7 +4,7 @@ void	HttpServer::writeResponse(int client_socket)
 {
 	if (clientInfoMap.find(client_socket) == clientInfoMap.end())
 	{
-		logger.logMethod("ERROR", "Attempt to write to non-existent client socket");
+		logger.logMethod("ERROR", "Attempt to write to non-existent client socket : " + std::to_string(client_socket));
 		return ;
 	}
 	std::string& response = clientInfoMap[client_socket]->response;

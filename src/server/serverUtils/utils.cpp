@@ -52,6 +52,7 @@ void HttpServer::closeSocket(int client_socket)
 	modifyEvent(client_socket, EVFILT_WRITE, EV_DELETE);
 	close(client_socket);
 	openSockets.erase(client_socket);
+	delete clientInfoMap[client_socket];
 	clientInfoMap.erase(client_socket);
 	logger.logMethod("INFO", "Closed client socket FD: " + std::to_string(client_socket));
 	logSocketAction("Closed", client_socket);
