@@ -66,6 +66,12 @@ class HttpServer : public config
 		void	handlePostRequest(int client_socket);
 		std::map<std::string, std::string>	parseFormData(const std::string& body);
 
+		//directory listing
+		void	handleDirectoryListing(int client_socket, const std::string &dirPath);
+		bool	isDirectory(const std::string &path);
+		bool	fileExists(const std::string &path);
+		std::vector<std::string> listDirectory(const std::string &directoryPath);
+
 		// Error
 		void		sendErrorResponse(int client_socket, int statusCode, const std::string &reasonPhrase);
 		std::string	getErrorFilePath(int statusCode, int serverFd);

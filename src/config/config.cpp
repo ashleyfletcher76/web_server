@@ -101,11 +101,19 @@ void config::parseRouteBlock(std::ifstream &file, serverInfo &srv)
 		}
 		else if (line.find("directory_listing") != std::string::npos)
 		{
-			route.directoryListing = (line == "on" || line == "true" || line == "1");
+			route.directoryListing = (line.find("on") || line.find("1") || line.find("true"));
 		}
 		else if (line.find("handle_uploads") != std::string::npos)
 		{
 			route.handler = line.substr(line.find(" ") + 1);
+		}
+		else if (line.find("defaultFile") != std::string::npos)
+		{
+			route.defaultFile = line.substr(line.find(" ") + 1);
+		}
+		else if (line.find("rootDirectory") != std::string::npos)
+		{
+			route.rootDirectory = line.substr(line.find(" ") + 1);
 		}
 		else if (line.find("redirect") != std::string::npos)
 		{

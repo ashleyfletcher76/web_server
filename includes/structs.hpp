@@ -13,11 +13,11 @@ struct isNotSpace
 
 struct userProfile
 {
-	int			id;
-	std::string	name;
-	std::string	email;
-	std::string	phoneNum;
-	std::string	description;
+	int id;
+	std::string name;
+	std::string email;
+	std::string phoneNum;
+	std::string description;
 };
 
 struct HttpRequest
@@ -27,7 +27,7 @@ struct HttpRequest
 	std::string body;
 	std::string version;
 	std::map<std::string, std::string> headers;
-	userProfile	userProfile;
+	userProfile userProfile;
 };
 
 struct ClientInfo
@@ -43,11 +43,15 @@ struct ClientInfo
 
 struct routeConfig
 {
-	std::string path;
 	std::vector<std::string> allowedMethods;
-	bool		directoryListing;
-	std::string	handler;
-	std::string	redirect;
+	std::string path;
+	bool directoryListing;
+	std::string handler;
+	std::string redirect;
+	std::string rootDirectory;
+	std::string defaultFile;
+
+	routeConfig() : directoryListing(false) {}
 };
 
 struct cgiConfig
@@ -58,9 +62,9 @@ struct cgiConfig
 
 struct serverInfo
 {
-	int			listen;
-	int			body_size;
-	bool		directory_listing;
+	int listen;
+	int body_size;
+	bool directory_listing;
 	std::string host;
 	std::string server_name;
 	std::string document_root;

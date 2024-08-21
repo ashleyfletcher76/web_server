@@ -158,3 +158,50 @@ bool checkSocket(int fd)
 	}
 	return true;
 }
+
+bool HttpServer::isDirectory(const std::string &path)
+{
+	struct stat info;
+	if (stat(path.c_str(), &info) != 0)
+	{
+		std::cout << path.c_str() << '\n';
+		return false;
+	}
+	return (info.st_mode & S_IFDIR) != 0;
+}
+
+void HttpServer::handleDirectoryListing(int client_socket, const std::string &directoryPath)
+{
+	std::string response = "HTTP/1.1 200 OK\r\n";
+	response += "Content-Type: text/html\r\n";
+	response += "Connection: close\r\n";
+	response += "\r\n";
+	response += "<html><body><ul>";
+
+	std::vector<std::string> files = listDirectory(directoryPath);
+	for (const std::string &file : files)
+	{
+		response += "<li><a href=\"" + file + "\">" + file + "</a></li>";
+	}
+	response += "</ul></body></html>";
+
+	send(client_socket, response.c_str(), response.size(), 0);
+}
+bool HttpServer::fileExists(const std::string &path)
+{
+	struct stat buffer;
+	return (stat(path.c_str(), &buffer) == 0);
+}
+
+std::vector<std::string> HttpServer::listDirectory(const std::string &directoryPath)
+{
+	std::vector<std::string> files;
+	DIR *dir = opendir(directoryPath.c_str());
+	struct dirent *entry;
+	while ((entry = readdir(dir)) != NULL)
+	{
+		files.push_back(entry->d_name);
+	}
+	closedir(dir);
+	return files;
+}

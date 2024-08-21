@@ -31,6 +31,7 @@
 #include <cctype>
 #include <sqlite3.h>
 #include <sys/stat.h>
+#include <dirent.h>
 
 extern volatile sig_atomic_t shutdownFlag;
 void	signalHandler(int signum);

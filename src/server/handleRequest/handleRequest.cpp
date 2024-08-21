@@ -1,6 +1,6 @@
 #include "HttpServer.hpp"
 
-bool	HttpServer::validateServer(int client_socket)
+bool HttpServer::validateServer(int client_socket)
 {
 	auto serverIt = servers.find(clientInfoMap[client_socket]->server_fd);
 	if (serverIt == servers.end())
@@ -11,7 +11,7 @@ bool	HttpServer::validateServer(int client_socket)
 	return (true);
 }
 
-bool	HttpServer::validateRouteAndMethod(int client_socket, const HttpRequest& request)
+bool HttpServer::validateRouteAndMethod(int client_socket, const HttpRequest &request)
 {
 	auto serverIt = servers.find(clientInfoMap[client_socket]->server_fd);
 	const serverInfo &srv = serverIt->second->getServerInfo();
@@ -30,11 +30,25 @@ bool	HttpServer::validateRouteAndMethod(int client_socket, const HttpRequest& re
 			sendRedirectResponse(client_socket, route.redirect);
 			return (false);
 		}
+		if (route.directoryListing)
+		{
+			std::string fullPath = "." + route.rootDirectory + request.uri;
+			if (isDirectory(fullPath))
+			{
+				handleDirectoryListing(client_socket, fullPath);
+				return (false);
+			}
+			else
+			{
+				sendErrorResponse(client_socket, 403, "Forbidden");
+				return (false);
+			}
+		}
 	}
 	return (true);
 }
 
-void	HttpServer::decideConnectionPersistence(int client_socket, const HttpRequest& request)
+void HttpServer::decideConnectionPersistence(int client_socket, const HttpRequest &request)
 {
 	std::string connectionValue;
 	// Check if the connection header exists
@@ -49,7 +63,8 @@ void	HttpServer::decideConnectionPersistence(int client_socket, const HttpReques
 	else
 		clientInfoMap[client_socket]->shouldclose = true;
 }
-void	HttpServer::registerWriteEvent(int client_socket)
+
+void HttpServer::registerWriteEvent(int client_socket)
 {
 	struct kevent change;
 	EV_SET(&change, static_cast<uintptr_t>(client_socket), EVFILT_WRITE, EV_ADD | EV_ENABLE, 0, 0, NULL);
@@ -59,9 +74,9 @@ void	HttpServer::registerWriteEvent(int client_socket)
 		logger.logMethod("INFO", "Successfully registered kevent for socket: " + std::to_string(client_socket));
 }
 
-void	HttpServer::processRequestMethod(int client_socket)
+void HttpServer::processRequestMethod(int client_socket)
 {
-	HttpRequest& request = clientInfoMap[client_socket]->request;
+	HttpRequest &request = clientInfoMap[client_socket]->request;
 	if (request.method == "GET")
 		handleGetRequest(client_socket);
 	else if (request.method == "POST")
@@ -76,7 +91,7 @@ void HttpServer::handleRequest(int client_socket)
 		return;
 	HttpRequest &request = clientInfoMap[client_socket]->request;
 	if (!validateRouteAndMethod(client_socket, request))
-		return ;
+		return;
 	decideConnectionPersistence(client_socket, request);
 	processRequestMethod(client_socket);
 	registerWriteEvent(client_socket);
