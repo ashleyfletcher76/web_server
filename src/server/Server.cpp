@@ -4,6 +4,7 @@ Server::Server(const serverInfo &srinfo, Logger &loggerRef) : info(srinfo), serv
 															  logger(loggerRef), _kq(-1)
 {
 	createSocket();
+	std::cout << "Listening from : " << info.listen << '\n';
 }
 
 Server::~Server()

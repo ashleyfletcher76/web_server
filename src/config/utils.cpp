@@ -8,6 +8,20 @@ std::string config::trim(const std::string &str)
 	return (start == std::string::npos || end == std::string::npos) ? "" : str.substr(start, end - start + 1);
 }
 
+void config::checkerrors(serverInfo &srv)
+{
+	if (srv.listen < 1 || srv.listen > 65535)
+	{
+		handleError("Invalid port number: " + std::to_string(srv.listen));
+	}
+	if (srv.body_size < 1)
+	{
+		handleError("Invalid body size: " + std::to_string(srv.body_size));
+	}
+
+}
+
+
 std::string config::getFilename() const { return (_confile); }
 
 std::ostream &operator<<(std::ostream &out, const config &conf)

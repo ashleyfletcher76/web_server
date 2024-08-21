@@ -73,6 +73,8 @@ struct serverInfo
 	std::vector<cgiConfig> cgis;
 	std::unordered_map<int, std::string> errorPages;
 	std::unordered_map<std::string, routeConfig> routes;
+
+	serverInfo() : listen(0), body_size(-1), directory_listing(false) {}
 };
 
 #endif

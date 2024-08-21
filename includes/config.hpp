@@ -20,6 +20,7 @@ protected:
 	// Utility methods
 	std::string trim(const std::string &str);
 	void handleError(const std::string &message);
+	void checkerrors(serverInfo &srv);
 
 public:
 	config(const std::string &confile);
