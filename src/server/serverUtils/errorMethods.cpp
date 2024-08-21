@@ -14,7 +14,7 @@ std::string HttpServer::getErrorFilePath(int statusCode, int serverFd)
 
 void HttpServer::sendErrorResponse(int client_socket, int statusCode, const std::string &reasonPhrase)
 {
-	std::string errorFilePath = getErrorFilePath(statusCode, clientInfoMap[client_socket]->server_fd);
+	std::string errorFilePath = getErrorFilePath(statusCode, clientInfoMap[client_socket].server_fd);
 	std::string htmlContent = readFileContent(errorFilePath);
 
 	if (htmlContent.empty())
@@ -33,8 +33,8 @@ void HttpServer::sendErrorResponse(int client_socket, int statusCode, const std:
 		htmlContent = replacePlaceholder(htmlContent, "{reasonPhrase}", reasonPhrase);
 	}
 
-	std::string response = formatHttpResponse(statusCode, reasonPhrase, htmlContent, clientInfoMap[client_socket]->shouldclose);
-	clientInfoMap[client_socket]->response = response;
+	std::string response = formatHttpResponse(clientInfoMap[client_socket].request.version, statusCode, reasonPhrase, htmlContent, clientInfoMap[client_socket].shouldclose);
+	clientInfoMap[client_socket].response = response;
 	modifyEvent(client_socket, EVFILT_WRITE, EV_ADD | EV_ENABLE);
 }
 

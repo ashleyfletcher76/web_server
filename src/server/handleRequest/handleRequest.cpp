@@ -2,7 +2,7 @@
 
 bool	HttpServer::validateServer(int client_socket)
 {
-	auto serverIt = servers.find(clientInfoMap[client_socket]->server_fd);
+	auto serverIt = servers.find(clientInfoMap[client_socket].server_fd);
 	if (serverIt == servers.end())
 	{
 		sendErrorResponse(client_socket, 500, "Internal Server Error");
@@ -13,7 +13,7 @@ bool	HttpServer::validateServer(int client_socket)
 
 bool	HttpServer::validateRouteAndMethod(int client_socket, const HttpRequest& request)
 {
-	auto serverIt = servers.find(clientInfoMap[client_socket]->server_fd);
+	auto serverIt = servers.find(clientInfoMap[client_socket].server_fd);
 	const serverInfo &srv = serverIt->second->getServerInfo();
 	auto routeIt = srv.routes.find(request.uri);
 
@@ -44,10 +44,10 @@ void	HttpServer::decideConnectionPersistence(int client_socket, const HttpReques
 		connectionValue = header->second;
 		trim(connectionValue);
 		std::transform(connectionValue.begin(), connectionValue.end(), connectionValue.begin(), ::tolower);
-		clientInfoMap[client_socket]->shouldclose = (connectionValue != "keep-alive");
+		clientInfoMap[client_socket].shouldclose = (connectionValue != "keep-alive");
 	}
 	else
-		clientInfoMap[client_socket]->shouldclose = true;
+		clientInfoMap[client_socket].shouldclose = true;
 }
 void	HttpServer::registerWriteEvent(int client_socket)
 {
@@ -61,7 +61,7 @@ void	HttpServer::registerWriteEvent(int client_socket)
 
 void	HttpServer::processRequestMethod(int client_socket)
 {
-	HttpRequest& request = clientInfoMap[client_socket]->request;
+	HttpRequest& request = clientInfoMap[client_socket].request;
 	if (request.method == "GET")
 		handleGetRequest(client_socket);
 	else if (request.method == "POST")
@@ -74,7 +74,7 @@ void HttpServer::handleRequest(int client_socket)
 {
 	if (!validateServer(client_socket))
 		return;
-	HttpRequest &request = clientInfoMap[client_socket]->request;
+	HttpRequest &request = clientInfoMap[client_socket].request;
 	if (!validateRouteAndMethod(client_socket, request))
 		return ;
 	decideConnectionPersistence(client_socket, request);

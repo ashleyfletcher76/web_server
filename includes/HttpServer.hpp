@@ -15,7 +15,7 @@ class HttpServer : public config
 		struct sockaddr_in	address;
 
 		std::unordered_map<int, std::string> clients;
-		std::unordered_map<int, ClientInfo*> clientInfoMap;
+		std::unordered_map<int, ClientInfo> clientInfoMap;
 		std::set<int> openSockets;
 
 		Logger& logger;
@@ -48,12 +48,14 @@ class HttpServer : public config
 		std::string getFilePath(int server_fd, const std::string &uri);
 		std::string readFileContent(const std::string& filePath);
 
-		// response
+		// parse
 		bool	parseHttpRequest(const std::string& requestStream, HttpRequest& request, int client_socket);
 		bool	parseHttpRequestBody(std::istringstream& requestStream, HttpRequest& request, int client_socket);
 		bool	parseHttpRequestHeaders(std::istringstream& requestStream, HttpRequest& request);
+
+		// response
 		void	sendRedirectResponse(int client_socket, const std::string &redirectUrl);
-		std::string formatHttpResponse(int status_code, const std::string& reasonPhrase,
+		std::string formatHttpResponse(const std::string& httpVersion, int status_code, const std::string& reasonPhrase,
 		const std::string& body, int keepAlive);
 
 		// GET

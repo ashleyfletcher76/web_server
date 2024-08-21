@@ -1,12 +1,12 @@
 #include "HttpServer.hpp"
 
-std::string HttpServer::formatHttpResponse(int status_code, const std::string &reasonPhrase,
+std::string HttpServer::formatHttpResponse(const std::string& httpVersion, int status_code, const std::string &reasonPhrase,
 										   const std::string &body, int keepAlive)
 {
 	std::ostringstream response;
 
 	// constructs proper format for HTTP response
-	response << "HTTP/1.1 " << status_code << " " << reasonPhrase << "\r\n";
+	response << httpVersion << status_code << " " << reasonPhrase << "\r\n";
 	response << "Content-Length: " << body.size() << "\r\n";
 	response << "Content-Type: text/html; charset=UTF-8\r\n";
 	if (keepAlive)
@@ -52,16 +52,8 @@ void HttpServer::closeSocket(int client_socket)
 	modifyEvent(client_socket, EVFILT_WRITE, EV_DELETE);
 	close(client_socket);
 	openSockets.erase(client_socket);
-	auto iter = clientInfoMap.find(client_socket);
-	if (iter != clientInfoMap.end())
-	{
-		delete iter->second;
-		clientInfoMap.erase(client_socket);
-		logger.logMethod("INFO", "Closed client socket FD: " + std::to_string(client_socket));
-		logSocketAction("Closed", client_socket);
-	}
-	else
-		logger.logMethod("WARNING", "Client socket FD not found in clientInfoMap: " + std::to_string(client_socket));
+	clientInfoMap.erase(client_socket);
+	// logger.logMethod("WARNING", "Client socket FD not found in clientInfoMap: " + std::to_string(client_socket));
 }
 
 std::string HttpServer::getFilePath(int server_fd, const std::string &uri)
