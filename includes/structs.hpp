@@ -39,6 +39,7 @@ struct ClientInfo
 
 	ClientInfo() : server_fd(-1), shouldclose(false) {}
 	ClientInfo(int fd) : server_fd(fd), shouldclose(false) {}
+	// ~ClientInfo() {}
 };
 
 struct routeConfig

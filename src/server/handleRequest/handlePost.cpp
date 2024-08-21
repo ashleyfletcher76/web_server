@@ -45,7 +45,7 @@ std::map<std::string, std::string>	HttpServer::parseFormData(const std::string& 
 
 void	HttpServer::handlePostRequest(int client_socket)
 {
-	HttpRequest& request = clientInfoMap[client_socket]->request;
+	HttpRequest& request = clientInfoMap[client_socket].request;
 	std::string responseBody;
 
 	if (request.headers["content-type"] != "application/x-www-form-urlencoded")
@@ -66,7 +66,7 @@ void	HttpServer::handlePostRequest(int client_socket)
 			formData["phone"], formData["description"]))
 		{
 			responseBody = "<html><body>New user added successfully!</body></html>";
-			clientInfoMap[client_socket]->response = formatHttpResponse(200, "OK", responseBody, clientInfoMap[client_socket]->shouldclose);
+			clientInfoMap[client_socket].response = formatHttpResponse(clientInfoMap[client_socket].request.version, 200, "OK", responseBody, clientInfoMap[client_socket].shouldclose);
 		}
 		else
 			sendErrorResponse(client_socket, 500, "Internal Server Error");

@@ -30,16 +30,16 @@ bool HttpServer::findProfileByID(const std::string &uri, int client_socket)
 		return (false);
 	}
 	std::string profileContent = generateProfilePage(profile);
-	clientInfoMap[client_socket]->response = formatHttpResponse(200, "OK", profileContent, clientInfoMap[client_socket]->shouldclose);
+	clientInfoMap[client_socket].response = formatHttpResponse(clientInfoMap[client_socket].request.version, 200, "OK", profileContent, clientInfoMap[client_socket].shouldclose);
 	return (true);
 }
 
 void HttpServer::handleGetRequest(int client_socket)
 {
 	// checks path from URI provided in request
-	int server_fd = clientInfoMap[client_socket]->server_fd;
-	std::string filePath = getFilePath(server_fd, clientInfoMap[client_socket]->request.uri);
-	std::string uri = clientInfoMap[client_socket]->request.uri;
+	int server_fd = clientInfoMap[client_socket].server_fd;
+	std::string filePath = getFilePath(server_fd, clientInfoMap[client_socket].request.uri);
+	std::string uri = clientInfoMap[client_socket].request.uri;
 
 	if (uri == "/allProfiles.html")
 		generateAllProfilesPage(client_socket);
@@ -61,6 +61,6 @@ void HttpServer::handleGetRequest(int client_socket)
 			std::istreambuf_iterator<char>()); // istreambuf_iterator is efficient for unformated data reading(raw bytes)
 		file.close();
 		// set response in the clients info
-		clientInfoMap[client_socket]->response = formatHttpResponse(200, "OK", fileContent, clientInfoMap[client_socket]->shouldclose);
+		clientInfoMap[client_socket].response = formatHttpResponse(clientInfoMap[client_socket].request.version, 200, "OK", fileContent, clientInfoMap[client_socket].shouldclose);
 	}
 }
