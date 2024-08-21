@@ -26,7 +26,7 @@ class HttpServer : public config
 
 		// connection handlers
 		void	acceptConnection(int serverSocket);
-		void	setupKevent(int client_socket);
+		void	setupKevent(int client_socket, int timeoutSeconds);
 		void	configureSocketNonBlocking(int client_socket);
 		void	closeSocket(int client_socket);
 		void	modifyEvent(int fd, int filter, int flags);

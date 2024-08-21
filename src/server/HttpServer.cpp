@@ -95,6 +95,13 @@ void HttpServer::mainLoop()
 				clientInfoMap.erase(event.ident);
 				openSockets.erase(event.ident);
 			}
+			if (event.filter == EVFILT_TIMER)
+			{
+				logger.logMethod("INFO", "Keep-alive timeout reached for socket: " + std::to_string(event.ident));
+				closeSocket(event.ident);
+				clientInfoMap.erase(event.ident);
+				openSockets.erase(event.ident);
+			}
 			else if (event.filter == EVFILT_READ)
 			{
 				logger.logMethod("INFO", "Ready to read from FD: " + std::to_string(event.ident));
@@ -111,6 +118,7 @@ void HttpServer::mainLoop()
 					readRequest(static_cast<int>(event.ident));
 					if (clientInfoMap.find(event.ident) != clientInfoMap.end())
 						handleRequest(event.ident); // check if socket is previously closed
+					setupKevent(event.ident, 10);
 				}
 			}
 			else if (event.filter == EVFILT_WRITE)

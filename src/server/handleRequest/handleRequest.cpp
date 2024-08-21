@@ -50,19 +50,26 @@ bool HttpServer::validateRouteAndMethod(int client_socket, const HttpRequest &re
 
 void HttpServer::decideConnectionPersistence(int client_socket, const HttpRequest &request)
 {
-	std::string connectionValue;
-	// Check if the connection header exists
+	std::string connectionValue = "close"; // Default to close
+
 	auto header = request.headers.find("connection");
 	if (header != request.headers.end())
 	{
 		connectionValue = header->second;
 		trim(connectionValue);
 		std::transform(connectionValue.begin(), connectionValue.end(), connectionValue.begin(), ::tolower);
-		clientInfoMap[client_socket].shouldclose = (connectionValue != "keep-alive");
 	}
+
+	bool keepAlive = (connectionValue == "keep-alive");
+	clientInfoMap[client_socket].shouldclose = !keepAlive;
+
+	// pdate the kevent for timer
+	if (keepAlive)
+		setupKevent(client_socket, 10);
 	else
-		clientInfoMap[client_socket].shouldclose = true;
+		setupKevent(client_socket, 0);
 }
+
 
 void HttpServer::registerWriteEvent(int client_socket)
 {
