@@ -35,10 +35,21 @@ bool config::parseConfig(const std::string &filename)
 		if (line == "server {")
 		{
 			serverInfo srv;
-			parseServerBlock(file, srv);
-			serverInfos.push_back(srv);
-			++size;
+			try
+			{
+				parseServerBlock(file, srv);
+				serverInfos.push_back(srv);
+				++size;
+			}
+			catch(const std::exception& e)
+			{
+				std::cerr << e.what() << '\n';
+			}
 		}
+	}
+	if (serverInfos.empty())
+	{
+		return (false);
 	}
 	return true;
 }
@@ -73,6 +84,7 @@ void config::parseServerBlock(std::ifstream &file, serverInfo &srv)
 			parseLine(line, srv);
 		}
 	}
+	checkerrors(srv);
 }
 
 void config::parseRouteBlock(std::ifstream &file, serverInfo &srv)
@@ -163,15 +175,7 @@ void config::parseLine(const std::string &line, serverInfo &srv)
 
 	if (key == "listen")
 	{
-		int port = std::atoi(value.c_str());
-		if (port > 0 && port < 65536) // Validate port range
-		{
-			srv.listen = port;
-		}
-		else
-		{
-			handleError("Invalid port number: " + value);
-		}
+		srv.listen = std::atoi(value.c_str());
 	}
 	else if (key == "host")
 	{
@@ -209,8 +213,7 @@ void config::parseLine(const std::string &line, serverInfo &srv)
 
 void config::handleError(const std::string &message)
 {
-	std::cerr << "Config error: " << message << std::endl;
-	throw "";
+	throw std::runtime_error(message);
 }
 
 const std::vector<serverInfo> &config::getServerInfos() const
