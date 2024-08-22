@@ -12,6 +12,9 @@ class HttpServer : public config
 		std::unordered_map<int, Server*> servers;
 		int			kq;
 
+		std::map<int, std::chrono::steady_clock::time_point> socket_last_activity;
+		const std::chrono::seconds idle_timeout = std::chrono::seconds(3);
+
 		struct sockaddr_in	address;
 
 		std::unordered_map<int, ClientInfo> clientInfoMap;
@@ -40,7 +43,6 @@ class HttpServer : public config
 		bool	validateRouteAndMethod(int client_socket, const HttpRequest &request);
 		void	decideConnectionPersistence(int client_socket, const HttpRequest &request);
 		void	processRequestMethod(int client_socket);
-		void	registerWriteEvent(int client_socket);
 
 		// content
 		void	writeResponse(int client_socket);
@@ -51,6 +53,17 @@ class HttpServer : public config
 		bool	parseHttpRequest(const std::string& requestStream, HttpRequest& request, int client_socket);
 		bool	parseHttpRequestBody(std::istringstream& requestStream, HttpRequest& request, int client_socket);
 		bool	parseHttpRequestHeaders(std::istringstream& requestStream, HttpRequest& request);
+
+		//register events
+		void	deregisterReadEvent(int clientSocket);
+		void	deregisterWriteEvent(int clientSocket);
+		void	registerWriteEvent(int clientSocket);
+		void	registerReadEvent(int clientSocket);
+
+
+		//timer
+		void	checkIdleSockets();
+		void	updateLastActivity(int socket_fd);
 
 		// response
 		void	sendRedirectResponse(int client_socket, const std::string &redirectUrl);

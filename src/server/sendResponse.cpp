@@ -9,7 +9,6 @@ void HttpServer::writeResponse(int client_socket)
 	}
 	std::string& response = clientInfoMap[client_socket].response;
 
-	// sends reponse to client(web browser etc.)
 	if (send(client_socket, response.c_str(), response.size(), 0) < 0)
 	{
 		logger.logMethod("ERROR", "Error writing to socket: " + std::string(strerror(errno)));
@@ -19,15 +18,18 @@ void HttpServer::writeResponse(int client_socket)
 	else
 		logger.logMethod("INFO", "Response successfully sent to FD: " + std::to_string(client_socket));
 
-	std::cout << "response = " << response.c_str() << std::endl;
-	// Only modify the event if the socket is still open and not marked for closure
 	if (!clientInfoMap[client_socket].shouldclose)
 	{
 		if (openSockets.find(client_socket) != openSockets.end())
-			modifyEvent(client_socket, EVFILT_WRITE, EV_DELETE);
+			{
+				deregisterWriteEvent(client_socket);
+				registerReadEvent(client_socket);
+			}
 		else
 			logger.logMethod("WARNING", "Socket already closed or removed from open sockets when trying to modify event.");
 	}
 	else
+	{
 		closeSocket(client_socket);
+	}
 }

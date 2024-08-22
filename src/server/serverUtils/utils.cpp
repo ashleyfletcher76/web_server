@@ -53,8 +53,8 @@ void HttpServer::closeSocket(int client_socket)
 	close(client_socket);
 	openSockets.erase(client_socket);
 	clientInfoMap.erase(client_socket);
+	socket_last_activity.erase(client_socket);
 	logger.logMethod("INFO", "Closed client socket FD: " + std::to_string(client_socket));
-	// logger.logMethod("WARNING", "Client socket FD not found in clientInfoMap: " + std::to_string(client_socket));
 }
 
 std::string HttpServer::getFilePath(int server_fd, const std::string &uri)
@@ -179,6 +179,7 @@ void HttpServer::handleDirectoryListing(int client_socket, const std::string &di
 	response += "</ul></body></html>";
 
 	clientInfoMap[client_socket].response = response;
+	deregisterReadEvent(client_socket);
 	registerWriteEvent(client_socket);
 }
 bool HttpServer::fileExists(const std::string &path)

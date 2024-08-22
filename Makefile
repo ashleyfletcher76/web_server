@@ -8,7 +8,7 @@ COLOUR_END = \033[0m
 
 CC = c++
 RM = rm -f
-BASE_CFLAGS = -Wall -Wextra -Werror -std=c++11 -I./includes/
+BASE_CFLAGS = -Wall -Wextra -Werror -std=c++17 -I./includes/
 DEBUG_CFLAGS = $(BASE_CFLAGS) -fsanitize=address -fsanitize=undefined ASAN_OPTIONS=detect_leaks=1
 RELEASE_CFLAGS = $(BASE_CFLAGS)
 
@@ -19,6 +19,7 @@ SRCS =	main.cpp \
 		server/readMethods.cpp \
 		server/sendResponse.cpp \
 		server/Server.cpp \
+		server/register.cpp \
 		server/connectionHandler.cpp \
 		server/parseRequest/parseRequest..cpp \
 		server/parseRequest/parseUtils.cpp \

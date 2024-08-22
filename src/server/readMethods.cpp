@@ -30,9 +30,7 @@ void HttpServer::readRequest(int client_socket)
 		totalBytesRead += bytesRead;
 		if (totalBytesRead > MAX_REQUEST_SIZE)
 		{
-			logger.logMethod("ERROR", "Request too large");
 			sendErrorResponse(client_socket, 413, "Payload too large");
-			closeSocket(client_socket);
 			return;
 		}
 		request.append(buffer, bytesRead);
@@ -41,16 +39,13 @@ void HttpServer::readRequest(int client_socket)
 	}
 	if (bytesRead < 0)
 	{
-		logger.logMethod("ERROR", "Error reading from socket: " + std::string(strerror(errno)));
-		//std::cout << "Here inside bytes read error" << std::endl;
+		//logger.logMethod("ERROR", "Error reading from socket: " + std::string(strerror(errno)));
 		sendErrorResponse(client_socket, 404, "Error reading from socket");
-		closeSocket(client_socket);
 		return;
 	}
-	logger.logMethod("INFO", "Recieved request: " + request);
+	//logger.logMethod("INFO", "Recieved request: " + request);
 	if (request.empty() || !parseHttpRequest(request, clientInfoMap[client_socket].request, client_socket))
 	{
 		sendErrorResponse(client_socket, 400, "Bad request");
-		closeSocket(client_socket);
 	}
 }

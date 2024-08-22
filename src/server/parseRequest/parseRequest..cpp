@@ -41,7 +41,7 @@ bool	HttpServer::parseHttpRequestHeaders(std::istringstream& requestStream, Http
 	if (!isValidMethod(request.method) || !isValidUri(request.uri)
 		|| !isValidVersion(request.version))
 		return (false);
-	// parse headers to start
+	
 	while (std::getline(requestStream, line) && line != "\r" && !line.empty())
 	{
 		std::size_t colonPos = line.find(':');
@@ -68,11 +68,9 @@ bool	HttpServer::parseHttpRequestBody(std::istringstream& requestStream, HttpReq
 			int	maxSize = getMaxClientBodySize(client_socket);
 			if (contentLength > maxSize)
 			{
-				logger.logMethod("ERROR", "Content body is too large.");
-				// add a new html here
 				return (false);
 			}
-			std::getline(requestStream, request.body); // get the content data for POST
+			std::getline(requestStream, request.body);
 		}
 	}
 	return (true);

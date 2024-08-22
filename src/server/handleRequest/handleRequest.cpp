@@ -63,25 +63,8 @@ void HttpServer::decideConnectionPersistence(int client_socket, const HttpReques
 	bool keepAlive = (connectionValue == "keep-alive");
 	clientInfoMap[client_socket].shouldclose = !keepAlive;
 
-	// pdate the kevent for timer
-	if (keepAlive)
-		setupKevent(client_socket, 60);
-	else
-		setupKevent(client_socket, 0);
 }
 
-void HttpServer::registerWriteEvent(int client_socket)
-{
-	struct kevent changes[2];
-	int numChanges = 0;
-
-	EV_SET(&changes[numChanges++], static_cast<uintptr_t>(client_socket), EVFILT_READ, EV_DISABLE, 0, 0, NULL);
-	EV_SET(&changes[numChanges++], static_cast<uintptr_t>(client_socket), EVFILT_WRITE, EV_ADD | EV_ENABLE, 0, 0, NULL);
-	if (kevent(kq, changes, numChanges, NULL, 0, NULL) == -1)
-		logger.logMethod("ERROR", "Kevent registration failure for writing: " + std::string(strerror(errno)));
-	else
-		logger.logMethod("INFO", "Successfully registered kevent for socket: " + std::to_string(client_socket));
-}
 
 void HttpServer::processRequestMethod(int client_socket)
 {
@@ -103,6 +86,7 @@ void HttpServer::handleRequest(int client_socket)
 		return;
 	decideConnectionPersistence(client_socket, request);
 	processRequestMethod(client_socket);
+	deregisterReadEvent(client_socket);
 	registerWriteEvent(client_socket);
 }
 
@@ -130,5 +114,6 @@ void HttpServer::sendRedirectResponse(int client_socket, const std::string &redi
 		"\r\n";
 	clientInfoMap[client_socket].response = htmlContent;
 
+	deregisterReadEvent(client_socket);
 	registerWriteEvent(client_socket);
 }
