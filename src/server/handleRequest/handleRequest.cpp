@@ -75,18 +75,7 @@ void HttpServer::registerWriteEvent(int client_socket)
 	struct kevent changes[2];
 	int numChanges = 0;
 
-	// Step 1: Disable or delete the EVFILT_READ event
-	// Uncomment one of the following lines based on whether you want to disable or delete:
-
-	// Disable EVFILT_READ (can be re-enabled later)
 	EV_SET(&changes[numChanges++], static_cast<uintptr_t>(client_socket), EVFILT_READ, EV_DISABLE, 0, 0, NULL);
-
-	// OR
-
-	// Delete EVFILT_READ (removes the event entirely)
-	// EV_SET(&changes[numChanges++], static_cast<uintptr_t>(client_socket), EVFILT_READ, EV_DELETE, 0, 0, NULL);
-
-	// Step 2: Add and enable the EVFILT_WRITE event
 	EV_SET(&changes[numChanges++], static_cast<uintptr_t>(client_socket), EVFILT_WRITE, EV_ADD | EV_ENABLE, 0, 0, NULL);
 	if (kevent(kq, changes, numChanges, NULL, 0, NULL) == -1)
 		logger.logMethod("ERROR", "Kevent registration failure for writing: " + std::string(strerror(errno)));
@@ -119,14 +108,20 @@ void HttpServer::handleRequest(int client_socket)
 
 void HttpServer::sendRedirectResponse(int client_socket, const std::string &redirectUrl)
 {
+	std::string fullRedirectUrl = redirectUrl;
+	if (fullRedirectUrl.find("http://") != 0 && fullRedirectUrl.find("https://") != 0)
+	{
+		fullRedirectUrl = "http://" + fullRedirectUrl;
+	}
+
+	std::string httpVersion = clientInfoMap[client_socket].request.version;
+	std::string connectionHeader = clientInfoMap[client_socket].shouldclose ? "Connection: close\r\n" : "Connection: keep-alive\r\n";
 	std::string htmlContent =
-			"HTTP/1.1 302 Found\r\n";
-			"Location: http://" + redirectUrl + "\r\n";
-			"Connection: close\r\n";
-			"\r\n";
+		httpVersion + " 302 Found\r\n"
+					  "Location: " +
+		fullRedirectUrl + "\r\n" + connectionHeader +
+		"\r\n";
 
-	std::string response = formatHttpResponse(clientInfoMap[client_socket].request.version, 302, "Moved Permanently", htmlContent, clientInfoMap[client_socket].shouldclose);
-
-	clientInfoMap[client_socket].response = response;
+	clientInfoMap[client_socket].response = htmlContent;
 	registerWriteEvent(client_socket);
 }
