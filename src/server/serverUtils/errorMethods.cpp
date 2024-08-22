@@ -3,9 +3,7 @@
 std::string HttpServer::getErrorFilePath(int statusCode, int serverFd)
 {
 	const serverInfo &srvInfo = servers[serverFd]->getServerInfo();
-
 	auto it = srvInfo.errorPages.find(statusCode);
-	std::cout << "Here inside getErrorFile" << std::endl;
 	if (it != srvInfo.errorPages.end())
 	{
 		return it->second;
@@ -15,6 +13,7 @@ std::string HttpServer::getErrorFilePath(int statusCode, int serverFd)
 
 void HttpServer::sendErrorResponse(int client_socket, int statusCode, const std::string &reasonPhrase)
 {
+	std::cout << clientInfoMap[client_socket].server_fd << "\n";
 	std::string errorFilePath = getErrorFilePath(statusCode, clientInfoMap[client_socket].server_fd);
 	std::cout << "Here inside send error" << std::endl;
 	std::string htmlContent = readFileContent(errorFilePath);
@@ -37,7 +36,7 @@ void HttpServer::sendErrorResponse(int client_socket, int statusCode, const std:
 
 	std::string response = formatHttpResponse(clientInfoMap[client_socket].request.version, statusCode, reasonPhrase, htmlContent, clientInfoMap[client_socket].shouldclose);
 	clientInfoMap[client_socket].response = response;
-	modifyEvent(client_socket, EVFILT_WRITE, EV_ADD | EV_ENABLE);
+	registerWriteEvent(client_socket);
 }
 
 std::string HttpServer::replacePlaceholder(const std::string &content, const std::string &placeholder, const std::string &value)

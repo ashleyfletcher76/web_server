@@ -178,7 +178,8 @@ void HttpServer::handleDirectoryListing(int client_socket, const std::string &di
 	}
 	response += "</ul></body></html>";
 
-	send(client_socket, response.c_str(), response.size(), 0);
+	clientInfoMap[client_socket].response = response;
+	registerWriteEvent(client_socket);
 }
 bool HttpServer::fileExists(const std::string &path)
 {

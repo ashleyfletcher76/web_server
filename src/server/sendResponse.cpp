@@ -19,7 +19,7 @@ void HttpServer::writeResponse(int client_socket)
 	else
 		logger.logMethod("INFO", "Response successfully sent to FD: " + std::to_string(client_socket));
 
-	// std::cout << response.c_str() << std::endl;
+	std::cout << "response = " << response.c_str() << std::endl;
 	// Only modify the event if the socket is still open and not marked for closure
 	if (!clientInfoMap[client_socket].shouldclose)
 	{
