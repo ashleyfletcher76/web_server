@@ -122,8 +122,8 @@ void HttpServer::sendRedirectResponse(int client_socket, const std::string &redi
 	std::string htmlContent =
 			"HTTP/1.1 302 Found\r\n";
 			"Location: http://" + redirectUrl + "\r\n";
-			"Connection: close\r\n";
-			"\r\n";
+			// "Connection: close\r\n";
+			// "\r\n";
 
 	std::string response = formatHttpResponse(clientInfoMap[client_socket].request.version, 302, "Moved Permanently", htmlContent, clientInfoMap[client_socket].shouldclose);
 
