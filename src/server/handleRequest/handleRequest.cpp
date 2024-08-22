@@ -108,14 +108,22 @@ void HttpServer::handleRequest(int client_socket)
 
 void HttpServer::sendRedirectResponse(int client_socket, const std::string &redirectUrl)
 {
+	// Ensure the redirect URL is a full URL including the protocol
 	std::string fullRedirectUrl = redirectUrl;
 	if (fullRedirectUrl.find("http://") != 0 && fullRedirectUrl.find("https://") != 0)
 	{
-		fullRedirectUrl = "http://" + fullRedirectUrl;
+		fullRedirectUrl = "http://" + fullRedirectUrl; // Use https:// if appropriate
 	}
 
+	// Get the HTTP version from the client’s request, default to "HTTP/1.1" if not set
 	std::string httpVersion = clientInfoMap[client_socket].request.version;
+	if (httpVersion.empty())
+	{
+		httpVersion = "HTTP/1.1";
+	}
+
 	std::string connectionHeader = clientInfoMap[client_socket].shouldclose ? "Connection: close\r\n" : "Connection: keep-alive\r\n";
+
 	std::string htmlContent =
 		httpVersion + " 302 Found\r\n"
 					  "Location: " +
@@ -123,5 +131,6 @@ void HttpServer::sendRedirectResponse(int client_socket, const std::string &redi
 		"\r\n";
 
 	clientInfoMap[client_socket].response = htmlContent;
+
 	registerWriteEvent(client_socket);
 }
