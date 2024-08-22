@@ -1,21 +1,18 @@
 #!/bin/bash
 
 # Config files we need
-URL_FILE="test_urls.txt"
+URL_FILE="data.txt"
 OUTPUT_FILE="siege_output.log"
-FAILURE_LOG="siege_failures.log"
+URL="http://localhost:8080/"
 
 # Run Siege with our format
-siege -c50 -t1M -f $URL_FILE -v > $OUTPUT_FILE
+siege -c250 -r5 "$URL POST < $URL_FILE" --content-type "application/x-www-form-urlencoded" > "$OUTPUT_FILE" 2>&1
 
 # Now check the failed transactions
 
-if grep -q "error" $OUTPUT_FILE; then
-	echo "Failures detected. Logging details..."
-	# Extract the details
-	grep "error" $OUTPUT_FILE > $FAILURE_LOG
-	echo "Failure details logged in $FAILURE_LOG"
+if [ $? -eq 0 ]; then
+	echo "Siege test completed."
 else
-	echo "No failures detected."
+	echo "Siege test failed."
 fi
 

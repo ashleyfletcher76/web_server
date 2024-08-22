@@ -15,7 +15,7 @@ void HttpServer::sendErrorResponse(int client_socket, int statusCode, const std:
 {
 	std::cout << clientInfoMap[client_socket].server_fd << "\n";
 	std::string errorFilePath = getErrorFilePath(statusCode, clientInfoMap[client_socket].server_fd);
-	std::cout << "Here inside send error" << std::endl;
+	//std::cout << "Here inside send error" << std::endl;
 	std::string htmlContent = readFileContent(errorFilePath);
 
 	if (htmlContent.empty())

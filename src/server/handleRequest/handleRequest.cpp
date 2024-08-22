@@ -65,7 +65,7 @@ void HttpServer::decideConnectionPersistence(int client_socket, const HttpReques
 
 	// pdate the kevent for timer
 	if (keepAlive)
-		setupKevent(client_socket, 10);
+		setupKevent(client_socket, 60);
 	else
 		setupKevent(client_socket, 0);
 }
