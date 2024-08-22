@@ -42,6 +42,7 @@ void	HttpServer::readRequest(int client_socket)
 	if (bytesRead < 0)
 	{
 		logger.logMethod("ERROR", "Error reading from socket: " + std::string(strerror(errno)));
+		std::cout << "Here inside bytes read error" << std::endl;
 		sendErrorResponse(client_socket, 404, "Error reading from socket");
 		closeSocket(client_socket);
 		return ;

@@ -1,0 +1,2 @@
+POST http://localhost:8080/ name=John%20Doe&email=john.doe%40example.com&phone=1234567890&description=This%20is%20a%20test%20description
+POST http://localhost:8080/ name=Alice%20Smith&email=alice.smith%40example.com&phone=9876543210&description=Another%20test%20description

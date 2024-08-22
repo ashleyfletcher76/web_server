@@ -12,7 +12,7 @@ void	Logger::logMethod(const std::string& level, const std::string& msg)
 		logFile << timestamp << " [" << level << "]" << " - " << msg << std::endl;
 	else
 		std::cerr << "Unable to open log file" << std::endl;
-	//std::cout << timestamp << " [" << level << "]" << " - " << msg  << std::endl;
+	std::cout << timestamp << " [" << level << "]" << " - " << msg  << std::endl;
 }
 
 Logger::Logger()

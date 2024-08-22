@@ -6,7 +6,6 @@ std::string HttpServer::formatHttpResponse(const std::string& httpVersion, int s
 	std::ostringstream response;
 
 	// constructs proper format for HTTP response
-	std::cout << "Keep alive: " << keepAlive << std::endl;
 	response << httpVersion << " " << status_code << " " << reasonPhrase << "\r\n";
 	response << "Content-Length: " << body.size() << "\r\n";
 	response << "Content-Type: text/html; charset=UTF-8\r\n";
@@ -54,6 +53,7 @@ void HttpServer::closeSocket(int client_socket)
 	close(client_socket);
 	openSockets.erase(client_socket);
 	clientInfoMap.erase(client_socket);
+	logger.logMethod("INFO", "Closed client socket FD: " + std::to_string(client_socket));
 	// logger.logMethod("WARNING", "Client socket FD not found in clientInfoMap: " + std::to_string(client_socket));
 }
 

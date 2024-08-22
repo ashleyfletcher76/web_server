@@ -74,6 +74,7 @@ void HttpServer::mainLoop()
 {
 	struct kevent events[1024];
 	logger.logMethod("INFO", "Main loop started.");
+	int	j = 1;
 
 	while (!shutdownFlag)
 	{
@@ -118,7 +119,6 @@ void HttpServer::mainLoop()
 					readRequest(static_cast<int>(event.ident));
 					if (clientInfoMap.find(event.ident) != clientInfoMap.end())
 						handleRequest(event.ident); // check if socket is previously closed
-					setupKevent(event.ident, 10);
 				}
 			}
 			else if (event.filter == EVFILT_WRITE)
@@ -126,6 +126,8 @@ void HttpServer::mainLoop()
 				logger.logMethod("INFO", "Ready to write to FD: " + std::to_string(event.ident));
 				writeResponse(static_cast<int>(event.ident));
 			}
+			std::cout << "Num rotations: " + std::to_string(j) << std::endl;
+			j++;
 		}
 	}
 }
