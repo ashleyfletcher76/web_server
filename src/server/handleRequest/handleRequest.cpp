@@ -70,12 +70,25 @@ void HttpServer::decideConnectionPersistence(int client_socket, const HttpReques
 		setupKevent(client_socket, 0);
 }
 
-
 void HttpServer::registerWriteEvent(int client_socket)
 {
-	struct kevent change;
-	EV_SET(&change, static_cast<uintptr_t>(client_socket), EVFILT_WRITE, EV_ADD | EV_ENABLE, 0, 0, NULL);
-	if (kevent(kq, &change, 1, NULL, 0, NULL) == -1)
+	struct kevent changes[2];
+	int numChanges = 0;
+
+	// Step 1: Disable or delete the EVFILT_READ event
+	// Uncomment one of the following lines based on whether you want to disable or delete:
+
+	// Disable EVFILT_READ (can be re-enabled later)
+	EV_SET(&changes[numChanges++], static_cast<uintptr_t>(client_socket), EVFILT_READ, EV_DISABLE, 0, 0, NULL);
+
+	// OR
+
+	// Delete EVFILT_READ (removes the event entirely)
+	// EV_SET(&changes[numChanges++], static_cast<uintptr_t>(client_socket), EVFILT_READ, EV_DELETE, 0, 0, NULL);
+
+	// Step 2: Add and enable the EVFILT_WRITE event
+	EV_SET(&changes[numChanges++], static_cast<uintptr_t>(client_socket), EVFILT_WRITE, EV_ADD | EV_ENABLE, 0, 0, NULL);
+	if (kevent(kq, changes, numChanges, NULL, 0, NULL) == -1)
 		logger.logMethod("ERROR", "Kevent registration failure for writing: " + std::string(strerror(errno)));
 	else
 		logger.logMethod("INFO", "Successfully registered kevent for socket: " + std::to_string(client_socket));
@@ -83,7 +96,7 @@ void HttpServer::registerWriteEvent(int client_socket)
 
 void HttpServer::processRequestMethod(int client_socket)
 {
-	HttpRequest& request = clientInfoMap[client_socket].request;
+	HttpRequest &request = clientInfoMap[client_socket].request;
 	if (request.method == "GET")
 		handleGetRequest(client_socket);
 	else if (request.method == "POST")
@@ -106,10 +119,14 @@ void HttpServer::handleRequest(int client_socket)
 
 void HttpServer::sendRedirectResponse(int client_socket, const std::string &redirectUrl)
 {
-	std::string response = "HTTP/1.1 302 Found\r\n";
-	response += "Location: http://" + redirectUrl + "\r\n";
-	response += "Connection: close\r\n";
-	response += "\r\n";
+	std::string htmlContent =
+			"HTTP/1.1 302 Found\r\n";
+			"Location: http://" + redirectUrl + "\r\n";
+			"Connection: close\r\n";
+			"\r\n";
 
-	send(client_socket, response.c_str(), response.size(), 0);
+	std::string response = formatHttpResponse(clientInfoMap[client_socket].request.version, 302, "Moved Permanently", htmlContent, clientInfoMap[client_socket].shouldclose);
+
+	clientInfoMap[client_socket].response = response;
+	registerWriteEvent(client_socket);
 }

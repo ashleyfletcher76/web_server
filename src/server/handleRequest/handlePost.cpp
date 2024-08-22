@@ -71,4 +71,9 @@ void	HttpServer::handlePostRequest(int client_socket)
 		else
 			sendErrorResponse(client_socket, 500, "Internal Server Error");
 	}
+	else
+	{
+		responseBody = "<html><body>Empty Post request!</body></html>";
+		clientInfoMap[client_socket].response = formatHttpResponse(clientInfoMap[client_socket].request.version, 200, "OK", responseBody, clientInfoMap[client_socket].shouldclose);
+	}
 }
