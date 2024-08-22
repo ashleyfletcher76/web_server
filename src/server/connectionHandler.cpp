@@ -62,6 +62,6 @@ void HttpServer::acceptConnection(int serverSocket)
 	logger.logMethod("INFO", "Accepted connection from IP: " + std::string(client_ip) + " on socket: " + std::to_string(client_socket));
 
 	configureSocketNonBlocking(client_socket);
-	setupKevent(client_socket, 10);
+	setupKevent(client_socket, 60);
 	clientInfoMap.emplace(client_socket, ClientInfo(serverSocket));
 }
