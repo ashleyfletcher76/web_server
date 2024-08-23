@@ -65,7 +65,7 @@ void HttpServer::checkIdleSockets()
 {
 	auto now = std::chrono::steady_clock::now();
 
-	for (auto it = socket_last_activity.begin(); it != socket_last_activity.end();)
+	for (auto it = socket_last_activity.begin(); it != socket_last_activity.end(); ++it)
 	{
 		auto socket_fd = it->first;
 		auto last_activity_time = it->second;
@@ -74,14 +74,12 @@ void HttpServer::checkIdleSockets()
 		{
 			closeSocket(socket_fd);
 		}
-		else
-		{
-			++it;
-		}
 	}
 }
 
 void HttpServer::updateLastActivity(int socket_fd)
 {
+	auto serverIt = servers.find(socket_fd);
+	if (serverIt != servers.end()) { return; }
 	socket_last_activity[socket_fd] = std::chrono::steady_clock::now();
 }
