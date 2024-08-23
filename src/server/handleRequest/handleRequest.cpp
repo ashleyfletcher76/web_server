@@ -62,7 +62,6 @@ void HttpServer::decideConnectionPersistence(int client_socket, const HttpReques
 
 	bool keepAlive = (connectionValue == "keep-alive");
 	clientInfoMap[client_socket].shouldclose = !keepAlive;
-
 }
 
 
@@ -112,7 +111,6 @@ void HttpServer::sendRedirectResponse(int client_socket, const std::string &redi
 		"\r\n";
 	//clientInfoMap[client_socket].response = htmlContent;
 	clientResponse[client_socket] = htmlContent;
-
 	deregisterReadEvent(client_socket);
 	registerWriteEvent(client_socket);
 }

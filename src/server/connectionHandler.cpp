@@ -24,12 +24,12 @@ void HttpServer::acceptConnection(int serverSocket)
 		}
 		return;
 	}
-
 	openSockets.insert(client_socket);
 
 	char client_ip[INET_ADDRSTRLEN];
 	if (!inet_ntop(AF_INET, &client_address.sin_addr, client_ip, INET_ADDRSTRLEN))
 	{
+		logger.logMethod("ERROR", "Connection failed: " + std::string(strerror(errno)));
 		return ;
 	}
 	logger.logMethod("INFO", "Accepted connection from IP: " + std::string(client_ip) + " on socket: " + std::to_string(client_socket));

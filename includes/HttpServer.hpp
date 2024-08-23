@@ -45,9 +45,9 @@ class HttpServer : public config
 		void	processRequestMethod(int client_socket);
 
 		// content
-		void	writeResponse(int client_socket);
-		std::string getFilePath(int server_fd, const std::string &uri);
-		std::string readFileContent(const std::string& filePath);
+		void		writeResponse(int client_socket);
+		std::string	getFilePath(int server_fd, const std::string &uri);
+		std::string	readFileContent(const std::string& filePath);
 
 		// parse
 		bool	parseHttpRequest(const std::string& requestStream, HttpRequest& request, int client_socket);

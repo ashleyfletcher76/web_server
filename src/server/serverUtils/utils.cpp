@@ -48,8 +48,6 @@ void HttpServer::closeSocket(int client_socket)
 		logger.logMethod("WARNING", "Attempted to close an already closed or non-existent FD: " + std::to_string(client_socket));
 		return;
 	}
-	deregisterReadEvent(client_socket);
-	deregisterWriteEvent(client_socket);
 	close(client_socket);
 	openSockets.erase(client_socket);
 	clientInfoMap.erase(client_socket);

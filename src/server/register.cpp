@@ -72,6 +72,7 @@ void HttpServer::checkIdleSockets()
 
 		if (now - last_activity_time > idle_timeout)
 		{
+			deregisterReadEvent(socket_fd);
 			closeSocket(socket_fd);
 		}
 	}

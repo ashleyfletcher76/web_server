@@ -18,6 +18,7 @@ HttpServer::~HttpServer()
 	auto iter = clientInfoMap.begin();
 	while (iter != clientInfoMap.end())
 	{
+		deregisterReadEvent(iter->first);
 		closeSocket(iter->first);
 		iter = clientInfoMap.begin();
 	}
@@ -86,6 +87,17 @@ void HttpServer::mainLoop()
 			updateLastActivity(event.ident);
 			if (event.flags & EV_EOF)
 			{
+				switch (event.filter)
+				{
+				case EVFILT_READ:
+					deregisterReadEvent(event.ident);
+					break;
+				case EVFILT_WRITE:
+					deregisterWriteEvent(event.ident);
+					break;
+				default:
+					break;
+				}
 				closeSocket(event.ident);
 				continue ;
 			}

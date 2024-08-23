@@ -30,6 +30,7 @@ void HttpServer::writeResponse(int client_socket)
 	}
 	else
 	{
+		deregisterWriteEvent(client_socket);
 		closeSocket(client_socket);
 	}
 }
