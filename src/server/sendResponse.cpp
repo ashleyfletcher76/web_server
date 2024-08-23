@@ -26,7 +26,9 @@ void HttpServer::writeResponse(int client_socket)
 				registerReadEvent(client_socket);
 			}
 		else
+		{
 			logger.logMethod("WARNING", "Socket already closed or removed from open sockets when trying to modify event.");
+		}
 	}
 	else
 	{

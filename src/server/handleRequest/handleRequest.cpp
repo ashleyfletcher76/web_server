@@ -76,16 +76,6 @@ void HttpServer::processRequestMethod(int client_socket)
 		sendErrorResponse(client_socket, 501, "Not Implemented");
 }
 
-void HttpServer::handleRequest(int client_socket)
-{
-	if (!validateServer(client_socket))
-		return;
-	HttpRequest &request = clientInfoMap[client_socket].request;
-	if (!validateRouteAndMethod(client_socket, request))
-		return;
-	decideConnectionPersistence(client_socket, request);
-	processRequestMethod(client_socket);
-}
 
 void HttpServer::sendRedirectResponse(int client_socket, const std::string &redirectUrl)
 {
@@ -113,4 +103,15 @@ void HttpServer::sendRedirectResponse(int client_socket, const std::string &redi
 	clientResponse[client_socket] = htmlContent;
 	deregisterReadEvent(client_socket);
 	registerWriteEvent(client_socket);
+}
+
+void HttpServer::handleRequest(int client_socket)
+{
+	if (!validateServer(client_socket))
+		return;
+	HttpRequest &request = clientInfoMap[client_socket].request;
+	if (!validateRouteAndMethod(client_socket, request))
+		return;
+	decideConnectionPersistence(client_socket, request);
+	processRequestMethod(client_socket);
 }
