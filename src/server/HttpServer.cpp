@@ -74,10 +74,11 @@ void HttpServer::mainLoop()
 
 	while (!shutdownFlag)
 	{
-		struct timespec timeout = {1, 0}; // Timeout of 1 second
+		struct timespec timeout = {1, 0};
 		int nev = kevent(kq, NULL, 0, events, 1024, &timeout);
 		if (nev < 0)
 		{
+			checkIdleSockets();
 			continue;
 		}
 		for (int i = 0; i < nev; ++i)
@@ -96,7 +97,6 @@ void HttpServer::mainLoop()
 				else
 				{
 					readRequest(event.ident);
-					handleRequest(event.ident);
 				}
 				break;
 			}

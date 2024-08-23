@@ -1,15 +1,14 @@
 #include "HttpServer.hpp"
 
-// configure a given socket for non-blocking mode
 void HttpServer::configureSocketNonBlocking(int client_socket)
 {
 	if (fcntl(client_socket, F_SETFL, O_NONBLOCK) < 0)
 	{
 		std::string errMsg = "Failed to set non-blocking mode for socket: " + std::to_string(client_socket);
-		//logger.logMethod("ERROR", errMsg);
+		logger.logMethod("ERROR", errMsg);
 		throw std::runtime_error(errMsg);
 	}
-	//logger.logMethod("Info", "Socket configured to non-blocking mode: " + std::to_string(client_socket));
+	logger.logMethod("Info", "Socket configured to non-blocking mode: " + std::to_string(client_socket));
 }
 
 void HttpServer::acceptConnection(int serverSocket)
@@ -21,7 +20,7 @@ void HttpServer::acceptConnection(int serverSocket)
 	{
 		if (errno != EAGAIN && errno != EWOULDBLOCK)
 		{
-			//logger.logMethod("ERROR", "Accept failed: " + std::string(strerror(errno)));
+			logger.logMethod("ERROR", "Accept failed: " + std::string(strerror(errno)));
 		}
 		return;
 	}
@@ -33,7 +32,7 @@ void HttpServer::acceptConnection(int serverSocket)
 	{
 		return ;
 	}
-	//logger.logMethod("INFO", "Accepted connection from IP: " + std::string(client_ip) + " on socket: " + std::to_string(client_socket));
+	logger.logMethod("INFO", "Accepted connection from IP: " + std::string(client_ip) + " on socket: " + std::to_string(client_socket));
 
 	configureSocketNonBlocking(client_socket);
 	registerReadEvent(client_socket);

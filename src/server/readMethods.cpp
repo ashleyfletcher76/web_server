@@ -39,13 +39,15 @@ void HttpServer::readRequest(int client_socket)
 	}
 	if (bytesRead < 0)
 	{
-		//logger.logMethod("ERROR", "Error reading from socket: " + std::string(strerror(errno)));
+		logger.logMethod("ERROR", "Error reading from socket: " + std::string(strerror(errno)));
 		sendErrorResponse(client_socket, 404, "Error reading from socket");
 		return;
 	}
-	//logger.logMethod("INFO", "Recieved request: " + request);
+	logger.logMethod("INFO", "Recieved request: " + request);
 	if (request.empty() || !parseHttpRequest(request, clientInfoMap[client_socket].request, client_socket))
 	{
 		sendErrorResponse(client_socket, 400, "Bad request");
+		return;
 	}
+	handleRequest(client_socket);
 }
