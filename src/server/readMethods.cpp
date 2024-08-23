@@ -43,7 +43,7 @@ void HttpServer::readRequest(int client_socket)
 		sendErrorResponse(client_socket, 404, "Error reading from socket");
 		return;
 	}
-	logger.logMethod("INFO", "Recieved request: " + request);
+	logger.logMethod("INFO", "Recieved request");
 	if (request.empty() || !parseHttpRequest(request, clientInfoMap[client_socket].request, client_socket))
 	{
 		sendErrorResponse(client_socket, 400, "Bad request");

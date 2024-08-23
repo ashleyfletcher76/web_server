@@ -86,8 +86,6 @@ void HttpServer::handleRequest(int client_socket)
 		return;
 	decideConnectionPersistence(client_socket, request);
 	processRequestMethod(client_socket);
-	deregisterReadEvent(client_socket);
-	registerWriteEvent(client_socket);
 }
 
 void HttpServer::sendRedirectResponse(int client_socket, const std::string &redirectUrl)

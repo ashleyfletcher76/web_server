@@ -74,17 +74,21 @@ void HttpServer::mainLoop()
 
 	while (!shutdownFlag)
 	{
-		struct timespec timeout = {0, 0};
+		struct timespec timeout = {1, 0};
 		int nev = kevent(kq, NULL, 0, events, 1024, &timeout);
 		if (nev < 0)
 		{
-			checkIdleSockets();
 			continue;
 		}
 		for (int i = 0; i < nev; ++i)
 		{
 			struct kevent &event = events[i];
 			updateLastActivity(event.ident);
+			if (event.flags & EV_EOF)
+			{
+				closeSocket(event.ident);
+				continue ;
+			}
 			switch (event.filter)
 			{
 			case EVFILT_READ:
@@ -109,10 +113,6 @@ void HttpServer::mainLoop()
 			{
 				break;
 			}
-			}
-			if (event.flags & EV_EOF)
-			{
-				closeSocket(event.ident);
 			}
 		}
 		checkIdleSockets();

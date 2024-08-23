@@ -20,5 +20,10 @@ void	HttpServer::handleDeleteRequest(int client_socket)
 		clientInfoMap[client_socket].response = formatHttpResponse(clientInfoMap[client_socket].request.version, 200, "OK", responseBody, clientInfoMap[client_socket].shouldclose);
 	}
 	else
+	{
 		sendErrorResponse(client_socket, 500, "Failed to delete profile");
+		return ;
+	}
+	deregisterReadEvent(client_socket);
+	registerWriteEvent(client_socket);
 }
