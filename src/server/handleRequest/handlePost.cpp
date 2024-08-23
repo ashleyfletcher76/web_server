@@ -66,7 +66,8 @@ void	HttpServer::handlePostRequest(int client_socket)
 			formData["phone"], formData["description"]))
 		{
 			responseBody = "<html><body>New user added successfully!</body></html>";
-			clientInfoMap[client_socket].response = formatHttpResponse(clientInfoMap[client_socket].request.version, 200, "OK", responseBody, clientInfoMap[client_socket].shouldclose);
+			// clientInfoMap[client_socket].response = formatHttpResponse(clientInfoMap[client_socket].request.version, 200, "OK", responseBody, clientInfoMap[client_socket].shouldclose);
+			clientResponse[client_socket] = formatHttpResponse(clientInfoMap[client_socket].request.version, 200, "OK", responseBody, clientInfoMap[client_socket].shouldclose);
 		}
 		else
 		{
@@ -78,6 +79,7 @@ void	HttpServer::handlePostRequest(int client_socket)
 	{
 		responseBody = "<html><body>Empty Post request!</body></html>";
 		clientInfoMap[client_socket].response = formatHttpResponse(clientInfoMap[client_socket].request.version, 200, "OK", responseBody, clientInfoMap[client_socket].shouldclose);
+		clientResponse[client_socket] = formatHttpResponse(clientInfoMap[client_socket].request.version, 200, "OK", responseBody, clientInfoMap[client_socket].shouldclose);
 	}
 	deregisterReadEvent(client_socket);
 	registerWriteEvent(client_socket);

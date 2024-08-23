@@ -18,6 +18,7 @@ class HttpServer : public config
 		struct sockaddr_in	address;
 
 		std::unordered_map<int, ClientInfo> clientInfoMap;
+		std::unordered_map<int, std::string> clientResponse;
 		std::set<int> openSockets;
 
 		Logger& logger;

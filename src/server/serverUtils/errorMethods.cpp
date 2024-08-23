@@ -33,7 +33,7 @@ void HttpServer::sendErrorResponse(int client_socket, int statusCode, const std:
 	}
 
 	std::string response = formatHttpResponse(clientInfoMap[client_socket].request.version, statusCode, reasonPhrase, htmlContent, clientInfoMap[client_socket].shouldclose);
-	clientInfoMap[client_socket].response = response;
+	clientResponse[client_socket] = response;
 	deregisterReadEvent(client_socket);
 	registerWriteEvent(client_socket);
 }
