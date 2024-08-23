@@ -12,8 +12,8 @@ class HttpServer : public config
 		std::unordered_map<int, Server*> servers;
 		int			kq;
 
-		std::map<int, std::chrono::steady_clock::time_point> socket_last_activity;
-		const std::chrono::seconds idle_timeout = std::chrono::seconds(3);
+		std::unordered_map<int, std::chrono::steady_clock::time_point> socket_last_activity;
+		const std::chrono::seconds idle_timeout = std::chrono::seconds(5);
 
 		struct sockaddr_in	address;
 
@@ -29,7 +29,6 @@ class HttpServer : public config
 
 		// connection handlers
 		void	acceptConnection(int serverSocket);
-		void	setupKevent(int client_socket, int timeoutSeconds);
 		void	configureSocketNonBlocking(int client_socket);
 		void	closeSocket(int client_socket);
 		void	modifyEvent(int fd, int filter, int flags);

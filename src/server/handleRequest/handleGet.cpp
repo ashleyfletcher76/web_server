@@ -7,7 +7,7 @@ bool HttpServer::findProfileByID(const std::string &uri, int client_socket)
 		return (false);
 	std::string queryString = uri.substr(queryStart + 1);
 	// split query string based on '&' and '=' to get key values
-	std::map<std::string, std::string> queryParams;
+	std::unordered_map<std::string, std::string> queryParams;
 	std::istringstream queryStream(queryString);
 	std::string pair;
 	while (std::getline(queryStream, pair, '&'))

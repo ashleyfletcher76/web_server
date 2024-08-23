@@ -13,7 +13,6 @@ std::string HttpServer::getErrorFilePath(int statusCode, int serverFd)
 
 void HttpServer::sendErrorResponse(int client_socket, int statusCode, const std::string &reasonPhrase)
 {
-	std::cout << clientInfoMap[client_socket].server_fd << "\n";
 	std::string errorFilePath = getErrorFilePath(statusCode, clientInfoMap[client_socket].server_fd);
 	std::string htmlContent = readFileContent(errorFilePath);
 

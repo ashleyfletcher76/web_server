@@ -74,7 +74,7 @@ void HttpServer::mainLoop()
 
 	while (!shutdownFlag)
 	{
-		struct timespec timeout = {1, 0};
+		struct timespec timeout = {0, 0};
 		int nev = kevent(kq, NULL, 0, events, 1024, &timeout);
 		if (nev < 0)
 		{
