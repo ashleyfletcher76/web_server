@@ -178,7 +178,8 @@ void HttpServer::handleDirectoryListing(int client_socket, const std::string &di
 	}
 	response += "</ul></body></html>";
 
-	clientInfoMap[client_socket].response = response;
+	//clientInfoMap[client_socket].response = response;
+	clientResponse[client_socket] = response;
 	deregisterReadEvent(client_socket);
 	registerWriteEvent(client_socket);
 }
