@@ -8,7 +8,7 @@ void HttpServer::configureSocketNonBlocking(int client_socket)
 		logger.logMethod("ERROR", errMsg);
 		throw std::runtime_error(errMsg);
 	}
-	logger.logMethod("Info", "Socket configured to non-blocking mode: " + std::to_string(client_socket));
+	logger.logMethod("INFO", "Socket configured to non-blocking mode: " + std::to_string(client_socket));
 }
 
 void HttpServer::acceptConnection(int serverSocket)
@@ -22,6 +22,7 @@ void HttpServer::acceptConnection(int serverSocket)
 		{
 			logger.logMethod("ERROR", "Accept failed: " + std::string(strerror(errno)));
 		}
+		logger.logMethod("ERROR", "Accept failed: " + std::string(strerror(errno)));
 		return;
 	}
 	openSockets.insert(client_socket);

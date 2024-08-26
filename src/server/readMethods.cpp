@@ -17,12 +17,10 @@ void HttpServer::readRequest(int client_socket)
 {
 	char buffer[1024];
 	std::string request;
-	ssize_t bytesRead;
+	int bytesRead;
 	const size_t MAX_REQUEST_SIZE = 2100;
 	size_t totalBytesRead = 0;
 
-	// reads from client_socket and stores into a local buffer
-	// until complete HTTP request recieved
 	while ((bytesRead = recv(client_socket, buffer, sizeof(buffer), 0)) > 0)
 	{
 		totalBytesRead += static_cast<size_t>(bytesRead);
@@ -35,50 +33,25 @@ void HttpServer::readRequest(int client_socket)
 		if (request.find("\r\n\r\n") != std::string::npos)
 			break;
 	}
-	if (bytesRead < 0)
+	if (bytesRead == 0)
 	{
-		logger.logMethod("ERROR", "Error reading from socket: " + std::string(strerror(errno)));
+		logger.logMethod("INFO", "Connection closed by client");
+		closeSocket(client_socket);
+		return;
+	}
+	else if (bytesRead < 0)
+	{
+		logger.logMethod("ERROR", "Error reading from socket, code: " + std::to_string(bytesRead));
 		sendErrorResponse(client_socket, 404, "Error reading from socket");
 		return;
 	}
 
-	logger.logMethod("INFO", "Recieved request" + request);
+	logger.logMethod("INFO", "Recieved request");
 	if (request.empty() || !parseHttpRequest(request, clientInfoMap[client_socket].request, client_socket))
 	{
+		logger.logMethod("ERROR", "Error empty request! " + std::to_string(bytesRead));
 		sendErrorResponse(client_socket, 400, "Bad request");
 		return;
 	}
 	handleRequest(client_socket);
 }
-
-	// while (true)
-	// {
-	// 	bytesRead = recv(client_socket, buffer, sizeof(buffer), 0);
-	// 	if (bytesRead > 0)
-	// 	{
-	// 		totalBytesRead += static_cast<size_t>(bytesRead);
-	// 		if (totalBytesRead > MAX_REQUEST_SIZE)
-	// 		{
-	// 			sendErrorResponse(client_socket, 413, "Payload too large");
-	// 			return ;
-	// 		}
-	// 		request.append(buffer, bytesRead);
-	// 		if (request.find("\r\n\r\n") != std::string::npos)
-	// 			break;
-	// 	}
-	// 	else if (bytesRead < 0)
-	// 	{
-	// 		if (errno == EAGAIN || errno == EWOULDBLOCK)
-	// 			return ;
-	// 		else if (errno == EINTR)
-	// 			continue ;
-	// 		else
-	// 		{
-	// 			logger.logMethod("ERROR", "Error reading from socket: " + std::string(strerror(errno)));
-	// 			sendErrorResponse(client_socket, 404, "Error reading from socket");
-	// 			return ;
-	// 		}
-	// 	}
-	// 	else
-	// 		return ; // connection closed
-	// }
