@@ -23,37 +23,25 @@ void HttpServer::readRequest(int client_socket)
 
 	// reads from client_socket and stores into a local buffer
 	// until complete HTTP request recieved
-	while (true)
+	while ((bytesRead = recv(client_socket, buffer, sizeof(buffer), 0)) > 0)
 	{
-		bytesRead = recv(client_socket, buffer, sizeof(buffer), 0);
-		if (bytesRead > 0)
+		totalBytesRead += static_cast<size_t>(bytesRead);
+		if (totalBytesRead > MAX_REQUEST_SIZE)
 		{
-			totalBytesRead += static_cast<size_t>(bytesRead);
-			if (totalBytesRead > MAX_REQUEST_SIZE)
-			{
-				sendErrorResponse(client_socket, 413, "Payload too large");
-				return ;
-			}
-			request.append(buffer, bytesRead);
-			if (request.find("\r\n\r\n") != std::string::npos)
-				break;
+			sendErrorResponse(client_socket, 413, "Payload too large");
+			return ;
 		}
-		else if (bytesRead < 0)
-		{
-			if (errno == EAGAIN || errno == EWOULDBLOCK)
-				return ;
-			else if (errno == EINTR)
-				continue ;
-			else
-			{
-				logger.logMethod("ERROR", "Error reading from socket: " + std::string(strerror(errno)));
-				sendErrorResponse(client_socket, 404, "Error reading from socket");
-				return ;
-			}
-		}
-		else
-			return ; // connection closed
+		request.append(buffer, bytesRead);
+		if (request.find("\r\n\r\n") != std::string::npos)
+			break;
 	}
+	if (bytesRead < 0)
+	{
+		logger.logMethod("ERROR", "Error reading from socket: " + std::string(strerror(errno)));
+		sendErrorResponse(client_socket, 404, "Error reading from socket");
+		return;
+	}
+
 	logger.logMethod("INFO", "Recieved request" + request);
 	if (request.empty() || !parseHttpRequest(request, clientInfoMap[client_socket].request, client_socket))
 	{
@@ -63,25 +51,34 @@ void HttpServer::readRequest(int client_socket)
 	handleRequest(client_socket);
 }
 
-// while ((bytesRead = recv(client_socket, buffer, sizeof(buffer), 0)) > 0)
-// 	{
-// 		totalBytesRead += static_cast<size_t>(bytesRead);
-// 		if (totalBytesRead > MAX_REQUEST_SIZE)
-// 		{
-// 			sendErrorResponse(client_socket, 413, "Payload too large");
-// 			return ;
-// 		}
-// 		request.append(buffer, bytesRead);
-// 		if (request.find("\r\n\r\n") != std::string::npos)
-// 			break;
-// 	}
-// 	if (bytesRead < 0 && (errno == EAGAIN || errno == EWOULDBLOCK))
-// 	{
-// 		return ;
-// 	}
-// 	else if (bytesRead < 0)
-// 	{
-// 		logger.logMethod("ERROR", "Error reading from socket: " + std::string(strerror(errno)));
-// 		sendErrorResponse(client_socket, 404, "Error reading from socket");
-// 		return;
-// 	}
+	// while (true)
+	// {
+	// 	bytesRead = recv(client_socket, buffer, sizeof(buffer), 0);
+	// 	if (bytesRead > 0)
+	// 	{
+	// 		totalBytesRead += static_cast<size_t>(bytesRead);
+	// 		if (totalBytesRead > MAX_REQUEST_SIZE)
+	// 		{
+	// 			sendErrorResponse(client_socket, 413, "Payload too large");
+	// 			return ;
+	// 		}
+	// 		request.append(buffer, bytesRead);
+	// 		if (request.find("\r\n\r\n") != std::string::npos)
+	// 			break;
+	// 	}
+	// 	else if (bytesRead < 0)
+	// 	{
+	// 		if (errno == EAGAIN || errno == EWOULDBLOCK)
+	// 			return ;
+	// 		else if (errno == EINTR)
+	// 			continue ;
+	// 		else
+	// 		{
+	// 			logger.logMethod("ERROR", "Error reading from socket: " + std::string(strerror(errno)));
+	// 			sendErrorResponse(client_socket, 404, "Error reading from socket");
+	// 			return ;
+	// 		}
+	// 	}
+	// 	else
+	// 		return ; // connection closed
+	// }
