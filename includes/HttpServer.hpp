@@ -13,7 +13,7 @@ class HttpServer : public config
 		int			kq;
 
 		std::unordered_map<int, std::chrono::steady_clock::time_point> socket_last_activity;
-		const std::chrono::seconds idle_timeout = std::chrono::seconds(5);
+		const std::chrono::seconds idle_timeout = std::chrono::seconds(15);
 
 		struct sockaddr_in	address;
 

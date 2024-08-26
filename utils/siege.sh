@@ -16,11 +16,10 @@ METHOD=$1
 
 if [ "$METHOD" == "post" ]; then
 	echo "Running post method..."
-	siege -c250 -r5 "$URL POST < $URL_FILE_POST" --content-type "application/x-www-form-urlencoded" > "$OUTPUT_FILE_POST" 2>&1
+	siege -c200 -r5 "$URL POST < $URL_FILE_POST" --content-type "application/x-www-form-urlencoded" > "$OUTPUT_FILE_POST" 2>&1
 elif [ "$METHOD" == "get" ]; then
 	echo "Running get method..."
-
-	 "$URL" > "$OUTPUT_FILE_GET" 2>&1
+	siege -c350 -r5 "$URL" > "$OUTPUT_FILE_GET" 2>&1
 else
 	echo "Invalid method."
 	exit 1

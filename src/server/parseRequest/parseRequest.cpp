@@ -1,33 +1,30 @@
 #include "HttpServer.hpp"
 
-bool	isValidVersion(const std::string& version)
+bool	isValidVersion(std::string_view version)
 {
 	return (version == "HTTP/1.0" || version == "HTTP/1.1"); // support only these versions
 }
 
-bool	isValidUri(const std::string& uri)
+bool	isValidUri(std::string_view uri)
 {
 	return (uri.find("..") == std::string::npos); // prevent directory traversal
 }
 
 bool	isValidMethod(const std::string& method)
 {
-	std::set<std::string> validMethods;
-	validMethods.insert("GET");
-	validMethods.insert("POST");
-	validMethods.insert("DELETE");
+	static const std::set<std::string> validMethods = {"GET", "POST", "DELETE"};
 	return (validMethods.find(method) != validMethods.end());
 }
 
-bool	isValidHeader(const std::string& name, const std::string& value)
+bool	isValidHeader(std::string_view name, std::string_view value)
 {
-	return (name.find('\n') == std::string::npos && value.find('\n') == std::string::npos);
+	return (name.find('\n') == std::string_view::npos
+		&& value.find('\n') == std::string_view::npos);
 }
 
 void	normaliseHeader(std::string& header)
 {
-	for(std::size_t i = 0; i <header.size(); i++)
-		header[i] = std::tolower(header[i]);
+	std::transform(header.begin(), header.end(), header.begin(), ::tolower);
 }
 
 bool	HttpServer::parseHttpRequestHeaders(std::istringstream& requestStream, HttpRequest& request)
@@ -41,10 +38,10 @@ bool	HttpServer::parseHttpRequestHeaders(std::istringstream& requestStream, Http
 	if (!isValidMethod(request.method) || !isValidUri(request.uri)
 		|| !isValidVersion(request.version))
 		return (false);
-	
+
 	while (std::getline(requestStream, line) && line != "\r" && !line.empty())
 	{
-		std::size_t colonPos = line.find(':');
+		auto colonPos = line.find(':');
 		if (colonPos == std::string::npos)
 			continue ;
 		std::string headerName = line.substr(0, colonPos);
@@ -70,7 +67,7 @@ bool	HttpServer::parseHttpRequestBody(std::istringstream& requestStream, HttpReq
 			{
 				return (false);
 			}
-			std::getline(requestStream, request.body);
+			std::getline(requestStream, request.body, '\0');
 		}
 	}
 	return (true);

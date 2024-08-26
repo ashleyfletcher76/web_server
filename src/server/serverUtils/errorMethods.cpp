@@ -1,5 +1,14 @@
 #include "HttpServer.hpp"
 
+const std::string DEFAULT_ERROR_HTML =
+	"<html>"
+	"<head><title>Error</title></head>"
+	"<body>"
+	"<h1>Error: {statusCode} - {reasonPhrase}</h1>"
+	"<p>The requested operation could not be completed due to a server error.</p>"
+	"</body>"
+	"</html>";
+
 std::string HttpServer::getErrorFilePath(int statusCode, int serverFd)
 {
 	const serverInfo &srvInfo = servers[serverFd]->getServerInfo();
@@ -18,16 +27,7 @@ void HttpServer::sendErrorResponse(int client_socket, int statusCode, const std:
 
 	if (htmlContent.empty())
 	{
-		std::string templateContent =
-			"<html>"
-			"<head><title>Error</title></head>"
-			"<body>"
-			"<h1>Error: {statusCode} {reasonPhrase}</h1>"
-			"<p>Go fuck yourself!!.</p>"
-			"</body>"
-			"</html>";
-
-		htmlContent = templateContent;
+		htmlContent = DEFAULT_ERROR_HTML;
 		htmlContent = replacePlaceholder(htmlContent, "{statusCode}", std::to_string(statusCode));
 		htmlContent = replacePlaceholder(htmlContent, "{reasonPhrase}", reasonPhrase);
 	}
