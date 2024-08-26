@@ -19,7 +19,8 @@ if [ "$METHOD" == "post" ]; then
 	siege -c250 -r5 "$URL POST < $URL_FILE_POST" --content-type "application/x-www-form-urlencoded" > "$OUTPUT_FILE_POST" 2>&1
 elif [ "$METHOD" == "get" ]; then
 	echo "Running get method..."
-	siege -b -c500 -r5 "$URL" > "$OUTPUT_FILE_GET" 2>&1
+
+	 "$URL" > "$OUTPUT_FILE_GET" 2>&1
 else
 	echo "Invalid method."
 	exit 1

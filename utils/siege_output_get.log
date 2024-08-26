@@ -1,517 +1,1865 @@
 ** SIEGE 4.1.6
-** Preparing 100 concurrent users for battle.
+** Preparing 500 concurrent users for battle.
 The server is now under siege...
-[0;34mHTTP/1.1 200     0.00 secs:    1018 bytes ==> GET  /[0m
-[0;34mHTTP/1.1 200     0.00 secs:    1018 bytes ==> GET  /[0m
-[0;34mHTTP/1.1 200     0.00 secs:    1018 bytes ==> GET  /[0m
-[0;34mHTTP/1.1 200     0.00 secs:    1018 bytes ==> GET  /[0m
-[0;34mHTTP/1.1 200     0.01 secs:    1018 bytes ==> GET  /[0m
-[0;34mHTTP/1.1 200     0.01 secs:    1018 bytes ==> GET  /[0m
-[0;34mHTTP/1.1 200     0.01 secs:    1018 bytes ==> GET  /[0m
-[0;34mHTTP/1.1 200     0.01 secs:    1018 bytes ==> GET  /[0m
-[0;34mHTTP/1.1 200     0.01 secs:    1018 bytes ==> GET  /[0m
-[0;34mHTTP/1.1 200     0.01 secs:    1018 bytes ==> GET  /[0m
-[0;34mHTTP/1.1 200     0.01 secs:    1018 bytes ==> GET  /[0m
-[0;34mHTTP/1.1 200     0.01 secs:    1018 bytes ==> GET  /[0m
-[0;34mHTTP/1.1 200     0.01 secs:    1018 bytes ==> GET  /[0m
-[0;34mHTTP/1.1 200     0.01 secs:    1018 bytes ==> GET  /[0m
-[0;34mHTTP/1.1 200     0.01 secs:    1018 bytes ==> GET  /[0m
-[0;34mHTTP/1.1 200     0.01 secs:    1018 bytes ==> GET  /[0m
-[0;34mHTTP/1.1 200     0.01 secs:    1018 bytes ==> GET  /[0m
-[0;34mHTTP/1.1 200     0.01 secs:    1018 bytes ==> GET  /[0m
-[0;34mHTTP/1.1 200     0.01 secs:    1018 bytes ==> GET  /[0m
-[0;34mHTTP/1.1 200     0.01 secs:    1018 bytes ==> GET  /[0m
-[0;34mHTTP/1.1 200     0.01 secs:    1018 bytes ==> GET  /[0m
-[0;34mHTTP/1.1 200     0.01 secs:    1018 bytes ==> GET  /[0m
-[0;34mHTTP/1.1 200     0.01 secs:    1018 bytes ==> GET  /[0m
-[0;34mHTTP/1.1 200     0.01 secs:    1018 bytes ==> GET  /[0m
-[0;34mHTTP/1.1 200     0.01 secs:    1018 bytes ==> GET  /[0m
-[0;34mHTTP/1.1 200     0.01 secs:    1018 bytes ==> GET  /[0m
-[0;34mHTTP/1.1 200     0.01 secs:    1018 bytes ==> GET  /[0m
-[0;34mHTTP/1.1 200     0.01 secs:    1018 bytes ==> GET  /[0m
-[0;34mHTTP/1.1 200     0.01 secs:    1018 bytes ==> GET  /[0m
-[0;34mHTTP/1.1 200     0.01 secs:    1018 bytes ==> GET  /[0m
-[0;34mHTTP/1.1 200     0.01 secs:    1018 bytes ==> GET  /[0m
-[0;34mHTTP/1.1 200     0.01 secs:    1018 bytes ==> GET  /[0m
-[0;34mHTTP/1.1 200     0.01 secs:    1018 bytes ==> GET  /[0m
-[0;34mHTTP/1.1 200     0.01 secs:    1018 bytes ==> GET  /[0m
-[0;34mHTTP/1.1 200     0.01 secs:    1018 bytes ==> GET  /[0m
-[0;34mHTTP/1.1 200     0.01 secs:    1018 bytes ==> GET  /[0m
-[0;34mHTTP/1.1 200     0.01 secs:    1018 bytes ==> GET  /[0m
-[0;34mHTTP/1.1 200     0.01 secs:    1018 bytes ==> GET  /[0m
-[0;34mHTTP/1.1 200     0.02 secs:    1018 bytes ==> GET  /[0m
-[0;34mHTTP/1.1 200     0.02 secs:    1018 bytes ==> GET  /[0m
-[0;34mHTTP/1.1 200     0.02 secs:    1018 bytes ==> GET  /[0m
-[0;34mHTTP/1.1 200     0.02 secs:    1018 bytes ==> GET  /[0m
-[0;34mHTTP/1.1 200     0.02 secs:    1018 bytes ==> GET  /[0m
-[0;34mHTTP/1.1 200     0.02 secs:    1018 bytes ==> GET  /[0m
-[0;34mHTTP/1.1 200     0.02 secs:    1018 bytes ==> GET  /[0m
-[0;34mHTTP/1.1 200     0.02 secs:    1018 bytes ==> GET  /[0m
-[0;34mHTTP/1.1 200     0.02 secs:    1018 bytes ==> GET  /[0m
-[0;34mHTTP/1.1 200     0.02 secs:    1018 bytes ==> GET  /[0m
-[0;34mHTTP/1.1 200     0.02 secs:    1018 bytes ==> GET  /[0m
-[0;34mHTTP/1.1 200     0.02 secs:    1018 bytes ==> GET  /[0m
-[0;34mHTTP/1.1 200     0.02 secs:    1018 bytes ==> GET  /[0m
-[0;34mHTTP/1.1 200     0.02 secs:    1018 bytes ==> GET  /[0m
-[0;34mHTTP/1.1 200     0.02 secs:    1018 bytes ==> GET  /[0m
-[0;34mHTTP/1.1 200     0.02 secs:    1018 bytes ==> GET  /[0m
-[0;34mHTTP/1.1 200     0.02 secs:    1018 bytes ==> GET  /[0m
-[0;34mHTTP/1.1 200     0.02 secs:    1018 bytes ==> GET  /[0m
-[0;34mHTTP/1.1 200     0.02 secs:    1018 bytes ==> GET  /[0m
-[0;34mHTTP/1.1 200     0.02 secs:    1018 bytes ==> GET  /[0m
-[0;34mHTTP/1.1 200     0.02 secs:    1018 bytes ==> GET  /[0m
-[0;34mHTTP/1.1 200     0.02 secs:    1018 bytes ==> GET  /[0m
-[0;34mHTTP/1.1 200     0.02 secs:    1018 bytes ==> GET  /[0m
-[0;34mHTTP/1.1 200     0.02 secs:    1018 bytes ==> GET  /[0m
-[0;34mHTTP/1.1 200     0.02 secs:    1018 bytes ==> GET  /[0m
-[0;34mHTTP/1.1 200     0.02 secs:    1018 bytes ==> GET  /[0m
-[0;34mHTTP/1.1 200     0.03 secs:    1018 bytes ==> GET  /[0m
-[0;34mHTTP/1.1 200     0.03 secs:    1018 bytes ==> GET  /[0m
-[0;34mHTTP/1.1 200     0.03 secs:    1018 bytes ==> GET  /[0m
-[0;34mHTTP/1.1 200     0.03 secs:    1018 bytes ==> GET  /[0m
-[0;34mHTTP/1.1 200     0.03 secs:    1018 bytes ==> GET  /[0m
-[0;34mHTTP/1.1 200     0.03 secs:    1018 bytes ==> GET  /[0m
-[0;34mHTTP/1.1 200     0.03 secs:    1018 bytes ==> GET  /[0m
-[0;34mHTTP/1.1 200     0.03 secs:    1018 bytes ==> GET  /[0m
-[0;34mHTTP/1.1 200     0.03 secs:    1018 bytes ==> GET  /[0m
-[0;34mHTTP/1.1 200     0.03 secs:    1018 bytes ==> GET  /[0m
-[0;34mHTTP/1.1 200     0.03 secs:    1018 bytes ==> GET  /[0m
-[0;34mHTTP/1.1 200     0.03 secs:    1018 bytes ==> GET  /[0m
-[0;34mHTTP/1.1 200     0.03 secs:    1018 bytes ==> GET  /[0m
-[0;34mHTTP/1.1 200     0.03 secs:    1018 bytes ==> GET  /[0m
-[0;34mHTTP/1.1 200     0.03 secs:    1018 bytes ==> GET  /[0m
-[0;34mHTTP/1.1 200     0.03 secs:    1018 bytes ==> GET  /[0m
-[0;34mHTTP/1.1 200     0.03 secs:    1018 bytes ==> GET  /[0m
-[0;34mHTTP/1.1 200     0.03 secs:    1018 bytes ==> GET  /[0m
-[0;34mHTTP/1.1 200     0.03 secs:    1018 bytes ==> GET  /[0m
-[0;34mHTTP/1.1 200     0.02 secs:    1018 bytes ==> GET  /[0m
-[0;34mHTTP/1.1 200     0.03 secs:    1018 bytes ==> GET  /[0m
-[0;34mHTTP/1.1 200     0.03 secs:    1018 bytes ==> GET  /[0m
-[0;34mHTTP/1.1 200     0.03 secs:    1018 bytes ==> GET  /[0m
-[0;34mHTTP/1.1 200     0.03 secs:    1018 bytes ==> GET  /[0m
-[0;34mHTTP/1.1 200     0.03 secs:    1018 bytes ==> GET  /[0m
-[0;34mHTTP/1.1 200     0.03 secs:    1018 bytes ==> GET  /[0m
-[0;34mHTTP/1.1 200     0.03 secs:    1018 bytes ==> GET  /[0m
-[0;34mHTTP/1.1 200     0.02 secs:    1018 bytes ==> GET  /[0m
-[0;34mHTTP/1.1 200     0.03 secs:    1018 bytes ==> GET  /[0m
-[0;34mHTTP/1.1 200     0.03 secs:    1018 bytes ==> GET  /[0m
-[0;34mHTTP/1.1 200     0.03 secs:    1018 bytes ==> GET  /[0m
-[0;34mHTTP/1.1 200     0.03 secs:    1018 bytes ==> GET  /[0m
-[0;34mHTTP/1.1 200     0.03 secs:    1018 bytes ==> GET  /[0m
-[0;34mHTTP/1.1 200     0.03 secs:    1018 bytes ==> GET  /[0m
-[0;34mHTTP/1.1 200     0.03 secs:    1018 bytes ==> GET  /[0m
-[0;34mHTTP/1.1 200     0.03 secs:    1018 bytes ==> GET  /[0m
-[0;34mHTTP/1.1 200     0.03 secs:    1018 bytes ==> GET  /[0m
-[0;34mHTTP/1.1 200     0.04 secs:    1018 bytes ==> GET  /[0m
-[0;34mHTTP/1.1 200     0.04 secs:    1018 bytes ==> GET  /[0m
-[0;34mHTTP/1.1 200     0.03 secs:    1018 bytes ==> GET  /[0m
-[0;34mHTTP/1.1 200     0.03 secs:    1018 bytes ==> GET  /[0m
-[0;34mHTTP/1.1 200     0.04 secs:    1018 bytes ==> GET  /[0m
-[0;34mHTTP/1.1 200     0.04 secs:    1018 bytes ==> GET  /[0m
-[0;34mHTTP/1.1 200     0.04 secs:    1018 bytes ==> GET  /[0m
-[0;34mHTTP/1.1 200     0.03 secs:    1018 bytes ==> GET  /[0m
-[0;34mHTTP/1.1 200     0.03 secs:    1018 bytes ==> GET  /[0m
-[0;34mHTTP/1.1 200     0.03 secs:    1018 bytes ==> GET  /[0m
-[0;34mHTTP/1.1 200     0.03 secs:    1018 bytes ==> GET  /[0m
-[0;34mHTTP/1.1 200     0.03 secs:    1018 bytes ==> GET  /[0m
-[0;34mHTTP/1.1 200     0.03 secs:    1018 bytes ==> GET  /[0m
-[0;34mHTTP/1.1 200     0.03 secs:    1018 bytes ==> GET  /[0m
-[0;34mHTTP/1.1 200     0.03 secs:    1018 bytes ==> GET  /[0m
-[0;34mHTTP/1.1 200     0.03 secs:    1018 bytes ==> GET  /[0m
-[0;34mHTTP/1.1 200     0.03 secs:    1018 bytes ==> GET  /[0m
-[0;34mHTTP/1.1 200     0.03 secs:    1018 bytes ==> GET  /[0m
-[0;34mHTTP/1.1 200     0.03 secs:    1018 bytes ==> GET  /[0m
-[0;34mHTTP/1.1 200     0.03 secs:    1018 bytes ==> GET  /[0m
-[0;34mHTTP/1.1 200     0.03 secs:    1018 bytes ==> GET  /[0m
-[0;34mHTTP/1.1 200     0.03 secs:    1018 bytes ==> GET  /[0m
-[0;34mHTTP/1.1 200     0.03 secs:    1018 bytes ==> GET  /[0m
-[0;34mHTTP/1.1 200     0.03 secs:    1018 bytes ==> GET  /[0m
-[0;34mHTTP/1.1 200     0.03 secs:    1018 bytes ==> GET  /[0m
-[0;34mHTTP/1.1 200     0.03 secs:    1018 bytes ==> GET  /[0m
-[0;34mHTTP/1.1 200     0.03 secs:    1018 bytes ==> GET  /[0m
-[0;34mHTTP/1.1 200     0.03 secs:    1018 bytes ==> GET  /[0m
-[0;34mHTTP/1.1 200     0.03 secs:    1018 bytes ==> GET  /[0m
-[0;34mHTTP/1.1 200     0.03 secs:    1018 bytes ==> GET  /[0m
-[0;34mHTTP/1.1 200     0.03 secs:    1018 bytes ==> GET  /[0m
-[0;34mHTTP/1.1 200     0.03 secs:    1018 bytes ==> GET  /[0m
-[0;34mHTTP/1.1 200     0.03 secs:    1018 bytes ==> GET  /[0m
-[0;34mHTTP/1.1 200     0.03 secs:    1018 bytes ==> GET  /[0m
-[0;34mHTTP/1.1 200     0.03 secs:    1018 bytes ==> GET  /[0m
-[0;34mHTTP/1.1 200     0.03 secs:    1018 bytes ==> GET  /[0m
-[0;34mHTTP/1.1 200     0.03 secs:    1018 bytes ==> GET  /[0m
-[0;34mHTTP/1.1 200     0.02 secs:    1018 bytes ==> GET  /[0m
-[0;34mHTTP/1.1 200     0.02 secs:    1018 bytes ==> GET  /[0m
-[0;34mHTTP/1.1 200     0.03 secs:    1018 bytes ==> GET  /[0m
-[0;34mHTTP/1.1 200     0.03 secs:    1018 bytes ==> GET  /[0m
-[0;34mHTTP/1.1 200     0.03 secs:    1018 bytes ==> GET  /[0m
-[0;34mHTTP/1.1 200     0.03 secs:    1018 bytes ==> GET  /[0m
-[0;34mHTTP/1.1 200     0.03 secs:    1018 bytes ==> GET  /[0m
-[0;34mHTTP/1.1 200     0.03 secs:    1018 bytes ==> GET  /[0m
-[0;34mHTTP/1.1 200     0.03 secs:    1018 bytes ==> GET  /[0m
-[0;34mHTTP/1.1 200     0.03 secs:    1018 bytes ==> GET  /[0m
-[0;34mHTTP/1.1 200     0.03 secs:    1018 bytes ==> GET  /[0m
-[0;34mHTTP/1.1 200     0.03 secs:    1018 bytes ==> GET  /[0m
-[0;34mHTTP/1.1 200     0.03 secs:    1018 bytes ==> GET  /[0m
-[0;34mHTTP/1.1 200     0.03 secs:    1018 bytes ==> GET  /[0m
-[0;34mHTTP/1.1 200     0.03 secs:    1018 bytes ==> GET  /[0m
-[0;34mHTTP/1.1 200     0.03 secs:    1018 bytes ==> GET  /[0m
-[0;34mHTTP/1.1 200     0.03 secs:    1018 bytes ==> GET  /[0m
-[0;34mHTTP/1.1 200     0.03 secs:    1018 bytes ==> GET  /[0m
-[0;34mHTTP/1.1 200     0.03 secs:    1018 bytes ==> GET  /[0m
-[0;34mHTTP/1.1 200     0.03 secs:    1018 bytes ==> GET  /[0m
-[0;34mHTTP/1.1 200     0.03 secs:    1018 bytes ==> GET  /[0m
-[0;34mHTTP/1.1 200     0.03 secs:    1018 bytes ==> GET  /[0m
-[0;34mHTTP/1.1 200     0.03 secs:    1018 bytes ==> GET  /[0m
-[0;34mHTTP/1.1 200     0.03 secs:    1018 bytes ==> GET  /[0m
-[0;34mHTTP/1.1 200     0.03 secs:    1018 bytes ==> GET  /[0m
-[0;34mHTTP/1.1 200     0.03 secs:    1018 bytes ==> GET  /[0m
-[0;34mHTTP/1.1 200     0.02 secs:    1018 bytes ==> GET  /[0m
-[0;34mHTTP/1.1 200     0.02 secs:    1018 bytes ==> GET  /[0m
-[0;34mHTTP/1.1 200     0.02 secs:    1018 bytes ==> GET  /[0m
-[0;34mHTTP/1.1 200     0.02 secs:    1018 bytes ==> GET  /[0m
-[0;34mHTTP/1.1 200     0.03 secs:    1018 bytes ==> GET  /[0m
-[0;34mHTTP/1.1 200     0.03 secs:    1018 bytes ==> GET  /[0m
-[0;34mHTTP/1.1 200     0.03 secs:    1018 bytes ==> GET  /[0m
-[0;34mHTTP/1.1 200     0.03 secs:    1018 bytes ==> GET  /[0m
-[0;34mHTTP/1.1 200     0.03 secs:    1018 bytes ==> GET  /[0m
-[0;34mHTTP/1.1 200     0.03 secs:    1018 bytes ==> GET  /[0m
-[0;34mHTTP/1.1 200     0.03 secs:    1018 bytes ==> GET  /[0m
-[0;34mHTTP/1.1 200     0.03 secs:    1018 bytes ==> GET  /[0m
-[0;34mHTTP/1.1 200     0.03 secs:    1018 bytes ==> GET  /[0m
-[0;34mHTTP/1.1 200     0.03 secs:    1018 bytes ==> GET  /[0m
-[0;34mHTTP/1.1 200     0.03 secs:    1018 bytes ==> GET  /[0m
-[0;34mHTTP/1.1 200     0.03 secs:    1018 bytes ==> GET  /[0m
-[0;34mHTTP/1.1 200     0.03 secs:    1018 bytes ==> GET  /[0m
-[0;34mHTTP/1.1 200     0.03 secs:    1018 bytes ==> GET  /[0m
-[0;34mHTTP/1.1 200     0.03 secs:    1018 bytes ==> GET  /[0m
-[0;34mHTTP/1.1 200     0.03 secs:    1018 bytes ==> GET  /[0m
-[0;34mHTTP/1.1 200     0.03 secs:    1018 bytes ==> GET  /[0m
-[0;34mHTTP/1.1 200     0.03 secs:    1018 bytes ==> GET  /[0m
-[0;34mHTTP/1.1 200     0.03 secs:    1018 bytes ==> GET  /[0m
-[0;34mHTTP/1.1 200     0.03 secs:    1018 bytes ==> GET  /[0m
-[0;34mHTTP/1.1 200     0.03 secs:    1018 bytes ==> GET  /[0m
-[0;34mHTTP/1.1 200     0.03 secs:    1018 bytes ==> GET  /[0m
-[0;34mHTTP/1.1 200     0.03 secs:    1018 bytes ==> GET  /[0m
-[0;34mHTTP/1.1 200     0.03 secs:    1018 bytes ==> GET  /[0m
-[0;34mHTTP/1.1 200     0.03 secs:    1018 bytes ==> GET  /[0m
-[0;34mHTTP/1.1 200     0.03 secs:    1018 bytes ==> GET  /[0m
-[0;34mHTTP/1.1 200     0.03 secs:    1018 bytes ==> GET  /[0m
-[0;34mHTTP/1.1 200     0.03 secs:    1018 bytes ==> GET  /[0m
-[0;34mHTTP/1.1 200     0.03 secs:    1018 bytes ==> GET  /[0m
-[0;34mHTTP/1.1 200     0.03 secs:    1018 bytes ==> GET  /[0m
-[0;34mHTTP/1.1 200     0.03 secs:    1018 bytes ==> GET  /[0m
-[0;34mHTTP/1.1 200     0.03 secs:    1018 bytes ==> GET  /[0m
-[0;34mHTTP/1.1 200     0.03 secs:    1018 bytes ==> GET  /[0m
-[0;34mHTTP/1.1 200     0.02 secs:    1018 bytes ==> GET  /[0m
-[0;34mHTTP/1.1 200     0.03 secs:    1018 bytes ==> GET  /[0m
-[0;34mHTTP/1.1 200     0.03 secs:    1018 bytes ==> GET  /[0m
-[0;34mHTTP/1.1 200     0.03 secs:    1018 bytes ==> GET  /[0m
-[0;34mHTTP/1.1 200     0.03 secs:    1018 bytes ==> GET  /[0m
-[0;34mHTTP/1.1 200     0.03 secs:    1018 bytes ==> GET  /[0m
-[0;34mHTTP/1.1 200     0.03 secs:    1018 bytes ==> GET  /[0m
-[0;34mHTTP/1.1 200     0.03 secs:    1018 bytes ==> GET  /[0m
-[0;34mHTTP/1.1 200     0.03 secs:    1018 bytes ==> GET  /[0m
-[0;34mHTTP/1.1 200     0.03 secs:    1018 bytes ==> GET  /[0m
-[0;34mHTTP/1.1 200     0.03 secs:    1018 bytes ==> GET  /[0m
-[0;34mHTTP/1.1 200     0.03 secs:    1018 bytes ==> GET  /[0m
-[0;34mHTTP/1.1 200     0.03 secs:    1018 bytes ==> GET  /[0m
-[0;34mHTTP/1.1 200     0.03 secs:    1018 bytes ==> GET  /[0m
-[0;34mHTTP/1.1 200     0.03 secs:    1018 bytes ==> GET  /[0m
-[0;34mHTTP/1.1 200     0.03 secs:    1018 bytes ==> GET  /[0m
-[0;34mHTTP/1.1 200     0.03 secs:    1018 bytes ==> GET  /[0m
-[0;34mHTTP/1.1 200     0.03 secs:    1018 bytes ==> GET  /[0m
-[0;34mHTTP/1.1 200     0.03 secs:    1018 bytes ==> GET  /[0m
-[0;34mHTTP/1.1 200     0.03 secs:    1018 bytes ==> GET  /[0m
-[0;34mHTTP/1.1 200     0.03 secs:    1018 bytes ==> GET  /[0m
-[0;34mHTTP/1.1 200     0.03 secs:    1018 bytes ==> GET  /[0m
-[0;34mHTTP/1.1 200     0.03 secs:    1018 bytes ==> GET  /[0m
-[0;34mHTTP/1.1 200     0.03 secs:    1018 bytes ==> GET  /[0m
-[0;34mHTTP/1.1 200     0.03 secs:    1018 bytes ==> GET  /[0m
-[0;34mHTTP/1.1 200     0.03 secs:    1018 bytes ==> GET  /[0m
-[0;34mHTTP/1.1 200     0.03 secs:    1018 bytes ==> GET  /[0m
-[0;34mHTTP/1.1 200     0.03 secs:    1018 bytes ==> GET  /[0m
-[0;34mHTTP/1.1 200     0.03 secs:    1018 bytes ==> GET  /[0m
-[0;34mHTTP/1.1 200     0.03 secs:    1018 bytes ==> GET  /[0m
-[0;34mHTTP/1.1 200     0.03 secs:    1018 bytes ==> GET  /[0m
-[0;34mHTTP/1.1 200     0.03 secs:    1018 bytes ==> GET  /[0m
-[0;34mHTTP/1.1 200     0.03 secs:    1018 bytes ==> GET  /[0m
-[0;34mHTTP/1.1 200     0.03 secs:    1018 bytes ==> GET  /[0m
-[0;34mHTTP/1.1 200     0.03 secs:    1018 bytes ==> GET  /[0m
-[0;34mHTTP/1.1 200     0.03 secs:    1018 bytes ==> GET  /[0m
-[0;34mHTTP/1.1 200     0.03 secs:    1018 bytes ==> GET  /[0m
-[0;34mHTTP/1.1 200     0.03 secs:    1018 bytes ==> GET  /[0m
-[0;34mHTTP/1.1 200     0.03 secs:    1018 bytes ==> GET  /[0m
-[0;34mHTTP/1.1 200     0.02 secs:    1018 bytes ==> GET  /[0m
-[0;34mHTTP/1.1 200     0.03 secs:    1018 bytes ==> GET  /[0m
-[0;34mHTTP/1.1 200     0.03 secs:    1018 bytes ==> GET  /[0m
-[0;34mHTTP/1.1 200     0.03 secs:    1018 bytes ==> GET  /[0m
-[0;34mHTTP/1.1 200     0.03 secs:    1018 bytes ==> GET  /[0m
-[0;34mHTTP/1.1 200     0.03 secs:    1018 bytes ==> GET  /[0m
-[0;34mHTTP/1.1 200     0.03 secs:    1018 bytes ==> GET  /[0m
-[0;34mHTTP/1.1 200     0.03 secs:    1018 bytes ==> GET  /[0m
-[0;34mHTTP/1.1 200     0.03 secs:    1018 bytes ==> GET  /[0m
-[0;34mHTTP/1.1 200     0.03 secs:    1018 bytes ==> GET  /[0m
-[0;34mHTTP/1.1 200     0.03 secs:    1018 bytes ==> GET  /[0m
-[0;34mHTTP/1.1 200     0.03 secs:    1018 bytes ==> GET  /[0m
-[0;34mHTTP/1.1 200     0.03 secs:    1018 bytes ==> GET  /[0m
-[0;34mHTTP/1.1 200     0.03 secs:    1018 bytes ==> GET  /[0m
-[0;34mHTTP/1.1 200     0.03 secs:    1018 bytes ==> GET  /[0m
-[0;34mHTTP/1.1 200     0.03 secs:    1018 bytes ==> GET  /[0m
-[0;34mHTTP/1.1 200     0.03 secs:    1018 bytes ==> GET  /[0m
-[0;34mHTTP/1.1 200     0.03 secs:    1018 bytes ==> GET  /[0m
-[0;34mHTTP/1.1 200     0.03 secs:    1018 bytes ==> GET  /[0m
-[0;34mHTTP/1.1 200     0.03 secs:    1018 bytes ==> GET  /[0m
-[0;34mHTTP/1.1 200     0.03 secs:    1018 bytes ==> GET  /[0m
-[0;34mHTTP/1.1 200     0.03 secs:    1018 bytes ==> GET  /[0m
-[0;34mHTTP/1.1 200     0.03 secs:    1018 bytes ==> GET  /[0m
-[0;34mHTTP/1.1 200     0.03 secs:    1018 bytes ==> GET  /[0m
-[0;34mHTTP/1.1 200     0.03 secs:    1018 bytes ==> GET  /[0m
-[0;34mHTTP/1.1 200     0.03 secs:    1018 bytes ==> GET  /[0m
-[0;34mHTTP/1.1 200     0.03 secs:    1018 bytes ==> GET  /[0m
-[0;34mHTTP/1.1 200     0.03 secs:    1018 bytes ==> GET  /[0m
-[0;34mHTTP/1.1 200     0.02 secs:    1018 bytes ==> GET  /[0m
-[0;34mHTTP/1.1 200     0.02 secs:    1018 bytes ==> GET  /[0m
-[0;34mHTTP/1.1 200     0.02 secs:    1018 bytes ==> GET  /[0m
-[0;34mHTTP/1.1 200     0.02 secs:    1018 bytes ==> GET  /[0m
-[0;34mHTTP/1.1 200     0.02 secs:    1018 bytes ==> GET  /[0m
-[0;34mHTTP/1.1 200     0.02 secs:    1018 bytes ==> GET  /[0m
-[0;34mHTTP/1.1 200     0.02 secs:    1018 bytes ==> GET  /[0m
-[0;34mHTTP/1.1 200     0.02 secs:    1018 bytes ==> GET  /[0m
-[0;34mHTTP/1.1 200     0.02 secs:    1018 bytes ==> GET  /[0m
-[0;34mHTTP/1.1 200     0.02 secs:    1018 bytes ==> GET  /[0m
-[0;34mHTTP/1.1 200     0.02 secs:    1018 bytes ==> GET  /[0m
-[0;34mHTTP/1.1 200     0.03 secs:    1018 bytes ==> GET  /[0m
-[0;34mHTTP/1.1 200     0.03 secs:    1018 bytes ==> GET  /[0m
-[0;34mHTTP/1.1 200     0.03 secs:    1018 bytes ==> GET  /[0m
-[0;34mHTTP/1.1 200     0.03 secs:    1018 bytes ==> GET  /[0m
-[0;34mHTTP/1.1 200     0.03 secs:    1018 bytes ==> GET  /[0m
-[0;34mHTTP/1.1 200     0.03 secs:    1018 bytes ==> GET  /[0m
-[0;34mHTTP/1.1 200     0.03 secs:    1018 bytes ==> GET  /[0m
-[0;34mHTTP/1.1 200     0.03 secs:    1018 bytes ==> GET  /[0m
-[0;34mHTTP/1.1 200     0.03 secs:    1018 bytes ==> GET  /[0m
-[0;34mHTTP/1.1 200     0.03 secs:    1018 bytes ==> GET  /[0m
-[0;34mHTTP/1.1 200     0.03 secs:    1018 bytes ==> GET  /[0m
-[0;34mHTTP/1.1 200     0.03 secs:    1018 bytes ==> GET  /[0m
-[0;34mHTTP/1.1 200     0.03 secs:    1018 bytes ==> GET  /[0m
-[0;34mHTTP/1.1 200     0.03 secs:    1018 bytes ==> GET  /[0m
-[0;34mHTTP/1.1 200     0.03 secs:    1018 bytes ==> GET  /[0m
-[0;34mHTTP/1.1 200     0.03 secs:    1018 bytes ==> GET  /[0m
-[0;34mHTTP/1.1 200     0.03 secs:    1018 bytes ==> GET  /[0m
-[0;34mHTTP/1.1 200     0.03 secs:    1018 bytes ==> GET  /[0m
-[0;34mHTTP/1.1 200     0.03 secs:    1018 bytes ==> GET  /[0m
-[0;34mHTTP/1.1 200     0.03 secs:    1018 bytes ==> GET  /[0m
-[0;34mHTTP/1.1 200     0.03 secs:    1018 bytes ==> GET  /[0m
-[0;34mHTTP/1.1 200     0.03 secs:    1018 bytes ==> GET  /[0m
-[0;34mHTTP/1.1 200     0.03 secs:    1018 bytes ==> GET  /[0m
-[0;34mHTTP/1.1 200     0.02 secs:    1018 bytes ==> GET  /[0m
-[0;34mHTTP/1.1 200     0.02 secs:    1018 bytes ==> GET  /[0m
-[0;34mHTTP/1.1 200     0.02 secs:    1018 bytes ==> GET  /[0m
-[0;34mHTTP/1.1 200     0.02 secs:    1018 bytes ==> GET  /[0m
-[0;34mHTTP/1.1 200     0.02 secs:    1018 bytes ==> GET  /[0m
-[0;34mHTTP/1.1 200     0.03 secs:    1018 bytes ==> GET  /[0m
-[0;34mHTTP/1.1 200     0.03 secs:    1018 bytes ==> GET  /[0m
-[0;34mHTTP/1.1 200     0.03 secs:    1018 bytes ==> GET  /[0m
-[0;34mHTTP/1.1 200     0.03 secs:    1018 bytes ==> GET  /[0m
-[0;34mHTTP/1.1 200     0.03 secs:    1018 bytes ==> GET  /[0m
-[0;34mHTTP/1.1 200     0.03 secs:    1018 bytes ==> GET  /[0m
-[0;34mHTTP/1.1 200     0.03 secs:    1018 bytes ==> GET  /[0m
-[0;34mHTTP/1.1 200     0.03 secs:    1018 bytes ==> GET  /[0m
-[0;34mHTTP/1.1 200     0.03 secs:    1018 bytes ==> GET  /[0m
-[0;34mHTTP/1.1 200     0.03 secs:    1018 bytes ==> GET  /[0m
-[0;34mHTTP/1.1 200     0.03 secs:    1018 bytes ==> GET  /[0m
-[0;34mHTTP/1.1 200     0.03 secs:    1018 bytes ==> GET  /[0m
-[0;34mHTTP/1.1 200     0.03 secs:    1018 bytes ==> GET  /[0m
-[0;34mHTTP/1.1 200     0.03 secs:    1018 bytes ==> GET  /[0m
-[0;34mHTTP/1.1 200     0.03 secs:    1018 bytes ==> GET  /[0m
-[0;34mHTTP/1.1 200     0.03 secs:    1018 bytes ==> GET  /[0m
-[0;34mHTTP/1.1 200     0.03 secs:    1018 bytes ==> GET  /[0m
-[0;34mHTTP/1.1 200     0.03 secs:    1018 bytes ==> GET  /[0m
-[0;34mHTTP/1.1 200     0.03 secs:    1018 bytes ==> GET  /[0m
-[0;34mHTTP/1.1 200     0.03 secs:    1018 bytes ==> GET  /[0m
-[0;34mHTTP/1.1 200     0.03 secs:    1018 bytes ==> GET  /[0m
-[0;34mHTTP/1.1 200     0.03 secs:    1018 bytes ==> GET  /[0m
-[0;34mHTTP/1.1 200     0.03 secs:    1018 bytes ==> GET  /[0m
-[0;34mHTTP/1.1 200     0.03 secs:    1018 bytes ==> GET  /[0m
-[0;34mHTTP/1.1 200     0.03 secs:    1018 bytes ==> GET  /[0m
-[0;34mHTTP/1.1 200     0.03 secs:    1018 bytes ==> GET  /[0m
-[0;34mHTTP/1.1 200     0.03 secs:    1018 bytes ==> GET  /[0m
-[0;34mHTTP/1.1 200     0.03 secs:    1018 bytes ==> GET  /[0m
-[0;34mHTTP/1.1 200     0.03 secs:    1018 bytes ==> GET  /[0m
-[0;34mHTTP/1.1 200     0.03 secs:    1018 bytes ==> GET  /[0m
-[0;34mHTTP/1.1 200     0.03 secs:    1018 bytes ==> GET  /[0m
-[0;34mHTTP/1.1 200     0.03 secs:    1018 bytes ==> GET  /[0m
-[0;34mHTTP/1.1 200     0.03 secs:    1018 bytes ==> GET  /[0m
-[0;34mHTTP/1.1 200     0.03 secs:    1018 bytes ==> GET  /[0m
-[0;34mHTTP/1.1 200     0.02 secs:    1018 bytes ==> GET  /[0m
-[0;34mHTTP/1.1 200     0.02 secs:    1018 bytes ==> GET  /[0m
-[0;34mHTTP/1.1 200     0.02 secs:    1018 bytes ==> GET  /[0m
-[0;34mHTTP/1.1 200     0.02 secs:    1018 bytes ==> GET  /[0m
-[0;34mHTTP/1.1 200     0.03 secs:    1018 bytes ==> GET  /[0m
-[0;34mHTTP/1.1 200     0.03 secs:    1018 bytes ==> GET  /[0m
-[0;34mHTTP/1.1 200     0.03 secs:    1018 bytes ==> GET  /[0m
-[0;34mHTTP/1.1 200     0.03 secs:    1018 bytes ==> GET  /[0m
-[0;34mHTTP/1.1 200     0.03 secs:    1018 bytes ==> GET  /[0m
-[0;34mHTTP/1.1 200     0.03 secs:    1018 bytes ==> GET  /[0m
-[0;34mHTTP/1.1 200     0.03 secs:    1018 bytes ==> GET  /[0m
-[0;34mHTTP/1.1 200     0.03 secs:    1018 bytes ==> GET  /[0m
-[0;34mHTTP/1.1 200     0.03 secs:    1018 bytes ==> GET  /[0m
-[0;34mHTTP/1.1 200     0.03 secs:    1018 bytes ==> GET  /[0m
-[0;34mHTTP/1.1 200     0.03 secs:    1018 bytes ==> GET  /[0m
-[0;34mHTTP/1.1 200     0.03 secs:    1018 bytes ==> GET  /[0m
-[0;34mHTTP/1.1 200     0.03 secs:    1018 bytes ==> GET  /[0m
-[0;34mHTTP/1.1 200     0.03 secs:    1018 bytes ==> GET  /[0m
-[0;34mHTTP/1.1 200     0.03 secs:    1018 bytes ==> GET  /[0m
-[0;34mHTTP/1.1 200     0.03 secs:    1018 bytes ==> GET  /[0m
-[0;34mHTTP/1.1 200     0.03 secs:    1018 bytes ==> GET  /[0m
-[0;34mHTTP/1.1 200     0.03 secs:    1018 bytes ==> GET  /[0m
-[0;34mHTTP/1.1 200     0.03 secs:    1018 bytes ==> GET  /[0m
-[0;34mHTTP/1.1 200     0.03 secs:    1018 bytes ==> GET  /[0m
-[0;34mHTTP/1.1 200     0.03 secs:    1018 bytes ==> GET  /[0m
-[0;34mHTTP/1.1 200     0.03 secs:    1018 bytes ==> GET  /[0m
-[0;34mHTTP/1.1 200     0.03 secs:    1018 bytes ==> GET  /[0m
-[0;34mHTTP/1.1 200     0.03 secs:    1018 bytes ==> GET  /[0m
-[0;34mHTTP/1.1 200     0.03 secs:    1018 bytes ==> GET  /[0m
-[0;34mHTTP/1.1 200     0.03 secs:    1018 bytes ==> GET  /[0m
-[0;34mHTTP/1.1 200     0.03 secs:    1018 bytes ==> GET  /[0m
-[0;34mHTTP/1.1 200     0.03 secs:    1018 bytes ==> GET  /[0m
-[0;34mHTTP/1.1 200     0.03 secs:    1018 bytes ==> GET  /[0m
-[0;34mHTTP/1.1 200     0.03 secs:    1018 bytes ==> GET  /[0m
-[0;34mHTTP/1.1 200     0.03 secs:    1018 bytes ==> GET  /[0m
-[0;34mHTTP/1.1 200     0.03 secs:    1018 bytes ==> GET  /[0m
-[0;34mHTTP/1.1 200     0.03 secs:    1018 bytes ==> GET  /[0m
-[0;34mHTTP/1.1 200     0.03 secs:    1018 bytes ==> GET  /[0m
-[0;34mHTTP/1.1 200     0.02 secs:    1018 bytes ==> GET  /[0m
-[0;34mHTTP/1.1 200     0.02 secs:    1018 bytes ==> GET  /[0m
-[0;34mHTTP/1.1 200     0.02 secs:    1018 bytes ==> GET  /[0m
-[0;34mHTTP/1.1 200     0.02 secs:    1018 bytes ==> GET  /[0m
-[0;34mHTTP/1.1 200     0.02 secs:    1018 bytes ==> GET  /[0m
-[0;34mHTTP/1.1 200     0.03 secs:    1018 bytes ==> GET  /[0m
-[0;34mHTTP/1.1 200     0.03 secs:    1018 bytes ==> GET  /[0m
-[0;34mHTTP/1.1 200     0.03 secs:    1018 bytes ==> GET  /[0m
-[0;34mHTTP/1.1 200     0.03 secs:    1018 bytes ==> GET  /[0m
-[0;34mHTTP/1.1 200     0.03 secs:    1018 bytes ==> GET  /[0m
-[0;34mHTTP/1.1 200     0.03 secs:    1018 bytes ==> GET  /[0m
-[0;34mHTTP/1.1 200     0.03 secs:    1018 bytes ==> GET  /[0m
-[0;34mHTTP/1.1 200     0.03 secs:    1018 bytes ==> GET  /[0m
-[0;34mHTTP/1.1 200     0.03 secs:    1018 bytes ==> GET  /[0m
-[0;34mHTTP/1.1 200     0.03 secs:    1018 bytes ==> GET  /[0m
-[0;34mHTTP/1.1 200     0.03 secs:    1018 bytes ==> GET  /[0m
-[0;34mHTTP/1.1 200     0.03 secs:    1018 bytes ==> GET  /[0m
-[0;34mHTTP/1.1 200     0.03 secs:    1018 bytes ==> GET  /[0m
-[0;34mHTTP/1.1 200     0.03 secs:    1018 bytes ==> GET  /[0m
-[0;34mHTTP/1.1 200     0.03 secs:    1018 bytes ==> GET  /[0m
-[0;34mHTTP/1.1 200     0.03 secs:    1018 bytes ==> GET  /[0m
-[0;34mHTTP/1.1 200     0.03 secs:    1018 bytes ==> GET  /[0m
-[0;34mHTTP/1.1 200     0.03 secs:    1018 bytes ==> GET  /[0m
-[0;34mHTTP/1.1 200     0.03 secs:    1018 bytes ==> GET  /[0m
-[0;34mHTTP/1.1 200     0.03 secs:    1018 bytes ==> GET  /[0m
-[0;34mHTTP/1.1 200     0.03 secs:    1018 bytes ==> GET  /[0m
-[0;34mHTTP/1.1 200     0.03 secs:    1018 bytes ==> GET  /[0m
-[0;34mHTTP/1.1 200     0.03 secs:    1018 bytes ==> GET  /[0m
-[0;34mHTTP/1.1 200     0.02 secs:    1018 bytes ==> GET  /[0m
-[0;34mHTTP/1.1 200     0.02 secs:    1018 bytes ==> GET  /[0m
-[0;34mHTTP/1.1 200     0.02 secs:    1018 bytes ==> GET  /[0m
-[0;34mHTTP/1.1 200     0.02 secs:    1018 bytes ==> GET  /[0m
-[0;34mHTTP/1.1 200     0.02 secs:    1018 bytes ==> GET  /[0m
-[0;34mHTTP/1.1 200     0.03 secs:    1018 bytes ==> GET  /[0m
-[0;34mHTTP/1.1 200     0.03 secs:    1018 bytes ==> GET  /[0m
-[0;34mHTTP/1.1 200     0.03 secs:    1018 bytes ==> GET  /[0m
-[0;34mHTTP/1.1 200     0.03 secs:    1018 bytes ==> GET  /[0m
-[0;34mHTTP/1.1 200     0.03 secs:    1018 bytes ==> GET  /[0m
-[0;34mHTTP/1.1 200     0.03 secs:    1018 bytes ==> GET  /[0m
-[0;34mHTTP/1.1 200     0.03 secs:    1018 bytes ==> GET  /[0m
-[0;34mHTTP/1.1 200     0.03 secs:    1018 bytes ==> GET  /[0m
-[0;34mHTTP/1.1 200     0.03 secs:    1018 bytes ==> GET  /[0m
-[0;34mHTTP/1.1 200     0.03 secs:    1018 bytes ==> GET  /[0m
-[0;34mHTTP/1.1 200     0.03 secs:    1018 bytes ==> GET  /[0m
-[0;34mHTTP/1.1 200     0.03 secs:    1018 bytes ==> GET  /[0m
-[0;34mHTTP/1.1 200     0.03 secs:    1018 bytes ==> GET  /[0m
-[0;34mHTTP/1.1 200     0.03 secs:    1018 bytes ==> GET  /[0m
-[0;34mHTTP/1.1 200     0.03 secs:    1018 bytes ==> GET  /[0m
-[0;34mHTTP/1.1 200     0.03 secs:    1018 bytes ==> GET  /[0m
-[0;34mHTTP/1.1 200     0.03 secs:    1018 bytes ==> GET  /[0m
-[0;34mHTTP/1.1 200     0.03 secs:    1018 bytes ==> GET  /[0m
-[0;34mHTTP/1.1 200     0.03 secs:    1018 bytes ==> GET  /[0m
-[0;34mHTTP/1.1 200     0.03 secs:    1018 bytes ==> GET  /[0m
-[0;34mHTTP/1.1 200     0.03 secs:    1018 bytes ==> GET  /[0m
-[0;34mHTTP/1.1 200     0.03 secs:    1018 bytes ==> GET  /[0m
-[0;34mHTTP/1.1 200     0.03 secs:    1018 bytes ==> GET  /[0m
-[0;34mHTTP/1.1 200     0.03 secs:    1018 bytes ==> GET  /[0m
-[0;34mHTTP/1.1 200     0.03 secs:    1018 bytes ==> GET  /[0m
-[0;34mHTTP/1.1 200     0.03 secs:    1018 bytes ==> GET  /[0m
-[0;34mHTTP/1.1 200     0.03 secs:    1018 bytes ==> GET  /[0m
-[0;34mHTTP/1.1 200     0.03 secs:    1018 bytes ==> GET  /[0m
-[0;34mHTTP/1.1 200     0.03 secs:    1018 bytes ==> GET  /[0m
-[0;34mHTTP/1.1 200     0.03 secs:    1018 bytes ==> GET  /[0m
-[0;34mHTTP/1.1 200     0.03 secs:    1018 bytes ==> GET  /[0m
-[0;34mHTTP/1.1 200     0.03 secs:    1018 bytes ==> GET  /[0m
-[0;34mHTTP/1.1 200     0.02 secs:    1018 bytes ==> GET  /[0m
-[0;34mHTTP/1.1 200     0.02 secs:    1018 bytes ==> GET  /[0m
-[0;34mHTTP/1.1 200     0.02 secs:    1018 bytes ==> GET  /[0m
-[0;34mHTTP/1.1 200     0.02 secs:    1018 bytes ==> GET  /[0m
+[0;34mHTTP/1.1 200     0.00 secs:    1017 bytes ==> GET  /[0m
+[0;34mHTTP/1.1 200     0.00 secs:    1017 bytes ==> GET  /[0m
+[0;34mHTTP/1.1 200     0.00 secs:    1017 bytes ==> GET  /[0m
+[0;34mHTTP/1.1 200     0.00 secs:    1017 bytes ==> GET  /[0m
+[0;34mHTTP/1.1 200     0.00 secs:    1017 bytes ==> GET  /[0m
+[0;34mHTTP/1.1 200     0.00 secs:    1017 bytes ==> GET  /[0m
+[0;34mHTTP/1.1 200     0.00 secs:    1017 bytes ==> GET  /[0m
+[0;34mHTTP/1.1 200     0.00 secs:    1017 bytes ==> GET  /[0m
+[0;34mHTTP/1.1 200     0.00 secs:    1017 bytes ==> GET  /[0m
+[0;34mHTTP/1.1 200     0.00 secs:    1017 bytes ==> GET  /[0m
+[0;34mHTTP/1.1 200     0.00 secs:    1017 bytes ==> GET  /[0m
+[0;34mHTTP/1.1 200     0.00 secs:    1017 bytes ==> GET  /[0m
+[0;34mHTTP/1.1 200     0.00 secs:    1017 bytes ==> GET  /[0m
+[0;34mHTTP/1.1 200     0.00 secs:    1017 bytes ==> GET  /[0m
+[0;34mHTTP/1.1 200     0.00 secs:    1017 bytes ==> GET  /[0m
+[0;34mHTTP/1.1 200     0.00 secs:    1017 bytes ==> GET  /[0m
+[0;34mHTTP/1.1 200     0.00 secs:    1017 bytes ==> GET  /[0m
+[0;34mHTTP/1.1 200     0.00 secs:    1017 bytes ==> GET  /[0m
+[0;34mHTTP/1.1 200     0.00 secs:    1017 bytes ==> GET  /[0m
+[0;34mHTTP/1.1 200     0.00 secs:    1017 bytes ==> GET  /[0m
+[0;34mHTTP/1.1 200     0.00 secs:    1017 bytes ==> GET  /[0m
+[0;34mHTTP/1.1 200     0.00 secs:    1017 bytes ==> GET  /[0m
+[0;34mHTTP/1.1 200     0.00 secs:    1017 bytes ==> GET  /[0m
+[0;34mHTTP/1.1 200     0.00 secs:    1017 bytes ==> GET  /[0m
+[0;34mHTTP/1.1 200     0.00 secs:    1017 bytes ==> GET  /[0m
+[0;34mHTTP/1.1 200     0.00 secs:    1017 bytes ==> GET  /[0m
+[0;34mHTTP/1.1 200     0.00 secs:    1017 bytes ==> GET  /[0m
+[0;34mHTTP/1.1 200     0.00 secs:    1017 bytes ==> GET  /[0m
+[0;34mHTTP/1.1 200     0.00 secs:    1017 bytes ==> GET  /[0m
+[0;34mHTTP/1.1 200     0.00 secs:    1017 bytes ==> GET  /[0m
+[0;34mHTTP/1.1 200     0.01 secs:    1017 bytes ==> GET  /[0m
+[0;34mHTTP/1.1 200     0.01 secs:    1017 bytes ==> GET  /[0m
+[0;34mHTTP/1.1 200     0.01 secs:    1017 bytes ==> GET  /[0m
+[0;34mHTTP/1.1 200     0.01 secs:    1017 bytes ==> GET  /[0m
+[0;34mHTTP/1.1 200     0.01 secs:    1017 bytes ==> GET  /[0m
+[0;34mHTTP/1.1 200     0.01 secs:    1017 bytes ==> GET  /[0m
+[0;34mHTTP/1.1 200     0.01 secs:    1017 bytes ==> GET  /[0m
+[0;34mHTTP/1.1 200     0.01 secs:    1017 bytes ==> GET  /[0m
+[0;34mHTTP/1.1 200     0.01 secs:    1017 bytes ==> GET  /[0m
+[0;34mHTTP/1.1 200     0.01 secs:    1017 bytes ==> GET  /[0m
+[0;34mHTTP/1.1 200     0.01 secs:    1017 bytes ==> GET  /[0m
+[0;34mHTTP/1.1 200     0.01 secs:    1017 bytes ==> GET  /[0m
+[0;34mHTTP/1.1 200     0.01 secs:    1017 bytes ==> GET  /[0m
+[0;34mHTTP/1.1 200     0.00 secs:    1017 bytes ==> GET  /[0m
+[0;34mHTTP/1.1 200     0.01 secs:    1017 bytes ==> GET  /[0m
+[0;34mHTTP/1.1 200     0.00 secs:    1017 bytes ==> GET  /[0m
+[0;34mHTTP/1.1 200     0.00 secs:    1017 bytes ==> GET  /[0m
+[0;34mHTTP/1.1 200     0.00 secs:    1017 bytes ==> GET  /[0m
+[0;34mHTTP/1.1 200     0.00 secs:    1017 bytes ==> GET  /[0m
+[0;34mHTTP/1.1 200     0.00 secs:    1017 bytes ==> GET  /[0m
+[0;34mHTTP/1.1 200     0.00 secs:    1017 bytes ==> GET  /[0m
+[0;34mHTTP/1.1 200     0.01 secs:    1017 bytes ==> GET  /[0m
+[0;34mHTTP/1.1 200     0.00 secs:    1017 bytes ==> GET  /[0m
+[0;34mHTTP/1.1 200     0.01 secs:    1017 bytes ==> GET  /[0m
+[0;34mHTTP/1.1 200     0.00 secs:    1017 bytes ==> GET  /[0m
+[0;34mHTTP/1.1 200     0.00 secs:    1017 bytes ==> GET  /[0m
+[0;34mHTTP/1.1 200     0.00 secs:    1017 bytes ==> GET  /[0m
+[0;34mHTTP/1.1 200     0.00 secs:    1017 bytes ==> GET  /[0m
+[0;34mHTTP/1.1 200     0.01 secs:    1017 bytes ==> GET  /[0m
+[0;34mHTTP/1.1 200     0.00 secs:    1017 bytes ==> GET  /[0m
+[0;34mHTTP/1.1 200     0.00 secs:    1017 bytes ==> GET  /[0m
+[0;34mHTTP/1.1 200     0.00 secs:    1017 bytes ==> GET  /[0m
+[0;34mHTTP/1.1 200     0.00 secs:    1017 bytes ==> GET  /[0m
+[0;34mHTTP/1.1 200     0.01 secs:    1017 bytes ==> GET  /[0m
+[0;34mHTTP/1.1 200     0.00 secs:    1017 bytes ==> GET  /[0m
+[0;34mHTTP/1.1 200     0.00 secs:    1017 bytes ==> GET  /[0m
+[0;34mHTTP/1.1 200     0.01 secs:    1017 bytes ==> GET  /[0m
+[0;34mHTTP/1.1 200     0.00 secs:    1017 bytes ==> GET  /[0m
+[0;34mHTTP/1.1 200     0.00 secs:    1017 bytes ==> GET  /[0m
+[0;34mHTTP/1.1 200     0.00 secs:    1017 bytes ==> GET  /[0m
+[0;34mHTTP/1.1 200     0.00 secs:    1017 bytes ==> GET  /[0m
+[0;34mHTTP/1.1 200     0.00 secs:    1017 bytes ==> GET  /[0m
+[0;34mHTTP/1.1 200     0.01 secs:    1017 bytes ==> GET  /[0m
+[0;34mHTTP/1.1 200     0.00 secs:    1017 bytes ==> GET  /[0m
+[0;34mHTTP/1.1 200     0.00 secs:    1017 bytes ==> GET  /[0m
+[0;34mHTTP/1.1 200     0.00 secs:    1017 bytes ==> GET  /[0m
+[0;34mHTTP/1.1 200     0.00 secs:    1017 bytes ==> GET  /[0m
+[0;34mHTTP/1.1 200     0.01 secs:    1017 bytes ==> GET  /[0m
+[0;34mHTTP/1.1 200     0.00 secs:    1017 bytes ==> GET  /[0m
+[0;34mHTTP/1.1 200     0.00 secs:    1017 bytes ==> GET  /[0m
+[0;34mHTTP/1.1 200     0.00 secs:    1017 bytes ==> GET  /[0m
+[0;34mHTTP/1.1 200     0.00 secs:    1017 bytes ==> GET  /[0m
+[0;34mHTTP/1.1 200     0.01 secs:    1017 bytes ==> GET  /[0m
+[0;34mHTTP/1.1 200     0.01 secs:    1017 bytes ==> GET  /[0m
+[0;34mHTTP/1.1 200     0.02 secs:    1017 bytes ==> GET  /[0m
+[0;34mHTTP/1.1 200     0.01 secs:    1017 bytes ==> GET  /[0m
+[[1;33merror[0m] Host not found: localhost
+: Too many open files
+[[1;33merror[0m] Host not found: localhost
+: Too many open files
+[[1;33merror[0m] Host not found: localhost
+: Too many open files
+[0;34mHTTP/1.1 200     0.01 secs:    1017 bytes ==> GET  /[0m
+[[1;33merror[0m] Host not found: localhost
+: Too many open files
+[[1;33merror[0m] Host not found: localhost
+: Too many open files
+[[1;33merror[0m] Host not found: localhost
+: Too many open files
+[[1;33merror[0m] Host not found: localhost
+: Too many open files
+[[1;33merror[0m] Host not found: localhost
+: Too many open files
+[[1;33merror[0m] Host not found: localhost
+: Too many open files
+[[1;33merror[0m] Host not found: localhost
+: Too many open files
+[[1;33merror[0m] Host not found: localhost
+: Too many open files
+[[1;33merror[0m] Host not found: localhost
+: Too many open files
+[[1;33merror[0m] Host not found: localhost
+: Too many open files
+[[1;33merror[0m] Host not found: localhost
+: Too many open files
+[[1;33merror[0m] Host not found: localhost
+: Too many open files
+[[1;33merror[0m] Host not found: localhost
+: Too many open files
+[[1;33merror[0m] Host not found: localhost
+: Too many open files
+[0;34mHTTP/1.1 200     0.01 secs:    1017 bytes ==> GET  /[0m
+[0;34mHTTP/1.1 200     0.00 secs:    1017 bytes ==> GET  /[0m
+[0;34mHTTP/1.1 200     0.01 secs:    1017 bytes ==> GET  /[0m
+[0;34mHTTP/1.1 200     0.01 secs:    1017 bytes ==> GET  /[0m
+[0;34mHTTP/1.1 200     0.00 secs:    1017 bytes ==> GET  /[0m
+[0;34mHTTP/1.1 200     0.01 secs:    1017 bytes ==> GET  /[0m
+[0;34mHTTP/1.1 200     0.00 secs:    1017 bytes ==> GET  /[0m
+[0;34mHTTP/1.1 200     0.02 secs:    1017 bytes ==> GET  /[0m
+[0;34mHTTP/1.1 200     0.01 secs:    1017 bytes ==> GET  /[0m
+[0;34mHTTP/1.1 200     0.01 secs:    1017 bytes ==> GET  /[0m
+[0;34mHTTP/1.1 200     0.01 secs:    1017 bytes ==> GET  /[0m
+[0;34mHTTP/1.1 200     0.01 secs:    1017 bytes ==> GET  /[0m
+[0;34mHTTP/1.1 200     0.00 secs:    1017 bytes ==> GET  /[0m
+[0;34mHTTP/1.1 200     0.01 secs:    1017 bytes ==> GET  /[0m
+[0;34mHTTP/1.1 200     0.01 secs:    1017 bytes ==> GET  /[0m
+[0;34mHTTP/1.1 200     0.01 secs:    1017 bytes ==> GET  /[0m
+[0;34mHTTP/1.1 200     0.00 secs:    1017 bytes ==> GET  /[0m
+[0;34mHTTP/1.1 200     0.01 secs:    1017 bytes ==> GET  /[0m
+[0;34mHTTP/1.1 200     0.01 secs:    1017 bytes ==> GET  /[0m
+[0;34mHTTP/1.1 200     0.02 secs:    1017 bytes ==> GET  /[0m
+[0;34mHTTP/1.1 200     0.02 secs:    1017 bytes ==> GET  /[0m
+[0;34mHTTP/1.1 200     0.02 secs:    1017 bytes ==> GET  /[0m
+[0;34mHTTP/1.1 200     0.01 secs:    1017 bytes ==> GET  /[0m
+[0;34mHTTP/1.1 200     0.01 secs:    1017 bytes ==> GET  /[0m
+[0;34mHTTP/1.1 200     0.01 secs:    1017 bytes ==> GET  /[0m
+[0;34mHTTP/1.1 200     0.01 secs:    1017 bytes ==> GET  /[0m
+[0;34mHTTP/1.1 200     0.02 secs:    1017 bytes ==> GET  /[0m
+[0;34mHTTP/1.1 200     0.01 secs:    1017 bytes ==> GET  /[0m
+[0;34mHTTP/1.1 200     0.01 secs:    1017 bytes ==> GET  /[0m
+[0;34mHTTP/1.1 200     0.01 secs:    1017 bytes ==> GET  /[0m
+[0;34mHTTP/1.1 200     0.01 secs:    1017 bytes ==> GET  /[0m
+[0;34mHTTP/1.1 200     0.01 secs:    1017 bytes ==> GET  /[0m
+[0;34mHTTP/1.1 200     0.01 secs:    1017 bytes ==> GET  /[0m
+[0;34mHTTP/1.1 200     0.01 secs:    1017 bytes ==> GET  /[0m
+[0;34mHTTP/1.1 200     0.02 secs:    1017 bytes ==> GET  /[0m
+[0;34mHTTP/1.1 200     0.00 secs:    1017 bytes ==> GET  /[0m
+[0;34mHTTP/1.1 200     0.01 secs:    1017 bytes ==> GET  /[0m
+[0;34mHTTP/1.1 200     0.01 secs:    1017 bytes ==> GET  /[0m
+[0;34mHTTP/1.1 200     0.01 secs:    1017 bytes ==> GET  /[0m
+[0;34mHTTP/1.1 200     0.01 secs:    1017 bytes ==> GET  /[0m
+[0;34mHTTP/1.1 200     0.01 secs:    1017 bytes ==> GET  /[0m
+[0;34mHTTP/1.1 200     0.01 secs:    1017 bytes ==> GET  /[0m
+[0;34mHTTP/1.1 200     0.01 secs:    1017 bytes ==> GET  /[0m
+[0;34mHTTP/1.1 200     0.01 secs:    1017 bytes ==> GET  /[0m
+[0;34mHTTP/1.1 200     0.03 secs:    1017 bytes ==> GET  /[0m
+[0;34mHTTP/1.1 200     0.01 secs:    1017 bytes ==> GET  /[0m
+[0;34mHTTP/1.1 200     0.01 secs:    1017 bytes ==> GET  /[0m
+[0;34mHTTP/1.1 200     0.02 secs:    1017 bytes ==> GET  /[0m
+[0;34mHTTP/1.1 200     0.02 secs:    1017 bytes ==> GET  /[0m
+[0;34mHTTP/1.1 200     0.02 secs:    1017 bytes ==> GET  /[0m
+[0;34mHTTP/1.1 200     0.02 secs:    1017 bytes ==> GET  /[0m
+[0;34mHTTP/1.1 200     0.02 secs:    1017 bytes ==> GET  /[0m
+[0;34mHTTP/1.1 200     0.02 secs:    1017 bytes ==> GET  /[0m
+[0;34mHTTP/1.1 200     0.04 secs:    1017 bytes ==> GET  /[0m
+[0;34mHTTP/1.1 200     0.02 secs:    1017 bytes ==> GET  /[0m
+[0;34mHTTP/1.1 200     0.02 secs:    1017 bytes ==> GET  /[0m
+[0;34mHTTP/1.1 200     0.01 secs:    1017 bytes ==> GET  /[0m
+[0;34mHTTP/1.1 200     0.01 secs:    1017 bytes ==> GET  /[0m
+[0;34mHTTP/1.1 200     0.01 secs:    1017 bytes ==> GET  /[0m
+[0;34mHTTP/1.1 200     0.01 secs:    1017 bytes ==> GET  /[0m
+[0;34mHTTP/1.1 200     0.01 secs:    1017 bytes ==> GET  /[0m
+[0;34mHTTP/1.1 200     0.01 secs:    1017 bytes ==> GET  /[0m
+[0;34mHTTP/1.1 200     0.01 secs:    1017 bytes ==> GET  /[0m
+[0;34mHTTP/1.1 200     0.01 secs:    1017 bytes ==> GET  /[0m
+[0;34mHTTP/1.1 200     0.04 secs:    1017 bytes ==> GET  /[0m
+[0;34mHTTP/1.1 200     0.01 secs:    1017 bytes ==> GET  /[0m
+[0;34mHTTP/1.1 200     0.00 secs:    1017 bytes ==> GET  /[0m
+[0;34mHTTP/1.1 200     0.00 secs:    1017 bytes ==> GET  /[0m
+[0;34mHTTP/1.1 200     0.00 secs:    1017 bytes ==> GET  /[0m
+[0;34mHTTP/1.1 200     0.00 secs:    1017 bytes ==> GET  /[0m
+[0;34mHTTP/1.1 200     0.00 secs:    1017 bytes ==> GET  /[0m
+[0;34mHTTP/1.1 200     0.00 secs:    1017 bytes ==> GET  /[0m
+[0;34mHTTP/1.1 200     0.04 secs:    1017 bytes ==> GET  /[0m
+[0;34mHTTP/1.1 200     0.00 secs:    1017 bytes ==> GET  /[0m
+[0;34mHTTP/1.1 200     0.00 secs:    1017 bytes ==> GET  /[0m
+[0;34mHTTP/1.1 200     0.00 secs:    1017 bytes ==> GET  /[0m
+[0;34mHTTP/1.1 200     0.00 secs:    1017 bytes ==> GET  /[0m
+[0;34mHTTP/1.1 200     0.00 secs:    1017 bytes ==> GET  /[0m
+[0;34mHTTP/1.1 200     0.00 secs:    1017 bytes ==> GET  /[0m
+[0;34mHTTP/1.1 200     0.00 secs:    1017 bytes ==> GET  /[0m
+[0;34mHTTP/1.1 200     0.00 secs:    1017 bytes ==> GET  /[0m
+[0;34mHTTP/1.1 200     0.04 secs:    1017 bytes ==> GET  /[0m
+[0;34mHTTP/1.1 200     0.00 secs:    1017 bytes ==> GET  /[0m
+[0;34mHTTP/1.1 200     0.00 secs:    1017 bytes ==> GET  /[0m
+[0;34mHTTP/1.1 200     0.00 secs:    1017 bytes ==> GET  /[0m
+[0;34mHTTP/1.1 200     0.00 secs:    1017 bytes ==> GET  /[0m
+[0;34mHTTP/1.1 200     0.00 secs:    1017 bytes ==> GET  /[0m
+[0;34mHTTP/1.1 200     0.00 secs:    1017 bytes ==> GET  /[0m
+[0;34mHTTP/1.1 200     0.00 secs:    1017 bytes ==> GET  /[0m
+[0;34mHTTP/1.1 200     0.00 secs:    1017 bytes ==> GET  /[0m
+[0;34mHTTP/1.1 200     0.00 secs:    1017 bytes ==> GET  /[0m
+[0;34mHTTP/1.1 200     0.00 secs:    1017 bytes ==> GET  /[0m
+[0;34mHTTP/1.1 200     0.04 secs:    1017 bytes ==> GET  /[0m
+[0;34mHTTP/1.1 200     0.00 secs:    1017 bytes ==> GET  /[0m
+[0;34mHTTP/1.1 200     0.00 secs:    1017 bytes ==> GET  /[0m
+[0;34mHTTP/1.1 200     0.00 secs:    1017 bytes ==> GET  /[0m
+[0;34mHTTP/1.1 200     0.00 secs:    1017 bytes ==> GET  /[0m
+[0;34mHTTP/1.1 200     0.00 secs:    1017 bytes ==> GET  /[0m
+[0;34mHTTP/1.1 200     0.00 secs:    1017 bytes ==> GET  /[0m
+[0;34mHTTP/1.1 200     0.04 secs:    1017 bytes ==> GET  /[0m
+[0;34mHTTP/1.1 200     0.00 secs:    1017 bytes ==> GET  /[0m
+[0;34mHTTP/1.1 200     0.00 secs:    1017 bytes ==> GET  /[0m
+[0;34mHTTP/1.1 200     0.00 secs:    1017 bytes ==> GET  /[0m
+[0;34mHTTP/1.1 200     0.00 secs:    1017 bytes ==> GET  /[0m
+[0;34mHTTP/1.1 200     0.04 secs:    1017 bytes ==> GET  /[0m
+[0;34mHTTP/1.1 200     0.00 secs:    1017 bytes ==> GET  /[0m
+[0;34mHTTP/1.1 200     0.00 secs:    1017 bytes ==> GET  /[0m
+[0;34mHTTP/1.1 200     0.00 secs:    1017 bytes ==> GET  /[0m
+[0;34mHTTP/1.1 200     0.00 secs:    1017 bytes ==> GET  /[0m
+[0;34mHTTP/1.1 200     0.04 secs:    1017 bytes ==> GET  /[0m
+[0;34mHTTP/1.1 200     0.00 secs:    1017 bytes ==> GET  /[0m
+[0;34mHTTP/1.1 200     0.00 secs:    1017 bytes ==> GET  /[0m
+[0;34mHTTP/1.1 200     0.00 secs:    1017 bytes ==> GET  /[0m
+[0;34mHTTP/1.1 200     0.00 secs:    1017 bytes ==> GET  /[0m
+[0;34mHTTP/1.1 200     0.04 secs:    1017 bytes ==> GET  /[0m
+[0;34mHTTP/1.1 200     0.00 secs:    1017 bytes ==> GET  /[0m
+[0;34mHTTP/1.1 200     0.00 secs:    1017 bytes ==> GET  /[0m
+[0;34mHTTP/1.1 200     0.00 secs:    1017 bytes ==> GET  /[0m
+[0;34mHTTP/1.1 200     0.00 secs:    1017 bytes ==> GET  /[0m
+[0;34mHTTP/1.1 200     0.04 secs:    1017 bytes ==> GET  /[0m
+[0;34mHTTP/1.1 200     0.00 secs:    1017 bytes ==> GET  /[0m
+[0;34mHTTP/1.1 200     0.01 secs:    1017 bytes ==> GET  /[0m
+[0;34mHTTP/1.1 200     0.01 secs:    1017 bytes ==> GET  /[0m
+[0;34mHTTP/1.1 200     0.05 secs:    1017 bytes ==> GET  /[0m
+[0;34mHTTP/1.1 200     0.01 secs:    1017 bytes ==> GET  /[0m
+[0;34mHTTP/1.1 200     0.01 secs:    1017 bytes ==> GET  /[0m
+[0;34mHTTP/1.1 200     0.01 secs:    1017 bytes ==> GET  /[0m
+[0;34mHTTP/1.1 200     0.01 secs:    1017 bytes ==> GET  /[0m
+[0;34mHTTP/1.1 200     0.01 secs:    1017 bytes ==> GET  /[0m
+[0;34mHTTP/1.1 200     0.05 secs:    1017 bytes ==> GET  /[0m
+[0;34mHTTP/1.1 200     0.01 secs:    1017 bytes ==> GET  /[0m
+[0;34mHTTP/1.1 200     0.01 secs:    1017 bytes ==> GET  /[0m
+[0;34mHTTP/1.1 200     0.00 secs:    1017 bytes ==> GET  /[0m
+[[1;33merror[0m] descriptor table full sock.c:402: Too many open files
+[[1;33merror[0m] Host not found: localhost
+: Too many open files
+[[1;33merror[0m] Host not found: localhost
+: Too many open files
+[[1;33merror[0m] descriptor table full sock.c:402: Too many open files
+[[1;33merror[0m] descriptor table full sock.c:402: Too many open files
+[[1;33merror[0m] descriptor table full sock.c:402: Too many open files
+[[1;33merror[0m] Host not found: localhost
+: Too many open files
+[0;34mHTTP/1.1 200     0.00 secs:    1017 bytes ==> GET  /[0m
+[[1;33merror[0m] descriptor table full sock.c:402: Too many open files
+[[1;33merror[0m] descriptor table full sock.c:402: Too many open files
+[[1;33merror[0m] descriptor table full sock.c:402: Too many open files
+[[1;33merror[0m] descriptor table full sock.c:402: Too many open files
+[[1;33merror[0m] descriptor table full sock.c:402: Too many open files
+[[1;33merror[0m] Host not found: localhost
+: Too many open files
+[[1;33merror[0m] Host not found: localhost
+: Too many open files
+[0;34mHTTP/1.1 200     0.00 secs:    1017 bytes ==> GET  /[0m
+[[1;33merror[0m] descriptor table full sock.c:402: Too many open files
+[[1;33merror[0m] descriptor table full sock.c:402: Too many open files
+[[1;33merror[0m] Host not found: localhost
+: Too many open files
+[[1;33merror[0m] Host not found: localhost
+: Too many open files
+[0;34mHTTP/1.1 200     0.00 secs:    1017 bytes ==> GET  /[0m
+[0;34mHTTP/1.1 200     0.00 secs:    1017 bytes ==> GET  /[0m
+[0;34mHTTP/1.1 200     0.00 secs:    1017 bytes ==> GET  /[0m
+[0;34mHTTP/1.1 200     0.00 secs:    1017 bytes ==> GET  /[0m
+[0;34mHTTP/1.1 200     0.00 secs:    1017 bytes ==> GET  /[0m
+[[1;33merror[0m] Host not found: localhost
+: Too many open files
+[[1;33merror[0m] descriptor table full sock.c:402: Too many open files
+[[1;33merror[0m] descriptor table full sock.c:402: Too many open files
+[[1;33merror[0m] Unknown error code from gethostbyname for localhost
+: Too many open files
+[[1;33merror[0m] descriptor table full sock.c:402: Too many open files
+[[1;33merror[0m] descriptor table full sock.c:402: Too many open files
+[[1;33merror[0m] Host not found: localhost
+: Too many open files
+[[1;33merror[0m] descriptor table full sock.c:402: Too many open files
+[[1;33merror[0m] descriptor table full sock.c:402: Too many open files
+[[1;33merror[0m] Host not found: localhost
+: Too many open files
+[[1;33merror[0m] descriptor table full sock.c:402: Too many open files
+[0;34mHTTP/1.1 200     0.00 secs:    1017 bytes ==> GET  /[0m
+[[1;33merror[0m] descriptor table full sock.c:402: Too many open files
+[[1;33merror[0m] descriptor table full sock.c:402: Too many open files
+[[1;33merror[0m] descriptor table full sock.c:402: Too many open files
+[[1;33merror[0m] descriptor table full sock.c:402: Too many open files
+[[1;33merror[0m] descriptor table full sock.c:402: Too many open files
+[[1;33merror[0m] descriptor table full sock.c:402: Too many open files
+[[1;33merror[0m] descriptor table full sock.c:402: Too many open files
+[[1;33merror[0m] descriptor table full sock.c:402: Too many open files
+[[1;33merror[0m] descriptor table full sock.c:402: Too many open files
+[[1;33merror[0m] descriptor table full sock.c:402: Too many open files
+[0;34mHTTP/1.1 200     0.00 secs:    1017 bytes ==> GET  /[0m
+[[1;33merror[0m] descriptor table full sock.c:402: Too many open files
+[[1;33merror[0m] descriptor table full sock.c:402: Too many open files
+[[1;33merror[0m] descriptor table full sock.c:402: Too many open files
+[[1;33merror[0m] Host not found: localhost
+: Too many open files
+[[1;33merror[0m] Host not found: localhost
+: Too many open files
+[[1;33merror[0m] descriptor table full sock.c:402: Too many open files
+[[1;33merror[0m] descriptor table full sock.c:402: Too many open files
+[[1;33merror[0m] descriptor table full sock.c:402: Too many open files
+[[1;33merror[0m] Host not found: localhost
+: Too many open files
+[[1;33merror[0m] Host not found: localhost
+: Too many open files
+[[1;33merror[0m] Host not found: localhost
+: Too many open files
+[[1;33merror[0m] Host not found: localhost
+: Too many open files
+[[1;33merror[0m] Host not found: localhost
+: Too many open files
+[[1;33merror[0m] Host not found: localhost
+: Too many open files
+[[1;33merror[0m] Host not found: localhost
+: Too many open files
+[[1;33merror[0m] Host not found: localhost
+: Too many open files
+[[1;33merror[0m] descriptor table full sock.c:402: Too many open files
+[[1;33merror[0m] descriptor table full sock.c:402: Too many open files
+[[1;33merror[0m] descriptor table full sock.c:402: Too many open files
+[[1;33merror[0m] descriptor table full sock.c:402: Too many open files
+[[1;33merror[0m] Host not found: localhost
+: Too many open files
+[[1;33merror[0m] descriptor table full sock.c:402: Too many open files
+[[1;33merror[0m] descriptor table full sock.c:402: Too many open files
+[[1;33merror[0m] Host not found: localhost
+: Too many open files
+[[1;33merror[0m] descriptor table full sock.c:402: Too many open files
+[[1;33merror[0m] Unknown error code from gethostbyname for localhost
+: Too many open files
+[[1;33merror[0m] descriptor table full sock.c:402: Too many open files
+[[1;33merror[0m] Host not found: localhost
+: Too many open files
+[[1;33merror[0m] Host not found: localhost
+: Too many open files
+[[1;33merror[0m] Host not found: localhost
+: Too many open files
+[[1;33merror[0m] descriptor table full sock.c:402: Too many open files
+[[1;33merror[0m] Host not found: localhost
+: Too many open files
+[[1;33merror[0m] descriptor table full sock.c:402: Too many open files
+[0;34mHTTP/1.1 200     0.00 secs:    1017 bytes ==> GET  /[0m
+[[1;33merror[0m] Host not found: localhost
+: Too many open files
+[[1;33merror[0m] Host not found: localhost
+: Too many open files
+[[1;33merror[0m] descriptor table full sock.c:402: Too many open files
+[[1;33merror[0m] descriptor table full sock.c:402: Too many open files
+[[1;33merror[0m] descriptor table full sock.c:402: Too many open files
+[[1;33merror[0m] descriptor table full sock.c:402: Too many open files
+[[1;33merror[0m] descriptor table full sock.c:402: Too many open files
+[[1;33merror[0m] descriptor table full sock.c:402: Too many open files
+[[1;33merror[0m] descriptor table full sock.c:402: Too many open files
+[[1;33merror[0m] descriptor table full sock.c:402: Too many open files
+[[1;33merror[0m] descriptor table full sock.c:402: Too many open files
+[[1;33merror[0m] descriptor table full sock.c:402: Too many open files
+[[1;33merror[0m] Host not found: localhost
+: Too many open files
+[0;34mHTTP/1.1 200     0.04 secs:    1017 bytes ==> GET  /[0m
+[[1;33merror[0m] descriptor table full sock.c:402: Too many open files
+[[1;33merror[0m] descriptor table full sock.c:402: Too many open files
+[[1;33merror[0m] descriptor table full sock.c:402: Too many open files
+[[1;33merror[0m] descriptor table full sock.c:402: Too many open files
+[[1;33merror[0m] descriptor table full sock.c:402: Too many open files
+[[1;33merror[0m] descriptor table full sock.c:402: Too many open files
+[0;34mHTTP/1.1 200     0.04 secs:    1017 bytes ==> GET  /[0m
+[[1;33merror[0m] descriptor table full sock.c:402: Too many open files
+[[1;33merror[0m] descriptor table full sock.c:402: Too many open files
+[[1;33merror[0m] descriptor table full sock.c:402: Too many open files
+[[1;33merror[0m] descriptor table full sock.c:402: Too many open files
+[[1;33merror[0m] descriptor table full sock.c:402: Too many open files
+[[1;33merror[0m] descriptor table full sock.c:402: Too many open files
+[[1;33merror[0m] Host not found: localhost
+: Too many open files
+[[1;33merror[0m] descriptor table full sock.c:402: Too many open files
+[[1;33merror[0m] descriptor table full sock.c:402: Too many open files
+[[1;33merror[0m] descriptor table full sock.c:402: Too many open files
+[[1;33merror[0m] descriptor table full sock.c:402: Too many open files
+[[1;33merror[0m] descriptor table full sock.c:402: Too many open files
+[[1;33merror[0m] Host not found: localhost
+: Too many open files
+[[1;33merror[0m] descriptor table full sock.c:402: Too many open files
+[[1;33merror[0m] descriptor table full sock.c:402: Too many open files
+[[1;33merror[0m] descriptor table full sock.c:402: Too many open files
+[[1;33merror[0m] descriptor table full sock.c:402: Too many open files
+[[1;33merror[0m] descriptor table full sock.c:402: Too many open files
+[[1;33merror[0m] Host not found: localhost
+: Too many open files
+[[1;33merror[0m] descriptor table full sock.c:402: Too many open files
+[0;34mHTTP/1.1 200     0.04 secs:    1017 bytes ==> GET  /[0m
+[[1;33merror[0m] descriptor table full sock.c:402: Too many open files
+[[1;33merror[0m] Host not found: localhost
+: Too many open files
+[[1;33merror[0m] descriptor table full sock.c:402: Too many open files
+[[1;33merror[0m] descriptor table full sock.c:402: Too many open files
+[[1;33merror[0m] Host not found: localhost
+: Too many open files
+[[1;33merror[0m] descriptor table full sock.c:402: Too many open files
+[0;34mHTTP/1.1 200     0.00 secs:    1017 bytes ==> GET  /[0m
+[[1;33merror[0m] Host not found: localhost
+: Too many open files
+[[1;33merror[0m] descriptor table full sock.c:402: Too many open files
+[[1;33merror[0m] descriptor table full sock.c:402: Too many open files
+[[1;33merror[0m] descriptor table full sock.c:402: Too many open files
+[[1;33merror[0m] Host not found: localhost
+: Too many open files
+[[1;33merror[0m] descriptor table full sock.c:402: Too many open files
+[[1;33merror[0m] descriptor table full sock.c:402: Too many open files
+[[1;33merror[0m] descriptor table full sock.c:402: Too many open files
+[[1;33merror[0m] Host not found: localhost
+: Too many open files
+[[1;33merror[0m] Host not found: localhost
+: Too many open files
+[[1;33merror[0m] Host not found: localhost
+: Too many open files
+[[1;33merror[0m] descriptor table full sock.c:402: Too many open files
+[[1;33merror[0m] descriptor table full sock.c:402: Too many open files
+[[1;33merror[0m] descriptor table full sock.c:402: Too many open files
+[[1;33merror[0m] descriptor table full sock.c:402: Too many open files
+[[1;33merror[0m] Host not found: localhost
+: Too many open files
+[[1;33merror[0m] descriptor table full sock.c:402: Too many open files
+[0;34mHTTP/1.1 200     0.00 secs:    1017 bytes ==> GET  /[0m
+[[1;33merror[0m] Host not found: localhost
+: Too many open files
+[[1;33merror[0m] descriptor table full sock.c:402: Too many open files
+[[1;33merror[0m] descriptor table full sock.c:402: Too many open files
+[[1;33merror[0m] descriptor table full sock.c:402: Too many open files
+[[1;33merror[0m] Host not found: localhost
+: Too many open files
+[[1;33merror[0m] descriptor table full sock.c:402: Too many open files
+[[1;33merror[0m] descriptor table full sock.c:402: Too many open files
+[[1;33merror[0m] Host not found: localhost
+: Too many open files
+[0;34mHTTP/1.1 200     0.00 secs:    1017 bytes ==> GET  /[0m
+[[1;33merror[0m] descriptor table full sock.c:402: Too many open files
+[[1;33merror[0m] descriptor table full sock.c:402: Too many open files
+[[1;33merror[0m] Host not found: localhost
+: Too many open files
+[[1;33merror[0m] descriptor table full sock.c:402: Too many open files
+[[1;33merror[0m] Host not found: localhost
+: Too many open files
+[[1;33merror[0m] descriptor table full sock.c:402: Too many open files
+[[1;33merror[0m] descriptor table full sock.c:402: Too many open files
+[[1;33merror[0m] Host not found: localhost
+: Too many open files
+[[1;33merror[0m] descriptor table full sock.c:402: Too many open files
+[[1;33merror[0m] Host not found: localhost
+: Too many open files
+[[1;33merror[0m] descriptor table full sock.c:402: Too many open files
+[[1;33merror[0m] descriptor table full sock.c:402: Too many open files
+[[1;33merror[0m] descriptor table full sock.c:402: Too many open files
+[[1;33merror[0m] descriptor table full sock.c:402: Too many open files
+[[1;33merror[0m] descriptor table full sock.c:402: Too many open files
+[[1;33merror[0m] descriptor table full sock.c:402: Too many open files
+[[1;33merror[0m] descriptor table full sock.c:402: Too many open files
+[[1;33merror[0m] descriptor table full sock.c:402: Too many open files
+[[1;33merror[0m] descriptor table full sock.c:402: Too many open files
+[[1;33merror[0m] Host not found: localhost
+: Too many open files
+[[1;33merror[0m] descriptor table full sock.c:402: Too many open files
+[[1;33merror[0m] descriptor table full sock.c:402: Too many open files
+[[1;33merror[0m] descriptor table full sock.c:402: Too many open files
+[[1;33merror[0m] descriptor table full sock.c:402: Too many open files
+[[1;33merror[0m] descriptor table full sock.c:402: Too many open files
+[[1;33merror[0m] descriptor table full sock.c:402: Too many open files
+[[1;33merror[0m] descriptor table full sock.c:402: Too many open files
+[[1;33merror[0m] Host not found: localhost
+: Too many open files
+[[1;33merror[0m] descriptor table full sock.c:402: Too many open files
+[[1;33merror[0m] Host not found: localhost
+: Too many open files
+[[1;33merror[0m] descriptor table full sock.c:402: Too many open files
+[[1;33merror[0m] descriptor table full sock.c:402: Too many open files
+[[1;33merror[0m] descriptor table full sock.c:402: Too many open files
+[[1;33merror[0m] descriptor table full sock.c:402: Too many open files
+[[1;33merror[0m] descriptor table full sock.c:402: Too many open files
+[[1;33merror[0m] descriptor table full sock.c:402: Too many open files
+[[1;33merror[0m] descriptor table full sock.c:402: Too many open files
+[[1;33merror[0m] descriptor table full sock.c:402: Too many open files
+[[1;33merror[0m] Host not found: localhost
+: Too many open files
+[[1;33merror[0m] descriptor table full sock.c:402: Too many open files
+[[1;33merror[0m] descriptor table full sock.c:402: Too many open files
+[[1;33merror[0m] descriptor table full sock.c:402: Too many open files
+[[1;33merror[0m] descriptor table full sock.c:402: Too many open files
+[[1;33merror[0m] descriptor table full sock.c:402: Too many open files
+[[1;33merror[0m] Host not found: localhost
+: Too many open files
+[[1;33merror[0m] Host not found: localhost
+: Too many open files
+[[1;33merror[0m] descriptor table full sock.c:402: Too many open files
+[[1;33merror[0m] descriptor table full sock.c:402: Too many open files
+[0;34mHTTP/1.1 200     0.00 secs:    1017 bytes ==> GET  /[0m
+[0;34mHTTP/1.1 200     0.00 secs:    1017 bytes ==> GET  /[0m
+[[1;33merror[0m] Host not found: localhost
+: Too many open files
+[0;34mHTTP/1.1 200     0.04 secs:    1017 bytes ==> GET  /[0m
+[[1;33merror[0m] descriptor table full sock.c:402: Too many open files
+[0;34mHTTP/1.1 200     0.00 secs:    1017 bytes ==> GET  /[0m
+[[1;33merror[0m] descriptor table full sock.c:402: Too many open files
+[[1;33merror[0m] descriptor table full sock.c:402: Too many open files
+[[1;33merror[0m] descriptor table full sock.c:402: Too many open files
+[[1;33merror[0m] descriptor table full sock.c:402: Too many open files
+[[1;33merror[0m] descriptor table full sock.c:402: Too many open files
+[[1;33merror[0m] descriptor table full sock.c:402: Too many open files
+[[1;33merror[0m] descriptor table full sock.c:402: Too many open files
+[[1;33merror[0m] descriptor table full sock.c:402: Too many open files
+[[1;33merror[0m] descriptor table full sock.c:402: Too many open files
+[[1;33merror[0m] descriptor table full sock.c:402: Too many open files
+[0;34mHTTP/1.1 200     0.00 secs:    1017 bytes ==> GET  /[0m
+[[1;33merror[0m] descriptor table full sock.c:402: Too many open files
+[[1;33merror[0m] descriptor table full sock.c:402: Too many open files
+[[1;33merror[0m] descriptor table full sock.c:402: Too many open files
+[[1;33merror[0m] descriptor table full sock.c:402: Too many open files
+[[1;33merror[0m] descriptor table full sock.c:402: Too many open files
+[0;34mHTTP/1.1 200     0.04 secs:    1017 bytes ==> GET  /[0m
+[[1;33merror[0m] descriptor table full sock.c:402: Too many open files
+[[1;33merror[0m] descriptor table full sock.c:402: Too many open files
+[[1;33merror[0m] descriptor table full sock.c:402: Too many open files
+[[1;33merror[0m] descriptor table full sock.c:402: Too many open files
+[[1;33merror[0m] descriptor table full sock.c:402: Too many open files
+[0;34mHTTP/1.1 200     0.04 secs:    1017 bytes ==> GET  /[0m
+[[1;33merror[0m] descriptor table full sock.c:402: Too many open files
+[[1;33merror[0m] descriptor table full sock.c:402: Too many open files
+[0;34mHTTP/1.1 200     0.00 secs:    1017 bytes ==> GET  /[0m
+[[1;33merror[0m] descriptor table full sock.c:402: Too many open files
+[[1;33merror[0m] Host not found: localhost
+: Too many open files
+[[1;33merror[0m] Host not found: localhost
+: Too many open files
+[[1;33merror[0m] descriptor table full sock.c:402: Too many open files
+[[1;33merror[0m] Host not found: localhost
+: Too many open files
+[[1;33merror[0m] descriptor table full sock.c:402: Too many open files
+[0;34mHTTP/1.1 200     0.04 secs:    1017 bytes ==> GET  /[0m
+[[1;33merror[0m] descriptor table full sock.c:402: Too many open files
+[0;34mHTTP/1.1 200     0.04 secs:    1017 bytes ==> GET  /[0m
+[0;34mHTTP/1.1 200     0.04 secs:    1017 bytes ==> GET  /[0m
+[[1;33merror[0m] Host not found: localhost
+: Too many open files
+[[1;33merror[0m] descriptor table full sock.c:402: Too many open files
+[[1;33merror[0m] descriptor table full sock.c:402: Too many open files
+[[1;33merror[0m] descriptor table full sock.c:402: Too many open files
+[[1;33merror[0m] descriptor table full sock.c:402: Too many open files
+[0;34mHTTP/1.1 200     0.00 secs:    1017 bytes ==> GET  /[0m
+[[1;33merror[0m] descriptor table full sock.c:402: Too many open files
+[[1;33merror[0m] descriptor table full sock.c:402: Too many open files
+[[1;33merror[0m] descriptor table full sock.c:402: Too many open files
+[[1;33merror[0m] descriptor table full sock.c:402: Too many open files
+[[1;33merror[0m] descriptor table full sock.c:402: Too many open files
+[[1;33merror[0m] Host not found: localhost
+: Too many open files
+[[1;33merror[0m] Host not found: localhost
+: Too many open files
+[[1;33merror[0m] descriptor table full sock.c:402: Too many open files
+[[1;33merror[0m] descriptor table full sock.c:402: Too many open files
+[[1;33merror[0m] descriptor table full sock.c:402: Too many open files
+[0;34mHTTP/1.1 200     0.00 secs:    1017 bytes ==> GET  /[0m
+[[1;33merror[0m] descriptor table full sock.c:402: Too many open files
+[[1;33merror[0m] Host not found: localhost
+: Too many open files
+[[1;33merror[0m] descriptor table full sock.c:402: Too many open files
+[[1;33merror[0m] descriptor table full sock.c:402: Too many open files
+[[1;33merror[0m] descriptor table full sock.c:402: Too many open files
+[[1;33merror[0m] descriptor table full sock.c:402: Too many open files
+[[1;33merror[0m] descriptor table full sock.c:402: Too many open files
+[[1;33merror[0m] Host not found: localhost
+: Too many open files
+[[1;33merror[0m] descriptor table full sock.c:402: Too many open files
+[[1;33merror[0m] descriptor table full sock.c:402: Too many open files
+[[1;33merror[0m] descriptor table full sock.c:402: Too many open files
+[[1;33merror[0m] descriptor table full sock.c:402: Too many open files
+[[1;33merror[0m] descriptor table full sock.c:402: Too many open files
+[[1;33merror[0m] descriptor table full sock.c:402: Too many open files
+[[1;33merror[0m] Host not found: localhost
+: Too many open files
+[0;34mHTTP/1.1 200     0.04 secs:    1017 bytes ==> GET  /[0m
+[[1;33merror[0m] descriptor table full sock.c:402: Too many open files
+[[1;33merror[0m] descriptor table full sock.c:402: Too many open files
+[[1;33merror[0m] descriptor table full sock.c:402: Too many open files
+[[1;33merror[0m] descriptor table full sock.c:402: Too many open files
+[[1;33merror[0m] descriptor table full sock.c:402: Too many open files
+[[1;33merror[0m] descriptor table full sock.c:402: Too many open files
+[[1;33merror[0m] descriptor table full sock.c:402: Too many open files
+[[1;33merror[0m] Host not found: localhost
+: Too many open files
+[[1;33merror[0m] descriptor table full sock.c:402: Too many open files
+[[1;33merror[0m] descriptor table full sock.c:402: Too many open files
+[[1;33merror[0m] descriptor table full sock.c:402: Too many open files
+[[1;33merror[0m] descriptor table full sock.c:402: Too many open files
+[[1;33merror[0m] descriptor table full sock.c:402: Too many open files
+[0;34mHTTP/1.1 200     0.04 secs:    1017 bytes ==> GET  /[0m
+[[1;33merror[0m] descriptor table full sock.c:402: Too many open files
+[[1;33merror[0m] descriptor table full sock.c:402: Too many open files
+[[1;33merror[0m] descriptor table full sock.c:402: Too many open files
+[[1;33merror[0m] Host not found: localhost
+: Too many open files
+[[1;33merror[0m] descriptor table full sock.c:402: Too many open files
+[[1;33merror[0m] Host not found: localhost
+: Too many open files
+[[1;33merror[0m] descriptor table full sock.c:402: Too many open files
+[[1;33merror[0m] descriptor table full sock.c:402: Too many open files
+[[1;33merror[0m] descriptor table full sock.c:402: Too many open files
+[[1;33merror[0m] Host not found: localhost
+: Too many open files
+[[1;33merror[0m] descriptor table full sock.c:402: Too many open files
+[[1;33merror[0m] descriptor table full sock.c:402: Too many open files
+[[1;33merror[0m] Host not found: localhost
+: Too many open files
+[[1;33merror[0m] descriptor table full sock.c:402: Too many open files
+[[1;33merror[0m] descriptor table full sock.c:402: Too many open files
+[[1;33merror[0m] descriptor table full sock.c:402: Too many open files
+[[1;33merror[0m] descriptor table full sock.c:402: Too many open files
+[[1;33merror[0m] Host not found: localhost
+: Too many open files
+[[1;33merror[0m] descriptor table full sock.c:402: Too many open files
+[[1;33merror[0m] Host not found: localhost
+: Too many open files
+[0;34mHTTP/1.1 200     0.00 secs:    1017 bytes ==> GET  /[0m
+[0;34mHTTP/1.1 200     0.00 secs:    1017 bytes ==> GET  /[0m
+[[1;33merror[0m] descriptor table full sock.c:402: Too many open files
+[[1;33merror[0m] descriptor table full sock.c:402: Too many open files
+[[1;33merror[0m] Host not found: localhost
+: Too many open files
+[[1;33merror[0m] descriptor table full sock.c:402: Too many open files
+[[1;33merror[0m] Unknown error code from gethostbyname for localhost
+: Too many open files
+[[1;33merror[0m] descriptor table full sock.c:402: Too many open files
+[[1;33merror[0m] descriptor table full sock.c:402: Too many open files
+[[1;33merror[0m] descriptor table full sock.c:402: Too many open files
+[[1;33merror[0m] descriptor table full sock.c:402: Too many open files
+[[1;33merror[0m] descriptor table full sock.c:402: Too many open files
+[[1;33merror[0m] Host not found: localhost
+: Too many open files
+[[1;33merror[0m] Host not found: localhost
+: Too many open files
+[[1;33merror[0m] descriptor table full sock.c:402: Too many open files
+[[1;33merror[0m] Host not found: localhost
+: Too many open files
+[[1;33merror[0m] descriptor table full sock.c:402: Too many open files
+[[1;33merror[0m] descriptor table full sock.c:402: Too many open files
+[[1;33merror[0m] Host not found: localhost
+: Too many open files
+[[1;33merror[0m] descriptor table full sock.c:402: Too many open files
+[[1;33merror[0m] descriptor table full sock.c:402: Too many open files
+[[1;33merror[0m] Host not found: localhost
+: Too many open files
+[[1;33merror[0m] descriptor table full sock.c:402: Too many open files
+[[1;33merror[0m] descriptor table full sock.c:402: Too many open files
+[[1;33merror[0m] descriptor table full sock.c:402: Too many open files
+[[1;33merror[0m] descriptor table full sock.c:402: Too many open files
+[[1;33merror[0m] descriptor table full sock.c:402: Too many open files
+[[1;33merror[0m] Host not found: localhost
+: Too many open files
+[[1;33merror[0m] descriptor table full sock.c:402: Too many open files
+[[1;33merror[0m] Host not found: localhost
+: Too many open files
+[[1;33merror[0m] Host not found: localhost
+: Too many open files
+[[1;33merror[0m] descriptor table full sock.c:402: Too many open files
+[[1;33merror[0m] descriptor table full sock.c:402: Too many open files
+[[1;33merror[0m] descriptor table full sock.c:402: Too many open files
+[[1;33merror[0m] descriptor table full sock.c:402: Too many open files
+[[1;33merror[0m] Host not found: localhost
+: Too many open files
+[[1;33merror[0m] descriptor table full sock.c:402: Too many open files
+[[1;33merror[0m] Host not found: localhost
+: Too many open files
+[[1;33merror[0m] Host not found: localhost
+: Too many open files
+[[1;33merror[0m] descriptor table full sock.c:402: Too many open files
+[[1;33merror[0m] descriptor table full sock.c:402: Too many open files
+[[1;33merror[0m] descriptor table full sock.c:402: Too many open files
+[[1;33merror[0m] Host not found: localhost
+: Too many open files
+[[1;33merror[0m] descriptor table full sock.c:402: Too many open files
+[[1;33merror[0m] Host not found: localhost
+: Too many open files
+[[1;33merror[0m] descriptor table full sock.c:402: Too many open files
+[[1;33merror[0m] descriptor table full sock.c:402: Too many open files
+[[1;33merror[0m] descriptor table full sock.c:402: Too many open files
+[[1;33merror[0m] descriptor table full sock.c:402: Too many open files
+[[1;33merror[0m] descriptor table full sock.c:402: Too many open files
+[[1;33merror[0m] descriptor table full sock.c:402: Too many open files
+[[1;33merror[0m] descriptor table full sock.c:402: Too many open files
+[[1;33merror[0m] descriptor table full sock.c:402: Too many open files
+[[1;33merror[0m] descriptor table full sock.c:402: Too many open files
+[[1;33merror[0m] descriptor table full sock.c:402: Too many open files
+[[1;33merror[0m] descriptor table full sock.c:402: Too many open files
+[[1;33merror[0m] Host not found: localhost
+: Too many open files
+[[1;33merror[0m] Host not found: localhost
+: Too many open files
+[[1;33merror[0m] descriptor table full sock.c:402: Too many open files
+[[1;33merror[0m] descriptor table full sock.c:402: Too many open files
+[[1;33merror[0m] descriptor table full sock.c:402: Too many open files
+[[1;33merror[0m] Host not found: localhost
+: Too many open files
+[[1;33merror[0m] descriptor table full sock.c:402: Too many open files
+[[1;33merror[0m] descriptor table full sock.c:402: Too many open files
+[[1;33merror[0m] descriptor table full sock.c:402: Too many open files
+[[1;33merror[0m] descriptor table full sock.c:402: Too many open files
+[[1;33merror[0m] Host not found: localhost
+: Too many open files
+[[1;33merror[0m] descriptor table full sock.c:402: Too many open files
+[[1;33merror[0m] descriptor table full sock.c:402: Too many open files
+[[1;33merror[0m] Host not found: localhost
+: Too many open files
+[[1;33merror[0m] descriptor table full sock.c:402: Too many open files
+[[1;33merror[0m] descriptor table full sock.c:402: Too many open files
+[[1;33merror[0m] Host not found: localhost
+: Too many open files
+[[1;33merror[0m] descriptor table full sock.c:402: Too many open files
+[[1;33merror[0m] descriptor table full sock.c:402: Too many open files
+[[1;33merror[0m] descriptor table full sock.c:402: Too many open files
+[[1;33merror[0m] Host not found: localhost
+: Too many open files
+[[1;33merror[0m] descriptor table full sock.c:402: Too many open files
+[[1;33merror[0m] descriptor table full sock.c:402: Too many open files
+[[1;33merror[0m] Host not found: localhost
+: Too many open files
+[[1;33merror[0m] descriptor table full sock.c:402: Too many open files
+[[1;33merror[0m] descriptor table full sock.c:402: Too many open files
+[[1;33merror[0m] descriptor table full sock.c:402: Too many open files
+[[1;33merror[0m] descriptor table full sock.c:402: Too many open files
+[[1;33merror[0m] descriptor table full sock.c:402: Too many open files
+[[1;33merror[0m] descriptor table full sock.c:402: Too many open files
+[[1;33merror[0m] Host not found: localhost
+: Too many open files
+[0;34mHTTP/1.1 200     0.01 secs:    1017 bytes ==> GET  /[0m
+[[1;33merror[0m] descriptor table full sock.c:402: Too many open files
+[[1;33merror[0m] descriptor table full sock.c:402: Too many open files
+[[1;33merror[0m] descriptor table full sock.c:402: Too many open files
+[[1;33merror[0m] descriptor table full sock.c:402: Too many open files
+[[1;33merror[0m] Host not found: localhost
+: Too many open files
+[[1;33merror[0m] descriptor table full sock.c:402: Too many open files
+[[1;33merror[0m] descriptor table full sock.c:402: Too many open files
+[[1;33merror[0m] descriptor table full sock.c:402: Too many open files
+[[1;33merror[0m] descriptor table full sock.c:402: Too many open files
+[[1;33merror[0m] Host not found: localhost
+: Too many open files
+[[1;33merror[0m] Host not found: localhost
+: Too many open files
+[[1;33merror[0m] Unknown error code from gethostbyname for localhost
+: Too many open files
+[[1;33merror[0m] descriptor table full sock.c:402: Too many open files
+[[1;33merror[0m] descriptor table full sock.c:402: Too many open files
+[[1;33merror[0m] descriptor table full sock.c:402: Too many open files
+[[1;33merror[0m] descriptor table full sock.c:402: Too many open files
+[[1;33merror[0m] Host not found: localhost
+: Too many open files
+[0;34mHTTP/1.1 200     0.01 secs:    1017 bytes ==> GET  /[0m
+[[1;33merror[0m] descriptor table full sock.c:402: Too many open files
+[0;34mHTTP/1.1 200     0.01 secs:    1017 bytes ==> GET  /[0m
+[[1;33merror[0m] Host not found: localhost
+: Too many open files
+[[1;33merror[0m] descriptor table full sock.c:402: Too many open files
+[[1;33merror[0m] descriptor table full sock.c:402: Too many open files
+[[1;33merror[0m] descriptor table full sock.c:402: Too many open files
+[[1;33merror[0m] descriptor table full sock.c:402: Too many open files
+[[1;33merror[0m] descriptor table full sock.c:402: Too many open files
+[[1;33merror[0m] Host not found: localhost
+: Too many open files
+[[1;33merror[0m] descriptor table full sock.c:402: Too many open files
+[0;34mHTTP/1.1 200     0.01 secs:    1017 bytes ==> GET  /[0m
+[[1;33merror[0m] descriptor table full sock.c:402: Too many open files
+[[1;33merror[0m] descriptor table full sock.c:402: Too many open files
+[[1;33merror[0m] Host not found: localhost
+: Too many open files
+[[1;33merror[0m] descriptor table full sock.c:402: Too many open files
+[[1;33merror[0m] descriptor table full sock.c:402: Too many open files
+[[1;33merror[0m] descriptor table full sock.c:402: Too many open files
+[[1;33merror[0m] descriptor table full sock.c:402: Too many open files
+[[1;33merror[0m] descriptor table full sock.c:402: Too many open files
+[[1;33merror[0m] descriptor table full sock.c:402: Too many open files
+[[1;33merror[0m] descriptor table full sock.c:402: Too many open files
+[[1;33merror[0m] descriptor table full sock.c:402: Too many open files
+[0;34mHTTP/1.1 200     0.01 secs:    1017 bytes ==> GET  /[0m
+[0;34mHTTP/1.1 200     0.01 secs:    1017 bytes ==> GET  /[0m
+[[1;33merror[0m] Host not found: localhost
+: Too many open files
+[[1;33merror[0m] descriptor table full sock.c:402: Too many open files
+[[1;33merror[0m] descriptor table full sock.c:402: Too many open files
+[0;34mHTTP/1.1 200     0.01 secs:    1017 bytes ==> GET  /[0m
+[[1;33merror[0m] Host not found: localhost
+: Too many open files
+[[1;33merror[0m] descriptor table full sock.c:402: Too many open files
+[[1;33merror[0m] Host not found: localhost
+: Too many open files
+[[1;33merror[0m] descriptor table full sock.c:402: Too many open files
+[[1;33merror[0m] descriptor table full sock.c:402: Too many open files
+[[1;33merror[0m] descriptor table full sock.c:402: Too many open files
+[[1;33merror[0m] descriptor table full sock.c:402: Too many open files
+[[1;33merror[0m] Host not found: localhost
+: Too many open files
+[0;34mHTTP/1.1 200     0.01 secs:    1017 bytes ==> GET  /[0m
+[0;34mHTTP/1.1 200     0.01 secs:    1017 bytes ==> GET  /[0m
+[[1;33merror[0m] descriptor table full sock.c:402: Too many open files
+[[1;33merror[0m] Host not found: localhost
+: Too many open files
+[[1;33merror[0m] descriptor table full sock.c:402: Too many open files
+[0;34mHTTP/1.1 200     0.05 secs:    1017 bytes ==> GET  /[0m
+[[1;33merror[0m] descriptor table full sock.c:402: Too many open files
+[[1;33merror[0m] Host not found: localhost
+: Too many open files
+[[1;33merror[0m] descriptor table full sock.c:402: Too many open files
+[[1;33merror[0m] descriptor table full sock.c:402: Too many open files
+[0;34mHTTP/1.1 200     0.00 secs:    1017 bytes ==> GET  /[0m
+[[1;33merror[0m] descriptor table full sock.c:402: Too many open files
+[[1;33merror[0m] descriptor table full sock.c:402: Too many open files
+[[1;33merror[0m] descriptor table full sock.c:402: Too many open files
+[[1;33merror[0m] descriptor table full sock.c:402: Too many open files
+[[1;33merror[0m] Host not found: localhost
+: Too many open files
+[[1;33merror[0m] Host not found: localhost
+: Too many open files
+[[1;33merror[0m] Host not found: localhost
+: Too many open files
+[[1;33merror[0m] descriptor table full sock.c:402: Too many open files
+[[1;33merror[0m] descriptor table full sock.c:402: Too many open files
+[[1;33merror[0m] descriptor table full sock.c:402: Too many open files
+[[1;33merror[0m] Host not found: localhost
+: Too many open files
+[[1;33merror[0m] descriptor table full sock.c:402: Too many open files
+[[1;33merror[0m] descriptor table full sock.c:402: Too many open files
+[[1;33merror[0m] Host not found: localhost
+: Too many open files
+[[1;33merror[0m] descriptor table full sock.c:402: Too many open files
+[[1;33merror[0m] descriptor table full sock.c:402: Too many open files
+[[1;33merror[0m] Host not found: localhost
+: Too many open files
+[[1;33merror[0m] descriptor table full sock.c:402: Too many open files
+[0;34mHTTP/1.1 200     0.05 secs:    1017 bytes ==> GET  /[0m
+[[1;33merror[0m] descriptor table full sock.c:402: Too many open files
+[0;34mHTTP/1.1 200     0.01 secs:    1017 bytes ==> GET  /[0m
+[0;34mHTTP/1.1 200     0.01 secs:    1017 bytes ==> GET  /[0m
+[0;34mHTTP/1.1 200     0.01 secs:    1017 bytes ==> GET  /[0m
+[[1;33merror[0m] descriptor table full sock.c:402: Too many open files
+[[1;33merror[0m] descriptor table full sock.c:402: Too many open files
+[[1;33merror[0m] descriptor table full sock.c:402: Too many open files
+[[1;33merror[0m] descriptor table full sock.c:402: Too many open files
+[[1;33merror[0m] Host not found: localhost
+: Too many open files
+[[1;33merror[0m] Host not found: localhost
+: Too many open files
+[[1;33merror[0m] Host not found: localhost
+: Too many open files
+[[1;33merror[0m] descriptor table full sock.c:402: Too many open files
+[[1;33merror[0m] descriptor table full sock.c:402: Too many open files
+[[1;33merror[0m] descriptor table full sock.c:402: Too many open files
+[[1;33merror[0m] Host not found: localhost
+: Too many open files
+[[1;33merror[0m] descriptor table full sock.c:402: Too many open files
+[[1;33merror[0m] descriptor table full sock.c:402: Too many open files
+[[1;33merror[0m] descriptor table full sock.c:402: Too many open files
+[[1;33merror[0m] descriptor table full sock.c:402: Too many open files
+[0;34mHTTP/1.1 200     0.05 secs:    1017 bytes ==> GET  /[0m
+[[1;33merror[0m] descriptor table full sock.c:402: Too many open files
+[[1;33merror[0m] Host not found: localhost
+: Too many open files
+[0;34mHTTP/1.1 200     0.00 secs:    1017 bytes ==> GET  /[0m
+[0;34mHTTP/1.1 200     0.01 secs:    1017 bytes ==> GET  /[0m
+[[1;33merror[0m] Host not found: localhost
+: Too many open files
+[[1;33merror[0m] Host not found: localhost
+: Too many open files
+[[1;33merror[0m] Host not found: localhost
+: Too many open files
+[[1;33merror[0m] Host not found: localhost
+: Too many open files
+[[1;33merror[0m] descriptor table full sock.c:402: Too many open files
+[[1;33merror[0m] descriptor table full sock.c:402: Too many open files
+[[1;33merror[0m] descriptor table full sock.c:402: Too many open files
+[[1;33merror[0m] Host not found: localhost
+: Too many open files
+[[1;33merror[0m] descriptor table full sock.c:402: Too many open files
+[[1;33merror[0m] descriptor table full sock.c:402: Too many open files
+[[1;33merror[0m] Host not found: localhost
+: Too many open files
+[[1;33merror[0m] descriptor table full sock.c:402: Too many open files
+[[1;33merror[0m] Host not found: localhost
+: Too many open files
+[[1;33merror[0m] descriptor table full sock.c:402: Too many open files
+[[1;33merror[0m] descriptor table full sock.c:402: Too many open files
+[[1;33merror[0m] descriptor table full sock.c:402: Too many open files
+[[1;33merror[0m] Host not found: localhost
+: Too many open files
+[[1;33merror[0m] Host not found: localhost
+: Too many open files
+[[1;33merror[0m] descriptor table full sock.c:402: Too many open files
+[[1;33merror[0m] descriptor table full sock.c:402: Too many open files
+[[1;33merror[0m] descriptor table full sock.c:402: Too many open files
+[[1;33merror[0m] Host not found: localhost
+: Too many open files
+[[1;33merror[0m] descriptor table full sock.c:402: Too many open files
+[[1;33merror[0m] descriptor table full sock.c:402: Too many open files
+[[1;33merror[0m] descriptor table full sock.c:402: Too many open files
+[[1;33merror[0m] Host not found: localhost
+: Too many open files
+[[1;33merror[0m] descriptor table full sock.c:402: Too many open files
+[[1;33merror[0m] descriptor table full sock.c:402: Too many open files
+[[1;33merror[0m] descriptor table full sock.c:402: Too many open files
+[[1;33merror[0m] descriptor table full sock.c:402: Too many open files
+[0;34mHTTP/1.1 200     0.05 secs:    1017 bytes ==> GET  /[0m
+[[1;33merror[0m] descriptor table full sock.c:402: Too many open files
+[[1;33merror[0m] Host not found: localhost
+: Too many open files
+[[1;33merror[0m] Host not found: localhost
+: Too many open files
+[[1;33merror[0m] Host not found: localhost
+: Too many open files
+[[1;33merror[0m] descriptor table full sock.c:402: Too many open files
+[[1;33merror[0m] Host not found: localhost
+: Too many open files
+[[1;33merror[0m] descriptor table full sock.c:402: Too many open files
+[[1;33merror[0m] descriptor table full sock.c:402: Too many open files
+[[1;33merror[0m] Host not found: localhost
+: Too many open files
+[[1;33merror[0m] descriptor table full sock.c:402: Too many open files
+[[1;33merror[0m] descriptor table full sock.c:402: Too many open files
+[[1;33merror[0m] descriptor table full sock.c:402: Too many open files
+[[1;33merror[0m] descriptor table full sock.c:402: Too many open files
+[0;34mHTTP/1.1 200     0.05 secs:    1017 bytes ==> GET  /[0m
+[[1;33merror[0m] Host not found: localhost
+: Too many open files
+[[1;33merror[0m] descriptor table full sock.c:402: Too many open files
+[[1;33merror[0m] descriptor table full sock.c:402: Too many open files
+[[1;33merror[0m] descriptor table full sock.c:402: Too many open files
+[[1;33merror[0m] descriptor table full sock.c:402: Too many open files
+[[1;33merror[0m] descriptor table full sock.c:402: Too many open files
+[[1;33merror[0m] descriptor table full sock.c:402: Too many open files
+[[1;33merror[0m] Host not found: localhost
+: Too many open files
+[[1;33merror[0m] descriptor table full sock.c:402: Too many open files
+[[1;33merror[0m] descriptor table full sock.c:402: Too many open files
+[[1;33merror[0m] descriptor table full sock.c:402: Too many open files
+[[1;33merror[0m] descriptor table full sock.c:402: Too many open files
+[[1;33merror[0m] descriptor table full sock.c:402: Too many open files
+[[1;33merror[0m] descriptor table full sock.c:402: Too many open files
+[[1;33merror[0m] Host not found: localhost
+: Too many open files
+[[1;33merror[0m] Host not found: localhost
+: Too many open files
+[[1;33merror[0m] Host not found: localhost
+: Too many open files
+[[1;33merror[0m] Host not found: localhost
+: Too many open files
+[[1;33merror[0m] descriptor table full sock.c:402: Too many open files
+[[1;33merror[0m] descriptor table full sock.c:402: Too many open files
+[[1;33merror[0m] Host not found: localhost
+: Too many open files
+[[1;33merror[0m] descriptor table full sock.c:402: Too many open files
+[[1;33merror[0m] descriptor table full sock.c:402: Too many open files
+[[1;33merror[0m] descriptor table full sock.c:402: Too many open files
+[[1;33merror[0m] descriptor table full sock.c:402: Too many open files
+[[1;33merror[0m] descriptor table full sock.c:402: Too many open files
+[[1;33merror[0m] descriptor table full sock.c:402: Too many open files
+[[1;33merror[0m] descriptor table full sock.c:402: Too many open files
+[[1;33merror[0m] descriptor table full sock.c:402: Too many open files
+[[1;33merror[0m] descriptor table full sock.c:402: Too many open files
+[[1;33merror[0m] descriptor table full sock.c:402: Too many open files
+[[1;33merror[0m] Host not found: localhost
+: Too many open files
+[[1;33merror[0m] descriptor table full sock.c:402: Too many open files
+[0;34mHTTP/1.1 200     0.00 secs:    1017 bytes ==> GET  /[0m
+[[1;33merror[0m] Host not found: localhost
+: Too many open files
+[[1;33merror[0m] descriptor table full sock.c:402: Too many open files
+[[1;33merror[0m] descriptor table full sock.c:402: Too many open files
+[[1;33merror[0m] Host not found: localhost
+: Too many open files
+[[1;33merror[0m] descriptor table full sock.c:402: Too many open files
+[0;34mHTTP/1.1 200     0.00 secs:    1017 bytes ==> GET  /[0m
+[0;34mHTTP/1.1 200     0.05 secs:    1017 bytes ==> GET  /[0m
+[[1;33merror[0m] descriptor table full sock.c:402: Too many open files
+[[1;33merror[0m] Host not found: localhost
+: Too many open files
+[[1;33merror[0m] descriptor table full sock.c:402: Too many open files
+[[1;33merror[0m] descriptor table full sock.c:402: Too many open files
+[[1;33merror[0m] descriptor table full sock.c:402: Too many open files
+[[1;33merror[0m] descriptor table full sock.c:402: Too many open files
+[[1;33merror[0m] Host not found: localhost
+: Too many open files
+[[1;33merror[0m] descriptor table full sock.c:402: Too many open files
+[[1;33merror[0m] descriptor table full sock.c:402: Too many open files
+[[1;33merror[0m] descriptor table full sock.c:402: Too many open files
+[[1;33merror[0m] Host not found: localhost
+: Too many open files
+[[1;33merror[0m] descriptor table full sock.c:402: Too many open files
+[[1;33merror[0m] descriptor table full sock.c:402: Too many open files
+[[1;33merror[0m] Host not found: localhost
+: Too many open files
+[[1;33merror[0m] descriptor table full sock.c:402: Too many open files
+[[1;33merror[0m] descriptor table full sock.c:402: Too many open files
+[[1;33merror[0m] descriptor table full sock.c:402: Too many open files
+[[1;33merror[0m] Host not found: localhost
+: Too many open files
+[[1;33merror[0m] descriptor table full sock.c:402: Too many open files
+[[1;33merror[0m] descriptor table full sock.c:402: Too many open files
+[[1;33merror[0m] descriptor table full sock.c:402: Too many open files
+[[1;33merror[0m] descriptor table full sock.c:402: Too many open files
+[[1;33merror[0m] Host not found: localhost
+: Too many open files
+[[1;33merror[0m] descriptor table full sock.c:402: Too many open files
+[[1;33merror[0m] descriptor table full sock.c:402: Too many open files
+[[1;33merror[0m] descriptor table full sock.c:402: Too many open files
+[[1;33merror[0m] descriptor table full sock.c:402: Too many open files
+[[1;33merror[0m] descriptor table full sock.c:402: Too many open files
+[[1;33merror[0m] descriptor table full sock.c:402: Too many open files
+[[1;33merror[0m] descriptor table full sock.c:402: Too many open files
+[[1;33merror[0m] Host not found: localhost
+: Too many open files
+[[1;33merror[0m] descriptor table full sock.c:402: Too many open files
+[[1;33merror[0m] descriptor table full sock.c:402: Too many open files
+[[1;33merror[0m] descriptor table full sock.c:402: Too many open files
+[0;34mHTTP/1.1 200     0.05 secs:    1017 bytes ==> GET  /[0m
+[[1;33merror[0m] Host not found: localhost
+: Too many open files
+[0;34mHTTP/1.1 200     0.00 secs:    1017 bytes ==> GET  /[0m
+[[1;33merror[0m] descriptor table full sock.c:402: Too many open files
+[[1;33merror[0m] descriptor table full sock.c:402: Too many open files
+[[1;33merror[0m] descriptor table full sock.c:402: Too many open files
+[[1;33merror[0m] descriptor table full sock.c:402: Too many open files
+[[1;33merror[0m] Host not found: localhost
+: Too many open files
+[[1;33merror[0m] descriptor table full sock.c:402: Too many open files
+[[1;33merror[0m] descriptor table full sock.c:402: Too many open files
+[[1;33merror[0m] descriptor table full sock.c:402: Too many open files
+[[1;33merror[0m] descriptor table full sock.c:402: Too many open files
+[[1;33merror[0m] descriptor table full sock.c:402: Too many open files
+[[1;33merror[0m] descriptor table full sock.c:402: Too many open files
+[[1;33merror[0m] Host not found: localhost
+: Too many open files
+[[1;33merror[0m] descriptor table full sock.c:402: Too many open files
+[[1;33merror[0m] Host not found: localhost
+: Too many open files
+[[1;33merror[0m] descriptor table full sock.c:402: Too many open files
+[[1;33merror[0m] descriptor table full sock.c:402: Too many open files
+[[1;33merror[0m] descriptor table full sock.c:402: Too many open files
+[[1;33merror[0m] descriptor table full sock.c:402: Too many open files
+[[1;33merror[0m] descriptor table full sock.c:402: Too many open files
+[[1;33merror[0m] descriptor table full sock.c:402: Too many open files
+[[1;33merror[0m] descriptor table full sock.c:402: Too many open files
+[[1;33merror[0m] Host not found: localhost
+: Too many open files
+[[1;33merror[0m] descriptor table full sock.c:402: Too many open files
+[[1;33merror[0m] Host not found: localhost
+: Too many open files
+[[1;33merror[0m] descriptor table full sock.c:402: Too many open files
+[[1;33merror[0m] descriptor table full sock.c:402: Too many open files
+[[1;33merror[0m] descriptor table full sock.c:402: Too many open files
+[[1;33merror[0m] descriptor table full sock.c:402: Too many open files
+[[1;33merror[0m] descriptor table full sock.c:402: Too many open files
+[[1;33merror[0m] descriptor table full sock.c:402: Too many open files
+[[1;33merror[0m] descriptor table full sock.c:402: Too many open files
+[[1;33merror[0m] descriptor table full sock.c:402: Too many open files
+[[1;33merror[0m] descriptor table full sock.c:402: Too many open files
+[[1;33merror[0m] descriptor table full sock.c:402: Too many open files
+[[1;33merror[0m] descriptor table full sock.c:402: Too many open files
+[[1;33merror[0m] Unknown error code from gethostbyname for localhost
+: Too many open files
+[[1;33merror[0m] descriptor table full sock.c:402: Too many open files
+[[1;33merror[0m] descriptor table full sock.c:402: Too many open files
+[[1;33merror[0m] descriptor table full sock.c:402: Too many open files
+[[1;33merror[0m] descriptor table full sock.c:402: Too many open files
+[[1;33merror[0m] Host not found: localhost
+: Too many open files
+[[1;33merror[0m] descriptor table full sock.c:402: Too many open files
+[[1;33merror[0m] descriptor table full sock.c:402: Too many open files
+[[1;33merror[0m] descriptor table full sock.c:402: Too many open files
+[[1;33merror[0m] descriptor table full sock.c:402: Too many open files
+[[1;33merror[0m] Host not found: localhost
+: Too many open files
+[[1;33merror[0m] descriptor table full sock.c:402: Too many open files
+[[1;33merror[0m] descriptor table full sock.c:402: Too many open files
+[[1;33merror[0m] descriptor table full sock.c:402: Too many open files
+[[1;33merror[0m] descriptor table full sock.c:402: Too many open files
+[[1;33merror[0m] descriptor table full sock.c:402: Too many open files
+[[1;33merror[0m] descriptor table full sock.c:402: Too many open files
+[[1;33merror[0m] descriptor table full sock.c:402: Too many open files
+[[1;33merror[0m] descriptor table full sock.c:402: Too many open files
+[[1;33merror[0m] Host not found: localhost
+: Too many open files
+[[1;33merror[0m] descriptor table full sock.c:402: Too many open files
+[[1;33merror[0m] descriptor table full sock.c:402: Too many open files
+[[1;33merror[0m] descriptor table full sock.c:402: Too many open files
+[[1;33merror[0m] descriptor table full sock.c:402: Too many open files
+[[1;33merror[0m] descriptor table full sock.c:402: Too many open files
+[[1;33merror[0m] descriptor table full sock.c:402: Too many open files
+[[1;33merror[0m] Host not found: localhost
+: Too many open files
+[[1;33merror[0m] descriptor table full sock.c:402: Too many open files
+[[1;33merror[0m] descriptor table full sock.c:402: Too many open files
+[[1;33merror[0m] descriptor table full sock.c:402: Too many open files
+[[1;33merror[0m] descriptor table full sock.c:402: Too many open files
+[[1;33merror[0m] descriptor table full sock.c:402: Too many open files
+[[1;33merror[0m] descriptor table full sock.c:402: Too many open files
+[[1;33merror[0m] descriptor table full sock.c:402: Too many open files
+[[1;33merror[0m] Host not found: localhost
+: Too many open files
+[[1;33merror[0m] descriptor table full sock.c:402: Too many open files
+[[1;33merror[0m] descriptor table full sock.c:402: Too many open files
+[0;34mHTTP/1.1 200     0.05 secs:    1017 bytes ==> GET  /[0m
+[[1;33merror[0m] descriptor table full sock.c:402: Too many open files
+[0;34mHTTP/1.1 200     0.00 secs:    1017 bytes ==> GET  /[0m
+[[1;33merror[0m] descriptor table full sock.c:402: Too many open files
+[[1;33merror[0m] descriptor table full sock.c:402: Too many open files
+[[1;33merror[0m] Host not found: localhost
+: Too many open files
+[0;34mHTTP/1.1 200     0.00 secs:    1017 bytes ==> GET  /[0m
+[[1;33merror[0m] descriptor table full sock.c:402: Too many open files
+[[1;33merror[0m] descriptor table full sock.c:402: Too many open files
+[[1;33merror[0m] descriptor table full sock.c:402: Too many open files
+[0;34mHTTP/1.1 200     0.00 secs:    1017 bytes ==> GET  /[0m
+[[1;33merror[0m] Host not found: localhost
+: Too many open files
+[[1;33merror[0m] descriptor table full sock.c:402: Too many open files
+[[1;33merror[0m] descriptor table full sock.c:402: Too many open files
+[[1;33merror[0m] descriptor table full sock.c:402: Too many open files
+[[1;33merror[0m] descriptor table full sock.c:402: Too many open files
+[[1;33merror[0m] descriptor table full sock.c:402: Too many open files
+[[1;33merror[0m] descriptor table full sock.c:402: Too many open files
+[[1;33merror[0m] descriptor table full sock.c:402: Too many open files
+[[1;33merror[0m] descriptor table full sock.c:402: Too many open files
+[[1;33merror[0m] descriptor table full sock.c:402: Too many open files
+[[1;33merror[0m] descriptor table full sock.c:402: Too many open files
+[0;34mHTTP/1.1 200     0.00 secs:    1017 bytes ==> GET  /[0m
+[0;34mHTTP/1.1 200     0.00 secs:    1017 bytes ==> GET  /[0m
+[[1;33merror[0m] descriptor table full sock.c:402: Too many open files
+[[1;33merror[0m] Host not found: localhost
+: Too many open files
+[[1;33merror[0m] descriptor table full sock.c:402: Too many open files
+[[1;33merror[0m] descriptor table full sock.c:402: Too many open files
+[[1;33merror[0m] descriptor table full sock.c:402: Too many open files
+[[1;33merror[0m] Host not found: localhost
+: Too many open files
+[[1;33merror[0m] descriptor table full sock.c:402: Too many open files
+[[1;33merror[0m] descriptor table full sock.c:402: Too many open files
+[[1;33merror[0m] descriptor table full sock.c:402: Too many open files
+[[1;33merror[0m] descriptor table full sock.c:402: Too many open files
+[[1;33merror[0m] Host not found: localhost
+: Too many open files
+[[1;33merror[0m] descriptor table full sock.c:402: Too many open files
+[[1;33merror[0m] descriptor table full sock.c:402: Too many open files
+[[1;33merror[0m] descriptor table full sock.c:402: Too many open files
+[0;34mHTTP/1.1 200     0.05 secs:    1017 bytes ==> GET  /[0m
+[[1;33merror[0m] descriptor table full sock.c:402: Too many open files
+[[1;33merror[0m] descriptor table full sock.c:402: Too many open files
+[[1;33merror[0m] Host not found: localhost
+: Too many open files
+[[1;33merror[0m] descriptor table full sock.c:402: Too many open files
+[[1;33merror[0m] descriptor table full sock.c:402: Too many open files
+[[1;33merror[0m] Host not found: localhost
+: Too many open files
+[[1;33merror[0m] descriptor table full sock.c:402: Too many open files
+[[1;33merror[0m] descriptor table full sock.c:402: Too many open files
+[[1;33merror[0m] descriptor table full sock.c:402: Too many open files
+[[1;33merror[0m] Host not found: localhost
+: Too many open files
+[[1;33merror[0m] descriptor table full sock.c:402: Too many open files
+[[1;33merror[0m] descriptor table full sock.c:402: Too many open files
+[[1;33merror[0m] descriptor table full sock.c:402: Too many open files
+[[1;33merror[0m] descriptor table full sock.c:402: Too many open files
+[[1;33merror[0m] descriptor table full sock.c:402: Too many open files
+[[1;33merror[0m] descriptor table full sock.c:402: Too many open files
+[[1;33merror[0m] Host not found: localhost
+: Too many open files
+[[1;33merror[0m] descriptor table full sock.c:402: Too many open files
+[[1;33merror[0m] descriptor table full sock.c:402: Too many open files
+[[1;33merror[0m] descriptor table full sock.c:402: Too many open files
+[[1;33merror[0m] descriptor table full sock.c:402: Too many open files
+[[1;33merror[0m] descriptor table full sock.c:402: Too many open files
+[[1;33merror[0m] descriptor table full sock.c:402: Too many open files
+[[1;33merror[0m] descriptor table full sock.c:402: Too many open files
+[[1;33merror[0m] descriptor table full sock.c:402: Too many open files
+[0;34mHTTP/1.1 200     0.00 secs:    1017 bytes ==> GET  /[0m
+[[1;33merror[0m] Host not found: localhost
+: Too many open files
+[[1;33merror[0m] Host not found: localhost
+: Too many open files
+[[1;33merror[0m] descriptor table full sock.c:402: Too many open files
+[0;34mHTTP/1.1 200     0.00 secs:    1017 bytes ==> GET  /[0m
+[[1;33merror[0m] descriptor table full sock.c:402: Too many open files
+[[1;33merror[0m] descriptor table full sock.c:402: Too many open files
+[[1;33merror[0m] Host not found: localhost
+: Too many open files
+[[1;33merror[0m] descriptor table full sock.c:402: Too many open files
+[[1;33merror[0m] descriptor table full sock.c:402: Too many open files
+[[1;33merror[0m] Host not found: localhost
+: Too many open files
+[[1;33merror[0m] descriptor table full sock.c:402: Too many open files
+[[1;33merror[0m] descriptor table full sock.c:402: Too many open files
+[[1;33merror[0m] descriptor table full sock.c:402: Too many open files
+[[1;33merror[0m] descriptor table full sock.c:402: Too many open files
+[[1;33merror[0m] descriptor table full sock.c:402: Too many open files
+[[1;33merror[0m] descriptor table full sock.c:402: Too many open files
+[[1;33merror[0m] descriptor table full sock.c:402: Too many open files
+[[1;33merror[0m] Host not found: localhost
+: Too many open files
+[[1;33merror[0m] descriptor table full sock.c:402: Too many open files
+[[1;33merror[0m] Host not found: localhost
+: Too many open files
+[[1;33merror[0m] descriptor table full sock.c:402: Too many open files
+[[1;33merror[0m] descriptor table full sock.c:402: Too many open files
+[[1;33merror[0m] descriptor table full sock.c:402: Too many open files
+[[1;33merror[0m] descriptor table full sock.c:402: Too many open files
+[[1;33merror[0m] descriptor table full sock.c:402: Too many open files
+[[1;33merror[0m] descriptor table full sock.c:402: Too many open files
+[[1;33merror[0m] descriptor table full sock.c:402: Too many open files
+[[1;33merror[0m] descriptor table full sock.c:402: Too many open files
+[[1;33merror[0m] descriptor table full sock.c:402: Too many open files
+[[1;33merror[0m] descriptor table full sock.c:402: Too many open files
+[[1;33merror[0m] Host not found: localhost
+: Too many open files
+[[1;33merror[0m] Host not found: localhost
+: Too many open files
+[[1;33merror[0m] descriptor table full sock.c:402: Too many open files
+[[1;33merror[0m] Host not found: localhost
+: Too many open files
+[[1;33merror[0m] Host not found: localhost
+: Too many open files
+[[1;33merror[0m] descriptor table full sock.c:402: Too many open files
+[[1;33merror[0m] descriptor table full sock.c:402: Too many open files
+[[1;33merror[0m] Host not found: localhost
+: Too many open files
+[[1;33merror[0m] Host not found: localhost
+: Too many open files
+[[1;33merror[0m] descriptor table full sock.c:402: Too many open files
+[[1;33merror[0m] descriptor table full sock.c:402: Too many open files
+[[1;33merror[0m] descriptor table full sock.c:402: Too many open files
+[[1;33merror[0m] descriptor table full sock.c:402: Too many open files
+[[1;33merror[0m] descriptor table full sock.c:402: Too many open files
+[[1;33merror[0m] descriptor table full sock.c:402: Too many open files
+[[1;33merror[0m] descriptor table full sock.c:402: Too many open files
+[[1;33merror[0m] Host not found: localhost
+: Too many open files
+[0;34mHTTP/1.1 200     0.05 secs:    1017 bytes ==> GET  /[0m
+[[1;33merror[0m] descriptor table full sock.c:402: Too many open files
+[[1;33merror[0m] descriptor table full sock.c:402: Too many open files
+[[1;33merror[0m] descriptor table full sock.c:402: Too many open files
+[[1;33merror[0m] Host not found: localhost
+: Too many open files
+[0;34mHTTP/1.1 200     0.00 secs:    1017 bytes ==> GET  /[0m
+[[1;33merror[0m] Host not found: localhost
+: Too many open files
+[[1;33merror[0m] descriptor table full sock.c:402: Too many open files
+[[1;33merror[0m] descriptor table full sock.c:402: Too many open files
+[[1;33merror[0m] descriptor table full sock.c:402: Too many open files
+[[1;33merror[0m] descriptor table full sock.c:402: Too many open files
+[[1;33merror[0m] Host not found: localhost
+: Too many open files
+[[1;33merror[0m] descriptor table full sock.c:402: Too many open files
+[[1;33merror[0m] descriptor table full sock.c:402: Too many open files
+[[1;33merror[0m] descriptor table full sock.c:402: Too many open files
+[[1;33merror[0m] descriptor table full sock.c:402: Too many open files
+[[1;33merror[0m] descriptor table full sock.c:402: Too many open files
+[[1;33merror[0m] descriptor table full sock.c:402: Too many open files
+[[1;33merror[0m] descriptor table full sock.c:402: Too many open files
+[0;34mHTTP/1.1 200     0.00 secs:    1017 bytes ==> GET  /[0m
+[[1;33merror[0m] descriptor table full sock.c:402: Too many open files
+[[1;33merror[0m] Host not found: localhost
+: Too many open files
+[[1;33merror[0m] descriptor table full sock.c:402: Too many open files
+[[1;33merror[0m] Host not found: localhost
+: Too many open files
+[[1;33merror[0m] descriptor table full sock.c:402: Too many open files
+[[1;33merror[0m] descriptor table full sock.c:402: Too many open files
+[[1;33merror[0m] descriptor table full sock.c:402: Too many open files
+[[1;33merror[0m] Host not found: localhost
+: Too many open files
+[[1;33merror[0m] descriptor table full sock.c:402: Too many open files
+[[1;33merror[0m] descriptor table full sock.c:402: Too many open files
+[[1;33merror[0m] descriptor table full sock.c:402: Too many open files
+[[1;33merror[0m] descriptor table full sock.c:402: Too many open files
+[[1;33merror[0m] descriptor table full sock.c:402: Too many open files
+[[1;33merror[0m] descriptor table full sock.c:402: Too many open files
+[[1;33merror[0m] descriptor table full sock.c:402: Too many open files
+[[1;33merror[0m] descriptor table full sock.c:402: Too many open files
+[[1;33merror[0m] descriptor table full sock.c:402: Too many open files
+[[1;33merror[0m] descriptor table full sock.c:402: Too many open files
+[[1;33merror[0m] descriptor table full sock.c:402: Too many open files
+[[1;33merror[0m] Host not found: localhost
+: Too many open files
+[[1;33merror[0m] descriptor table full sock.c:402: Too many open files
+[[1;33merror[0m] descriptor table full sock.c:402: Too many open files
+[[1;33merror[0m] descriptor table full sock.c:402: Too many open files
+[0;34mHTTP/1.1 200     0.00 secs:    1017 bytes ==> GET  /[0m
+[[1;33merror[0m] descriptor table full sock.c:402: Too many open files
+[[1;33merror[0m] Unknown error code from gethostbyname for localhost
+: Too many open files
+[[1;33merror[0m] descriptor table full sock.c:402: Too many open files
+[[1;33merror[0m] Host not found: localhost
+: Too many open files
+[[1;33merror[0m] descriptor table full sock.c:402: Too many open files
+[[1;33merror[0m] descriptor table full sock.c:402: Too many open files
+[[1;33merror[0m] descriptor table full sock.c:402: Too many open files
+[[1;33merror[0m] descriptor table full sock.c:402: Too many open files
+[[1;33merror[0m] descriptor table full sock.c:402: Too many open files
+[[1;33merror[0m] descriptor table full sock.c:402: Too many open files
+[[1;33merror[0m] descriptor table full sock.c:402: Too many open files
+[[1;33merror[0m] descriptor table full sock.c:402: Too many open files
+[[1;33merror[0m] Host not found: localhost
+: Too many open files
+[[1;33merror[0m] descriptor table full sock.c:402: Too many open files
+[[1;33merror[0m] Host not found: localhost
+: Too many open files
+[[1;33merror[0m] descriptor table full sock.c:402: Too many open files
+[[1;33merror[0m] descriptor table full sock.c:402: Too many open files
+[[1;33merror[0m] descriptor table full sock.c:402: Too many open files
+[[1;33merror[0m] descriptor table full sock.c:402: Too many open files
+[[1;33merror[0m] descriptor table full sock.c:402: Too many open files
+[[1;33merror[0m] descriptor table full sock.c:402: Too many open files
+[[1;33merror[0m] descriptor table full sock.c:402: Too many open files
+[[1;33merror[0m] descriptor table full sock.c:402: Too many open files
+[[1;33merror[0m] descriptor table full sock.c:402: Too many open files
+[0;34mHTTP/1.1 200     0.00 secs:    1017 bytes ==> GET  /[0m
+[[1;33merror[0m] descriptor table full sock.c:402: Too many open files
+[[1;33merror[0m] descriptor table full sock.c:402: Too many open files
+[[1;33merror[0m] Host not found: localhost
+: Too many open files
+[[1;33merror[0m] descriptor table full sock.c:402: Too many open files
+[[1;33merror[0m] descriptor table full sock.c:402: Too many open files
+[[1;33merror[0m] descriptor table full sock.c:402: Too many open files
+[[1;33merror[0m] descriptor table full sock.c:402: Too many open files
+[[1;33merror[0m] descriptor table full sock.c:402: Too many open files
+[[1;33merror[0m] descriptor table full sock.c:402: Too many open files
+[[1;33merror[0m] descriptor table full sock.c:402: Too many open files
+[[1;33merror[0m] descriptor table full sock.c:402: Too many open files
+[[1;33merror[0m] descriptor table full sock.c:402: Too many open files
+[[1;33merror[0m] descriptor table full sock.c:402: Too many open files
+[[1;33merror[0m] Host not found: localhost
+: Too many open files
+[[1;33merror[0m] descriptor table full sock.c:402: Too many open files
+[[1;33merror[0m] descriptor table full sock.c:402: Too many open files
+[[1;33merror[0m] descriptor table full sock.c:402: Too many open files
+[[1;33merror[0m] descriptor table full sock.c:402: Too many open files
+[[1;33merror[0m] descriptor table full sock.c:402: Too many open files
+[[1;33merror[0m] descriptor table full sock.c:402: Too many open files
+[[1;33merror[0m] descriptor table full sock.c:402: Too many open files
+[0;34mHTTP/1.1 200     0.00 secs:    1017 bytes ==> GET  /[0m
+[0;34mHTTP/1.1 200     0.00 secs:    1017 bytes ==> GET  /[0m
+[[1;33merror[0m] descriptor table full sock.c:402: Too many open files
+[0;34mHTTP/1.1 200     0.00 secs:    1017 bytes ==> GET  /[0m
+[[1;33merror[0m] Host not found: localhost
+: Too many open files
+[[1;33merror[0m] descriptor table full sock.c:402: Too many open files
+[[1;33merror[0m] descriptor table full sock.c:402: Too many open files
+[[1;33merror[0m] descriptor table full sock.c:402: Too many open files
+[[1;33merror[0m] Host not found: localhost
+: Too many open files
+[[1;33merror[0m] descriptor table full sock.c:402: Too many open files
+[[1;33merror[0m] descriptor table full sock.c:402: Too many open files
+[[1;33merror[0m] descriptor table full sock.c:402: Too many open files
+[[1;33merror[0m] descriptor table full sock.c:402: Too many open files
+[0;34mHTTP/1.1 200     0.01 secs:    1017 bytes ==> GET  /[0m
+[[1;33merror[0m] descriptor table full sock.c:402: Too many open files
+[[1;33merror[0m] descriptor table full sock.c:402: Too many open files
+[[1;33merror[0m] descriptor table full sock.c:402: Too many open files
+[[1;33merror[0m] descriptor table full sock.c:402: Too many open files
+[[1;33merror[0m] descriptor table full sock.c:402: Too many open files
+[[1;33merror[0m] descriptor table full sock.c:402: Too many open files
+[[1;33merror[0m] descriptor table full sock.c:402: Too many open files
+[[1;33merror[0m] descriptor table full sock.c:402: Too many open files
+[[1;33merror[0m] descriptor table full sock.c:402: Too many open files
+[[1;33merror[0m] descriptor table full sock.c:402: Too many open files
+[[1;33merror[0m] descriptor table full sock.c:402: Too many open files
+[[1;33merror[0m] descriptor table full sock.c:402: Too many open files
+[0;34mHTTP/1.1 200     0.01 secs:    1017 bytes ==> GET  /[0m
+[[1;33merror[0m] descriptor table full sock.c:402: Too many open files
+[0;34mHTTP/1.1 200     0.01 secs:    1017 bytes ==> GET  /[0m
+[[1;33merror[0m] descriptor table full sock.c:402: Too many open files
+[[1;33merror[0m] descriptor table full sock.c:402: Too many open files
+[0;34mHTTP/1.1 200     0.01 secs:    1017 bytes ==> GET  /[0m
+[[1;33merror[0m] descriptor table full sock.c:402: Too many open files
+[[1;33merror[0m] descriptor table full sock.c:402: Too many open files
+[[1;33merror[0m] descriptor table full sock.c:402: Too many open files
+[[1;33merror[0m] descriptor table full sock.c:402: Too many open files
+[[1;33merror[0m] descriptor table full sock.c:402: Too many open files
+[[1;33merror[0m] descriptor table full sock.c:402: Too many open files
+[[1;33merror[0m] descriptor table full sock.c:402: Too many open files
+[[1;33merror[0m] descriptor table full sock.c:402: Too many open files
+[[1;33merror[0m] descriptor table full sock.c:402: Too many open files
+[[1;33merror[0m] descriptor table full sock.c:402: Too many open files
+[[1;33merror[0m] Host not found: localhost
+: Too many open files
+[[1;33merror[0m] descriptor table full sock.c:402: Too many open files
+[[1;33merror[0m] descriptor table full sock.c:402: Too many open files
+[[1;33merror[0m] descriptor table full sock.c:402: Too many open files
+[[1;33merror[0m] descriptor table full sock.c:402: Too many open files
+[[1;33merror[0m] descriptor table full sock.c:402: Too many open files
+[[1;33merror[0m] descriptor table full sock.c:402: Too many open files
+[[1;33merror[0m] descriptor table full sock.c:402: Too many open files
+[[1;33merror[0m] descriptor table full sock.c:402: Too many open files
+[0;34mHTTP/1.1 200     0.02 secs:    1017 bytes ==> GET  /[0m
+[[1;33merror[0m] descriptor table full sock.c:402: Too many open files
+[[1;33merror[0m] descriptor table full sock.c:402: Too many open files
+[[1;33merror[0m] descriptor table full sock.c:402: Too many open files
+[[1;33merror[0m] descriptor table full sock.c:402: Too many open files
+[[1;33merror[0m] descriptor table full sock.c:402: Too many open files
+[[1;33merror[0m] descriptor table full sock.c:402: Too many open files
+[[1;33merror[0m] descriptor table full sock.c:402: Too many open files
+[0;34mHTTP/1.1 200     0.01 secs:    1017 bytes ==> GET  /[0m
+[[1;33merror[0m] descriptor table full sock.c:402: Too many open files
+[0;34mHTTP/1.1 200     0.01 secs:    1017 bytes ==> GET  /[0m
+[0;34mHTTP/1.1 200     0.01 secs:    1017 bytes ==> GET  /[0m
+[0;34mHTTP/1.1 200     0.01 secs:    1017 bytes ==> GET  /[0m
+[0;34mHTTP/1.1 200     0.01 secs:    1017 bytes ==> GET  /[0m
+[0;34mHTTP/1.1 200     0.01 secs:    1017 bytes ==> GET  /[0m
+[0;34mHTTP/1.1 200     0.01 secs:    1017 bytes ==> GET  /[0m
+[[1;33merror[0m] descriptor table full sock.c:402: Too many open files
+[[1;33merror[0m] descriptor table full sock.c:402: Too many open files
+[[1;33merror[0m] descriptor table full sock.c:402: Too many open files
+[[1;33merror[0m] descriptor table full sock.c:402: Too many open files
+[[1;33merror[0m] descriptor table full sock.c:402: Too many open files
+[[1;33merror[0m] descriptor table full sock.c:402: Too many open files
+[0;34mHTTP/1.1 200     0.01 secs:    1017 bytes ==> GET  /[0m
+[[1;33merror[0m] descriptor table full sock.c:402: Too many open files
+[[1;33merror[0m] descriptor table full sock.c:402: Too many open files
+[0;34mHTTP/1.1 200     0.01 secs:    1017 bytes ==> GET  /[0m
+[[1;33merror[0m] descriptor table full sock.c:402: Too many open files
+[[1;33merror[0m] descriptor table full sock.c:402: Too many open files
+[[1;33merror[0m] Host not found: localhost
+: Too many open files
+[[1;33merror[0m] descriptor table full sock.c:402: Too many open files
+[0;34mHTTP/1.1 200     0.01 secs:    1017 bytes ==> GET  /[0m
+[0;34mHTTP/1.1 200     0.06 secs:    1017 bytes ==> GET  /[0m
+[[1;33merror[0m] descriptor table full sock.c:402: Too many open files
+[[1;33merror[0m] descriptor table full sock.c:402: Too many open files
+[[1;33merror[0m] descriptor table full sock.c:402: Too many open files
+[[1;33merror[0m] descriptor table full sock.c:402: Too many open files
+[[1;33merror[0m] descriptor table full sock.c:402: Too many open files
+[[1;33merror[0m] descriptor table full sock.c:402: Too many open files
+[[1;33merror[0m] descriptor table full sock.c:402: Too many open files
+[[1;33merror[0m] descriptor table full sock.c:402: Too many open files
+[[1;33merror[0m] descriptor table full sock.c:402: Too many open files
+[0;34mHTTP/1.1 200     0.06 secs:    1017 bytes ==> GET  /[0m
+[[1;33merror[0m] descriptor table full sock.c:402: Too many open files
+[[1;33merror[0m] descriptor table full sock.c:402: Too many open files
+[[1;33merror[0m] descriptor table full sock.c:402: Too many open files
+[[1;33merror[0m] descriptor table full sock.c:402: Too many open files
+[[1;33merror[0m] descriptor table full sock.c:402: Too many open files
+[[1;33merror[0m] descriptor table full sock.c:402: Too many open files
+[[1;33merror[0m] descriptor table full sock.c:402: Too many open files
+[[1;33merror[0m] descriptor table full sock.c:402: Too many open files
+[[1;33merror[0m] descriptor table full sock.c:402: Too many open files
+[[1;33merror[0m] descriptor table full sock.c:402: Too many open files
+[[1;33merror[0m] descriptor table full sock.c:402: Too many open files
+[[1;33merror[0m] descriptor table full sock.c:402: Too many open files
+[[1;33merror[0m] descriptor table full sock.c:402: Too many open files
+[[1;33merror[0m] descriptor table full sock.c:402: Too many open files
+[[1;33merror[0m] descriptor table full sock.c:402: Too many open files
+[[1;33merror[0m] descriptor table full sock.c:402: Too many open files
+[[1;33merror[0m] descriptor table full sock.c:402: Too many open files
+[[1;33merror[0m] descriptor table full sock.c:402: Too many open files
+[[1;33merror[0m] descriptor table full sock.c:402: Too many open files
+[[1;33merror[0m] descriptor table full sock.c:402: Too many open files
+[[1;33merror[0m] descriptor table full sock.c:402: Too many open files
+[[1;33merror[0m] descriptor table full sock.c:402: Too many open files
+[[1;33merror[0m] descriptor table full sock.c:402: Too many open files
+[[1;33merror[0m] descriptor table full sock.c:402: Too many open files
+[[1;33merror[0m] descriptor table full sock.c:402: Too many open files
+[[1;33merror[0m] descriptor table full sock.c:402: Too many open files
+[0;34mHTTP/1.1 200     0.01 secs:    1017 bytes ==> GET  /[0m
+[[1;33merror[0m] descriptor table full sock.c:402: Too many open files
+[[1;33merror[0m] descriptor table full sock.c:402: Too many open files
+[[1;33merror[0m] descriptor table full sock.c:402: Too many open files
+[[1;33merror[0m] descriptor table full sock.c:402: Too many open files
+[[1;33merror[0m] descriptor table full sock.c:402: Too many open files
+[[1;33merror[0m] descriptor table full sock.c:402: Too many open files
+[[1;33merror[0m] descriptor table full sock.c:402: Too many open files
+[[1;33merror[0m] descriptor table full sock.c:402: Too many open files
+[[1;33merror[0m] descriptor table full sock.c:402: Too many open files
+[[1;33merror[0m] descriptor table full sock.c:402: Too many open files
+[[1;33merror[0m] descriptor table full sock.c:402: Too many open files
+[[1;33merror[0m] descriptor table full sock.c:402: Too many open files
+[[1;33merror[0m] descriptor table full sock.c:402: Too many open files
+[[1;33merror[0m] descriptor table full sock.c:402: Too many open files
+[[1;33merror[0m] descriptor table full sock.c:402: Too many open files
+[[1;33merror[0m] descriptor table full sock.c:402: Too many open files
+[[1;33merror[0m] descriptor table full sock.c:402: Too many open files
+[[1;33merror[0m] descriptor table full sock.c:402: Too many open files
+[[1;33merror[0m] descriptor table full sock.c:402: Too many open files
+[[1;33merror[0m] descriptor table full sock.c:402: Too many open files
+[[1;33merror[0m] descriptor table full sock.c:402: Too many open files
+[[1;33merror[0m] descriptor table full sock.c:402: Too many open files
+[[1;33merror[0m] descriptor table full sock.c:402: Too many open files
+[[1;33merror[0m] descriptor table full sock.c:402: Too many open files
+[0;34mHTTP/1.1 200     0.01 secs:    1017 bytes ==> GET  /[0m
+[[1;33merror[0m] descriptor table full sock.c:402: Too many open files
+[[1;33merror[0m] descriptor table full sock.c:402: Too many open files
+[[1;33merror[0m] descriptor table full sock.c:402: Too many open files
+[[1;33merror[0m] descriptor table full sock.c:402: Too many open files
+[[1;33merror[0m] descriptor table full sock.c:402: Too many open files
+[[1;33merror[0m] descriptor table full sock.c:402: Too many open files
+[[1;33merror[0m] descriptor table full sock.c:402: Too many open files
+[[1;33merror[0m] descriptor table full sock.c:402: Too many open files
+[[1;33merror[0m] descriptor table full sock.c:402: Too many open files
+[[1;33merror[0m] descriptor table full sock.c:402: Too many open files
+[[1;33merror[0m] descriptor table full sock.c:402: Too many open files
+[[1;33merror[0m] descriptor table full sock.c:402: Too many open files
+[[1;33merror[0m] descriptor table full sock.c:402: Too many open files
+[[1;33merror[0m] descriptor table full sock.c:402: Too many open files
+[[1;33merror[0m] descriptor table full sock.c:402: Too many open files
+[[1;33merror[0m] descriptor table full sock.c:402: Too many open files
+[[1;33merror[0m] descriptor table full sock.c:402: Too many open files
+[[1;33merror[0m] descriptor table full sock.c:402: Too many open files
+[[1;33merror[0m] descriptor table full sock.c:402: Too many open files
+[[1;33merror[0m] descriptor table full sock.c:402: Too many open files
+[[1;33merror[0m] descriptor table full sock.c:402: Too many open files
+[[1;33merror[0m] descriptor table full sock.c:402: Too many open files
+[[1;33merror[0m] descriptor table full sock.c:402: Too many open files
+[[1;33merror[0m] descriptor table full sock.c:402: Too many open files
+[0;34mHTTP/1.1 200     0.06 secs:    1017 bytes ==> GET  /[0m
+[0;34mHTTP/1.1 200     0.01 secs:    1017 bytes ==> GET  /[0m
+[0;34mHTTP/1.1 200     0.00 secs:    1017 bytes ==> GET  /[0m
+[0;34mHTTP/1.1 200     0.00 secs:    1017 bytes ==> GET  /[0m
+[0;34mHTTP/1.1 200     0.00 secs:    1017 bytes ==> GET  /[0m
+[0;34mHTTP/1.1 200     0.00 secs:    1017 bytes ==> GET  /[0m
+[0;34mHTTP/1.1 200     0.00 secs:    1017 bytes ==> GET  /[0m
+[0;34mHTTP/1.1 200     0.00 secs:    1017 bytes ==> GET  /[0m
+[0;34mHTTP/1.1 200     0.00 secs:    1017 bytes ==> GET  /[0m
+[0;34mHTTP/1.1 200     0.02 secs:    1017 bytes ==> GET  /[0m
+[0;34mHTTP/1.1 200     0.00 secs:    1017 bytes ==> GET  /[0m
+[0;34mHTTP/1.1 200     0.00 secs:    1017 bytes ==> GET  /[0m
+[0;34mHTTP/1.1 200     0.00 secs:    1017 bytes ==> GET  /[0m
+[0;34mHTTP/1.1 200     0.00 secs:    1017 bytes ==> GET  /[0m
+[0;34mHTTP/1.1 200     0.00 secs:    1017 bytes ==> GET  /[0m
+[0;34mHTTP/1.1 200     0.00 secs:    1017 bytes ==> GET  /[0m
+[0;34mHTTP/1.1 200     0.00 secs:    1017 bytes ==> GET  /[0m
+[0;34mHTTP/1.1 200     0.00 secs:    1017 bytes ==> GET  /[0m
+[0;34mHTTP/1.1 200     0.00 secs:    1017 bytes ==> GET  /[0m
+[0;34mHTTP/1.1 200     0.00 secs:    1017 bytes ==> GET  /[0m
+[0;34mHTTP/1.1 200     0.00 secs:    1017 bytes ==> GET  /[0m
+[0;34mHTTP/1.1 200     0.00 secs:    1017 bytes ==> GET  /[0m
+[0;34mHTTP/1.1 200     0.02 secs:    1017 bytes ==> GET  /[0m
+[[1;33merror[0m] Host not found: localhost
+: Too many open files
+[[1;33merror[0m] Host not found: localhost
+: Too many open files
+[[1;33merror[0m] Host not found: localhost
+: Too many open files
+[[1;33merror[0m] Host not found: localhost
+: Too many open files
+[[1;33merror[0m] Host not found: localhost
+: Too many open files
+[[1;33merror[0m] descriptor table full sock.c:402: Too many open files
+[[1;33merror[0m] descriptor table full sock.c:402: Too many open files
+[[1;33merror[0m] descriptor table full sock.c:402: Too many open files
+[[1;33merror[0m] descriptor table full sock.c:402: Too many open files
+[[1;33merror[0m] descriptor table full sock.c:402: Too many open files
+[[1;33merror[0m] descriptor table full sock.c:402: Too many open files
+[[1;33merror[0m] descriptor table full sock.c:402: Too many open files
+[[1;33merror[0m] descriptor table full sock.c:402: Too many open files
+[[1;33merror[0m] descriptor table full sock.c:402: Too many open files
+[[1;33merror[0m] descriptor table full sock.c:402: Too many open files
+[[1;33merror[0m] descriptor table full sock.c:402: Too many open files
+[[1;33merror[0m] descriptor table full sock.c:402: Too many open files
+[[1;33merror[0m] descriptor table full sock.c:402: Too many open files
+[[1;33merror[0m] descriptor table full sock.c:402: Too many open files
+[[1;33merror[0m] descriptor table full sock.c:402: Too many open files
+[[1;33merror[0m] descriptor table full sock.c:402: Too many open files
+[[1;33merror[0m] descriptor table full sock.c:402: Too many open files
+[[1;33merror[0m] descriptor table full sock.c:402: Too many open files
+[[1;33merror[0m] descriptor table full sock.c:402: Too many open files
+[[1;33merror[0m] descriptor table full sock.c:402: Too many open files
+[[1;33merror[0m] descriptor table full sock.c:402: Too many open files
+[0;34mHTTP/1.1 200     0.00 secs:    1017 bytes ==> GET  /[0m
+[0;34mHTTP/1.1 200     0.00 secs:    1017 bytes ==> GET  /[0m
+[0;34mHTTP/1.1 200     0.00 secs:    1017 bytes ==> GET  /[0m
+[0;34mHTTP/1.1 200     0.00 secs:    1017 bytes ==> GET  /[0m
+[0;34mHTTP/1.1 200     0.02 secs:    1017 bytes ==> GET  /[0m
+[0;34mHTTP/1.1 200     0.00 secs:    1017 bytes ==> GET  /[0m
+[0;34mHTTP/1.1 200     0.00 secs:    1017 bytes ==> GET  /[0m
+[0;34mHTTP/1.1 200     0.00 secs:    1017 bytes ==> GET  /[0m
+[0;34mHTTP/1.1 200     0.00 secs:    1017 bytes ==> GET  /[0m
+[0;34mHTTP/1.1 200     0.00 secs:    1017 bytes ==> GET  /[0m
+[0;34mHTTP/1.1 200     0.00 secs:    1017 bytes ==> GET  /[0m
+[0;34mHTTP/1.1 200     0.00 secs:    1017 bytes ==> GET  /[0m
+[0;34mHTTP/1.1 200     0.00 secs:    1017 bytes ==> GET  /[0m
+[0;34mHTTP/1.1 200     0.00 secs:    1017 bytes ==> GET  /[0m
+[0;34mHTTP/1.1 200     0.00 secs:    1017 bytes ==> GET  /[0m
+[0;34mHTTP/1.1 200     0.00 secs:    1017 bytes ==> GET  /[0m
+[0;34mHTTP/1.1 200     0.00 secs:    1017 bytes ==> GET  /[0m
+[0;34mHTTP/1.1 200     0.01 secs:    1017 bytes ==> GET  /[0m
+[0;34mHTTP/1.1 200     0.01 secs:    1017 bytes ==> GET  /[0m
+[0;34mHTTP/1.1 200     0.03 secs:    1017 bytes ==> GET  /[0m
+[0;34mHTTP/1.1 200     0.07 secs:    1017 bytes ==> GET  /[0m
+[0;34mHTTP/1.1 200     0.07 secs:    1017 bytes ==> GET  /[0m
+[0;34mHTTP/1.1 200     0.07 secs:    1017 bytes ==> GET  /[0m
+[0;34mHTTP/1.1 200     0.03 secs:    1017 bytes ==> GET  /[0m
+[0;34mHTTP/1.1 200     0.03 secs:    1017 bytes ==> GET  /[0m
+[0;34mHTTP/1.1 200     0.08 secs:    1017 bytes ==> GET  /[0m
+[0;34mHTTP/1.1 200     0.07 secs:    1017 bytes ==> GET  /[0m
+[0;34mHTTP/1.1 200     0.08 secs:    1017 bytes ==> GET  /[0m
+[0;34mHTTP/1.1 200     0.03 secs:    1017 bytes ==> GET  /[0m
+[0;34mHTTP/1.1 200     0.07 secs:    1017 bytes ==> GET  /[0m
+[0;34mHTTP/1.1 200     0.03 secs:    1017 bytes ==> GET  /[0m
+[0;34mHTTP/1.1 200     0.03 secs:    1017 bytes ==> GET  /[0m
+[0;34mHTTP/1.1 200     0.03 secs:    1017 bytes ==> GET  /[0m
+[0;34mHTTP/1.1 200     0.03 secs:    1017 bytes ==> GET  /[0m
+[0;34mHTTP/1.1 200     0.07 secs:    1017 bytes ==> GET  /[0m
+[0;34mHTTP/1.1 200     0.03 secs:    1017 bytes ==> GET  /[0m
+[0;34mHTTP/1.1 200     0.03 secs:    1017 bytes ==> GET  /[0m
+[0;34mHTTP/1.1 200     0.03 secs:    1017 bytes ==> GET  /[0m
+[0;34mHTTP/1.1 200     0.08 secs:    1017 bytes ==> GET  /[0m
+[0;34mHTTP/1.1 200     0.08 secs:    1017 bytes ==> GET  /[0m
+[0;34mHTTP/1.1 200     0.07 secs:    1017 bytes ==> GET  /[0m
+[0;34mHTTP/1.1 200     0.02 secs:    1017 bytes ==> GET  /[0m
+[0;34mHTTP/1.1 200     0.02 secs:    1017 bytes ==> GET  /[0m
+[0;34mHTTP/1.1 200     0.02 secs:    1017 bytes ==> GET  /[0m
+[0;34mHTTP/1.1 200     0.02 secs:    1017 bytes ==> GET  /[0m
+[0;34mHTTP/1.1 200     0.02 secs:    1017 bytes ==> GET  /[0m
+[0;34mHTTP/1.1 200     0.02 secs:    1017 bytes ==> GET  /[0m
+[0;34mHTTP/1.1 200     0.02 secs:    1017 bytes ==> GET  /[0m
+[0;34mHTTP/1.1 200     0.08 secs:    1017 bytes ==> GET  /[0m
+[0;34mHTTP/1.1 200     0.01 secs:    1017 bytes ==> GET  /[0m
+[0;34mHTTP/1.1 200     0.01 secs:    1017 bytes ==> GET  /[0m
+[0;34mHTTP/1.1 200     0.01 secs:    1017 bytes ==> GET  /[0m
+[0;34mHTTP/1.1 200     0.07 secs:    1017 bytes ==> GET  /[0m
+[0;34mHTTP/1.1 200     0.01 secs:    1017 bytes ==> GET  /[0m
+[0;34mHTTP/1.1 200     0.08 secs:    1017 bytes ==> GET  /[0m
+[0;34mHTTP/1.1 200     0.01 secs:    1017 bytes ==> GET  /[0m
+[0;34mHTTP/1.1 200     0.01 secs:    1017 bytes ==> GET  /[0m
+[0;34mHTTP/1.1 200     0.01 secs:    1017 bytes ==> GET  /[0m
+[0;34mHTTP/1.1 200     0.01 secs:    1017 bytes ==> GET  /[0m
+[0;34mHTTP/1.1 200     0.01 secs:    1017 bytes ==> GET  /[0m
+[0;34mHTTP/1.1 200     0.07 secs:    1017 bytes ==> GET  /[0m
+[0;34mHTTP/1.1 200     0.07 secs:    1017 bytes ==> GET  /[0m
+[0;34mHTTP/1.1 200     0.01 secs:    1017 bytes ==> GET  /[0m
+[0;34mHTTP/1.1 200     0.08 secs:    1017 bytes ==> GET  /[0m
+[0;34mHTTP/1.1 200     0.01 secs:    1017 bytes ==> GET  /[0m
+[0;34mHTTP/1.1 200     0.07 secs:    1017 bytes ==> GET  /[0m
+[0;34mHTTP/1.1 200     0.01 secs:    1017 bytes ==> GET  /[0m
+[0;34mHTTP/1.1 200     0.07 secs:    1017 bytes ==> GET  /[0m
+[0;34mHTTP/1.1 200     0.01 secs:    1017 bytes ==> GET  /[0m
+[0;34mHTTP/1.1 200     0.07 secs:    1017 bytes ==> GET  /[0m
+[0;34mHTTP/1.1 200     0.07 secs:    1017 bytes ==> GET  /[0m
+[0;34mHTTP/1.1 200     0.07 secs:    1017 bytes ==> GET  /[0m
+[0;34mHTTP/1.1 200     0.07 secs:    1017 bytes ==> GET  /[0m
+[0;34mHTTP/1.1 200     0.07 secs:    1017 bytes ==> GET  /[0m
+[0;34mHTTP/1.1 200     0.08 secs:    1017 bytes ==> GET  /[0m
+[0;34mHTTP/1.1 200     0.07 secs:    1017 bytes ==> GET  /[0m
+[0;34mHTTP/1.1 200     0.08 secs:    1017 bytes ==> GET  /[0m
+[0;34mHTTP/1.1 200     0.08 secs:    1017 bytes ==> GET  /[0m
+[0;34mHTTP/1.1 200     0.08 secs:    1017 bytes ==> GET  /[0m
+[0;34mHTTP/1.1 200     0.08 secs:    1017 bytes ==> GET  /[0m
+[0;34mHTTP/1.1 200     0.08 secs:    1017 bytes ==> GET  /[0m
+[0;34mHTTP/1.1 200     0.08 secs:    1017 bytes ==> GET  /[0m
+[0;34mHTTP/1.1 200     0.08 secs:    1017 bytes ==> GET  /[0m
+[0;34mHTTP/1.1 200     0.08 secs:    1017 bytes ==> GET  /[0m
+[0;34mHTTP/1.1 200     0.02 secs:    1017 bytes ==> GET  /[0m
+[0;34mHTTP/1.1 200     0.08 secs:    1017 bytes ==> GET  /[0m
+[0;34mHTTP/1.1 200     0.08 secs:    1017 bytes ==> GET  /[0m
+[0;34mHTTP/1.1 200     0.08 secs:    1017 bytes ==> GET  /[0m
+[0;34mHTTP/1.1 200     0.09 secs:    1017 bytes ==> GET  /[0m
+[0;34mHTTP/1.1 200     0.09 secs:    1017 bytes ==> GET  /[0m
+[0;34mHTTP/1.1 200     0.08 secs:    1017 bytes ==> GET  /[0m
+[0;34mHTTP/1.1 200     0.08 secs:    1017 bytes ==> GET  /[0m
+[0;34mHTTP/1.1 200     0.08 secs:    1017 bytes ==> GET  /[0m
+[0;34mHTTP/1.1 200     0.08 secs:    1017 bytes ==> GET  /[0m
+[0;34mHTTP/1.1 200     0.08 secs:    1017 bytes ==> GET  /[0m
+[0;34mHTTP/1.1 200     0.09 secs:    1017 bytes ==> GET  /[0m
+[0;34mHTTP/1.1 200     0.09 secs:    1017 bytes ==> GET  /[0m
+[0;34mHTTP/1.1 200     0.09 secs:    1017 bytes ==> GET  /[0m
+[0;34mHTTP/1.1 200     0.08 secs:    1017 bytes ==> GET  /[0m
+[0;34mHTTP/1.1 200     0.08 secs:    1017 bytes ==> GET  /[0m
+[0;34mHTTP/1.1 200     0.08 secs:    1017 bytes ==> GET  /[0m
+[0;34mHTTP/1.1 200     0.08 secs:    1017 bytes ==> GET  /[0m
+[0;34mHTTP/1.1 200    35.01 secs:    1017 bytes ==> GET  /[0m
+[0;34mHTTP/1.1 200    35.01 secs:    1017 bytes ==> GET  /[0m
+[0;34mHTTP/1.1 200    35.01 secs:    1017 bytes ==> GET  /[0m
+[0;34mHTTP/1.1 200    35.00 secs:    1017 bytes ==> GET  /[0m
+[0;34mHTTP/1.1 200    35.00 secs:    1017 bytes ==> GET  /[0m
+[0;34mHTTP/1.1 200    35.00 secs:    1017 bytes ==> GET  /[0m
+[0;34mHTTP/1.1 200    35.01 secs:    1017 bytes ==> GET  /[0m
+[0;34mHTTP/1.1 200    35.00 secs:    1017 bytes ==> GET  /[0m
+[0;34mHTTP/1.1 200    35.01 secs:    1017 bytes ==> GET  /[0m
+[0;34mHTTP/1.1 200    35.00 secs:    1017 bytes ==> GET  /[0m
+[0;34mHTTP/1.1 200    35.00 secs:    1017 bytes ==> GET  /[0m
+[0;34mHTTP/1.1 200    35.01 secs:    1017 bytes ==> GET  /[0m
+[0;34mHTTP/1.1 200    35.01 secs:    1017 bytes ==> GET  /[0m
+[0;34mHTTP/1.1 200    35.01 secs:    1017 bytes ==> GET  /[0m
+[0;34mHTTP/1.1 200    35.00 secs:    1017 bytes ==> GET  /[0m
+[0;34mHTTP/1.1 200    35.00 secs:    1017 bytes ==> GET  /[0m
+[0;34mHTTP/1.1 200    35.00 secs:    1017 bytes ==> GET  /[0m
+[0;34mHTTP/1.1 200    35.00 secs:    1017 bytes ==> GET  /[0m
+[0;34mHTTP/1.1 200    35.00 secs:    1017 bytes ==> GET  /[0m
+[0;34mHTTP/1.1 200    35.00 secs:    1017 bytes ==> GET  /[0m
+[0;34mHTTP/1.1 200    35.01 secs:    1017 bytes ==> GET  /[0m
+[0;34mHTTP/1.1 200    35.00 secs:    1017 bytes ==> GET  /[0m
+[0;34mHTTP/1.1 200    35.00 secs:    1017 bytes ==> GET  /[0m
+[0;34mHTTP/1.1 200    35.01 secs:    1017 bytes ==> GET  /[0m
+[0;34mHTTP/1.1 200    35.00 secs:    1017 bytes ==> GET  /[0m
+[0;34mHTTP/1.1 200    35.01 secs:    1017 bytes ==> GET  /[0m
+[0;34mHTTP/1.1 200    35.01 secs:    1017 bytes ==> GET  /[0m
+[0;34mHTTP/1.1 200    35.01 secs:    1017 bytes ==> GET  /[0m
+[0;34mHTTP/1.1 200    35.01 secs:    1017 bytes ==> GET  /[0m
+[0;34mHTTP/1.1 200    35.01 secs:    1017 bytes ==> GET  /[0m
+[0;34mHTTP/1.1 200    35.01 secs:    1017 bytes ==> GET  /[0m
+[0;34mHTTP/1.1 200    35.01 secs:    1017 bytes ==> GET  /[0m
+[0;34mHTTP/1.1 200    35.01 secs:    1017 bytes ==> GET  /[0m
+[0;34mHTTP/1.1 200    35.02 secs:    1017 bytes ==> GET  /[0m
+[0;34mHTTP/1.1 200    35.01 secs:    1017 bytes ==> GET  /[0m
+[0;34mHTTP/1.1 200    35.01 secs:    1017 bytes ==> GET  /[0m
+[0;34mHTTP/1.1 200    35.01 secs:    1017 bytes ==> GET  /[0m
+[0;34mHTTP/1.1 200    35.01 secs:    1017 bytes ==> GET  /[0m
+[0;34mHTTP/1.1 200    35.01 secs:    1017 bytes ==> GET  /[0m
+[0;34mHTTP/1.1 200    35.02 secs:    1017 bytes ==> GET  /[0m
+[0;34mHTTP/1.1 200    35.01 secs:    1017 bytes ==> GET  /[0m
+[0;34mHTTP/1.1 200    35.01 secs:    1017 bytes ==> GET  /[0m
+[0;34mHTTP/1.1 200    35.01 secs:    1017 bytes ==> GET  /[0m
+[0;34mHTTP/1.1 200    35.01 secs:    1017 bytes ==> GET  /[0m
+[0;34mHTTP/1.1 200    35.01 secs:    1017 bytes ==> GET  /[0m
+[0;34mHTTP/1.1 200    35.02 secs:    1017 bytes ==> GET  /[0m
+[0;34mHTTP/1.1 200    35.01 secs:    1017 bytes ==> GET  /[0m
+[0;34mHTTP/1.1 200    35.01 secs:    1017 bytes ==> GET  /[0m
+[0;34mHTTP/1.1 200    35.01 secs:    1017 bytes ==> GET  /[0m
+[0;34mHTTP/1.1 200    35.01 secs:    1017 bytes ==> GET  /[0m
+[0;34mHTTP/1.1 200    35.02 secs:    1017 bytes ==> GET  /[0m
+[0;34mHTTP/1.1 200    35.01 secs:    1017 bytes ==> GET  /[0m
+[0;34mHTTP/1.1 200    35.02 secs:    1017 bytes ==> GET  /[0m
+[0;34mHTTP/1.1 200    35.01 secs:    1017 bytes ==> GET  /[0m
+[0;34mHTTP/1.1 200    35.01 secs:    1017 bytes ==> GET  /[0m
+[0;34mHTTP/1.1 200    35.01 secs:    1017 bytes ==> GET  /[0m
+[0;34mHTTP/1.1 200    35.01 secs:    1017 bytes ==> GET  /[0m
+[0;34mHTTP/1.1 200    35.01 secs:    1017 bytes ==> GET  /[0m
+[0;34mHTTP/1.1 200    35.01 secs:    1017 bytes ==> GET  /[0m
+[0;34mHTTP/1.1 200    35.01 secs:    1017 bytes ==> GET  /[0m
+[0;34mHTTP/1.1 200    35.01 secs:    1017 bytes ==> GET  /[0m
+[0;34mHTTP/1.1 200    35.01 secs:    1017 bytes ==> GET  /[0m
+[0;34mHTTP/1.1 200    35.01 secs:    1017 bytes ==> GET  /[0m
+[0;34mHTTP/1.1 200    35.01 secs:    1017 bytes ==> GET  /[0m
+[0;34mHTTP/1.1 200    35.01 secs:    1017 bytes ==> GET  /[0m
+[0;34mHTTP/1.1 200    35.01 secs:    1017 bytes ==> GET  /[0m
+[0;34mHTTP/1.1 200    35.01 secs:    1017 bytes ==> GET  /[0m
+[0;34mHTTP/1.1 200    35.02 secs:    1017 bytes ==> GET  /[0m
+[0;34mHTTP/1.1 200    35.02 secs:    1017 bytes ==> GET  /[0m
+[0;34mHTTP/1.1 200    35.01 secs:    1017 bytes ==> GET  /[0m
+[0;34mHTTP/1.1 200    35.01 secs:    1017 bytes ==> GET  /[0m
+[0;34mHTTP/1.1 200    35.01 secs:    1017 bytes ==> GET  /[0m
+[0;34mHTTP/1.1 200    35.02 secs:    1017 bytes ==> GET  /[0m
+[0;34mHTTP/1.1 200    35.01 secs:    1017 bytes ==> GET  /[0m
+[0;34mHTTP/1.1 200    35.01 secs:    1017 bytes ==> GET  /[0m
+[0;34mHTTP/1.1 200    35.01 secs:    1017 bytes ==> GET  /[0m
+[0;34mHTTP/1.1 200    35.01 secs:    1017 bytes ==> GET  /[0m
+[0;34mHTTP/1.1 200    35.01 secs:    1017 bytes ==> GET  /[0m
+[0;34mHTTP/1.1 200    35.01 secs:    1017 bytes ==> GET  /[0m
+[0;34mHTTP/1.1 200    35.01 secs:    1017 bytes ==> GET  /[0m
+[0;34mHTTP/1.1 200    35.01 secs:    1017 bytes ==> GET  /[0m
+[0;34mHTTP/1.1 200    35.02 secs:    1017 bytes ==> GET  /[0m
+[0;34mHTTP/1.1 200    35.02 secs:    1017 bytes ==> GET  /[0m
+[0;34mHTTP/1.1 200    35.02 secs:    1017 bytes ==> GET  /[0m
+[0;34mHTTP/1.1 200    35.02 secs:    1017 bytes ==> GET  /[0m
+[0;34mHTTP/1.1 200    35.02 secs:    1017 bytes ==> GET  /[0m
+[0;34mHTTP/1.1 200    35.02 secs:    1017 bytes ==> GET  /[0m
+[0;34mHTTP/1.1 200    35.02 secs:    1017 bytes ==> GET  /[0m
+[0;34mHTTP/1.1 200    35.02 secs:    1017 bytes ==> GET  /[0m
+[0;34mHTTP/1.1 200    35.02 secs:    1017 bytes ==> GET  /[0m
+siege aborted due to excessive socket failure; you
+can change the failure threshold in $HOME/.siegerc
 
-Transactions:		         500 hits
-Availability:		      100.00 %
-Elapsed time:		        0.15 secs
-Data transferred:	        0.49 MB
-Response time:		        0.03 secs
-Transaction rate:	     3333.33 trans/sec
-Throughput:		        3.24 MB/sec
-Concurrency:		       88.87
-Successful transactions:         500
-Failed transactions:	           0
-Longest transaction:	        0.04
+Transactions:		         593 hits
+Availability:		       36.63 %
+Elapsed time:		       35.09 secs
+Data transferred:	        0.58 MB
+Response time:		        9.11 secs
+Transaction rate:	       16.90 trans/sec
+Throughput:		        0.02 MB/sec
+Concurrency:		      153.89
+Successful transactions:         593
+Failed transactions:	        1026
+Longest transaction:	       35.07
 Shortest transaction:	        0.00
  
-[0;34mHTTP/1.1 200     0.02 secs:    1018 bytes ==> GET  /[0m
-[0;34mHTTP/1.1 200     0.02 secs:    1018 bytes ==> GET  /[0m
-[0;34mHTTP/1.1 200     0.02 secs:    1018 bytes ==> GET  /[0m
-[0;34mHTTP/1.1 200     0.02 secs:    1018 bytes ==> GET  /[0m
-[0;34mHTTP/1.1 200     0.02 secs:    1018 bytes ==> GET  /[0m
-[0;34mHTTP/1.1 200     0.02 secs:    1018 bytes ==> GET  /[0m
-[0;34mHTTP/1.1 200     0.02 secs:    1018 bytes ==> GET  /[0m
-[0;34mHTTP/1.1 200     0.03 secs:    1018 bytes ==> GET  /[0m
-[0;34mHTTP/1.1 200     0.03 secs:    1018 bytes ==> GET  /[0m
-[0;34mHTTP/1.1 200     0.03 secs:    1018 bytes ==> GET  /[0m
-[0;34mHTTP/1.1 200     0.03 secs:    1018 bytes ==> GET  /[0m
-[0;34mHTTP/1.1 200     0.03 secs:    1018 bytes ==> GET  /[0m
-[0;34mHTTP/1.1 200     0.03 secs:    1018 bytes ==> GET  /[0m
-[0;34mHTTP/1.1 200     0.03 secs:    1018 bytes ==> GET  /[0m
-[0;34mHTTP/1.1 200     0.03 secs:    1018 bytes ==> GET  /[0m
-[0;34mHTTP/1.1 200     0.03 secs:    1018 bytes ==> GET  /[0m
-[0;34mHTTP/1.1 200     0.03 secs:    1018 bytes ==> GET  /[0m
-[0;34mHTTP/1.1 200     0.03 secs:    1018 bytes ==> GET  /[0m
-[0;34mHTTP/1.1 200     0.03 secs:    1018 bytes ==> GET  /[0m
-[0;34mHTTP/1.1 200     0.03 secs:    1018 bytes ==> GET  /[0m
-[0;34mHTTP/1.1 200     0.03 secs:    1018 bytes ==> GET  /[0m
-[0;34mHTTP/1.1 200     0.03 secs:    1018 bytes ==> GET  /[0m
-[0;34mHTTP/1.1 200     0.03 secs:    1018 bytes ==> GET  /[0m
-[0;34mHTTP/1.1 200     0.03 secs:    1018 bytes ==> GET  /[0m
-[0;34mHTTP/1.1 200     0.03 secs:    1018 bytes ==> GET  /[0m
-[0;34mHTTP/1.1 200     0.03 secs:    1018 bytes ==> GET  /[0m
-[0;34mHTTP/1.1 200     0.03 secs:    1018 bytes ==> GET  /[0m
-[0;34mHTTP/1.1 200     0.03 secs:    1018 bytes ==> GET  /[0m
-[0;34mHTTP/1.1 200     0.03 secs:    1018 bytes ==> GET  /[0m
-[0;34mHTTP/1.1 200     0.03 secs:    1018 bytes ==> GET  /[0m
-[0;34mHTTP/1.1 200     0.03 secs:    1018 bytes ==> GET  /[0m
-[0;34mHTTP/1.1 200     0.03 secs:    1018 bytes ==> GET  /[0m
-[0;34mHTTP/1.1 200     0.03 secs:    1018 bytes ==> GET  /[0m
-[0;34mHTTP/1.1 200     0.03 secs:    1018 bytes ==> GET  /[0m
-[0;34mHTTP/1.1 200     0.02 secs:    1018 bytes ==> GET  /[0m
-[0;34mHTTP/1.1 200     0.02 secs:    1018 bytes ==> GET  /[0m
-[0;34mHTTP/1.1 200     0.02 secs:    1018 bytes ==> GET  /[0m
-[0;34mHTTP/1.1 200     0.02 secs:    1018 bytes ==> GET  /[0m
-[0;34mHTTP/1.1 200     0.02 secs:    1018 bytes ==> GET  /[0m
-[0;34mHTTP/1.1 200     0.02 secs:    1018 bytes ==> GET  /[0m
-[0;34mHTTP/1.1 200     0.02 secs:    1018 bytes ==> GET  /[0m
-[0;34mHTTP/1.1 200     0.02 secs:    1018 bytes ==> GET  /[0m
-[0;34mHTTP/1.1 200     0.02 secs:    1018 bytes ==> GET  /[0m
-[0;34mHTTP/1.1 200     0.02 secs:    1018 bytes ==> GET  /[0m
-[0;34mHTTP/1.1 200     0.02 secs:    1018 bytes ==> GET  /[0m
-[0;34mHTTP/1.1 200     0.02 secs:    1018 bytes ==> GET  /[0m
-[0;34mHTTP/1.1 200     0.02 secs:    1018 bytes ==> GET  /[0m
-[0;34mHTTP/1.1 200     0.02 secs:    1018 bytes ==> GET  /[0m
-[0;34mHTTP/1.1 200     0.02 secs:    1018 bytes ==> GET  /[0m
-[0;34mHTTP/1.1 200     0.03 secs:    1018 bytes ==> GET  /[0m
-[0;34mHTTP/1.1 200     0.03 secs:    1018 bytes ==> GET  /[0m
-[0;34mHTTP/1.1 200     0.03 secs:    1018 bytes ==> GET  /[0m
+[0;34mHTTP/1.1 200    35.02 secs:    1017 bytes ==> GET  /[0m
+[0;34mHTTP/1.1 200    35.02 secs:    1017 bytes ==> GET  /[0m
+[0;34mHTTP/1.1 200    35.02 secs:    1017 bytes ==> GET  /[0m
+[0;34mHTTP/1.1 200    35.02 secs:    1017 bytes ==> GET  /[0m
+[0;34mHTTP/1.1 200    35.02 secs:    1017 bytes ==> GET  /[0m
+[0;34mHTTP/1.1 200    35.02 secs:    1017 bytes ==> GET  /[0m
+[0;34mHTTP/1.1 200    35.02 secs:    1017 bytes ==> GET  /[0m
+[0;34mHTTP/1.1 200    35.02 secs:    1017 bytes ==> GET  /[0m
+[0;34mHTTP/1.1 200    35.02 secs:    1017 bytes ==> GET  /[0m
+[0;34mHTTP/1.1 200    35.02 secs:    1017 bytes ==> GET  /[0m
+[0;34mHTTP/1.1 200    35.02 secs:    1017 bytes ==> GET  /[0m
+[0;34mHTTP/1.1 200    35.02 secs:    1017 bytes ==> GET  /[0m
+[0;34mHTTP/1.1 200    35.02 secs:    1017 bytes ==> GET  /[0m
+[0;34mHTTP/1.1 200    35.02 secs:    1017 bytes ==> GET  /[0m
+[0;34mHTTP/1.1 200    35.02 secs:    1017 bytes ==> GET  /[0m
+[0;34mHTTP/1.1 200    35.02 secs:    1017 bytes ==> GET  /[0m
+[0;34mHTTP/1.1 200    35.02 secs:    1017 bytes ==> GET  /[0m
+[0;34mHTTP/1.1 200    35.02 secs:    1017 bytes ==> GET  /[0m
+[0;34mHTTP/1.1 200    35.02 secs:    1017 bytes ==> GET  /[0m
+[0;34mHTTP/1.1 200    35.02 secs:    1017 bytes ==> GET  /[0m
+[0;34mHTTP/1.1 200    35.02 secs:    1017 bytes ==> GET  /[0m
+[0;34mHTTP/1.1 200    35.02 secs:    1017 bytes ==> GET  /[0m
+[0;34mHTTP/1.1 200    35.02 secs:    1017 bytes ==> GET  /[0m
+[0;34mHTTP/1.1 200    35.02 secs:    1017 bytes ==> GET  /[0m
+[0;34mHTTP/1.1 200    35.02 secs:    1017 bytes ==> GET  /[0m
+[0;34mHTTP/1.1 200    35.02 secs:    1017 bytes ==> GET  /[0m
+[0;34mHTTP/1.1 200    35.02 secs:    1017 bytes ==> GET  /[0m
+[0;34mHTTP/1.1 200    35.02 secs:    1017 bytes ==> GET  /[0m
+[0;34mHTTP/1.1 200    35.02 secs:    1017 bytes ==> GET  /[0m
+[0;34mHTTP/1.1 200    35.02 secs:    1017 bytes ==> GET  /[0m
+[0;34mHTTP/1.1 200    35.02 secs:    1017 bytes ==> GET  /[0m
+[0;34mHTTP/1.1 200    35.02 secs:    1017 bytes ==> GET  /[0m
+[0;34mHTTP/1.1 200    35.02 secs:    1017 bytes ==> GET  /[0m
+[0;34mHTTP/1.1 200    35.02 secs:    1017 bytes ==> GET  /[0m
+[0;34mHTTP/1.1 200    35.02 secs:    1017 bytes ==> GET  /[0m
+[0;34mHTTP/1.1 200    35.02 secs:    1017 bytes ==> GET  /[0m
+[0;34mHTTP/1.1 200    35.02 secs:    1017 bytes ==> GET  /[0m
+[0;34mHTTP/1.1 200    35.02 secs:    1017 bytes ==> GET  /[0m
+[0;34mHTTP/1.1 200    35.02 secs:    1017 bytes ==> GET  /[0m
+[0;34mHTTP/1.1 200    35.02 secs:    1017 bytes ==> GET  /[0m
+[0;34mHTTP/1.1 200    35.02 secs:    1017 bytes ==> GET  /[0m
+[0;34mHTTP/1.1 200    35.02 secs:    1017 bytes ==> GET  /[0m
+[0;34mHTTP/1.1 200    35.02 secs:    1017 bytes ==> GET  /[0m
+[0;34mHTTP/1.1 200    35.02 secs:    1017 bytes ==> GET  /[0m
+[0;34mHTTP/1.1 200    35.02 secs:    1017 bytes ==> GET  /[0m
+[0;34mHTTP/1.1 200    35.02 secs:    1017 bytes ==> GET  /[0m
+[0;34mHTTP/1.1 200    35.02 secs:    1017 bytes ==> GET  /[0m
+[0;34mHTTP/1.1 200    35.02 secs:    1017 bytes ==> GET  /[0m
+[0;34mHTTP/1.1 200    35.02 secs:    1017 bytes ==> GET  /[0m
+[0;34mHTTP/1.1 200    35.02 secs:    1017 bytes ==> GET  /[0m
+[0;34mHTTP/1.1 200    35.02 secs:    1017 bytes ==> GET  /[0m
+[0;34mHTTP/1.1 200    35.02 secs:    1017 bytes ==> GET  /[0m
+[0;34mHTTP/1.1 200    35.03 secs:    1017 bytes ==> GET  /[0m
+[0;34mHTTP/1.1 200    35.03 secs:    1017 bytes ==> GET  /[0m
+[0;34mHTTP/1.1 200    35.03 secs:    1017 bytes ==> GET  /[0m
+[0;34mHTTP/1.1 200    35.03 secs:    1017 bytes ==> GET  /[0m
+[0;34mHTTP/1.1 200    35.03 secs:    1017 bytes ==> GET  /[0m
+[0;34mHTTP/1.1 200    35.03 secs:    1017 bytes ==> GET  /[0m
+[0;34mHTTP/1.1 200    35.03 secs:    1017 bytes ==> GET  /[0m
+[0;34mHTTP/1.1 200    35.03 secs:    1017 bytes ==> GET  /[0m
+[0;34mHTTP/1.1 200    35.06 secs:    1017 bytes ==> GET  /[0m
+[0;34mHTTP/1.1 200    35.07 secs:    1017 bytes ==> GET  /[0m
+[0;34mHTTP/1.1 200    35.07 secs:    1017 bytes ==> GET  /[0m
+[0;34mHTTP/1.1 200    35.06 secs:    1017 bytes ==> GET  /[0m
