@@ -69,11 +69,10 @@ void HttpServer::checkIdleSockets()
 	{
 		auto socket_fd = it->first;
 		auto last_activity_time = it->second;
-
 		if (now - last_activity_time > idle_timeout)
 		{
-			deregisterReadEvent(socket_fd);
 			logger.logMethod("INFO", "Closing socket because of idle timing!");
+			deregisterReadEvent(socket_fd);
 			closeSocket(socket_fd);
 		}
 	}

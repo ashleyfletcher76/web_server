@@ -98,6 +98,7 @@ void HttpServer::mainLoop()
 				default:
 					break;
 				}
+				logger.logMethod("INFO", "Closing socket because of end of file send!");
 				closeSocket(event.ident);
 				continue ;
 			}
