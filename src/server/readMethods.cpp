@@ -35,7 +35,8 @@ void HttpServer::readRequest(int client_socket)
 	}
 	if (bytesRead == 0)
 	{
-		logger.logMethod("INFO", "Connection closed by client");
+		logger.logMethod("INFO", "Closing connection. Closed by client");
+		deregisterReadEvent(client_socket);
 		closeSocket(client_socket);
 		return;
 	}

@@ -32,6 +32,7 @@ void HttpServer::writeResponse(int client_socket)
 	}
 	else
 	{
+		logger.logMethod("INFO", "Closing socket because of type is close!");
 		deregisterWriteEvent(client_socket);
 		closeSocket(client_socket);
 	}
