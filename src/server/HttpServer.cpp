@@ -121,16 +121,6 @@ void HttpServer::mainLoop()
 				writeResponse(event.ident);
 				break;
 			}
-			case EVFILT_SIGNAL:
-			{
-				std::cout << "EVFILT_SIGNAL" << '\n';
-				break;
-			}
-			case EVFILT_TIMER:
-			{
-				std::cout << "EVFILT_TIMER" << '\n';
-				break;
-			}
 			default:
 			{
 				break;

@@ -20,11 +20,9 @@ void HttpServer::readRequest(int client_socket)
 	char buffer[1024];
 	std::string request;
 	int bytesRead;
-	const size_t MAX_REQUEST_SIZE = 2100;
+	const size_t MAX_REQUEST_SIZE = serverInfos[clientInfoMap[client_socket].server_fd].body_size;
 	size_t totalBytesRead = 0;
 
-	// reads from client_socket and stores into a local buffer
-	// until complete HTTP request recieved
 	while ((bytesRead = recv(client_socket, buffer, sizeof(buffer), 0)) > 0)
 	{
 		totalBytesRead += bytesRead;
@@ -37,17 +35,30 @@ void HttpServer::readRequest(int client_socket)
 		if (request.find("\r\n\r\n") != std::string::npos)
 			break;
 	}
-	if (bytesRead < 0)
+
+	if (bytesRead == 0)
 	{
-		logger.logMethod("ERROR", "Error reading from socket: " + std::string(strerror(errno)));
+		// Connection was closed by the client
+		logger.logMethod("INFO", "Connection closed by client");
+		closeSocket(client_socket);
+		return;
+	}
+	else if (bytesRead < 0)
+	{
+		// Handle other errors gracefully
+		logger.logMethod("ERROR", "Error reading from socket, code: " + std::to_string(bytesRead));
 		sendErrorResponse(client_socket, 404, "Error reading from socket");
 		return;
 	}
-	logger.logMethod("INFO", "Recieved request");
+
+	logger.logMethod("INFO", "Received request");
+
 	if (request.empty() || !parseHttpRequest(request, clientInfoMap[client_socket].request, client_socket))
 	{
+		logger.logMethod("ERROR", "Error empty request! " + std::to_string(bytesRead));
 		sendErrorResponse(client_socket, 400, "Bad request");
 		return;
 	}
+
 	handleRequest(client_socket);
 }
