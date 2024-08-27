@@ -27,6 +27,7 @@ struct HttpRequest
 	std::string body;
 	std::string version;
 	std::map<std::string, std::string> headers;
+	std::map<std::string, std::string> files;
 	userProfile userProfile;
 };
 

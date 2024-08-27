@@ -23,7 +23,9 @@ SRCS =	main.cpp \
 		server/connectionHandler.cpp \
 		server/parseRequest/parseRequest.cpp \
 		server/parseRequest/parseUtils.cpp \
+		server/parseRequest/parseBody.cpp \
 		server/handleRequest/handleRequest.cpp \
+		server/handleRequest/handleUpload.cpp \
 		server/handleRequest/handleGet.cpp \
 		server/handleRequest/handlePost.cpp \
 		server/handleRequest/handleDelete.cpp \

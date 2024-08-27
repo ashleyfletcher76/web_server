@@ -30,7 +30,6 @@ bool HttpServer::findProfileByID(const std::string &uri, int client_socket)
 		return (false);
 	}
 	std::string profileContent = generateProfilePage(profile);
-	// clientInfoMap[client_socket].response = formatHttpResponse(clientInfoMap[client_socket].request.version, 200, "OK", profileContent, clientInfoMap[client_socket].shouldclose);
 	clientResponse[client_socket] = formatHttpResponse(clientInfoMap[client_socket].request.version, 200, "OK", profileContent, clientInfoMap[client_socket].shouldclose);
 	return (true);
 }

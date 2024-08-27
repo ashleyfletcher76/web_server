@@ -114,7 +114,6 @@ void HttpServer::sendRedirectResponse(int client_socket, const std::string &redi
 					  "Location: " +
 		fullRedirectUrl + "\r\n" + connectionHeader +
 		"\r\n";
-	// clientInfoMap[client_socket].response = htmlContent;
 	clientResponse[client_socket] = htmlContent;
 	deregisterReadEvent(client_socket);
 	registerWriteEvent(client_socket);

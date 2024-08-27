@@ -62,33 +62,16 @@ bool HttpServer::parseHttpRequestHeaders(std::istringstream &requestStream, Http
 	return (true);
 }
 
-bool HttpServer::parseHttpRequestBody(std::istringstream &requestStream, HttpRequest &request, int client_socket)
-{
-	if (request.headers["content-type"] == "application/x-www-form-urlencoded")
-	{
-		auto iter = request.headers.find("content-length");
-		if (iter != request.headers.end())
-		{
-			int contentLength = std::stoi(iter->second);
-			int maxSize = getMaxClientBodySize(client_socket);
-			if (contentLength > maxSize)
-			{
-				return (false);
-			}
-			std::getline(requestStream, request.body, '\0');
-		}
-	}
-	return (true);
-}
-
-
 bool HttpServer::parseHttpRequest(const std::string &requestStr, HttpRequest &request, int client_socket)
 {
 
 	std::istringstream requestStream(requestStr);
 
 	if (!parseHttpRequestHeaders(requestStream, request))
+	{
+		sendErrorResponse(client_socket, 400, "Bad request");
 		return (false);
+	}
 
 	if (!parseHttpRequestBody(requestStream, request, client_socket))
 	{

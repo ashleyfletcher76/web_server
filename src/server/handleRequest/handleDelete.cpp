@@ -1,8 +1,7 @@
 #include "HttpServer.hpp"
 
-void	HttpServer::handleDeleteRequest(int client_socket)
+void	HttpServer::handleDeleteRequest(int client_socket, HttpRequest &request)
 {
-	HttpRequest& request = clientInfoMap[client_socket].request;
 	auto formData = parseFormData(request.body);
 	std::string responseBody;
 
@@ -17,7 +16,6 @@ void	HttpServer::handleDeleteRequest(int client_socket)
 	{
 		logger.logMethod("INFO", "Deletion completed.");
 		responseBody = "<html><body>User has been deleted successfully!</body></html>";
-		//clientInfoMap[client_socket].response = formatHttpResponse(clientInfoMap[client_socket].request.version, 200, "OK", responseBody, clientInfoMap[client_socket].shouldclose);
 		clientResponse[client_socket] = formatHttpResponse(clientInfoMap[client_socket].request.version, 200, "OK", responseBody, clientInfoMap[client_socket].shouldclose);
 	}
 	else
