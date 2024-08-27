@@ -84,6 +84,8 @@ void HttpServer::decideConnectionPersistence(int client_socket, const HttpReques
 void HttpServer::processRequestMethod(int client_socket)
 {
 	HttpRequest &request = clientInfoMap[client_socket].request;
+
+	//std::cout << request.method << std::endl;
 	if (request.method == "GET")
 		handleGetRequest(client_socket);
 	else if (request.method == "POST")

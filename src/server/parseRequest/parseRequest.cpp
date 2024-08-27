@@ -12,7 +12,7 @@ bool isValidUri(std::string_view uri)
 
 bool isValidMethod(const std::string &method)
 {
-	static const std::set<std::string> validMethods = {"GET", "POST", "DELETE"};
+	static const std::set<std::string> validMethods = {"GET", "POST"};
 	return (validMethods.find(method) != validMethods.end());
 }
 
@@ -43,9 +43,6 @@ bool HttpServer::parseHttpRequestHeaders(std::istringstream &requestStream, Http
 	}
 	if (!isValidMethod(request.method) || !isValidUri(request.uri) || !isValidVersion(request.version))
 		return (false);
-	//std::cout << request.uri << std::endl;
-	// if (isCgiRequest(request.uri))
-	// 	request.isCgi = true;
 	while (std::getline(requestStream, line) && line != "\r" && !line.empty())
 	{
 		auto colonPos = line.find(':');

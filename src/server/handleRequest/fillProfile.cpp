@@ -15,7 +15,7 @@ void	HttpServer::generateAllProfilesPage(int client_socket)
 	std::vector<userProfile> profiles;
 	if (database.fetchAllProfiles(profiles))
 	{
-		std::string pageContent = readFileContent("html/allProfiles.html");
+		std::string pageContent = readFileContent("www/allProfiles.html");
 		std::string profileLinks;
 		for (const auto& profile : profiles)
 		{
@@ -43,7 +43,7 @@ void	HttpServer::generateAllProfilesPage(int client_socket)
 
 std::string	HttpServer::generateProfilePage(const userProfile& profile)
 {
-	std::string filePath = "html/profile.html";
+	std::string filePath = "www/profile.html";
 	std::string content = readFileContent(filePath);
 
 	replacePlaceholders(content, "{{name}}", profile.name);
