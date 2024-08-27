@@ -101,35 +101,3 @@ void HttpServer::registerReadEvent(int clientSocket)
 		logger.logMethod("INFO", "Successfully registered timer event for socket: " + std::to_string(clientSocket));
 	}
 }
-
-void HttpServer::checkIdleSockets()
-{
-	auto now = std::chrono::steady_clock::now();
-
-	for (auto it = socket_last_activity.begin(); it != socket_last_activity.end();)
-	{
-		auto socket_fd = it->first;
-		auto last_activity_time = it->second;
-		if (now - last_activity_time > idle_timeout)
-		{
-			logger.logMethod("INFO", "Closing socket because of idle timing!");
-			deregisterReadEvent(socket_fd);
-			closeSocketIdle(socket_fd);
-			it = socket_last_activity.erase(it);
-		}
-		else
-		{
-			++it;
-		}
-	}
-}
-
-void HttpServer::updateLastActivity(int socket_fd)
-{
-	auto serverIt = servers.find(socket_fd);
-	if (serverIt != servers.end())
-	{
-		return;
-	}
-	socket_last_activity[socket_fd] = std::chrono::steady_clock::now();
-}

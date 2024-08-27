@@ -34,6 +34,7 @@ void HttpServer::readRequest(int client_socket)
 			sendErrorResponse(client_socket, 413, "Payload too large");
 			return ;
 		}
+		buffer[bytesRead] = '\0';
 		request.append(buffer, bytesRead);
 		if (request.find("\r\n\r\n") != std::string::npos)
 			break;
@@ -47,11 +48,13 @@ void HttpServer::readRequest(int client_socket)
 	}
 	else if (bytesRead < 0)
 	{
+		std::cout << "i am here" << '\n';
 		logger.logMethod("ERROR", "Error reading from socket, code: " + std::to_string(bytesRead));
-		sendErrorResponse(client_socket, 404, "Error reading from socket");
+		sendErrorResponse(client_socket, 400, "Error reading from socket");
 		return;
 	}
 	logger.logMethod("INFO", "Recieved request");
+	std::cout << request << '\n';
 	if (request.empty() || !parseHttpRequest(request, clientInfoMap[client_socket].request, client_socket))
 	{
 		logger.logMethod("ERROR", "Error empty request! " + std::to_string(bytesRead));

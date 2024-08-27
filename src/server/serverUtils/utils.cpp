@@ -4,10 +4,13 @@ std::string HttpServer::formatHttpResponse(const std::string& httpVersion, int s
 										   const std::string &body, int keepAlive)
 {
 	std::ostringstream response;
-
-	// constructs proper format for HTTP response
-	response << httpVersion << " " << status_code << " " << reasonPhrase << "\r\n";
-	response << "Content-Length: " << body.size() << "\r\n";
+	std::string httpVersion1 = httpVersion;
+	if (httpVersion.empty())
+	{
+		httpVersion1 = "HTTP/1.1";
+	}
+	response << httpVersion1 << " " << std::to_string(status_code) << " " << reasonPhrase << "\r\n";
+	response << "Content-Length: " << std::to_string(body.size()) << "\r\n";
 	response << "Content-Type: text/html; charset=UTF-8\r\n";
 	if (keepAlive)
 		response << "Connection: close\r\n";
@@ -42,19 +45,6 @@ void HttpServer::logSocketAction(const std::string &action, int fd)
 }
 
 void HttpServer::closeSocket(int client_socket)
-{
-	if (openSockets.find(client_socket) == openSockets.end())
-	{
-		logger.logMethod("WARNING", "Attempted to close an already closed or non-existent FD: " + std::to_string(client_socket));
-		return;
-	}
-	close(client_socket);
-	openSockets.erase(client_socket);
-	clientInfoMap.erase(client_socket);
-	logger.logMethod("INFO", "Closed client socket FD: " + std::to_string(client_socket));
-}
-
-void HttpServer::closeSocketIdle(int client_socket)
 {
 	if (openSockets.find(client_socket) == openSockets.end())
 	{

@@ -33,7 +33,9 @@ bool HttpServer::parseHttpRequestHeaders(std::istringstream &requestStream, Http
 		return (false);
 	std::istringstream lineStream(line);
 	if (!(lineStream >> request.method >> request.uri >> request.version))
+	{
 		return (false);
+	}
 	if (!isValidMethod(request.method) || !isValidUri(request.uri) || !isValidVersion(request.version))
 		return (false);
 
@@ -47,7 +49,15 @@ bool HttpServer::parseHttpRequestHeaders(std::istringstream &requestStream, Http
 		trim(headerName);
 		trim(headerValue);
 		normaliseHeader(headerName);
+		if (!isValidHeader(headerName, headerValue))
+		{
+			return false;
+		}
 		request.headers[headerName] = headerValue;
+	}
+	if (request.headers.find("host") == request.headers.end())
+	{
+		return false;
 	}
 	return (true);
 }
@@ -71,8 +81,10 @@ bool HttpServer::parseHttpRequestBody(std::istringstream &requestStream, HttpReq
 	return (true);
 }
 
+
 bool HttpServer::parseHttpRequest(const std::string &requestStr, HttpRequest &request, int client_socket)
 {
+
 	std::istringstream requestStream(requestStr);
 
 	if (!parseHttpRequestHeaders(requestStream, request))

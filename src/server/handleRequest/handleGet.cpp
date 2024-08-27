@@ -63,7 +63,6 @@ void HttpServer::handleGetRequest(int client_socket)
 		std::string fileContent((std::istreambuf_iterator<char>(file)),
 			std::istreambuf_iterator<char>());
 		file.close();
-		// clientInfoMap[client_socket].response = formatHttpResponse(clientInfoMap[client_socket].request.version, 200, "OK", fileContent, clientInfoMap[client_socket].shouldclose);
 		clientResponse[client_socket] = formatHttpResponse(clientInfoMap[client_socket].request.version, 200, "OK", fileContent, clientInfoMap[client_socket].shouldclose);
 	}
 	deregisterReadEvent(client_socket);

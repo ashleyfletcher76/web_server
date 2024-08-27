@@ -2,13 +2,30 @@
 
 bool HttpServer::validateServer(int client_socket)
 {
+	const std::string &hostHeader = clientInfoMap[client_socket].request.headers.at("host");
+
 	auto serverIt = servers.find(clientInfoMap[client_socket].server_fd);
 	if (serverIt == servers.end())
 	{
 		sendErrorResponse(client_socket, 500, "Internal Server Error");
-		return (false);
+		return false;
 	}
-	return (true);
+
+	const serverInfo &srvInfo = serverIt->second->getServerInfo();
+
+	std::string hostWithoutPort = hostHeader;
+	auto colonPos = hostHeader.find(':');
+	if (colonPos != std::string::npos)
+	{
+		hostWithoutPort = hostHeader.substr(0, colonPos);
+	}
+	if (srvInfo.server_name != hostWithoutPort && srvInfo.server_name != hostHeader && hostWithoutPort != "localhost")
+	{
+		sendErrorResponse(client_socket, 404, "Not Found");
+		return false;
+	}
+
+	return true;
 }
 
 bool HttpServer::validateRouteAndMethod(int client_socket, const HttpRequest &request)
@@ -64,7 +81,6 @@ void HttpServer::decideConnectionPersistence(int client_socket, const HttpReques
 	clientInfoMap[client_socket].shouldclose = !keepAlive;
 }
 
-
 void HttpServer::processRequestMethod(int client_socket)
 {
 	HttpRequest &request = clientInfoMap[client_socket].request;
@@ -75,7 +91,6 @@ void HttpServer::processRequestMethod(int client_socket)
 	else
 		sendErrorResponse(client_socket, 501, "Not Implemented");
 }
-
 
 void HttpServer::sendRedirectResponse(int client_socket, const std::string &redirectUrl)
 {
@@ -99,7 +114,7 @@ void HttpServer::sendRedirectResponse(int client_socket, const std::string &redi
 					  "Location: " +
 		fullRedirectUrl + "\r\n" + connectionHeader +
 		"\r\n";
-	//clientInfoMap[client_socket].response = htmlContent;
+	// clientInfoMap[client_socket].response = htmlContent;
 	clientResponse[client_socket] = htmlContent;
 	deregisterReadEvent(client_socket);
 	registerWriteEvent(client_socket);

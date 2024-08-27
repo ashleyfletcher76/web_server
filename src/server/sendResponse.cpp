@@ -45,7 +45,7 @@ void HttpServer::writeResponse(int client_socket)
 
 	logger.logMethod("INFO", "Response successfully sent to FD: " + std::to_string(client_socket));
 
-	if (!clientInfoMap[client_socket].shouldclose)
+	if (!clientInfoMap[client_socket].shouldclose || clientInfoMap[client_socket].error)
 	{
 		if (openSockets.find(client_socket) != openSockets.end())
 		{
@@ -59,8 +59,7 @@ void HttpServer::writeResponse(int client_socket)
 	}
 	else
 	{
-		logger.logMethod("INFO", "Closing socket because the connection type is close!");
-
+		logger.logMethod("INFO", "Closing socket because the connection type is or error close!");
 		shutdown(client_socket, SHUT_WR);
 		deregisterWriteEvent(client_socket);
 		closeSocket(client_socket);

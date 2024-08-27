@@ -11,12 +11,9 @@ class HttpServer : public config
 		// variables;
 		std::unordered_map<int, Server*> servers;
 		int			kq;
-
 		std::unordered_map<int, std::chrono::steady_clock::time_point> socket_last_activity;
-		const std::chrono::seconds idle_timeout = std::chrono::seconds(15);
-
+		const std::chrono::seconds idle_timeout = std::chrono::seconds(5);
 		struct sockaddr_in	address;
-
 		std::unordered_map<int, ClientInfo> clientInfoMap;
 		std::unordered_map<int, std::string> clientResponse;
 		std::set<int> openSockets;
@@ -32,7 +29,6 @@ class HttpServer : public config
 		void	acceptConnection(int serverSocket);
 		void	configureSocketNonBlocking(int client_socket);
 		void	closeSocket(int client_socket);
-		void	closeSocketIdle(int client_socket);
 		void	modifyEvent(int fd, int filter, int flags);
 		void	logSocketAction(const std::string& action, int fd);
 
@@ -61,14 +57,9 @@ class HttpServer : public config
 		void	registerWriteEvent(int clientSocket);
 		void	registerReadEvent(int clientSocket);
 
-
-		//timer
-		void	checkIdleSockets();
-		void	updateLastActivity(int socket_fd);
-
 		// response
-		void	sendRedirectResponse(int client_socket, const std::string &redirectUrl);
-		std::string formatHttpResponse(const std::string& httpVersion, int status_code, const std::string& reasonPhrase,
+		void		sendRedirectResponse(int client_socket, const std::string &redirectUrl);
+		std::string	formatHttpResponse(const std::string& httpVersion, int status_code, const std::string& reasonPhrase,
 		const std::string& body, int keepAlive);
 
 		// GET

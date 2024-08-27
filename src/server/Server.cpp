@@ -34,7 +34,7 @@ void Server::createSocket()
 	memset(&address, 0, sizeof(address));
 	address.sin_family = AF_INET;
 	address.sin_port = htons(info.listen);
-	address.sin_addr.s_addr = htonl(INADDR_ANY); // Bind to all interfaces
+	address.sin_addr.s_addr = inet_addr(info.host.c_str());
 
 	bindSocket();
 	startListening();
