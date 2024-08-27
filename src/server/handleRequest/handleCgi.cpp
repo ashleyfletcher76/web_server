@@ -36,7 +36,7 @@ void    HttpServer::setupCgiEnvironment(int client_socket)
     for(const auto& [key, value] : env)
         envp.push_back(key + "=" + value);
     std::string scriptPath = removeLeading(request.uri);
-   // std::cout << scriptPath << std::endl;
+//    std::cout << scriptPath << std::endl;
     executeCGI(scriptPath, client_socket, envp);
 }
 
@@ -66,58 +66,69 @@ void HttpServer::executeCGI(const std::string& scriptPath, int client_socket, co
     pid_t pid = fork();
     if (pid == 0)
     {
+        // Child process
         redirectPipes(inputPipe, outputPipe, 0);
         redirectPipes(inputPipe, outputPipe, 1);
 
         std::vector<char*> envPtrs;
-        std::vector<std::string> envStrings(envp.begin(), envp.end());
-        std::transform(envStrings.begin(), envStrings.end(), std::back_inserter(envPtrs), [](const std::string& str) {
-            return const_cast<char*>(str.c_str()); // Get the raw pointers
-        });
-        envPtrs.push_back(nullptr); // Terminate array
+        for (const auto& e : envp)
+            envPtrs.push_back(const_cast<char*>(e.c_str()));
+        envPtrs.push_back(nullptr);
 
         if (execve(scriptPath.c_str(), nullptr, envPtrs.data()) == -1) 
         {
             perror("execve failed");
-            logger.logMethod("ERROR", "Execve failed");
             exit(EXIT_FAILURE);
         }
     }
     else if (pid > 0)
     {
-        close(outputPipe[1]);
-        close(inputPipe[0]);
+        // Parent process
+        close(inputPipe[0]); // Close read end of input pipe
+        close(outputPipe[1]); // Close write end of output pipe
 
-        std::string cgiOutput, line;
-        std::stringstream ss;
-        bool headerFinished = false;
+        std::string cgiOutput;
         char buffer[1024];
         ssize_t bytesRead;
         while ((bytesRead = read(outputPipe[0], buffer, sizeof(buffer) - 1)) > 0)
         {
-            if (bytesRead <= 0)
-                break ;
             buffer[bytesRead] = '\0';
-            ss << buffer;
-            while (std::getline(ss, line, '\n'))
-            {
-                if (!headerFinished)
-                {
-                    if (line == "\r" || line.empty())
-                        headerFinished = true;
-                }
-                else
-                    cgiOutput += line + "\n";
-            }
+            cgiOutput.append(buffer);
         }
         close(outputPipe[0]);
-        logger.logMethod("INFO", "--------" + cgiOutput);
-        clientResponse[client_socket] = formatHttpResponse("HTTP/1.1", 200, "OK", cgiOutput, true);
+
+        // Parsing CGI output
+        std::string body;
+        std::string header;
+        bool headerFinished = false;
+        std::istringstream iss(cgiOutput);
+        std::string line;
+        while (std::getline(iss, line))
+        {
+            if (!headerFinished)
+            {
+                if (line.empty() || line == "\r")
+                    headerFinished = true;
+                else
+                    header += line + "\n";
+            }
+            else
+            {
+                body += line + "\n";
+            }
+        }
+
+        logger.logMethod("INFO", "--------" + body);
+        clientResponse[client_socket] = formatHttpResponse("HTTP/1.1", 200, "OK", body, false);
+
         int status;
         waitpid(pid, &status, 0);
         if (WIFEXITED(status) && WEXITSTATUS(status) != 0)
             clientResponse[client_socket] = formatHttpResponse("HTTP/1.1", 500, "Internal Server Error", "CGI script execution failed", true);
     }
     else
+    {
         perror("Failed to fork");
+        clientResponse[client_socket] = formatHttpResponse("HTTP/1.1", 500, "Internal Server Error", "Failed to fork process", true);
+    }
 }
