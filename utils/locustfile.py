@@ -5,5 +5,5 @@ class MyUser(HttpUser):
 
     @task
     def get_homepage(self):
-        self.client.get("/")
+        self.client.get("/empty.html")
     

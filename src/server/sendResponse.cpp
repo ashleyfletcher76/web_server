@@ -7,24 +7,51 @@ void HttpServer::writeResponse(int client_socket)
 		logger.logMethod("ERROR", "Attempt to write to non-existent client socket : " + std::to_string(client_socket));
 		return;
 	}
-	std::string& response = clientResponse[client_socket];
 
-	if (send(client_socket, response.c_str(), response.size(), 0) < 0)
+	std::string &response = clientResponse[client_socket];
+	ssize_t totalBytesSent = 0;
+	ssize_t bytesToSend = response.size();
+
+	while (totalBytesSent < bytesToSend)
 	{
-		logger.logMethod("ERROR", "Error writing to socket: " + std::string(strerror(errno)));
-		closeSocket(client_socket);
-		return;
+		ssize_t bytesSent = send(client_socket, response.c_str() + totalBytesSent, bytesToSend - totalBytesSent, 0);
+		if (bytesSent < 0)
+		{
+			if (errno == EAGAIN || errno == EWOULDBLOCK)
+			{
+				continue;
+			}
+			else if (errno == EINTR)
+			{
+				continue;
+			}
+			else
+			{
+				logger.logMethod("ERROR", "Error writing to socket: " + std::string(strerror(errno)));
+				deregisterWriteEvent(client_socket);
+				closeSocket(client_socket);
+				return;
+			}
+		}
+		else if (bytesSent == 0)
+		{
+			logger.logMethod("INFO", "Client closed connection before the full response was sent.");
+			deregisterWriteEvent(client_socket);
+			closeSocket(client_socket);
+			return;
+		}
+		totalBytesSent += bytesSent;
 	}
-	else
-		logger.logMethod("INFO", "Response successfully sent to FD: " + std::to_string(client_socket));
+
+	logger.logMethod("INFO", "Response successfully sent to FD: " + std::to_string(client_socket));
 
 	if (!clientInfoMap[client_socket].shouldclose)
 	{
 		if (openSockets.find(client_socket) != openSockets.end())
-			{
-				deregisterWriteEvent(client_socket);
-				registerReadEvent(client_socket);
-			}
+		{
+			deregisterWriteEvent(client_socket);
+			registerReadEvent(client_socket);
+		}
 		else
 		{
 			logger.logMethod("WARNING", "Socket already closed or removed from open sockets when trying to modify event.");
@@ -32,7 +59,9 @@ void HttpServer::writeResponse(int client_socket)
 	}
 	else
 	{
-		logger.logMethod("INFO", "Closing socket because of type is close!");
+		logger.logMethod("INFO", "Closing socket because the connection type is close!");
+
+		shutdown(client_socket, SHUT_WR);
 		deregisterWriteEvent(client_socket);
 		closeSocket(client_socket);
 	}

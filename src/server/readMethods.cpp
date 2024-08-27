@@ -21,6 +21,11 @@ void HttpServer::readRequest(int client_socket)
 	const size_t MAX_REQUEST_SIZE = 2100;
 	size_t totalBytesRead = 0;
 
+	if (clientInfoMap.find(client_socket) == clientInfoMap.end())
+	{
+		logger.logMethod("ERROR", "Attempt to read from non-existent client socket : " + std::to_string(client_socket));
+		return;
+	}
 	while ((bytesRead = recv(client_socket, buffer, sizeof(buffer), 0)) > 0)
 	{
 		totalBytesRead += static_cast<size_t>(bytesRead);
