@@ -65,7 +65,7 @@ void HttpServer::checkIdleSockets()
 {
 	auto now = std::chrono::steady_clock::now();
 
-	for (auto it = socket_last_activity.begin(); it != socket_last_activity.end(); ++it)
+	for (auto it = socket_last_activity.begin(); it != socket_last_activity.end();)
 	{
 		auto socket_fd = it->first;
 		auto last_activity_time = it->second;
@@ -73,7 +73,12 @@ void HttpServer::checkIdleSockets()
 		{
 			logger.logMethod("INFO", "Closing socket because of idle timing!");
 			deregisterReadEvent(socket_fd);
-			closeSocket(socket_fd);
+			closeSocketIdle(socket_fd);
+			it = socket_last_activity.erase(it);
+		}
+		else
+		{
+			++it;
 		}
 	}
 }

@@ -7,11 +7,3 @@ class MyUser(HttpUser):
     def get_homepage(self):
         self.client.get("/")
     
-    @task
-    def submit_form(self):
-        self.client.post("/", data={
-            "name": "John Doe",
-            "email": "asd@asd",
-            "phone": "12345",
-            "description": "This is a rest."
-        })

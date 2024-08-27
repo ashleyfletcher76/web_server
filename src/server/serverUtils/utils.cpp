@@ -55,6 +55,19 @@ void HttpServer::closeSocket(int client_socket)
 	logger.logMethod("INFO", "Closed client socket FD: " + std::to_string(client_socket));
 }
 
+void HttpServer::closeSocketIdle(int client_socket)
+{
+	if (openSockets.find(client_socket) == openSockets.end())
+	{
+		logger.logMethod("WARNING", "Attempted to close an already closed or non-existent FD: " + std::to_string(client_socket));
+		return;
+	}
+	close(client_socket);
+	openSockets.erase(client_socket);
+	clientInfoMap.erase(client_socket);
+	logger.logMethod("INFO", "Closed client socket FD: " + std::to_string(client_socket));
+}
+
 std::string HttpServer::getFilePath(int server_fd, const std::string &uri)
 {
 	auto serverIt = servers.find(server_fd);
