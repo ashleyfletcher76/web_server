@@ -84,42 +84,49 @@ void HttpServer::mainLoop()
 		for (int i = 0; i < nev; ++i)
 		{
 			struct kevent &event = events[i];
-			updateLastActivity(event.ident);
+			int fd = static_cast<int>(event.ident);
 			if (event.flags & EV_EOF)
 			{
 				switch (event.filter)
 				{
 				case EVFILT_READ:
-					deregisterReadEvent(event.ident);
+					deregisterReadEvent(fd);
 					break;
 				case EVFILT_WRITE:
-					deregisterWriteEvent(event.ident);
+					deregisterWriteEvent(fd);
 					break;
 				default:
 					break;
 				}
 				logger.logMethod("INFO", "Closing socket because of end of file send!");
-				closeSocket(event.ident);
-				continue ;
+				closeSocket(fd);
+				continue;
 			}
 			switch (event.filter)
 			{
 			case EVFILT_READ:
 			{
-				auto serverIt = servers.find(event.ident);
+				auto serverIt = servers.find(fd);
 				if (serverIt != servers.end())
 				{
 					acceptConnection(serverIt->second->getSocket());
 				}
 				else
 				{
-					readRequest(event.ident);
+					readRequest(fd);
 				}
 				break;
 			}
 			case EVFILT_WRITE:
 			{
-				writeResponse(event.ident);
+				writeResponse(fd);
+				break;
+			}
+			case EVFILT_TIMER:
+			{
+				logger.logMethod("INFO", "Closing socket due to inactivity (timer event): " + std::to_string(fd));
+				deregisterReadEvent(fd);
+				closeSocket(fd);
 				break;
 			}
 			default:
@@ -128,6 +135,5 @@ void HttpServer::mainLoop()
 			}
 			}
 		}
-		checkIdleSockets();
 	}
 }
