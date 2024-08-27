@@ -33,6 +33,7 @@
 #include <sys/stat.h>
 #include <dirent.h>
 #include <chrono>
+#include <memory>
 
 extern volatile sig_atomic_t shutdownFlag;
 void	signalHandler(int signum);

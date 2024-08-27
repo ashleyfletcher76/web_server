@@ -36,6 +36,7 @@ struct ClientInfo
 	HttpRequest request;
 	std::string response;
 	bool shouldclose;
+	std::unordered_map<std::string, std::string> cgiEnv;
 
 	ClientInfo() : server_fd(-1), shouldclose(false) {}
 	ClientInfo(int fd) : server_fd(fd), shouldclose(false) {}

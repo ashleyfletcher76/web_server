@@ -80,6 +80,10 @@ class HttpServer : public config
 		void	handlePostRequest(int client_socket);
 		std::map<std::string, std::string>	parseFormData(const std::string& body);
 
+		// CGI
+		void    setupCgiEnvironment(int client_socket);
+		void	executeCGI(const std::string& scriptPath, int client_Socket, const std::vector<std::string>& envp);
+
 		//directory listing
 		void	handleDirectoryListing(int client_socket, const std::string &dirPath);
 		bool	isDirectory(const std::string &path);

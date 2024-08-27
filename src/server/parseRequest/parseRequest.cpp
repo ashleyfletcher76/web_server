@@ -26,6 +26,11 @@ void normaliseHeader(std::string &header)
 	std::transform(header.begin(), header.end(), header.begin(), ::tolower);
 }
 
+bool	isCgiRequest(const std::string& uri)
+{
+	return (uri.find(".cgi") != std::string::npos || uri.find("/cgi-bin/") != std::string::npos);
+}
+
 bool HttpServer::parseHttpRequestHeaders(std::istringstream &requestStream, HttpRequest &request)
 {
 	std::string line;
@@ -36,7 +41,9 @@ bool HttpServer::parseHttpRequestHeaders(std::istringstream &requestStream, Http
 		return (false);
 	if (!isValidMethod(request.method) || !isValidUri(request.uri) || !isValidVersion(request.version))
 		return (false);
-
+	//std::cout << request.uri << std::endl;
+	// if (isCgiRequest(request.uri))
+	// 	request.isCgi = true;
 	while (std::getline(requestStream, line) && line != "\r" && !line.empty())
 	{
 		auto colonPos = line.find(':');
