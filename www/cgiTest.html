@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>CGI test</title>
+	<link rel="stylesheet" href="styles/styles.css">
+	<link rel="icon" href="MainBefore.webp" type="image/x-webp">
+</head>
+<body>
+	<h1>Test CGI script</h1>
+	<p>Click the button to execute script:</p>
+	<button id="runShellButton">Run Shell Script</button>
+	<button id="runPythonButton">Run Python Script</button>
+	<button id="runPhpButton">Run PHP Script</button>
+    <div id="cgiOutput"></div>
+	<script src="scripts/scriptHandler.js"></script>
+	<button onclick="location.href='/index.html'">Back to index page</button>
+</body>
+</html>

@@ -37,6 +37,7 @@ struct ClientInfo
 	std::string response;
 	bool shouldclose;
 	bool error;
+	std::unordered_map<std::string, std::string> cgiEnv;
 
 	ClientInfo() : server_fd(-1), shouldclose(false), error(false) {}
 	ClientInfo(int fd) : server_fd(fd), shouldclose(false), error(false) {}

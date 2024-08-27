@@ -45,6 +45,11 @@ void HttpServer::handleGetRequest(int client_socket)
 	{
 		generateAllProfilesPage(client_socket);
 	}
+	else if (uri == "/cgi-bin/test.sh" || uri == "/cgi-bin/test.py" || uri == "/cgi-bin/test.php")
+	{
+		setupCgiEnvironment(client_socket);
+		logger.logMethod("INFO", "CGI bin accessed");
+	}
 	else if (uri.find("/profile") == 0)
 	{
 		if (!findProfileByID(uri, client_socket))
