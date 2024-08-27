@@ -5,5 +5,6 @@ class MyUser(HttpUser):
 
     @task
     def get_homepage(self):
-        self.client.get("/empty.html")
+        self.client.get("/empty.html", headers={"Connection": "close"})
+
     
