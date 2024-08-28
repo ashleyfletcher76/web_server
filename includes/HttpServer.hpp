@@ -34,8 +34,8 @@ class HttpServer : public config
 
 		// request
 		void	readRequest(int client_socket);
+		bool	readFullRequestBody(int client_socket, std::string &request, std::string::size_type contentLengthPos, size_t totalBytesRead, int bytesRead);
 		void	handleRequest(int client_Socket);
-
 		bool	validateServer(int client_socket);
 		bool	validateRouteAndMethod(int client_socket, const HttpRequest &request);
 		void	decideConnectionPersistence(int client_socket, const HttpRequest &request);
@@ -47,10 +47,13 @@ class HttpServer : public config
 		std::string	readFileContent(const std::string& filePath);
 
 		// parse
-		bool	parseHttpRequest(const std::string& requestStream, HttpRequest& request, int client_socket);
-		bool	parseHttpRequestBody(std::istringstream& requestStream, HttpRequest& request, int client_socket);
-		bool	parseHttpRequestHeaders(std::istringstream& requestStream, HttpRequest& request);
-
+		bool		parseHttpRequest(const std::string& requestStream, HttpRequest& request, int client_socket);
+		bool		parseHttpRequestBody(std::istringstream& requestStream, HttpRequest& request, int client_socket);
+		bool		parseHttpRequestHeaders(std::istringstream& requestStream, HttpRequest& request);
+		std::string	extractHeaderValue(const std::string &headers, const std::string &key);
+		std::string	extractFilename(const std::string &contentDisposition);
+		void 		parseMultipartBody(const std::string &body, const std::string &boundary, HttpRequest &request);
+		std::string	extractBoundary(const std::string &contentType);
 		//register events
 		void	deregisterReadEvent(int clientSocket);
 		void	deregisterWriteEvent(int clientSocket);
@@ -66,10 +69,12 @@ class HttpServer : public config
 		void	handleGetRequest(int client_socket);
 
 		// DELETE
-		void	handleDeleteRequest(int client_socket);
+		void	handleDeleteRequest(int client_socket, HttpRequest &request);
 
 		// POST
 		void	handlePostRequest(int client_socket);
+		void	handleSubmitForm(int client_socket, HttpRequest &request);
+		void	handleUpload(int client_socket, HttpRequest &request);
 		std::map<std::string, std::string>	parseFormData(const std::string& body);
 
 		// CGI
