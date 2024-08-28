@@ -60,6 +60,9 @@ struct cgiConfig
 {
 	std::string extension;
 	std::string handler;
+	std::string script_alias;
+	std::string root;
+	bool		allowed;
 };
 
 struct serverInfo

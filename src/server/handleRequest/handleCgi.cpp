@@ -13,12 +13,9 @@ void	HttpServer::setupCgiEnvironment(int client_socket)
 	auto& request = clientInfoMap[client_socket].request;
 	const auto port = serverInfos[client_socket].listen;
 
-	std::string scriptPath = removeLeading(request.uri);
-
-	if (!checkIfCgiAllowed(scriptPath, client_socket))
+	if (!checkIfCgiAllowed(request.uri, client_socket))
 	{
-		logger.logMethod("ERROR", "CGI script not allowed: " + scriptPath);
-		clientResponse[client_socket] = formatHttpResponse("HTTP/1.1", 403, "Forbidden", "CGI script not allowed", true);
+		logger.logMethod("ERROR", "CGI script not allowed: " + request.uri);
 		return ;
 	}
 
@@ -43,7 +40,7 @@ void	HttpServer::setupCgiEnvironment(int client_socket)
 	std::vector<std::string> envp;
 	for(const auto& [key, value] : env)
 		envp.push_back(key + "=" + value); // converts it vector of strings for execve as it wont take a map
-	executeCGI(scriptPath, client_socket, envp);
+	executeCGI(request.uri, client_socket, envp);
 }
 
 void	redirectPipes(int* inputPipe, int* outputPipe, int flag)
@@ -62,36 +59,22 @@ void	redirectPipes(int* inputPipe, int* outputPipe, int flag)
 	}
 }
 
-std::string	parseCgiOutput(std::string cgiOutput)
-{
-	// Parsing CGI output
-	std::string body;
-	std::string header;
-	bool headerFinished = false;
-	std::istringstream iss(cgiOutput);
-	std::string line;
-	while (std::getline(iss, line))
-	{
-		if (!headerFinished)
-		{
-			if (line.empty() || line == "\r")
-				headerFinished = true;
-			else
-				header += line + "\n";
-		}
-		else
-			body += line + "\n";
-	}
-	return (body);
-}
-
 void	HttpServer::executeCGI(const std::string& scriptPath, int client_socket, const std::vector<std::string>& envp)
 {
 	int inputPipe[2];
 	int outputPipe[2];
 	pipe(inputPipe);
 	pipe(outputPipe);
+	std::string correctScriptPath = removeLeading(scriptPath);
+	std::string handler = findHandler(correctScriptPath, client_socket);
 
+	if (handler.empty())
+	{
+		logger.logMethod("ERROR", "No CGI handler found for: " + correctScriptPath);
+		clientResponse[client_socket] = formatHttpResponse("HTTP/1.1", 500, "Internal Server Error", 
+			"CGI script execution failed", true);
+		return ;
+	}
 	pid_t pid = fork();
 	if (pid == 0)
 	{
@@ -99,13 +82,14 @@ void	HttpServer::executeCGI(const std::string& scriptPath, int client_socket, co
 		redirectPipes(inputPipe, outputPipe, 0);
 		redirectPipes(inputPipe, outputPipe, 1);
 
+		char* args[] = {const_cast<char*>(handler.c_str()), const_cast<char*>(correctScriptPath.c_str()), nullptr};
 		// convert into c-style string for execve
 		std::vector<char*> envPtrs;
 		for (const auto& envVariables : envp)
 			envPtrs.push_back(const_cast<char*>(envVariables.c_str()));
 		envPtrs.push_back(nullptr); // adds null-termination for string
 
-		if (execve(scriptPath.c_str(), nullptr, envPtrs.data()) == -1) 
+		if (execve(handler.c_str(), args, envPtrs.data()) == -1) 
 		{
 			perror("execve failed");
 			exit(EXIT_FAILURE);

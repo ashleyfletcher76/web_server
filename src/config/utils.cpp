@@ -72,6 +72,9 @@ std::ostream &operator<<(std::ostream &out, const config &conf)
 			out << "  CGI:\n";
 			out << "    Extension: " << cgiIt->extension << "\n";
 			out << "    Handler: " << cgiIt->handler << "\n";
+			out << "    Script_alias: " << cgiIt->script_alias << "\n";
+			out << "    Root: " << cgiIt->root << "\n";
+			out << "    Allowed: " << cgiIt->allowed << "\n";
 		}
 	}
 

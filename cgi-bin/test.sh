@@ -1,5 +1,3 @@
-#!/bin/bash
-
 # Output the content type header
 echo "Content-Type: text/html"
 echo  # This blank line separates headers from the body

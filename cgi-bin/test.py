@@ -1,4 +1,4 @@
-#!/usr/bin/env python3
+from __future__ import print_function
 
 # Content type must be declared first
 print("Content-Type: text/html")

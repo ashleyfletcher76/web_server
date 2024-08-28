@@ -4,6 +4,7 @@
 config::config(const std::string &confile) : size(0), _confile(confile)
 {
 	begin();
+	//std::cout << *this << std::endl;
 }
 
 config::~config() {}
@@ -160,7 +161,21 @@ void config::parseCGIBlock(std::ifstream &file, serverInfo &srv)
 		{
 			cgiHandler.handler = line.substr(line.find(" ") + 1);
 		}
-		std::cout << cgiHandler.extension << std::endl;
+		else if (line.find("script_alias") != std::string::npos)
+		{
+			cgiHandler.script_alias = line.substr(line.find(" ") + 1);
+		}
+		else if (line.find("root") != std::string::npos)
+		{
+			cgiHandler.root = line.substr(line.find(" ") + 1);
+		}
+		else if (line.find("allowed") != std::string::npos)
+		{
+			if (line.find("on") != std::string::npos)
+				cgiHandler.allowed = true;
+			else
+				cgiHandler.allowed = false;
+		}
 	}
 	srv.cgis.push_back(cgiHandler);
 }
