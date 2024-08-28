@@ -73,7 +73,8 @@ class HttpServer : public config
 		std::map<std::string, std::string>	parseFormData(const std::string& body);
 
 		// CGI
-		void    setupCgiEnvironment(int client_socket);
+		void	setupCgiEnvironment(int client_socket);
+		bool	checkIfCgiAllowed(const std::string& uri, int client_socket);
 		void	executeCGI(const std::string& scriptPath, int client_Socket, const std::vector<std::string>& envp);
 
 		//directory listing

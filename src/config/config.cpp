@@ -160,6 +160,7 @@ void config::parseCGIBlock(std::ifstream &file, serverInfo &srv)
 		{
 			cgiHandler.handler = line.substr(line.find(" ") + 1);
 		}
+		std::cout << cgiHandler.extension << std::endl;
 	}
 	srv.cgis.push_back(cgiHandler);
 }

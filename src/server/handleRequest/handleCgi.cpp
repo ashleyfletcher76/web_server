@@ -13,6 +13,15 @@ void	HttpServer::setupCgiEnvironment(int client_socket)
 	auto& request = clientInfoMap[client_socket].request;
 	const auto port = serverInfos[client_socket].listen;
 
+	std::string scriptPath = removeLeading(request.uri);
+
+	if (!checkIfCgiAllowed(scriptPath, client_socket))
+	{
+		logger.logMethod("ERROR", "CGI script not allowed: " + scriptPath);
+		clientResponse[client_socket] = formatHttpResponse("HTTP/1.1", 403, "Forbidden", "CGI script not allowed", true);
+		return ;
+	}
+
 	env["REQUEST_METHOD"] = request.method;
 	env["QUERY_STRING"] = request.uri.find('?') != std::string::npos ? request.uri.substr(request.uri.find('?') + 1) : "";
 	env["CONTENT_TYPE"] = request.headers.count("content-type") ? request.headers["content-type"] : "";
@@ -22,7 +31,7 @@ void	HttpServer::setupCgiEnvironment(int client_socket)
 	env["SERVER_NAME"] = "localhost";
 	env["SERVER_PORT"] = std::to_string(port);
 
-
+	// format each header with required cgi style and convert to lowecase
 	for (const auto& header : request.headers)
 	{
 		std::string cgiHeader = "HTTP_" + header.first;
@@ -33,9 +42,7 @@ void	HttpServer::setupCgiEnvironment(int client_socket)
 
 	std::vector<std::string> envp;
 	for(const auto& [key, value] : env)
-		envp.push_back(key + "=" + value);
-	std::string scriptPath = removeLeading(request.uri);
-	// std::cout << scriptPath << std::endl;
+		envp.push_back(key + "=" + value); // converts it vector of strings for execve as it wont take a map
 	executeCGI(scriptPath, client_socket, envp);
 }
 
@@ -92,10 +99,11 @@ void	HttpServer::executeCGI(const std::string& scriptPath, int client_socket, co
 		redirectPipes(inputPipe, outputPipe, 0);
 		redirectPipes(inputPipe, outputPipe, 1);
 
+		// convert into c-style string for execve
 		std::vector<char*> envPtrs;
-		for (const auto& e : envp)
-			envPtrs.push_back(const_cast<char*>(e.c_str()));
-		envPtrs.push_back(nullptr);
+		for (const auto& envVariables : envp)
+			envPtrs.push_back(const_cast<char*>(envVariables.c_str()));
+		envPtrs.push_back(nullptr); // adds null-termination for string
 
 		if (execve(scriptPath.c_str(), nullptr, envPtrs.data()) == -1) 
 		{

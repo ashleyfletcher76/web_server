@@ -30,7 +30,6 @@ bool HttpServer::findProfileByID(const std::string &uri, int client_socket)
 		return (false);
 	}
 	std::string profileContent = generateProfilePage(profile);
-	// clientInfoMap[client_socket].response = formatHttpResponse(clientInfoMap[client_socket].request.version, 200, "OK", profileContent, clientInfoMap[client_socket].shouldclose);
 	clientResponse[client_socket] = formatHttpResponse(clientInfoMap[client_socket].request.version, 200, "OK", profileContent, clientInfoMap[client_socket].shouldclose);
 	return (true);
 }
@@ -45,7 +44,7 @@ void HttpServer::handleGetRequest(int client_socket)
 	{
 		generateAllProfilesPage(client_socket);
 	}
-	else if (uri == "/cgi-bin/test.sh" || uri == "/cgi-bin/test.py" || uri == "/cgi-bin/test.php")
+	else if (uri.find("/cgi-bin/") == 0)
 	{
 		setupCgiEnvironment(client_socket);
 		logger.logMethod("INFO", "CGI bin accessed");

@@ -20,6 +20,9 @@ function setupButtons() {
     document.getElementById('runPhpButton').addEventListener('click', function() {
         fetchCgi('/cgi-bin/test.php');
     }); 
+    document.getElementById('runCppButton').addEventListener('click', function() {
+        fetchCgi('/cgi-bin/test.cpp');
+    }); 
 }
 
 window.onload = setupButtons;
