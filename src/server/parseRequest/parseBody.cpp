@@ -86,9 +86,10 @@ bool HttpServer::parseHttpRequestBody(std::istringstream &requestStream, HttpReq
 		if (boundary.empty())
 			return false;
 
-		std::getline(requestStream, request.body, '\0');
+		request.body.assign((std::istreambuf_iterator<char>(requestStream)),
+							std::istreambuf_iterator<char>());
+
 		parseMultipartBody(request.body, boundary, request);
-		std::cout << request.files.begin()->first << '\n';
 	}
 	else
 	{

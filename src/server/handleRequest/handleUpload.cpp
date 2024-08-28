@@ -3,9 +3,13 @@
 
 void HttpServer::handleUpload(int client_socket, HttpRequest &request)
 {
+	if (request.files.empty())
+	{
+		std::cout << "No files were uploaded." << std::endl;
+		return ;
+	}
 	for (const auto &file : request.files)
 	{
-		std::cout << "i am here\n" << '\n';
 		const std::string &filename = file.first;
 		const std::string &fileData = file.second;
 

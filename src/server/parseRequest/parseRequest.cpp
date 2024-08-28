@@ -72,7 +72,6 @@ bool HttpServer::parseHttpRequest(const std::string &requestStr, HttpRequest &re
 		sendErrorResponse(client_socket, 400, "Bad request");
 		return (false);
 	}
-
 	if (!parseHttpRequestBody(requestStream, request, client_socket))
 	{
 		sendErrorResponse(client_socket, 413, "Payload too large.");

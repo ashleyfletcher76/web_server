@@ -2,7 +2,6 @@
 
 std::string HttpServer::readFileContent(const std::string &filePath)
 {
-	// takes file path and searches for a valid file
 	std::ifstream file(filePath);
 	if (!file.is_open())
 	{
@@ -13,12 +12,43 @@ std::string HttpServer::readFileContent(const std::string &filePath)
 						std::istreambuf_iterator<char>()));
 }
 
+bool HttpServer::readFullRequestBody(int client_socket, std::string &request, std::string::size_type contentLengthPos, size_t totalBytesRead, int bytesRead)
+{
+	char buffer[4096];
+	std::string::size_type lengthStart = contentLengthPos + 16;
+	std::string::size_type lengthEnd = request.find("\r\n", lengthStart);
+	if (lengthEnd != std::string::npos)
+	{
+		int contentLength = std::stoi(request.substr(lengthStart, lengthEnd - lengthStart));
+		if (totalBytesRead < static_cast<size_t>(contentLength) + request.find("\r\n\r\n"))
+		{
+			while (totalBytesRead < static_cast<size_t>(contentLength) + request.find("\r\n\r\n"))
+			{
+				bytesRead = recv(client_socket, buffer, sizeof(buffer) - 1, 0);
+				if (bytesRead > 0)
+				{
+					totalBytesRead += static_cast<size_t>(bytesRead);
+					buffer[bytesRead] = '\0';
+					request.append(buffer, bytesRead);
+				}
+				else if (bytesRead < 0)
+				{
+					logger.logMethod("ERROR", "Error reading from socket, code: " + std::to_string(bytesRead));
+					sendErrorResponse(client_socket, 400, "Error reading from socket");
+					return false;
+				}
+			}
+		}
+	}
+	return (true);
+}
+
 void HttpServer::readRequest(int client_socket)
 {
-	char buffer[1024];
+	char buffer[4096];
 	std::string request;
-	int bytesRead;
-	const size_t MAX_REQUEST_SIZE = 2100;
+	int	bytesRead;
+	const size_t MAX_REQUEST_SIZE = 4096 * 2;
 	size_t totalBytesRead = 0;
 
 	if (clientInfoMap.find(client_socket) == clientInfoMap.end())
@@ -32,7 +62,7 @@ void HttpServer::readRequest(int client_socket)
 		if (totalBytesRead > MAX_REQUEST_SIZE)
 		{
 			sendErrorResponse(client_socket, 413, "Payload too large");
-			return ;
+			return;
 		}
 		buffer[bytesRead] = '\0';
 		request.append(buffer, bytesRead);
@@ -52,7 +82,15 @@ void HttpServer::readRequest(int client_socket)
 		sendErrorResponse(client_socket, 400, "Error reading from socket");
 		return;
 	}
+
+	std::string::size_type contentLengthPos = request.find("Content-Length: ");
+	if (contentLengthPos != std::string::npos)
+	{
+		if (!readFullRequestBody(client_socket, request, contentLengthPos, totalBytesRead,  bytesRead))
+			return;
+	}
 	logger.logMethod("INFO", "Recieved request");
+
 	if (request.empty() || !parseHttpRequest(request, clientInfoMap[client_socket].request, client_socket))
 	{
 		logger.logMethod("ERROR", "Error empty request! " + std::to_string(bytesRead));
