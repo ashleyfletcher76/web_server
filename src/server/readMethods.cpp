@@ -14,13 +14,18 @@ std::string HttpServer::readFileContent(const std::string &filePath)
 
 bool HttpServer::readFullRequestBody(int client_socket, std::string &request, std::string::size_type contentLengthPos, size_t totalBytesRead, int bytesRead)
 {
-	char buffer[4096];
+	char buffer[48];
 	std::string::size_type lengthStart = contentLengthPos + 16;
 	std::string::size_type lengthEnd = request.find("\r\n", lengthStart);
 
 	if (lengthEnd != std::string::npos)
 	{
 		size_t contentLength = std::stoi(request.substr(lengthStart, lengthEnd - lengthStart));
+		std::cout << request.length() << '\n';
+		std::cout << contentLength << '\n';
+		std::cout << lengthStart << '\n';
+		std::cout << lengthEnd << '\n';
+		std::cout << getMaxClientBodySize(client_socket) << '\n';
 		size_t bodyEnd = request.find("\r\n\r\n") + 4;
 		size_t requiredBytes = bodyEnd + contentLength;
 
@@ -36,18 +41,20 @@ bool HttpServer::readFullRequestBody(int client_socket, std::string &request, st
 				}
 				else if (bytesRead < 0)
 				{
-					logger.logMethod("ERROR", "Error reading from socket, code: " + std::to_string(bytesRead));
-					sendErrorResponse(client_socket, 400, "Error reading from socket");
+					logger.logMethod("WARNING", "Socket temporarily unavailable, waiting for more data.");
 					return false;
 				}
 				else if (bytesRead == 0)
 				{
-					logger.logMethod("INFO", "Connection closed by client");
+					logger.logMethod("WARNING", "Connection closed by client");
+					deregisterReadEvent(client_socket);
+					closeSocket(client_socket);
 					break;
 				}
 			}
 			if (totalBytesRead > static_cast<size_t>(getMaxClientBodySize(client_socket)))
 			{
+				std::cout << request.length() << '\n';
 				sendErrorResponse(client_socket, 413, "Payload too large.");
 				return false;
 			}
@@ -73,7 +80,7 @@ bool HttpServer::readFullRequestBody(int client_socket, std::string &request, st
 
 void HttpServer::readRequest(int client_socket)
 {
-	char buffer[4096];
+	char buffer[48];
 	std::string request;
 	int bytesRead;
 	const size_t MAX_REQUEST_SIZE = 4096 * 2; // Adjust as needed
@@ -99,20 +106,17 @@ void HttpServer::readRequest(int client_socket)
 			break;
 	}
 
-	std::cout << request << '\n';
-
 	if (bytesRead == 0)
 	{
-		logger.logMethod("INFO", "Connection closed by client");
+		logger.logMethod("WARNING", "Connection closed by client");
 		deregisterReadEvent(client_socket);
 		closeSocket(client_socket);
 		return;
 	}
 	else if (bytesRead < 0)
 	{
-		logger.logMethod("ERROR", "Error reading from socket, code: " + std::to_string(bytesRead));
-		sendErrorResponse(client_socket, 400, "Error reading from socket");
-		return;
+		logger.logMethod("WARNING", "Socket temporarily unavailable, waiting for more data.");
+		return ;
 	}
 
 	std::string::size_type contentLengthPos = request.find("Content-Length: ");
@@ -131,5 +135,6 @@ void HttpServer::readRequest(int client_socket)
 	}
 
 	logger.logMethod("INFO", "Received request: " + clientInfoMap[client_socket].request.method);
+	request.clear();
 	handleRequest(client_socket);
 }

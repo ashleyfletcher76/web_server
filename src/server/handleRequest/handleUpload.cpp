@@ -3,6 +3,10 @@
 
 void HttpServer::handleUpload(int client_socket, HttpRequest &request)
 {
+	std::string uploaddirect = "./uploads/";
+
+	if (isDirectory(request.handler))
+		uploaddirect = request.handler;
 	if (request.files.empty())
 	{
 		std::cout << "No files were uploaded." << std::endl;
@@ -13,7 +17,9 @@ void HttpServer::handleUpload(int client_socket, HttpRequest &request)
 		const std::string &filename = file.first;
 		const std::string &fileData = file.second;
 
-		std::ofstream outFile("./uploads/" + filename, std::ios::binary);
+		std::string path = uploaddirect + filename;
+		std::ofstream outFile(path, std::ios::binary);
+
 		if (outFile.is_open())
 		{
 			outFile.write(fileData.data(), fileData.size());
