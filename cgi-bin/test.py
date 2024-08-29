@@ -8,6 +8,7 @@ print()  # End of headers
 print("<html>")
 print("<body>")
 print("<p>Who is better at table tennis?</p>")  # Use paragraph tags for proper HTML formatting
-print("<p>Ashley, of course!</p>")
+print("<p>Ashley, ---------------------------------------------of course!</p>")
 print("</body>")
 print("</html>")
+

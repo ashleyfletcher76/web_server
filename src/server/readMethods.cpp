@@ -128,6 +128,6 @@ void HttpServer::readRequest(int client_socket)
 		return;
 	}
 
-	logger.logMethod("INFO", "Received request: " + clientInfoMap[client_socket].request.method);
+	logger.logMethod("INFO", "Received request: " + request);
 	handleRequest(client_socket);
 }

@@ -11,29 +11,33 @@ void	HttpServer::setupCgiEnvironment(int client_socket)
 {
 	auto& env = clientInfoMap[client_socket].cgiEnv;
 	auto& request = clientInfoMap[client_socket].request;
-	const auto port = serverInfos[client_socket].listen;
+	auto serverIt = servers.find(clientInfoMap[client_socket].server_fd);
+	const serverInfo &srvInfo = serverIt->second->getServerInfo();
 
-	if (!checkIfCgiAllowed(request.uri, client_socket))
+	if (!checkIfCgiAllowed(request.uri, client_socket, srvInfo))
 	{
 		logger.logMethod("ERROR", "CGI script not allowed: " + request.uri);
 		return ;
 	}
 	logger.logMethod("INFO", "Setting up environment for CGI script: " + request.uri);
+	// Add standard CGI environment variables
 	env["REQUEST_METHOD"] = request.method;
 	env["QUERY_STRING"] = request.uri.find('?') != std::string::npos ? request.uri.substr(request.uri.find('?') + 1) : "";
 	env["CONTENT_TYPE"] = request.headers.count("content-type") ? request.headers["content-type"] : "";
 	env["CONTENT_LENGTH"] = request.headers.count("content-length") ? request.headers["content-length"] : "0";
 	env["SCRIPT_NAME"] = request.uri.substr(0, request.uri.find('?'));
 	env["REMOTE_ADDR"] = "127.0.0.1";
-	env["SERVER_NAME"] = "localhost";
-	env["SERVER_PORT"] = std::to_string(port);
+	env["SERVER_NAME"] = srvInfo.server_name;
+	env["SERVER_PORT"] = std::to_string(srvInfo.listen);
 
-	// format each header with required cgi style and convert to lowecase
+	std::cout << request.headers["content-type"] << std::endl;
+
+	// Convert headers to CGI-compatible format and add to environment variables
 	for (const auto& header : request.headers)
 	{
 		std::string cgiHeader = "HTTP_" + header.first;
 		std::replace(cgiHeader.begin(), cgiHeader.end(), '-', '_');
-		std::transform(cgiHeader.begin(), cgiHeader.end(), cgiHeader.begin(), ::tolower);
+		std::transform(cgiHeader.begin(), cgiHeader.end(), cgiHeader.begin(), ::toupper);  // Ensure it's upper case
 		env[cgiHeader] = header.second;
 	}
 
@@ -74,7 +78,13 @@ void	HttpServer::executeCGI(const std::string& scriptPath, int client_socket, co
 		sendErrorResponse(client_socket, 500, "Internal Server Error - No CGI handler found for: " + correctScriptPath);
 		return ;
 	}
-	logger.logMethod("INFO", "Executing script woih handler: " + handler + " and script path: " + scriptPath);
+	logger.logMethod("INFO", "Executing script with handler: " + handler + " and script path: " + scriptPath);
+	std::string cgiEnvPrint;
+	for (const auto& envVariable : envp)
+	{
+		cgiEnvPrint += envVariable + '\n';
+	} 
+	logger.logMethod("INFO", "CGI environment variables:\n" +cgiEnvPrint);
 	pid_t pid = fork();
 	if (pid == 0)
 	{

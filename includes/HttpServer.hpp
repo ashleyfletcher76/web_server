@@ -79,7 +79,7 @@ class HttpServer : public config
 
 		// CGI
 		void	setupCgiEnvironment(int client_socket);
-		bool	checkIfCgiAllowed(const std::string& uri, int client_socket);
+		bool	checkIfCgiAllowed(const std::string& uri, int client_socket, const serverInfo& srvInfo);
 		std::string	findHandler(const std::string& uri, int client_socket);
 		std::string	parseCgiOutput(std::string cgiOutput);
 		void	executeCGI(const std::string& scriptPath, int client_Socket, const std::vector<std::string>& envp);

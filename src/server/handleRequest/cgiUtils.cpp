@@ -6,11 +6,8 @@ bool	fileExist(const std::string& path)
 	return (stat(path.c_str(), &buffer) == 0);
 }
 
-bool	HttpServer::checkIfCgiAllowed(const std::string& uri, int client_socket)
+bool	HttpServer::checkIfCgiAllowed(const std::string& uri, int client_socket, const serverInfo& srvInfo)
 {
-	auto serverIt = servers.find(clientInfoMap[client_socket].server_fd);
-	const serverInfo &srvInfo = serverIt->second->getServerInfo();
-
 	std::string	fileExtension;
 	std::size_t	pos = uri.find_last_of('.');
 
