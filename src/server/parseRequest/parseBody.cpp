@@ -91,22 +91,38 @@ bool HttpServer::parseHttpRequestBody(std::istringstream &requestStream, HttpReq
 
 		parseMultipartBody(request.body, boundary, request);
 	}
-	else
+	else if (request.headers["content-type"] == "application/x-www-form-urlencoded")
 	{
-		if (request.headers["content-type"] == "application/x-www-form-urlencoded")
+		auto iter = request.headers.find("content-length");
+		if (iter != request.headers.end())
 		{
-			auto iter = request.headers.find("content-length");
-			if (iter != request.headers.end())
+			int contentLength = std::stoi(iter->second);
+			int maxSize = getMaxClientBodySize(client_socket);
+			if (contentLength > maxSize)
 			{
-				int contentLength = std::stoi(iter->second);
-				int maxSize = getMaxClientBodySize(client_socket);
-				if (contentLength > maxSize)
-				{
-					return false;
-				}
-				std::getline(requestStream, request.body, '\0');
+				return false;
 			}
+			std::getline(requestStream, request.body, '\0');
 		}
 	}
+	else if (request.headers["content-type"] == "application/json")
+	{
+		auto iter = request.headers.find("content-length");
+		if (iter != request.headers.end())
+		{
+			int contentLength = std::stoi(iter->second);
+			int maxSize = getMaxClientBodySize(client_socket);
+			if (contentLength > maxSize)
+			{
+				return false;
+			}
+			std::getline(requestStream, request.body, '\0');
+		}
+	}
+	// else
+	// {
+	// 	logger.logMethod("ERROR", "Uknown content type.");
+	// 	return (false);	
+	// }
 	return true;
 }

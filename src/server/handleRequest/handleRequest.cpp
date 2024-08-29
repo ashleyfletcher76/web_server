@@ -89,6 +89,8 @@ void HttpServer::processRequestMethod(int client_socket)
 		handleGetRequest(client_socket);
 	else if (request.method == "POST")
 		handlePostRequest(client_socket);
+	else if (request.method == "DELETE" && request.uri == "/deleteProfile")
+		handleDeleteRequest(client_socket, request);
 	else
 		sendErrorResponse(client_socket, 501, "Not Implemented");
 }

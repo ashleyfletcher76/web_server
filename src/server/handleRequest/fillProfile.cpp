@@ -20,12 +20,11 @@ void	HttpServer::generateAllProfilesPage(int client_socket)
 		for (const auto& profile : profiles)
 		{
 			profileLinks += "<tr>"  // start of table row
-							"<td>" + std::to_string(profile.id) + "</td>"  // ID column
-							"<td><a href='/profile?id=" + std::to_string(profile.id) + "'>" + profile.name + "</a></td>"  // name column
-							"<td><form action='/deleteProfile' method='POST'>"  // delete button column
-							"<input type='hidden' name='id' value='" + std::to_string(profile.id) + "'>"
-							"<input type='submit' value='Delete'></form></td>"
-							"</tr>";  // end of table row
+				"<td>" + std::to_string(profile.id) + "</td>"  // ID column
+				"<td><a href='/profile?id=" + std::to_string(profile.id) + "'>" + profile.name + "</a></td>"  // name column
+				"<td><button onclick='deleteProfile(" + std::to_string(profile.id) + ")'>Delete</button></td>"
+				"</tr>";  // end of table row
+
 		}
 		replacePlaceholders(pageContent, "<!-- Placeholder -->", profileLinks);
 		clientResponse[client_socket] = formatHttpResponse(clientInfoMap[client_socket].request.version, 200, "OK", 
