@@ -99,8 +99,6 @@ void HttpServer::readRequest(int client_socket)
 			break;
 	}
 
-	std::cout << request << '\n';
-
 	if (bytesRead == 0)
 	{
 		logger.logMethod("INFO", "Connection closed by client");
