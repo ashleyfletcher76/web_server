@@ -54,11 +54,15 @@ class HttpServer : public config
 		std::string	extractFilename(const std::string &contentDisposition);
 		void 		parseMultipartBody(const std::string &body, const std::string &boundary, HttpRequest &request);
 		std::string	extractBoundary(const std::string &contentType);
+
 		//register events
-		void	deregisterReadEvent(int clientSocket);
+		void	deregisterChild(int clientSocket, pid_t pid);
 		void	deregisterWriteEvent(int clientSocket);
-		void	registerWriteEvent(int clientSocket);
+		void	deregisterReadEvent(int clientSocket);
+		void	deregisterTimer(int clientSocket);
 		void	registerReadEvent(int clientSocket);
+		void	registerWriteEvent(int clientSocket);
+		void	registerChild(int client_Socket, pid_t pid);
 
 		// response
 		void		sendRedirectResponse(int client_socket, const std::string &redirectUrl);
@@ -83,6 +87,7 @@ class HttpServer : public config
 		std::string	findHandler(const std::string& uri, int client_socket);
 		std::string	parseCgiOutput(std::string cgiOutput);
 		void	executeCGI(const std::string& scriptPath, int client_Socket, const std::vector<std::string>& envp);
+		void	executeCGI_Event(struct kevent &event);
 
 		//directory listing
 		void	handleDirectoryListing(int client_socket, const std::string &dirPath);

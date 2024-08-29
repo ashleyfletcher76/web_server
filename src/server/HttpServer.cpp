@@ -91,15 +91,19 @@ void HttpServer::mainLoop()
 				{
 				case EVFILT_READ:
 					deregisterReadEvent(fd);
+					closeSocket(fd);
 					break;
 				case EVFILT_WRITE:
 					deregisterWriteEvent(fd);
+					closeSocket(fd);
+					break;
+				case EVFILT_PROC:
+					executeCGI_Event(event);
 					break;
 				default:
 					break;
 				}
 				logger.logMethod("INFO", "Closing socket because of end of file send!");
-				closeSocket(fd);
 				continue;
 			}
 			switch (event.filter)
@@ -118,21 +122,32 @@ void HttpServer::mainLoop()
 				break;
 			}
 			case EVFILT_WRITE:
-			{
 				writeResponse(fd);
 				break;
-			}
+			case EVFILT_PROC:
+				executeCGI_Event(event);
+				break;
 			case EVFILT_TIMER:
 			{
-				logger.logMethod("INFO", "Closing socket due to inactivity (timer event): " + std::to_string(fd));
-				deregisterReadEvent(fd);
-				closeSocket(fd);
+				if (clientInfoMap[fd].outpipe != -1 || clientInfoMap[fd].pid != -1)
+				{
+					std::cout << "i am here\n";
+					logger.logMethod("WARNING", "Child process timed out and was killed.");
+					deregisterChild(fd, clientInfoMap[fd].pid);
+					kill(clientInfoMap[fd].pid, SIGKILL);
+					close(clientInfoMap[fd].outpipe);
+					closeSocket(fd);
+				}
+				else
+				{
+					logger.logMethod("INFO", "Closing socket due to inactivity (timer event): " + std::to_string(fd));
+					deregisterReadEvent(fd);
+					closeSocket(fd);
+				}
 				break;
 			}
 			default:
-			{
 				break;
-			}
 			}
 		}
 	}

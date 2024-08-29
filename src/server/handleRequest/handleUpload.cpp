@@ -9,7 +9,6 @@ void HttpServer::handleUpload(int client_socket, HttpRequest &request)
 		uploaddirect = request.handler;
 	if (request.files.empty())
 	{
-		std::cout << "No files were uploaded." << std::endl;
 		return ;
 	}
 	for (const auto &file : request.files)

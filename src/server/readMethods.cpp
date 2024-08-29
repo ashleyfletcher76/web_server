@@ -21,11 +21,6 @@ bool HttpServer::readFullRequestBody(int client_socket, std::string &request, st
 	if (lengthEnd != std::string::npos)
 	{
 		size_t contentLength = std::stoi(request.substr(lengthStart, lengthEnd - lengthStart));
-		std::cout << request.length() << '\n';
-		std::cout << contentLength << '\n';
-		std::cout << lengthStart << '\n';
-		std::cout << lengthEnd << '\n';
-		std::cout << getMaxClientBodySize(client_socket) << '\n';
 		size_t bodyEnd = request.find("\r\n\r\n") + 4;
 		size_t requiredBytes = bodyEnd + contentLength;
 
@@ -54,7 +49,6 @@ bool HttpServer::readFullRequestBody(int client_socket, std::string &request, st
 			}
 			if (totalBytesRead > static_cast<size_t>(getMaxClientBodySize(client_socket)))
 			{
-				std::cout << request.length() << '\n';
 				sendErrorResponse(client_socket, 413, "Payload too large.");
 				return false;
 			}

@@ -80,7 +80,6 @@ void HttpServer::handlePostRequest(int client_socket)
 	if (request.uri.find("/cgi-bin/") == 0)
 	{
 		setupCgiEnvironment(client_socket);
-		logger.logMethod("INFO", "CGI bin accessed");
 		return ;
 	}
 	if (request.uri.find("/submit") != std::string::npos)
