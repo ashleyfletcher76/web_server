@@ -34,6 +34,64 @@ bool HttpServer::findProfileByID(const std::string &uri, int client_socket)
 	return (true);
 }
 
+void HttpServer::uploadsPage(int client_socket)
+{
+	std::ostringstream responseBody;
+	responseBody << "<html><body><h1>Uploaded Files</h1><ul>";
+
+	for (const auto &entry : std::filesystem::directory_iterator("./uploads/"))
+	{
+		std::string filename = entry.path().filename().string();
+		responseBody << "<li><a href=\"/uploads/" << filename << "\">" << filename << "</a></li>";
+	}
+	responseBody << "</ul></body></html>";
+	clientResponse[client_socket] = formatHttpResponse(
+		clientInfoMap[client_socket].request.version, 200, "OK", responseBody.str(), clientInfoMap[client_socket].shouldclose);
+
+	deregisterReadEvent(client_socket);
+	registerWriteEvent(client_socket);
+}
+
+void HttpServer::serveFile(int client_socket, const std::string &uri)
+{
+	std::string filepath = "." + uri;
+
+	std::ifstream file(filepath, std::ios::binary);
+	if (file.is_open())
+	{
+		std::ostringstream fileData;
+		fileData << file.rdbuf();
+		file.close();
+
+		std::string contentType = "application/octet-stream";
+		if (ends_with(uri, ".html"))
+			contentType = "text/html";
+		else if (ends_with(uri, ".jpg") || ends_with(uri, ".jpeg"))
+			contentType = "image/jpeg";
+		else if (ends_with(uri, ".png"))
+			contentType = "image/png";
+		else if (ends_with(uri, ".pdf"))
+			contentType = "application/pdf";
+
+		std::ostringstream responseHeaders;
+		responseHeaders << "Content-Type: " << contentType << "\r\n"
+						<< "Content-Disposition: attachment; filename=\""
+						<< filepath.substr(filepath.find_last_of("/\\") + 1) << "\"\r\n"
+						<< "Content-Length: " << fileData.str().size() << "\r\n";
+
+		clientResponse[client_socket] = createHttpDownloadResponse(
+			clientInfoMap[client_socket].request.version, 200, "OK", fileData.str(), responseHeaders.str());
+
+	}
+	else
+	{
+		sendErrorResponse(client_socket, 404, "File not found!");
+		return;
+	}
+	deregisterReadEvent(client_socket);
+	registerWriteEvent(client_socket);
+}
+
 void HttpServer::handleGetRequest(int client_socket)
 {
 	int server_fd = clientInfoMap[client_socket].server_fd;
@@ -56,6 +114,14 @@ void HttpServer::handleGetRequest(int client_socket)
 			sendErrorResponse(client_socket, 404, "Not Found");
 		}
 	}
+	else if (uri == "/Download.html")
+	{
+		uploadsPage(client_socket);
+	}
+	else if (uri.rfind("/uploads/", 0) == 0)
+	{
+		serveFile(client_socket, uri);
+	}
 	else
 	{
 		std::ifstream file(filePath);
@@ -65,7 +131,7 @@ void HttpServer::handleGetRequest(int client_socket)
 			return;
 		}
 		std::string fileContent((std::istreambuf_iterator<char>(file)),
-			std::istreambuf_iterator<char>());
+								std::istreambuf_iterator<char>());
 		file.close();
 		clientResponse[client_socket] = formatHttpResponse(clientInfoMap[client_socket].request.version, 200, "OK", fileContent, clientInfoMap[client_socket].shouldclose);
 	}

@@ -13,7 +13,7 @@ bool	HttpServer::checkIfCgiAllowed(const std::string& uri, int client_socket)
 	else
 		return (false);
 
-	std::cout << "Extracted file extension: " << fileExtension << "\nURI: " << uri << std::endl;
+	//std::cout << "Extracted file extension: " << fileExtension << "\nURI: " << uri << std::endl;
 	
 	for (const auto& cgi : srvInfo.cgis)
 	{

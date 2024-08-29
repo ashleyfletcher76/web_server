@@ -1,6 +1,6 @@
 #include "HttpServer.hpp"
 
-std::string HttpServer::formatHttpResponse(const std::string& httpVersion, int status_code, const std::string &reasonPhrase,
+std::string HttpServer::formatHttpResponse(const std::string &httpVersion, int status_code, const std::string &reasonPhrase,
 										   const std::string &body, int keepAlive)
 {
 	std::ostringstream response;
@@ -19,6 +19,18 @@ std::string HttpServer::formatHttpResponse(const std::string& httpVersion, int s
 	response << "\r\n";
 	response << body;
 	return (response.str());
+}
+
+std::string createHttpDownloadResponse(const std::string &version, int statusCode, const std::string &statusMessage,
+							   const std::string &body, const std::string &headers)
+{
+	std::ostringstream responseStream;
+	responseStream << version << " " << statusCode << " " << statusMessage << "\r\n"
+				   << headers
+				   << "Connection: close\r\n" // Connection will be closed after the response
+				   << "\r\n"				  // End of headers
+				   << body;					  // Body of the response
+	return responseStream.str();
 }
 
 void HttpServer::modifyEvent(int fd, int filter, int flags)
@@ -157,7 +169,6 @@ bool HttpServer::isDirectory(const std::string &path)
 	struct stat info;
 	if (stat(path.c_str(), &info) != 0)
 	{
-		std::cout << path.c_str() << '\n';
 		return false;
 	}
 	return (info.st_mode & S_IFDIR) != 0;
@@ -199,4 +210,10 @@ std::vector<std::string> HttpServer::listDirectory(const std::string &directoryP
 	}
 	closedir(dir);
 	return files;
+}
+
+bool ends_with(const std::string &str, const std::string &suffix)
+{
+	return str.size() >= suffix.size() &&
+		   str.compare(str.size() - suffix.size(), suffix.size(), suffix) == 0;
 }
