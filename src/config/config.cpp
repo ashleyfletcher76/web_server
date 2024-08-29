@@ -4,7 +4,6 @@
 config::config(const std::string &confile) : size(0), _confile(confile)
 {
 	begin();
-	//std::cout << *this << std::endl;
 }
 
 config::~config() {}

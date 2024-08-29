@@ -95,10 +95,12 @@ class HttpServer : public config
 		std::string	getErrorFilePath(int statusCode, int serverFd);
 		std::string replacePlaceholder(const std::string &content, const std::string &placeholder, const std::string &value);
 
-		// Generate Profile
+		// Generate custom Pages
 		std::string	generateProfilePage(const userProfile& profile);
-		void	generateAllProfilesPage(int client_socket);
-		bool	findProfileByID(const std::string& uri, int client_socket);
+		void		generateAllProfilesPage(int client_socket);
+		bool		findProfileByID(const std::string& uri, int client_socket);
+		void		uploadsPage(int client_socket);
+		void		serveFile(int client_socket, const std::string &uri);
 
 		// Utils
 		void	trim(std::string& str);

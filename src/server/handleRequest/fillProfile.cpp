@@ -34,9 +34,6 @@ void	HttpServer::generateAllProfilesPage(int client_socket)
 	else
 	{
 		sendErrorResponse(client_socket, 500, "Internal Server Error");
-		deregisterReadEvent(client_socket);
-		registerWriteEvent(client_socket);
-
 	}
 }
 

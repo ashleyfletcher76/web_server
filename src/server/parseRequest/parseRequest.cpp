@@ -26,7 +26,7 @@ void normaliseHeader(std::string &header)
 	std::transform(header.begin(), header.end(), header.begin(), ::tolower);
 }
 
-bool	isCgiRequest(const std::string& uri)
+bool isCgiRequest(const std::string &uri)
 {
 	return (uri.find(".cgi") != std::string::npos || uri.find("/cgi-bin/") != std::string::npos);
 }

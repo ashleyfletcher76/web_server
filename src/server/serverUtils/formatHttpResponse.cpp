@@ -39,3 +39,15 @@ std::string HttpServer::formatHttpResponse(const std::string& httpVersion, int s
 	response << body;
 	return (response.str());
 }
+
+std::string createHttpDownloadResponse(const std::string &version, int statusCode, const std::string &statusMessage,
+							   const std::string &body, const std::string &headers)
+{
+	std::ostringstream responseStream;
+	responseStream << version << " " << statusCode << " " << statusMessage << "\r\n"
+				   << headers
+				   << "Connection: close\r\n" // Connection will be closed after the response
+				   << "\r\n"				  // End of headers
+				   << body;					  // Body of the response
+	return responseStream.str();
+}

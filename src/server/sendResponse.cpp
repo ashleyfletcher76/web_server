@@ -59,7 +59,7 @@ void HttpServer::writeResponse(int client_socket)
 	}
 	else
 	{
-		logger.logMethod("INFO", "Closing socket because the connection type is or error close!");
+		logger.logMethod("INFO", "Closing socket because the connection type is close or error errror!");
 		shutdown(client_socket, SHUT_WR);
 		deregisterWriteEvent(client_socket);
 		closeSocket(client_socket);

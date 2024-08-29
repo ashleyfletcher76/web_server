@@ -38,5 +38,8 @@
 extern volatile sig_atomic_t shutdownFlag;
 void	signalHandler(int signum);
 bool	checkSocket(int fd);
+bool	ends_with(const std::string &str, const std::string &suffix);
+std::string	createHttpDownloadResponse(const std::string &version, int statusCode, const std::string &statusMessage,
+							   const std::string &body, const std::string &headers);
 
 #endif
