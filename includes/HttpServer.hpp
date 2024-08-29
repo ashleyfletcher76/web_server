@@ -43,7 +43,7 @@ class HttpServer : public config
 
 		// content
 		void		writeResponse(int client_socket);
-		std::string	getFilePath(int server_fd, const std::string &uri);
+		std::string	getFilePath(int server_fd, std::string &uri);
 		std::string	readFileContent(const std::string& filePath);
 
 		// parse

@@ -4,6 +4,7 @@
 config::config(const std::string &confile) : size(0), _confile(confile)
 {
 	begin();
+	std::cout << *this << '\n';
 }
 
 config::~config() {}
@@ -194,7 +195,7 @@ void config::parseLine(const std::string &line, serverInfo &srv)
 	}
 	else if (key == "host")
 	{
-		srv.host = value; // Add validation if necessary
+		srv.host = value;
 	}
 	else if (key == "server_name")
 	{

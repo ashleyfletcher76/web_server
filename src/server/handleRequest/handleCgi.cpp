@@ -41,6 +41,8 @@ void	HttpServer::setupCgiEnvironment(int client_socket)
 	for(const auto& [key, value] : env)
 		envp.push_back(key + "=" + value); // converts it vector of strings for execve as it wont take a map
 	executeCGI(request.uri, client_socket, envp);
+	deregisterReadEvent(client_socket);
+	registerWriteEvent(client_socket);
 }
 
 void	redirectPipes(int* inputPipe, int* outputPipe, int flag)

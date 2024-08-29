@@ -36,7 +36,7 @@ void HttpServer::closeSocket(int client_socket)
 	logger.logMethod("INFO", "Closed client socket FD: " + std::to_string(client_socket));
 }
 
-std::string HttpServer::getFilePath(int server_fd, const std::string &uri)
+std::string HttpServer::getFilePath(int server_fd, std::string &uri)
 {
 	auto serverIt = servers.find(server_fd);
 	if (serverIt == servers.end())
@@ -61,6 +61,7 @@ std::string HttpServer::getFilePath(int server_fd, const std::string &uri)
 			if (uri == "/")
 			{
 				filePath += srv.default_file;
+				uri = filePath;
 			}
 			return filePath;
 		}
@@ -116,21 +117,6 @@ bool is_socket_listening(int socket_fd)
 	return listening != 0;
 }
 
-bool checkSocket(int fd)
-{
-	if (!is_socket_bound(fd))
-	{
-		std::cerr << "Socket FD: " << fd << " is not bound." << std::endl;
-		return false;
-	}
-	if (!is_socket_listening(fd))
-	{
-		std::cerr << "Socket FD: " << fd << " is not in a listening state." << std::endl;
-		return false;
-	}
-	return true;
-}
-
 bool HttpServer::isDirectory(const std::string &path)
 {
 	struct stat info;
@@ -160,6 +146,7 @@ void HttpServer::handleDirectoryListing(int client_socket, const std::string &di
 	deregisterReadEvent(client_socket);
 	registerWriteEvent(client_socket);
 }
+
 bool HttpServer::fileExists(const std::string &path)
 {
 	struct stat buffer;
