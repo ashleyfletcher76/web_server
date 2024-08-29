@@ -28,15 +28,11 @@ void	HttpServer::generateAllProfilesPage(int client_socket)
 							"</tr>";  // end of table row
 		}
 		replacePlaceholders(pageContent, "<!-- Placeholder -->", profileLinks);
-		//clientInfoMap[client_socket].response = formatHttpResponse(clientInfoMap[client_socket].request.version, 200, "OK", pageContent, clientInfoMap[client_socket].shouldclose);
 		clientResponse[client_socket] = formatHttpResponse(clientInfoMap[client_socket].request.version, 200, "OK", pageContent, clientInfoMap[client_socket].shouldclose);
 	}
 	else
 	{
 		sendErrorResponse(client_socket, 500, "Internal Server Error");
-		deregisterReadEvent(client_socket);
-		registerWriteEvent(client_socket);
-
 	}
 }
 

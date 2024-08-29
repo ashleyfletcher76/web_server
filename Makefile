@@ -27,6 +27,7 @@ SRCS =	main.cpp \
 		server/handleRequest/handleRequest.cpp \
 		server/handleRequest/handleUpload.cpp \
 		server/handleRequest/handleGet.cpp \
+		server/handleRequest/CustomPages.cpp \
 		server/handleRequest/handlePost.cpp \
 		server/handleRequest/handleDelete.cpp \
 		server/handleRequest/fillProfile.cpp \

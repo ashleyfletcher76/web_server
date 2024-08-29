@@ -17,44 +17,32 @@ bool HttpServer::readFullRequestBody(int client_socket, std::string &request, st
 	char buffer[4096];
 	std::string::size_type lengthStart = contentLengthPos + 16;
 	std::string::size_type lengthEnd = request.find("\r\n", lengthStart);
-
 	if (lengthEnd != std::string::npos)
 	{
-		size_t contentLength = std::stoi(request.substr(lengthStart, lengthEnd - lengthStart));
-		size_t maxBodySize = getMaxClientBodySize(client_socket);
-		if (contentLength > maxBodySize)
+		int contentLength = std::stoi(request.substr(lengthStart, lengthEnd - lengthStart));
+		if (totalBytesRead < static_cast<size_t>(contentLength) + request.find("\r\n\r\n"))
 		{
-			sendErrorResponse(client_socket, 413, "Payload too large");
-			return false;
-		}
-		size_t bodyEnd = request.find("\r\n\r\n") + 4;
-		size_t requiredBytes = contentLength + bodyEnd;
-		while (totalBytesRead < requiredBytes)
-		{
-			bytesRead = recv(client_socket, buffer, sizeof(buffer) - 1, 0);
-			if (bytesRead > 0)
+			while (totalBytesRead < static_cast<size_t>(contentLength) + request.find("\r\n\r\n"))
 			{
-				totalBytesRead += static_cast<size_t>(bytesRead);
-				buffer[bytesRead] = '\0';
-				request.append(buffer, bytesRead);
-			}
-			else if (bytesRead < 0)
-			{
-				logger.logMethod("ERROR", "Error reading from socket, code: " + std::to_string(bytesRead));
-				sendErrorResponse(client_socket, 400, "Error reading from socket");
-				return false;
+				bytesRead = recv(client_socket, buffer, sizeof(buffer) - 1, 0);
+				if (bytesRead > 0)
+				{
+					totalBytesRead += static_cast<size_t>(bytesRead);
+					buffer[bytesRead] = '\0';
+					request.append(buffer, bytesRead);
+				}
+				else if (bytesRead < 0)
+				{
+					logger.logMethod("ERROR", "Error reading from socket, code: " + std::to_string(bytesRead));
+					sendErrorResponse(client_socket, 400, "Error reading from socket");
+					return false;
+				}
 			}
 		}
 	}
-	else
-	{
-		logger.logMethod("ERROR", "Content-Length header is missing or malformed");
-		sendErrorResponse(client_socket, 400, "Bad request");
-		return false;
-	}
-
-	return true;
+	return (true);
 }
+
 
 void HttpServer::readRequest(int client_socket)
 {
@@ -99,15 +87,21 @@ void HttpServer::readRequest(int client_socket)
 	std::string::size_type contentLengthPos = request.find("Content-Length: ");
 	if (contentLengthPos != std::string::npos)
 	{
-		if (!readFullRequestBody(client_socket, request, contentLengthPos, totalBytesRead, bytesRead))
+		int contentLength = std::stoi(request.substr(contentLengthPos + 16, request.find("\r\n", contentLengthPos + 16)));
+		if (getMaxClientBodySize(client_socket) < contentLength)
+		{
+			sendErrorResponse(client_socket, 413, "Payload too large");
 			return;
+		}
+		if (!readFullRequestBody(client_socket, request, contentLengthPos, totalBytesRead, bytesRead)) {return;}
 	}
-	logger.logMethod("INFO", "Recieved request");
 
 	if (request.empty() || !parseHttpRequest(request, clientInfoMap[client_socket].request, client_socket))
 	{
 		logger.logMethod("ERROR", "Error empty request! " + std::to_string(bytesRead));
 		return;
 	}
+
+	logger.logMethod("INFO", "Received request: " + clientInfoMap[client_socket].request.method);
 	handleRequest(client_socket);
 }
