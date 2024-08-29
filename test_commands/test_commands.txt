@@ -1,0 +1,10 @@
+* Delete
+	curl -X DELETE -H "Content-Type: application/json" -d '{"id":12}' http://localhost:8080/deleteProfile
+
+* Insert user
+	curl -X POST -d "name=John Doe&email=john.doe@example.com&phone=1234567890&description=This is a test description" http://localhost:8080/submit
+
+* Switch page to different pages
+	curl -X GET http://localhost:8080/index.html
+	curl -X GET http://localhost:8080/allProfiles.html
+	curl -X GET 'http://localhost:8080/profile?id=14'

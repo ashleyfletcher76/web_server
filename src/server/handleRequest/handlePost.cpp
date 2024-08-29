@@ -77,11 +77,6 @@ void HttpServer::handlePostRequest(int client_socket)
 		sendErrorResponse(client_socket, 415, "Unsupported medid type");
 		return;
 	}
-	// if (request.uri.find("/deleteProfile") != std::string::npos)
-	// {
-	// 	handleDeleteRequest(client_socket, request);
-	// 	return;
-	// }
 	if (request.uri.find("/cgi-bin/") == 0)
 	{
 		setupCgiEnvironment(client_socket);
