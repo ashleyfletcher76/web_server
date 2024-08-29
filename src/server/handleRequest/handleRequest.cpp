@@ -50,6 +50,7 @@ bool HttpServer::validateRouteAndMethod(int client_socket, const HttpRequest &re
 		if (route.directoryListing)
 		{
 			std::string fullPath = "." + route.rootDirectory + request.uri;
+			std::cout << fullPath << '\n';
 			if (isDirectory(fullPath))
 			{
 				handleDirectoryListing(client_socket, fullPath);

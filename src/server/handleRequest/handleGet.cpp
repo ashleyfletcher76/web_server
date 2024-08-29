@@ -1,8 +1,6 @@
 #include "HttpServer.hpp"
 
 
-
-
 void HttpServer::handleGetRequest(int client_socket)
 {
 	int server_fd = clientInfoMap[client_socket].server_fd;
@@ -16,7 +14,6 @@ void HttpServer::handleGetRequest(int client_socket)
 	else if (uri.find("/cgi-bin/") == 0)
 	{
 		setupCgiEnvironment(client_socket);
-		logger.logMethod("INFO", "CGI bin accessed");
 	}
 	else if (uri.find("/profile") == 0)
 	{
@@ -25,7 +22,7 @@ void HttpServer::handleGetRequest(int client_socket)
 			sendErrorResponse(client_socket, 404, "Not Found");
 		}
 	}
-	else if (uri == "/Download.html")
+	else if (uri == "/download")
 	{
 		uploadsPage(client_socket);
 	}
@@ -46,7 +43,7 @@ void HttpServer::handleGetRequest(int client_socket)
 		file.close();
 		clientResponse[client_socket] = formatHttpResponse(clientInfoMap[client_socket].request.version, 200, "OK", 
 			fileContent, clientInfoMap[client_socket].shouldclose, clientInfoMap[client_socket].request.uri);
+		deregisterReadEvent(client_socket);
+		registerWriteEvent(client_socket);
 	}
-	deregisterReadEvent(client_socket);
-	registerWriteEvent(client_socket);
 }
