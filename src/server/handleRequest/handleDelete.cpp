@@ -23,26 +23,30 @@ void	HttpServer::handleDeleteRequest(int client_socket, HttpRequest &request)
 	auto formData = parseJSonBody(request.body);
 	std::string responseBody;
 
-	//std::cout << "Request body: " + formData << std::endl;
-	if (formData.find("id") != formData.end())
-	{
-		std::string profileId = formData["id"];
-		database.handleDeleteProfile(profileId);
-		responseBody = "<html><body>User has been deleted successfully!</body></html>";
-		clientResponse[client_socket] = formatHttpResponse(clientInfoMap[client_socket].request.version, 200, 
-			"OK", responseBody, clientInfoMap[client_socket].shouldclose, clientInfoMap[client_socket].request.uri);
-	}
-	else if (formData.find("id") == formData.end())
+	if (formData.find("id") == formData.end())
 	{
 		logger.logMethod("ERROR", "No ID provided for deletion.");
 		sendErrorResponse(client_socket, 400, "Bad Request: Missing ID");
 		return ;
 	}
-	else
+	std::string profileId = formData["id"];
+	userProfile profile;
+
+	if (!database.getUserProfile(profileId, profile))
 	{
-		sendErrorResponse(client_socket, 500, "Failed to delete profile");
+		logger.logMethod("ERROR", "Profile ID " + profileId + " does not exist.");
+		responseBody = "<html><body>User not found!</body></html>";
+		sendErrorResponse(client_socket, 404, "USer profile not found: " + profileId);
 		return ;
 	}
+	if (database.handleDeleteProfile(profileId))
+	{
+		responseBody = "<html><body>User has been deleted successfully!</body></html>";
+		clientResponse[client_socket] = formatHttpResponse(clientInfoMap[client_socket].request.version, 200, 
+			"OK", responseBody, clientInfoMap[client_socket].shouldclose, clientInfoMap[client_socket].request.uri);
+	}
+	else
+		sendErrorResponse(client_socket, 500, "Failed to delete profile");
 	deregisterReadEvent(client_socket);
 	registerWriteEvent(client_socket);
 }

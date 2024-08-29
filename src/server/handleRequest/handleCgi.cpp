@@ -18,7 +18,7 @@ void	HttpServer::setupCgiEnvironment(int client_socket)
 		logger.logMethod("ERROR", "CGI script not allowed: " + request.uri);
 		return ;
 	}
-
+	logger.logMethod("INFO", "Setting up environment for CGI script: " + request.uri);
 	env["REQUEST_METHOD"] = request.method;
 	env["QUERY_STRING"] = request.uri.find('?') != std::string::npos ? request.uri.substr(request.uri.find('?') + 1) : "";
 	env["CONTENT_TYPE"] = request.headers.count("content-type") ? request.headers["content-type"] : "";
@@ -76,6 +76,7 @@ void	HttpServer::executeCGI(const std::string& scriptPath, int client_socket, co
 		sendErrorResponse(client_socket, 500, "Internal Server Error - No CGI handler found for: " + correctScriptPath);
 		return ;
 	}
+	logger.logMethod("INFO", "Executing script woih handler: " + handler + " and script path: " + scriptPath);
 	pid_t pid = fork();
 	if (pid == 0)
 	{
@@ -114,7 +115,7 @@ void	HttpServer::executeCGI(const std::string& scriptPath, int client_socket, co
 
 		std::string body = parseCgiOutput(cgiOutput);
 
-		logger.logMethod("INFO", "Output for CGI is: " + body);
+		logger.logMethod("INFO", "Output for CGI is: \n" + body);
 		clientResponse[client_socket] = formatHttpResponse("HTTP/1.1", 200, "OK", body, false, clientInfoMap[client_socket].request.uri);
 		int status;
 		waitpid(pid, &status, 0);
