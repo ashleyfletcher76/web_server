@@ -1,6 +1,5 @@
 #include "config.hpp"
 
-// Constructors
 config::config(const std::string &confile) : size(0), _confile(confile)
 {
 	begin();

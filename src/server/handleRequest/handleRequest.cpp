@@ -28,7 +28,7 @@ bool HttpServer::validateServer(int client_socket)
 	return true;
 }
 
-bool HttpServer::validateRouteAndMethod(int client_socket, const HttpRequest &request)
+bool HttpServer::validateRouteAndMethod(int client_socket, HttpRequest &request)
 {
 	auto serverIt = servers.find(clientInfoMap[client_socket].server_fd);
 	const serverInfo &srv = serverIt->second->getServerInfo();
@@ -46,6 +46,10 @@ bool HttpServer::validateRouteAndMethod(int client_socket, const HttpRequest &re
 		{
 			sendRedirectResponse(client_socket, route.redirect);
 			return (false);
+		}
+		if (!route.handler.empty())
+		{
+			request.handler = route.handler;
 		}
 		if (route.directoryListing)
 		{
