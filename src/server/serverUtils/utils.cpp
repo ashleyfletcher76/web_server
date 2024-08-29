@@ -1,26 +1,5 @@
 #include "HttpServer.hpp"
 
-std::string HttpServer::formatHttpResponse(const std::string& httpVersion, int status_code, const std::string &reasonPhrase,
-										   const std::string &body, int keepAlive)
-{
-	std::ostringstream response;
-	std::string httpVersion1 = httpVersion;
-	if (httpVersion.empty())
-	{
-		httpVersion1 = "HTTP/1.1";
-	}
-	response << httpVersion1 << " " << std::to_string(status_code) << " " << reasonPhrase << "\r\n";
-	response << "Content-Length: " << std::to_string(body.size()) << "\r\n";
-	response << "Content-Type: text/html; charset=UTF-8\r\n";
-	if (keepAlive)
-		response << "Connection: close\r\n";
-	else
-		response << "Connection: keep-alive\r\n";
-	response << "\r\n";
-	response << body;
-	return (response.str());
-}
-
 void HttpServer::modifyEvent(int fd, int filter, int flags)
 {
 	logSocketAction("Modifying event", fd);

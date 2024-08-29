@@ -6,6 +6,6 @@ echo  # This blank line separates headers from the body
 echo "<html>"
 echo "<head><title>Shell Script Output</title></head>"
 echo "<body>"
-echo "<h1>This shell script works</h1>"
+echo "<h1>This shows the print(echo) output for a shell script</h1>"
 echo "</body>"
 echo "</html>"

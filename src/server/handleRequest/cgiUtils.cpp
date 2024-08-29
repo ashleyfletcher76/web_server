@@ -18,7 +18,7 @@ bool	HttpServer::checkIfCgiAllowed(const std::string& uri, int client_socket)
 		fileExtension = uri.substr(pos);
 	else
 	{
-		clientResponse[client_socket] = formatHttpResponse("HTTP/1.1", 403, "Forbidden", "No extension on script found for: " + uri, true);
+		sendErrorResponse(client_socket, 403, "No extension on script found for: " + uri);
 		return (false);
 	}
 	
@@ -28,23 +28,20 @@ bool	HttpServer::checkIfCgiAllowed(const std::string& uri, int client_socket)
 		scriptCheck = uri.substr(0, pos + 1);
 	else
 	{
-		clientResponse[client_socket] = formatHttpResponse("HTTP/1.1", 403, "Forbidden", "File path not suitable: " + uri, true);
+		sendErrorResponse(client_socket, 403, "File path not suitable: " + uri);
 		return (false);
 	}
 	for (const auto& cgi : srvInfo.cgis)
 	{
 		if (scriptCheck != cgi.script_alias)
 		{
-			clientResponse[client_socket] = formatHttpResponse("HTTP/1.1", 403, "Forbidden", "CGI script not inside correct directory: " 
-					+ uri, true);
+			sendErrorResponse(client_socket, 403, "CGI script not inside correct directory: " + uri);
 			return (false);
 		}
 		std::string fullPath = cgi.root + uri.substr(uri.find(cgi.script_alias) + cgi.script_alias.size());
-		std::cout << fullPath << std::endl;
 		if (!fileExist(fullPath))
 		{
-			clientResponse[client_socket] = formatHttpResponse("HTTP/1.1", 404, "Not Found", "Script not found in root: " 
-				+ fullPath, true);
+			sendErrorResponse(client_socket, 404, "Script not found in root: " + fullPath);
 			return (false);
 		}
 		else if (fileExtension == cgi.extension)
@@ -52,16 +49,14 @@ bool	HttpServer::checkIfCgiAllowed(const std::string& uri, int client_socket)
 			if (!cgi.allowed)
 			{
 				logger.logMethod("ERROR", "CGI script not allowed for: " + uri);
-				clientResponse[client_socket] = formatHttpResponse("HTTP/1.1", 403, "Forbidden", "CGI script not allowed for: " 
-					+ uri, true);
+				sendErrorResponse(client_socket, 404, "CGI script not allowed for: " + uri);
 				return (false);
 			}
 			return (true);
 		}
 	}
 	logger.logMethod("ERROR", "No handler found for CGI extension: " + fileExtension);
-	clientResponse[client_socket] = formatHttpResponse("HTTP/1.1", 403, "Forbidden", "No handler found for CGI extension: " 
-		+ fileExtension, true);
+	sendErrorResponse(client_socket, 403, "No handler found for CGI extension: " + fileExtension);
 	return (false);
 }
 

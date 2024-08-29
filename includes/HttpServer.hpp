@@ -63,7 +63,7 @@ class HttpServer : public config
 		// response
 		void		sendRedirectResponse(int client_socket, const std::string &redirectUrl);
 		std::string	formatHttpResponse(const std::string& httpVersion, int status_code, const std::string& reasonPhrase,
-		const std::string& body, int keepAlive);
+			const std::string& body, int keepAlive, const std::string& filePath);
 
 		// GET
 		void	handleGetRequest(int client_socket);

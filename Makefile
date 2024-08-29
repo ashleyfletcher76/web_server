@@ -33,6 +33,7 @@ SRCS =	main.cpp \
 		server/handleRequest/handleCgi.cpp \
 		server/handleRequest/cgiUtils.cpp \
 		server/serverUtils/errorMethods.cpp \
+		server/serverUtils/formatHttpResponse.cpp \
 		server/serverUtils/utils.cpp \
 		config/config.cpp \
 		config/utils.cpp \

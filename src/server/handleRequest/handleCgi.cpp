@@ -71,8 +71,7 @@ void	HttpServer::executeCGI(const std::string& scriptPath, int client_socket, co
 	if (handler.empty())
 	{
 		logger.logMethod("ERROR", "No CGI handler found for: " + correctScriptPath);
-		clientResponse[client_socket] = formatHttpResponse("HTTP/1.1", 500, "Internal Server Error", 
-			"CGI script execution failed", true);
+		sendErrorResponse(client_socket, 500, "Internal Server Error - No CGI handler found for: " + correctScriptPath);
 		return ;
 	}
 	pid_t pid = fork();
@@ -114,18 +113,17 @@ void	HttpServer::executeCGI(const std::string& scriptPath, int client_socket, co
 		std::string body = parseCgiOutput(cgiOutput);
 
 		logger.logMethod("INFO", "Output for CGI is: " + body);
-		clientResponse[client_socket] = formatHttpResponse("HTTP/1.1", 200, "OK", body, false);
-
+		clientResponse[client_socket] = formatHttpResponse("HTTP/1.1", 200, "OK", body, false, clientInfoMap[client_socket].request.uri);
 		int status;
 		waitpid(pid, &status, 0);
 		if (WIFEXITED(status) && WEXITSTATUS(status) != 0)
-			clientResponse[client_socket] = formatHttpResponse("HTTP/1.1", 500, "Internal Server Error", 
-				"CGI script execution failed", true);
+		{
+			sendErrorResponse(client_socket, 500, "Internal Server Error - CGI script execution failed.");
+			return ;
+		}
+		deregisterReadEvent(client_socket);
+		registerWriteEvent(client_socket);
 	}
 	else
-	{
-		perror("Failed to fork");
-		clientResponse[client_socket] = formatHttpResponse("HTTP/1.1", 500, "Internal Server Error", 
-			"Failed to fork process", true);
-	}
+		sendErrorResponse(client_socket, 500, "Internal Server Error - Failed to fork script.");
 }

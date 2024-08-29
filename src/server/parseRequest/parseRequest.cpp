@@ -12,7 +12,7 @@ bool isValidUri(std::string_view uri)
 
 bool isValidMethod(const std::string &method)
 {
-	static const std::set<std::string> validMethods = {"GET", "POST"};
+	static const std::set<std::string> validMethods = {"GET", "POST", "DELETE"};
 	return (validMethods.find(method) != validMethods.end());
 }
 
@@ -39,10 +39,14 @@ bool HttpServer::parseHttpRequestHeaders(std::istringstream &requestStream, Http
 	std::istringstream lineStream(line);
 	if (!(lineStream >> request.method >> request.uri >> request.version))
 	{
+		logger.logMethod("ERROR", "Fail is stream inside request headers");
 		return (false);
 	}
 	if (!isValidMethod(request.method) || !isValidUri(request.uri) || !isValidVersion(request.version))
+	{
+		logger.logMethod("ERROR", "Fail is in valid inside request headers");
 		return (false);
+	}
 	while (std::getline(requestStream, line) && line != "\r" && !line.empty())
 	{
 		auto colonPos = line.find(':');
@@ -55,12 +59,14 @@ bool HttpServer::parseHttpRequestHeaders(std::istringstream &requestStream, Http
 		normaliseHeader(headerName);
 		if (!isValidHeader(headerName, headerValue))
 		{
+			logger.logMethod("ERROR", "Fail is in getline inside request headers");
 			return false;
 		}
 		request.headers[headerName] = headerValue;
 	}
 	if (request.headers.find("host") == request.headers.end())
 	{
+		logger.logMethod("ERROR", "Fail is in getline inside request headers in host");
 		return false;
 	}
 	return (true);

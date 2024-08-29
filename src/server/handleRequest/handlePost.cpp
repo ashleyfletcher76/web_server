@@ -53,7 +53,8 @@ void HttpServer::handleSubmitForm(int client_socket, HttpRequest &request)
 							 formData["phone"], formData["description"]))
 		{
 			responseBody = "<html><body>New user added successfully!</body></html>";
-			clientResponse[client_socket] = formatHttpResponse(clientInfoMap[client_socket].request.version, 200, "OK", responseBody, clientInfoMap[client_socket].shouldclose);
+			clientResponse[client_socket] = formatHttpResponse(clientInfoMap[client_socket].request.version, 200, 
+				"OK", responseBody, clientInfoMap[client_socket].shouldclose, clientInfoMap[client_socket].request.uri);
 		}
 		else
 		{
@@ -81,6 +82,12 @@ void HttpServer::handlePostRequest(int client_socket)
 		handleDeleteRequest(client_socket, request);
 		return;
 	}
+	if (request.uri.find("/cgi-bin/") == 0)
+	{
+		setupCgiEnvironment(client_socket);
+		logger.logMethod("INFO", "CGI bin accessed");
+		return ;
+	}
 	if (request.uri.find("/submit") != std::string::npos)
 	{
 		handleSubmitForm(client_socket, request);
@@ -94,7 +101,8 @@ void HttpServer::handlePostRequest(int client_socket)
 	else
 	{
 		responseBody = "<html><body>Empty Post request!</body></html>";
-		clientResponse[client_socket] = formatHttpResponse(clientInfoMap[client_socket].request.version, 200, "OK", responseBody, clientInfoMap[client_socket].shouldclose);
+		clientResponse[client_socket] = formatHttpResponse(clientInfoMap[client_socket].request.version, 200, 
+			"OK", responseBody, clientInfoMap[client_socket].shouldclose, clientInfoMap[client_socket].request.uri);
 		deregisterReadEvent(client_socket);
 		registerWriteEvent(client_socket);
 	}

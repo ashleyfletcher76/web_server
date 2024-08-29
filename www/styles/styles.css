@@ -1,46 +1,77 @@
 body {
-	font-family: Arial, sans-serif;
-	margin: 20px;
+    font-family: Arial, sans-serif;
+    margin: 20px;
+    background-color: #f4f4f4;  /* Adding a slight background color */
+    color: #333;  /* Default text color */
 }
 
 h1 {
-	color: #333;
-	font-size: 24px;
-	text-align: center;
+    font-size: 24px;
+    text-align: center;
+    color: #333;
+    margin-bottom: 20px; /* Space below headers */
+}
+
+p {
+    font-size: 16px;  /* Appropriate font size for readability */
+    line-height: 1.6; /* Line height for better readability */
+    max-width: 600px; /* Max width to maintain optimal reading line length */
+    margin: 10px auto; /* Centering paragraphs */
 }
 
 table {
-	width: 100%;
-	border-collapse: collapse;
-	margin-top: 20px;
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
 }
 
 th, td {
-	border: 1px solid #ddd;
-	padding: 8px;
-	text-align: left;
+    border: 1px solid #ddd;
+    padding: 8px;
+    text-align: left;
 }
 
 th {
-	background-color: #4CAF50;
-	color: white;
+    background-color: #4CAF50;
+    color: white;
 }
 
 button {
-	background-color: #4CAF50;
-	color: white;
-	border: none;
-	padding: 8px 16px;
-	text-align: center;
-	text-decoration: none;
-	display: inline-block;
-	font-size: 16px;
-	margin: 20px 2px;
-	cursor: pointer;
-	border-radius: 4px;
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    padding: 8px 16px;
+    font-size: 16px;
+    margin: 10px 2px;
+    cursor: pointer;
+    border-radius: 4px;
+    display: block; /* Make buttons block to fill the width */
+    width: auto; /* Default width to content width */
+    margin: 20px auto; /* Center buttons */
 }
 
 button:hover {
-	background-color: #45a049;
+    background-color: #45a049;
 }
 
+button:focus {
+    outline: none;
+    box-shadow: 0 0 0 2px rgba(69, 160, 73, 0.5);
+}
+
+/* Specific styles for the CGI page */
+.cgi-test-page {
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.cgi-test-page h1, .cgi-test-page p {
+    text-align: center; /* Center aligning text */
+}
+
+.cgi-test-page button {
+    width: 80%; /* Making buttons wider */
+    max-width: 300px; /* Maximum width for buttons */
+}

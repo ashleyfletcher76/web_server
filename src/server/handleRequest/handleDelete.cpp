@@ -16,7 +16,8 @@ void	HttpServer::handleDeleteRequest(int client_socket, HttpRequest &request)
 	{
 		logger.logMethod("INFO", "Deletion completed.");
 		responseBody = "<html><body>User has been deleted successfully!</body></html>";
-		clientResponse[client_socket] = formatHttpResponse(clientInfoMap[client_socket].request.version, 200, "OK", responseBody, clientInfoMap[client_socket].shouldclose);
+		clientResponse[client_socket] = formatHttpResponse(clientInfoMap[client_socket].request.version, 200, 
+			"OK", responseBody, clientInfoMap[client_socket].shouldclose, clientInfoMap[client_socket].request.uri);
 	}
 	else
 	{
