@@ -12,83 +12,10 @@ std::string HttpServer::readFileContent(const std::string &filePath)
 						std::istreambuf_iterator<char>()));
 }
 
-bool HttpServer::readFullRequestBody(int client_socket, std::string &request, std::string::size_type contentLengthPos, size_t totalBytesRead, int bytesRead)
-{
-	char buffer[48];
-	std::string::size_type lengthStart = contentLengthPos + 16;
-	std::string::size_type lengthEnd = request.find("\r\n", lengthStart);
-
-	if (lengthEnd != std::string::npos)
-	{
-		size_t contentLength = 0;
-		try
-		{
-			contentLength = std::stoi(request.substr(lengthStart, lengthEnd - lengthStart));
-		}
-		catch(const std::exception& e)
-		{
-			logger.logMethod("ERROR", "Invalid argument: unable to convert Content-Length to number.");
-			sendErrorResponse(client_socket, 400, "Bad request");
-			return (false);
-		}
-		size_t bodyEnd = request.find("\r\n\r\n") + 4;
-		size_t requiredBytes = bodyEnd + contentLength;
-
-		if (totalBytesRead < requiredBytes)
-		{
-			while (totalBytesRead < requiredBytes)
-			{
-				bytesRead = recv(client_socket, buffer, sizeof(buffer), 0);
-				if (bytesRead > 0)
-				{
-					totalBytesRead += static_cast<size_t>(bytesRead);
-					request.append(buffer, bytesRead);
-				}
-				else if (bytesRead < 0)
-				{
-					logger.logMethod("WARNING", "Socket temporarily unavailable, waiting for more data.");
-					return false;
-				}
-				else if (bytesRead == 0)
-				{
-					logger.logMethod("WARNING", "Connection closed by client");
-					deregisterReadEvent(client_socket);
-					closeSocket(client_socket);
-					break;
-				}
-			}
-			if (totalBytesRead > static_cast<size_t>(getMaxClientBodySize(client_socket)))
-			{
-				sendErrorResponse(client_socket, 413, "Payload too large.");
-				return false;
-			}
-		}
-		else
-		{
-			if (totalBytesRead < requiredBytes)
-			{
-				sendErrorResponse(client_socket, 400, "Bad request");
-				return false;
-			}
-		}
-	}
-	else
-	{
-		logger.logMethod("ERROR", "Content-Length header is missing or malformed");
-		sendErrorResponse(client_socket, 400, "Bad request");
-		return false;
-	}
-
-	return true;
-}
-
 void HttpServer::readRequest(int client_socket)
 {
-	char buffer[48];
-	std::string request;
+	char buffer[1024];
 	int bytesRead;
-	const size_t MAX_REQUEST_SIZE = 4096 * 2; // Adjust as needed
-	size_t totalBytesRead = 0;
 
 	if (clientInfoMap.find(client_socket) == clientInfoMap.end())
 	{
@@ -96,50 +23,82 @@ void HttpServer::readRequest(int client_socket)
 		return;
 	}
 
-	while ((bytesRead = recv(client_socket, buffer, sizeof(buffer), 0)) > 0)
-	{
-		totalBytesRead += static_cast<size_t>(bytesRead);
-		if (totalBytesRead > MAX_REQUEST_SIZE)
-		{
-			sendErrorResponse(client_socket, 413, "Payload too large");
-			return;
-		}
-		buffer[bytesRead] = '\0';
-		request.append(buffer, bytesRead);
-		if (request.find("\r\n\r\n") != std::string::npos)
-			break;
-	}
+	bytesRead = recv(client_socket, buffer, sizeof(buffer), 0);
 
-	if (bytesRead == 0)
+	if (bytesRead > 0)
+	{
+		clientInfoMap[client_socket].requestBuffer.append(buffer, bytesRead);
+
+		if (clientInfoMap[client_socket].requestBuffer.find("\r\n\r\n") != std::string::npos)
+		{
+			if (clientInfoMap[client_socket].requestBuffer.size() > static_cast<size_t>(getMaxClientBodySize(client_socket)))
+			{
+				sendErrorResponse(client_socket, 413, "Payload too large");
+				return;
+			}
+
+			if (handleHeadersAndCheckForBody(client_socket))
+			{
+				return;
+			}
+			else
+			{
+				if (!parseHttpRequest(clientInfoMap[client_socket].requestBuffer, clientInfoMap[client_socket].request, client_socket))
+				{
+					logger.logMethod("ERROR", "Error parsing request");
+					sendErrorResponse(client_socket, 400, "Bad Request");
+					return ;
+				}
+				logger.logMethod("INFO", "Received request: " + clientInfoMap[client_socket].request.method);
+				handleRequest(client_socket);
+				clientInfoMap[client_socket].requestBuffer.clear();
+				return;
+			}
+		}
+	}
+	else if (bytesRead == 0)
 	{
 		logger.logMethod("WARNING", "Connection closed by client");
 		deregisterReadEvent(client_socket);
 		closeSocket(client_socket);
-		return;
 	}
 	else if (bytesRead < 0)
 	{
-		logger.logMethod("WARNING", "Socket temporarily unavailable, waiting for more data.");
-		return ;
+		logger.logMethod("WARNING", "Connection temporarly not availabe with the socket");
 	}
+}
 
-	std::string::size_type contentLengthPos = request.find("Content-Length: ");
+bool HttpServer::handleHeadersAndCheckForBody(int client_socket)
+{
+	auto &clientInfo = clientInfoMap[client_socket];
+	std::string::size_type contentLengthPos = clientInfo.requestBuffer.find("Content-Length: ");
+
 	if (contentLengthPos != std::string::npos)
 	{
-		if (!readFullRequestBody(client_socket, request, contentLengthPos, totalBytesRead, bytesRead))
-		{
-			return;
-		}
+		return readFullRequestBody(client_socket, contentLengthPos);
 	}
 
-	if (request.empty() || !parseHttpRequest(request, clientInfoMap[client_socket].request, client_socket))
+	return false;
+}
+
+bool HttpServer::readFullRequestBody(int client_socket, std::string::size_type contentLengthPos)
+{
+	auto &clientInfo = clientInfoMap[client_socket];
+	size_t contentLength = std::stoi(clientInfo.requestBuffer.substr(contentLengthPos + 16));
+
+	size_t bodyStart = clientInfo.requestBuffer.find("\r\n\r\n") + 4;
+	size_t currentBodyLength = clientInfo.requestBuffer.size() - bodyStart;
+
+	if (currentBodyLength < contentLength)
 	{
-		logger.logMethod("ERROR", "Error parsing request");
-		return;
+		return true;
 	}
 
-	logger.logMethod("INFO", "Received request: " + request);
-	// logger.logMethod("INFO", "Received request: " + clientInfoMap[client_socket].request.method);
-	request.clear();
-	handleRequest(client_socket);
+	if (currentBodyLength > static_cast<size_t>(getMaxClientBodySize(client_socket)))
+	{
+		sendErrorResponse(client_socket, 413, "Payload too large.");
+		return false;
+	}
+
+	return false;
 }

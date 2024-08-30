@@ -37,6 +37,7 @@ struct ClientInfo
 	int server_fd;
 	HttpRequest request;
 	std::string response;
+	std::string requestBuffer;
 	bool shouldclose;
 	bool error;
 	int outpipe;

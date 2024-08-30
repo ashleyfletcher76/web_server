@@ -30,7 +30,6 @@ void HttpServer::sendErrorResponse(int client_socket, int statusCode, const std:
 		htmlContent = DEFAULT_ERROR_HTML;
 		htmlContent = replacePlaceholder(htmlContent, "{statusCode}", std::to_string(statusCode));
 		htmlContent = replacePlaceholder(htmlContent, "{reasonPhrase}", reasonPhrase);
-		std::cout << "Here ending" << std::endl;
 	}
 
 	clientInfoMap[client_socket].shouldclose = true;

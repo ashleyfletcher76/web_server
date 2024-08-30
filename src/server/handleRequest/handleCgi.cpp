@@ -149,6 +149,8 @@ void HttpServer::executeCGI_Event(struct kevent &event)
 		std::string body = parseCgiOutput(cgiOutput);
 		logger.logMethod("INFO", "Output for CGI is");
 		clientResponse[client_socket] = formatHttpResponse("HTTP/1.1", 200, "OK", body, false, clientInfoMap[client_socket].request.uri);
+		clientInfoMap[client_socket].outpipe = -1;
+		clientInfoMap[client_socket].pid = -1;
 		registerWriteEvent(client_socket);
 	}
 }

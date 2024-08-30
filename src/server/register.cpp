@@ -66,7 +66,7 @@ void HttpServer::registerWriteEvent(int clientSocket)
 		logger.logMethod("INFO", "Successfully registered write event for socket: " + std::to_string(clientSocket));
 	}
 
-	EV_SET(&change, static_cast<uintptr_t>(clientSocket), EVFILT_TIMER, EV_ADD | EV_ENABLE, 0, idle_timeout.count(), NULL); // 5 seconds timeout
+	EV_SET(&change, static_cast<uintptr_t>(clientSocket), EVFILT_TIMER, EV_ADD | EV_ENABLE, 0, idle_timeout.count() * 1000, NULL);
 	if (kevent(kq, &change, 1, NULL, 0, NULL) == -1)
 	{
 		logger.logMethod("ERROR", "Failed to register timer event for socket: " + std::to_string(clientSocket) + ", error: " + std::string(strerror(errno)));
@@ -91,7 +91,7 @@ void HttpServer::registerReadEvent(int clientSocket)
 		logger.logMethod("INFO", "Successfully registered read event for socket: " + std::to_string(clientSocket));
 	}
 
-	EV_SET(&change, static_cast<uintptr_t>(clientSocket), EVFILT_TIMER, EV_ADD | EV_ENABLE, 0, idle_timeout.count(), NULL); // 5 seconds timeout
+	EV_SET(&change, static_cast<uintptr_t>(clientSocket), EVFILT_TIMER, EV_ADD | EV_ENABLE, 0, idle_timeout.count() * 1000, NULL); // 5 seconds timeout
 	if (kevent(kq, &change, 1, NULL, 0, NULL) == -1)
 	{
 		logger.logMethod("ERROR", "Failed to register timer event for socket: " + std::to_string(clientSocket) + ", error: " + std::string(strerror(errno)));
@@ -118,7 +118,7 @@ void HttpServer::registerChild(int clientSocket, pid_t pid)
 	}
 
 	struct kevent timerEvent;
-	EV_SET(&timerEvent, clientSocket, EVFILT_TIMER, EV_ADD | EV_ENABLE, 0, idle_timeout.count(), NULL);
+	EV_SET(&timerEvent, clientSocket, EVFILT_TIMER, EV_ADD | EV_ENABLE, 0, idle_timeout.count() * 1000, NULL);
 
 	if (kevent(kq, &timerEvent, 1, NULL, 0, NULL) == -1)
 	{
@@ -162,7 +162,6 @@ void HttpServer::deregisterChild(int clientSocket, pid_t pid)
 void HttpServer::deregisterTimer(int clientSocket)
 {
 	struct kevent change;
-	// Set up the kevent structure to deregister the timer
 	EV_SET(&change, static_cast<uintptr_t>(clientSocket), EVFILT_TIMER, EV_DELETE, 0, 0, NULL);
 
 	if (kevent(kq, &change, 1, NULL, 0, NULL) == -1)

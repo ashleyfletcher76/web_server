@@ -34,6 +34,8 @@ class HttpServer : public config
 
 		// request
 		void	readRequest(int client_socket);
+		bool	handleHeadersAndCheckForBody(int client_socket);
+		bool	readFullRequestBody(int client_socket, std::string::size_type contentLengthPos);
 		bool	readFullRequestBody(int client_socket, std::string &request, std::string::size_type contentLengthPos, size_t totalBytesRead, int bytesRead);
 		void	handleRequest(int client_Socket);
 		bool	validateServer(int client_socket);

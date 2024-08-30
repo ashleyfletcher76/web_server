@@ -11,9 +11,9 @@ if (mt_rand(0, 1) < 0.5) {
 }
 
 // Infinite loop (if needed)
-// while (true) {
-//     echo "<p>masum======</p>";
-// }
+ while (true) {
+     echo "<p>masum======</p>";
+ }
 
 echo "</body>";
 echo "</html>";
