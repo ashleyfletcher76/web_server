@@ -29,6 +29,5 @@ void HttpServer::handleUpload(int client_socket, HttpRequest &request)
 	const std::string responseBody = "<html><body>File uploaded succesfully!</body></html>";
 	clientResponse[client_socket] = formatHttpResponse(clientInfoMap[client_socket].request.version, 200, 
 		"OK", responseBody, clientInfoMap[client_socket].shouldclose, clientInfoMap[client_socket].request.uri);
-	deregisterReadEvent(client_socket);
 	registerWriteEvent(client_socket);
 }

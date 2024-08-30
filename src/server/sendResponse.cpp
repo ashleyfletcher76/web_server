@@ -28,6 +28,7 @@ void HttpServer::writeResponse(int client_socket)
 			else
 			{
 				logger.logMethod("ERROR", "Error writing to socket: " + std::string(strerror(errno)));
+				deregisterReadEvent(client_socket);
 				deregisterWriteEvent(client_socket);
 				closeSocket(client_socket);
 				return;
@@ -36,6 +37,7 @@ void HttpServer::writeResponse(int client_socket)
 		else if (bytesSent == 0)
 		{
 			logger.logMethod("INFO", "Client closed connection before the full response was sent.");
+			deregisterReadEvent(client_socket);
 			deregisterWriteEvent(client_socket);
 			closeSocket(client_socket);
 			return;
@@ -61,6 +63,7 @@ void HttpServer::writeResponse(int client_socket)
 	{
 		logger.logMethod("INFO", "Closing socket because the connection type is close or error errror!");
 		shutdown(client_socket, SHUT_WR);
+		deregisterReadEvent(client_socket);
 		deregisterWriteEvent(client_socket);
 		closeSocket(client_socket);
 	}

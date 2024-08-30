@@ -18,9 +18,9 @@ void HttpServer::acceptConnection(int serverSocket)
 	int client_socket = accept(serverSocket, (struct sockaddr *)&client_address, &client_addrlen);
 	if (client_socket < 0)
 	{
-		if (errno != EAGAIN && errno != EWOULDBLOCK)
+		if (errno == EAGAIN || errno == EWOULDBLOCK)
 		{
-			logger.logMethod("ERROR", "Accept failed: " + std::string(strerror(errno)));
+			return ;
 		}
 		logger.logMethod("ERROR", "Accept failed: " + std::string(strerror(errno)));
 		return;

@@ -143,7 +143,6 @@ void HttpServer::handleDirectoryListing(int client_socket, const std::string &di
 	response += "</ul></body></html>";
 
 	clientResponse[client_socket] = response;
-	deregisterReadEvent(client_socket);
 	registerWriteEvent(client_socket);
 }
 
