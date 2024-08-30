@@ -1,11 +1,11 @@
 body {
     font-family: Arial, sans-serif;
     margin: 20px;
-    background-color: #f4f4f4;  /* Adding a slight background color */
+    background-color: #f4f4f4;  /* Light grey background */
     color: #333;  /* Default text color */
 }
 
-h1 {
+h1, h3 {
     font-size: 24px;
     text-align: center;
     color: #333;
@@ -19,6 +19,57 @@ p {
     margin: 10px auto; /* Centering paragraphs */
 }
 
+/* Button styling */
+button {
+    background-color: #5a5a5a; /* Dark grey background */
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    font-size: 16px;
+    cursor: pointer;
+    border-radius: 4px;
+    width: 80%; /* Making buttons wider */
+    max-width: 300px; /* Maximum width for buttons */
+    margin: 20px auto; /* Center buttons */
+    transition: background-color 0.3s ease;
+}
+
+button:hover {
+    background-color: #404040; /* Darker grey on hover */
+}
+
+button:focus {
+    outline: none;
+    box-shadow: 0 0 0 2px rgba(64, 64, 64, 0.5);
+}
+
+/* Specific styles for the CGI page */
+.cgi-test-page {
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.cgi-test-page h1, .cgi-test-page h3, .cgi-test-page p {
+    text-align: center; /* Center aligning text */
+}
+
+.flex-container {
+    display: flex;
+    justify-content: space-between; /* Adjust space between the two sections */
+    align-items: flex-start; /* Align the sections at the top */
+}
+
+.left-buttons, .right-buttons {
+    width: 48%; /* Adjust the width as needed */
+}
+
+.right-buttons {
+    margin-left: 20px; /* Optional: add some space between the two sections */
+}
+
+/* Table styling */
 table {
     width: 100%;
     border-collapse: collapse;
@@ -32,46 +83,15 @@ th, td {
 }
 
 th {
-    background-color: #4CAF50;
+    background-color: #5a5a5a; /* Dark grey for table headers */
     color: white;
 }
 
-button {
-    background-color: #4CAF50;
-    color: white;
-    border: none;
-    padding: 8px 16px;
-    font-size: 16px;
-    margin: 10px 2px;
-    cursor: pointer;
-    border-radius: 4px;
-    display: block; /* Make buttons block to fill the width */
-    width: auto; /* Default width to content width */
-    margin: 20px auto; /* Center buttons */
-}
-
-button:hover {
-    background-color: #45a049;
-}
-
-button:focus {
-    outline: none;
-    box-shadow: 0 0 0 2px rgba(69, 160, 73, 0.5);
-}
-
-/* Specific styles for the CGI page */
-.cgi-test-page {
+td {
     background-color: #fff;
-    padding: 20px;
-    border-radius: 8px;
-    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    color: #333;
 }
 
-.cgi-test-page h1, .cgi-test-page p {
-    text-align: center; /* Center aligning text */
-}
-
-.cgi-test-page button {
-    width: 80%; /* Making buttons wider */
-    max-width: 300px; /* Maximum width for buttons */
+tr:hover td {
+    background-color: #f1f1f1;
 }

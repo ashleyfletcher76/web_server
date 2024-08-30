@@ -11,12 +11,12 @@ print("<html>")
 print("<body>")
 print("<p>Who is better at table tennis Masum or Ashley ?</p>")  # Use paragraph tags for proper HTML formatting
 if random.random() < 0.5:
-	print("<p>Masum, of course!</p>")
+	print("<p>Ashley, of course!</p>")
 else:
 	print("<p>Try again!</p>")
 
-while True:
-	print("<p>masum======</p>")
+# while True:
+# 	print("<p>masum======Loooooooool no way</p>")
 print("</body>")
 print("</html>")
 

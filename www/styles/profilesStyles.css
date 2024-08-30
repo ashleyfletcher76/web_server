@@ -1,0 +1,89 @@
+/* General body styling */
+body {
+    font-family: 'Arial', sans-serif;
+    background-color: #f4f4f4;
+    margin: 0;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    min-height: 100vh;
+}
+
+/* Styling for headers */
+h1 {
+    color: #333;
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+/* Paragraph text styling */
+p {
+    font-size: 16px;
+    color: #555;
+    margin-bottom: 10px;
+    text-align: center;
+}
+
+/* Button styling */
+button {
+    background-color: #5a5a5a; /* Dark grey color */
+    color: white;
+    padding: 10px 20px;
+    margin: 20px 0;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 16px;
+    transition: background-color 0.3s ease;
+}
+
+button:hover {
+    background-color: #404040; /* Even darker grey on hover */
+}
+
+/* Table styling for the All Profiles page */
+table {
+    width: 80%;
+    border-collapse: collapse;
+    margin: 20px 0;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+th, td {
+    padding: 12px 15px;
+    text-align: left;
+}
+
+th {
+    background-color: #5a5a5a;
+    color: white;
+    font-weight: bold;
+    text-align: center;
+}
+
+td {
+    background-color: #fff;
+    border-bottom: 1px solid #ddd;
+    color: #333;
+}
+
+tr:hover td {
+    background-color: #f1f1f1;
+}
+
+/* Responsive design adjustments */
+@media (max-width: 600px) {
+    table {
+        width: 100%;
+    }
+
+    th, td {
+        padding: 8px 10px;
+    }
+
+    button {
+        width: 100%;
+        margin: 10px 0;
+    }
+}

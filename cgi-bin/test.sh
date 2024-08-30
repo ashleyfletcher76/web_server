@@ -1,11 +1,21 @@
-# Output the content type header
-echo "Content-Type: text/html"
-echo  # This blank line separates headers from the body
+#!/bin/bash
 
-# Output HTML content
+echo "Content-Type: text/html"
+echo ""
 echo "<html>"
-echo "<head><title>Shell Script Output</title></head>"
 echo "<body>"
-echo "<h1>This shows the print(echo) output for a shell script</h1>"
+echo "<p>Who is better at table tennis Masum or Ashley?</p>"
+
+if [ $((RANDOM % 2)) -eq 0 ]; then
+	echo "<p>Ashley, of course!</p>"
+else
+	echo "<p>Try again!</p>"
+fi
+
+# Infinite loop
+# while true; do
+# 	echo "<p>masum======</p>"
+# done
+
 echo "</body>"
 echo "</html>"

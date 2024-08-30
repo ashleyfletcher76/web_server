@@ -1,31 +1,42 @@
-<link rel="icon" href="MainBefore.webp" type="image/x-webp">
-
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<title>Home Page</title>
+	<link rel="stylesheet" href="styles/indexStyles.css">
+	<link rel="icon" href="MainBefore.webp" type="image/x-webp">
 </head>
+
 <body>
 	<h1>Welcome to the Home Page</h1>
-	<button onclick="location.href='/allProfiles.html'">Go to Profile pages</button>
-	<button onclick="location.href='/tabletennis.html'">Go to Table Tennis Page</button>
-	<button onclick="location.href='/cgiTest.html'">Go to cgi test page</button>
-	<button onclick="location.href='/Upload.html'">Go to Upload Page</button>
-	<button onclick="location.href='/download'">Go to Download Page</button>
+	<div class="container">
+		<nav>
+			<button onclick="location.href='/allProfiles.html'">Go to Profile pages</button>
+			<button onclick="location.href='/tableTennis.html'">Go to Table Tennis Page</button>
+			<button onclick="location.href='/cgiTest.html'">Go to CGI Test Page</button>
+			<button onclick="location.href='/upload.html'">Go to Upload Page</button>
+			<button onclick="location.href='/download'">Go to Download Page</button>
+		</nav>
 
-	<h2>Add new User to database (POST request)</h2>
-	<form method="POST" action="/submit">
-		<label for="name">Name:</label>
-		<input type="text" id="name" name="name" pattern="[A-Za-z\s]+" title="Please enter only letters."><br><br>
-		<label for="email">Email:</label>
-		<input type="email" id="email" name="email"><br><br>
-		<label for="phone">Phone:</label>
-		<input type="tel" id="phone" name="phone"><br><br>
-		<label for="description">Description:</label>
-		<textarea id="description" name="description"></textarea><br><br>
-		<input type="submit" value="Submit">
-	</form>
+		<h3>Add new User to database (POST request)</h3>
+		<form action="/submit_user" method="POST">
+			<label for="name">Name:</label>
+			<input type="text" id="name" name="name" required>
+
+			<label for="email">Email:</label>
+			<input type="text" id="email" name="email" required>
+
+			<label for="phone">Phone:</label>
+			<input type="text" id="phone" name="phone">
+
+			<label for="description">Description:</label>
+			<textarea id="description" name="description"></textarea>
+
+			<input type="submit" value="Submit">
+		</form>
+	</div>
 </body>
+
 </html>

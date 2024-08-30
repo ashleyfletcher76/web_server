@@ -131,7 +131,6 @@ void HttpServer::mainLoop()
 			{
 				if (clientInfoMap[fd].outpipe != -1 || clientInfoMap[fd].pid != -1)
 				{
-					std::cout << "i am here\n";
 					logger.logMethod("WARNING", "Child process timed out and was killed.");
 					deregisterChild(fd, clientInfoMap[fd].pid);
 					kill(clientInfoMap[fd].pid, SIGKILL);
