@@ -1,0 +1,51 @@
+/* Base settings for the body to ensure consistent font and alignment */
+body {
+    font-family: 'Arial', sans-serif;
+    background-color: #f4f4f4;
+    margin: 0;
+    padding: 40px;
+    color: #333;
+    text-align: center;
+}
+
+/* Main heading styles for error codes */
+h1 {
+    color: #d33;
+    font-size: 48px;
+    margin: 20px 0;
+}
+
+/* Subheading for additional error information */
+h2 {
+    color: #555;
+    font-size: 24px;
+    margin-bottom: 25px;
+}
+
+/* Paragraph text for explanations and suggestions */
+p {
+    font-size: 18px;
+    line-height: 1.6;
+    max-width: 600px;
+    margin: 0 auto;
+    padding: 0 20px;
+}
+
+/* Specific styles for links to offer actions to users */
+a {
+    color: #06c;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+a:hover {
+    text-decoration: underline;
+}
+
+/* Special class for footer or additional notes */
+.footer {
+    margin-top: 30px;
+    font-size: 14px;
+    color: #666;
+    text-align: center;
+}

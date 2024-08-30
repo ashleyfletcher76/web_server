@@ -96,7 +96,9 @@ bool HttpServer::parseHttpRequestBody(std::istringstream &requestStream, HttpReq
 		auto iter = request.headers.find("content-length");
 		if (iter != request.headers.end())
 		{
+			std::cout << "Before content length" << std::endl;
 			int contentLength = std::stoi(iter->second);
+			std::cout << "After content length" << std::endl;
 			int maxSize = getMaxClientBodySize(client_socket);
 			if (contentLength > maxSize)
 			{
@@ -110,7 +112,9 @@ bool HttpServer::parseHttpRequestBody(std::istringstream &requestStream, HttpReq
 		auto iter = request.headers.find("content-length");
 		if (iter != request.headers.end())
 		{
+			std::cout << "Before content length second" << std::endl;
 			int contentLength = std::stoi(iter->second);
+			std::cout << "After content length second" << std::endl;
 			int maxSize = getMaxClientBodySize(client_socket);
 			if (contentLength > maxSize)
 			{
@@ -119,10 +123,5 @@ bool HttpServer::parseHttpRequestBody(std::istringstream &requestStream, HttpReq
 			std::getline(requestStream, request.body, '\0');
 		}
 	}
-	// else
-	// {
-	// 	logger.logMethod("ERROR", "Uknown content type.");
-	// 	return (false);	
-	// }
 	return true;
 }

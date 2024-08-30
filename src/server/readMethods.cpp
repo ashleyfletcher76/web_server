@@ -20,7 +20,17 @@ bool HttpServer::readFullRequestBody(int client_socket, std::string &request, st
 
 	if (lengthEnd != std::string::npos)
 	{
-		size_t contentLength = std::stoi(request.substr(lengthStart, lengthEnd - lengthStart));
+		size_t contentLength = 0;
+		try
+		{
+			contentLength = std::stoi(request.substr(lengthStart, lengthEnd - lengthStart));
+		}
+		catch(const std::exception& e)
+		{
+			logger.logMethod("ERROR", "Invalid argument: unable to convert Content-Length to number.");
+			sendErrorResponse(client_socket, 400, "Bad request");
+			return (false);
+		}
 		size_t bodyEnd = request.find("\r\n\r\n") + 4;
 		size_t requiredBytes = bodyEnd + contentLength;
 
@@ -128,8 +138,8 @@ void HttpServer::readRequest(int client_socket)
 		return;
 	}
 
-	//logger.logMethod("INFO", "Received request: " + request);
-	logger.logMethod("INFO", "Received request: " + clientInfoMap[client_socket].request.method);
+	logger.logMethod("INFO", "Received request: " + request);
+	// logger.logMethod("INFO", "Received request: " + clientInfoMap[client_socket].request.method);
 	request.clear();
 	handleRequest(client_socket);
 }
