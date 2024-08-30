@@ -68,11 +68,7 @@ void HttpServer::registerWriteEvent(int clientSocket)
 		logger.logMethod("INFO", "Successfully registered write event for socket: " + std::to_string(clientSocket));
 	}
 
-<<<<<<< HEAD
-	EV_SET(&change, static_cast<uintptr_t>(clientSocket), EVFILT_TIMER, EV_ADD | EV_ENABLE, 0, idle_timeout.count() * 1000, NULL);
-=======
 	EV_SET(&change, static_cast<uintptr_t>(clientSocket), EVFILT_TIMER, EV_ADD | EV_ENABLE, 0, idle_timeout.count() * TIMEOUT, NULL); // 5 seconds timeout
->>>>>>> ash
 	if (kevent(kq, &change, 1, NULL, 0, NULL) == -1)
 	{
 		logger.logMethod("ERROR", "Failed to register timer event for socket: " + std::to_string(clientSocket) + ", error: " + std::string(strerror(errno)));

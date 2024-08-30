@@ -42,10 +42,11 @@ struct ClientInfo
 	bool error;
 	int outpipe;
 	pid_t pid;
+	ssize_t totalBytesSent;
 	std::unordered_map<std::string, std::string> cgiEnv;
 
-	ClientInfo() : server_fd(-1), shouldclose(false), error(false), outpipe(-1), pid(-1) {}
-	ClientInfo(int fd) : server_fd(fd), shouldclose(false), error(false), outpipe(-1), pid(-1) {}
+	ClientInfo() : server_fd(-1), shouldclose(false), error(false), outpipe(-1), pid(-1), totalBytesSent(0) {}
+	ClientInfo(int fd) : server_fd(fd), shouldclose(false), error(false), outpipe(-1), pid(-1), totalBytesSent(0) {}
 };
 
 struct routeConfig

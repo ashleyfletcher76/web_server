@@ -9,62 +9,61 @@ void HttpServer::writeResponse(int client_socket)
 	}
 
 	std::string &response = clientResponse[client_socket];
-	ssize_t totalBytesSent = 0;
+	ssize_t &totalBytesSent = clientInfoMap[client_socket].totalBytesSent;
 	ssize_t bytesToSend = response.size();
 
-	while (totalBytesSent < bytesToSend)
-	{
-		ssize_t bytesSent = send(client_socket, response.c_str() + totalBytesSent, bytesToSend - totalBytesSent, 0);
-		if (bytesSent < 0)
-		{
-			if (errno == EAGAIN || errno == EWOULDBLOCK)
-			{
-				continue;
-			}
-			else if (errno == EINTR)
-			{
-				continue;
-			}
-			else
-			{
-				logger.logMethod("ERROR", "Error writing to socket: " + std::string(strerror(errno)));
-				deregisterReadEvent(client_socket);
-				deregisterWriteEvent(client_socket);
-				closeSocket(client_socket);
-				return;
-			}
-		}
-		else if (bytesSent == 0)
-		{
-			logger.logMethod("INFO", "Client closed connection before the full response was sent.");
-			deregisterReadEvent(client_socket);
-			deregisterWriteEvent(client_socket);
-			closeSocket(client_socket);
-			return;
-		}
-		totalBytesSent += bytesSent;
-	}
+	ssize_t maxBytesPerWrite = 1024;
+	ssize_t remainingBytes = bytesToSend - totalBytesSent;
+	ssize_t bytesToSendNow = std::min(maxBytesPerWrite, remainingBytes);
 
-	logger.logMethod("INFO", "Response successfully sent to FD: " + std::to_string(client_socket));
-
-	if (!clientInfoMap[client_socket].shouldclose || clientInfoMap[client_socket].error)
+	ssize_t bytesSent = send(client_socket, response.c_str() + totalBytesSent, bytesToSendNow, 0);
+	if (bytesSent < 0)
 	{
-		if (openSockets.find(client_socket) != openSockets.end())
-		{
-			deregisterWriteEvent(client_socket);
-			registerReadEvent(client_socket);
-		}
-		else
-		{
-			logger.logMethod("WARNING", "Socket already closed or removed from open sockets when trying to modify event.");
-		}
+		logger.logMethod("WARNING", "Socket is tempraroaly unavailable.");
+		return;
 	}
-	else
+	else if (bytesSent == 0)
 	{
-		logger.logMethod("INFO", "Closing socket because the connection type is close or error errror!");
-		shutdown(client_socket, SHUT_WR);
+		logger.logMethod("WARNING", "Client closed connection before the full response was sent.");
 		deregisterReadEvent(client_socket);
 		deregisterWriteEvent(client_socket);
 		closeSocket(client_socket);
+		return;
+	}
+
+	totalBytesSent += bytesSent;
+
+	if (totalBytesSent >= bytesToSend)
+	{
+		logger.logMethod("INFO", "Response successfully sent to FD: " + std::to_string(client_socket));
+
+		if (!clientInfoMap[client_socket].shouldclose || clientInfoMap[client_socket].error)
+		{
+			if (openSockets.find(client_socket) != openSockets.end())
+			{
+				deregisterWriteEvent(client_socket);
+				registerReadEvent(client_socket);
+			}
+			else
+			{
+				logger.logMethod("WARNING", "Socket already closed or removed from open sockets when trying to modify event.");
+			}
+		}
+		else
+		{
+			logger.logMethod("INFO", "Closing socket because the connection type is close or error occurred.");
+			shutdown(client_socket, SHUT_WR);
+			deregisterReadEvent(client_socket);
+			deregisterWriteEvent(client_socket);
+			closeSocket(client_socket);
+		}
+
+		// Reset the totalBytesSent for the next response
+		totalBytesSent = 0;
+	}
+	else
+	{
+		// Not all bytes were sent, keep the write event registered
+		logger.logMethod("INFO", "Partial response sent, awaiting further writes.");
 	}
 }
