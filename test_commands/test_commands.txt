@@ -23,5 +23,9 @@ curl -X FOO http://localhost:8080/index.html
 
 * with host name
 curl -i http://127.0.0.1:8080/index.html
+
+
+* siege test
+siege -b http://localhost:8080/empty.html
 -------------------
 
