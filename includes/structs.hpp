@@ -39,14 +39,13 @@ struct ClientInfo
 	std::string response;
 	std::string requestBuffer;
 	bool shouldclose;
-	bool error;
 	int outpipe;
 	pid_t pid;
 	ssize_t totalBytesSent;
 	std::unordered_map<std::string, std::string> cgiEnv;
 
-	ClientInfo() : server_fd(-1), shouldclose(false), error(false), outpipe(-1), pid(-1), totalBytesSent(0) {}
-	ClientInfo(int fd) : server_fd(fd), shouldclose(false), error(false), outpipe(-1), pid(-1), totalBytesSent(0) {}
+	ClientInfo() : server_fd(-1), shouldclose(false), outpipe(-1), pid(-1), totalBytesSent(0) {}
+	ClientInfo(int fd) : server_fd(fd), shouldclose(false), outpipe(-1), pid(-1), totalBytesSent(0) {}
 };
 
 struct routeConfig

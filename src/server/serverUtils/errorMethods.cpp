@@ -33,7 +33,6 @@ void HttpServer::sendErrorResponse(int client_socket, int statusCode, const std:
 	}
 
 	clientInfoMap[client_socket].shouldclose = true;
-	clientInfoMap[client_socket].error = true;
 	std::string response = formatHttpResponse(clientInfoMap[client_socket].request.version, 
 		statusCode, reasonPhrase, htmlContent, true, clientInfoMap[client_socket].request.uri);
 	clientResponse[client_socket] = response;
