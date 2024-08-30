@@ -108,7 +108,6 @@ void HttpServer::executeCGI(const std::string &scriptPath, int client_socket, co
 		close(outputPipe[1]);
 		clientInfoMap[client_socket].outpipe = outputPipe[0];
 		clientInfoMap[client_socket].pid = pid;
-		deregisterReadEvent(client_socket);
 		registerChild(client_socket, pid);
 	}
 	else

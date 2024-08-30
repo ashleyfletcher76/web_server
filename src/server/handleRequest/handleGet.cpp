@@ -43,7 +43,6 @@ void HttpServer::handleGetRequest(int client_socket)
 		file.close();
 		clientResponse[client_socket] = formatHttpResponse(clientInfoMap[client_socket].request.version, 200, "OK", 
 			fileContent, clientInfoMap[client_socket].shouldclose, clientInfoMap[client_socket].request.uri);
-		deregisterReadEvent(client_socket);
 		registerWriteEvent(client_socket);
 	}
 }

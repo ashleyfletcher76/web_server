@@ -47,6 +47,5 @@ void	HttpServer::handleDeleteRequest(int client_socket, HttpRequest &request)
 	}
 	else
 		sendErrorResponse(client_socket, 500, "Failed to delete profile");
-	deregisterReadEvent(client_socket);
 	registerWriteEvent(client_socket);
 }

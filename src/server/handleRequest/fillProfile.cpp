@@ -29,7 +29,6 @@ void	HttpServer::generateAllProfilesPage(int client_socket)
 		replacePlaceholders(pageContent, "<!-- Placeholder -->", profileLinks);
 		clientResponse[client_socket] = formatHttpResponse(clientInfoMap[client_socket].request.version, 200, "OK", 
 			pageContent, clientInfoMap[client_socket].shouldclose, clientInfoMap[client_socket].request.uri);
-		deregisterReadEvent(client_socket);
 		registerWriteEvent(client_socket);
 	}
 	else

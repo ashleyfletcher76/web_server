@@ -122,7 +122,6 @@ void HttpServer::sendRedirectResponse(int client_socket, const std::string &redi
 		fullRedirectUrl + "\r\n" + connectionHeader +
 		"\r\n";
 	clientResponse[client_socket] = htmlContent;
-	deregisterReadEvent(client_socket);
 	registerWriteEvent(client_socket);
 }
 
