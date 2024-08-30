@@ -52,7 +52,6 @@ void HttpServer::writeResponse(int client_socket)
 		if (openSockets.find(client_socket) != openSockets.end())
 		{
 			deregisterWriteEvent(client_socket);
-			registerReadEvent(client_socket);
 		}
 		else
 		{

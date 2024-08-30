@@ -1,6 +1,5 @@
 #include "HttpServer.hpp"
 
-
 void HttpServer::handleGetRequest(int client_socket)
 {
 	int server_fd = clientInfoMap[client_socket].server_fd;
