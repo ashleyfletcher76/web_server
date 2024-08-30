@@ -19,7 +19,7 @@ bool HttpServer::validateServer(int client_socket)
 	{
 		hostWithoutPort = hostHeader.substr(0, colonPos);
 	}
-	if (srvInfo.server_name != hostWithoutPort && srvInfo.server_name != hostHeader && hostWithoutPort != "localhost")
+	if (srvInfo.server_name != hostWithoutPort && srvInfo.server_name != hostHeader && hostWithoutPort != "localhost" && hostWithoutPort != srvInfo.host)
 	{
 		sendErrorResponse(client_socket, 404, "Not Found");
 		return false;

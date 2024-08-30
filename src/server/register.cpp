@@ -42,15 +42,6 @@ void HttpServer::deregisterWriteEvent(int clientSocket)
 		logger.logMethod("INFO", "Successfully deregistered write event for socket: " + std::to_string(clientSocket));
 	}
 
-	EV_SET(&change, static_cast<uintptr_t>(clientSocket), EVFILT_TIMER, EV_DELETE, 0, 0, NULL);
-	if (kevent(kq, &change, 1, NULL, 0, NULL) == -1)
-	{
-		logger.logMethod("ERROR", "Failed to deregister timer event for socket: " + std::to_string(clientSocket) + ", error: " + std::string(strerror(errno)));
-	}
-	else
-	{
-		logger.logMethod("INFO", "Successfully deregistered timer event for socket: " + std::to_string(clientSocket));
-	}
 }
 
 void HttpServer::registerWriteEvent(int clientSocket)

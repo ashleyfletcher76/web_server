@@ -14,14 +14,14 @@
 	curl -X GET http://localhost:8080/allProfiles.html
 	curl -X GET 'http://localhost:8080/profile?id=14'
 
+* to test server name
+curl --resolve example2.com:4080:127.0.0.1 http://example2.com:4080/index.html
+
+* unkonwn request
+curl -X FOO http://localhost:8080/index.html
 
 
+* with host name
+curl -i http://127.0.0.1:8080/index.html
+-------------------
 
-------------------
-
-* Things to check with Masum
-
-- Upload a file with curl (curl -F "file=@path/to/local/file" http://localhost:8080/upload)
-
-- Complience check. Headers comply with expected standards
-	(curl -I http://localhost:8080) ??

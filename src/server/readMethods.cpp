@@ -45,8 +45,6 @@ void HttpServer::readRequest(int client_socket)
 			{
 				if (!parseHttpRequest(clientInfoMap[client_socket].requestBuffer, clientInfoMap[client_socket].request, client_socket))
 				{
-					logger.logMethod("ERROR", "Error parsing request");
-					sendErrorResponse(client_socket, 400, "Bad Request");
 					return ;
 				}
 				logger.logMethod("INFO", "Received request: " + clientInfoMap[client_socket].request.method);

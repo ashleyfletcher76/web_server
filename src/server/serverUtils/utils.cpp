@@ -57,6 +57,13 @@ std::string HttpServer::getFilePath(int server_fd, std::string &uri)
 			}
 
 			std::string filePath = srv.document_root + uri;
+		
+			if (!route.index.empty())
+			{
+				filePath = srv.document_root + route.index;
+				uri = filePath;
+			}
+
 
 			if (uri == "/")
 			{

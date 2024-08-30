@@ -135,7 +135,7 @@ void HttpServer::mainLoop()
 					deregisterChild(fd, clientInfoMap[fd].pid);
 					kill(clientInfoMap[fd].pid, SIGKILL);
 					close(clientInfoMap[fd].outpipe);
-					closeSocket(fd);
+					sendErrorResponse(fd, 504, "Gateway Timeout");
 				}
 				else
 				{

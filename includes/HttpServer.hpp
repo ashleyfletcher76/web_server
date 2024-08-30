@@ -12,7 +12,7 @@ class HttpServer : public config
 		std::unordered_map<int, Server*> servers;
 		int			kq;
 		std::unordered_map<int, std::chrono::steady_clock::time_point> socket_last_activity;
-		const std::chrono::seconds idle_timeout = std::chrono::seconds(200);
+		const std::chrono::seconds idle_timeout = std::chrono::seconds(10);
 		struct sockaddr_in	address;
 		std::unordered_map<int, ClientInfo> clientInfoMap;
 		std::unordered_map<int, std::string> clientResponse;
@@ -36,7 +36,6 @@ class HttpServer : public config
 		void	readRequest(int client_socket);
 		bool	handleHeadersAndCheckForBody(int client_socket);
 		bool	readFullRequestBody(int client_socket, std::string::size_type contentLengthPos);
-		bool	readFullRequestBody(int client_socket, std::string &request, std::string::size_type contentLengthPos, size_t totalBytesRead, int bytesRead);
 		void	handleRequest(int client_Socket);
 		bool	validateServer(int client_socket);
 		bool	validateRouteAndMethod(int client_socket, HttpRequest &request);

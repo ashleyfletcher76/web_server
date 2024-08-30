@@ -10,10 +10,11 @@ bool isValidUri(std::string_view uri)
 	return (uri.find("..") == std::string::npos); // prevent directory traversal
 }
 
-bool isValidMethod(const std::string &method)
+bool isValidMethod(HttpRequest &request, const std::string &method)
 {
 	static const std::set<std::string> validMethods = {"GET", "POST", "DELETE"};
-	return (validMethods.find(method) != validMethods.end());
+	request.validmethod = validMethods.find(method) != validMethods.end();
+	return (request.validmethod);
 }
 
 bool isValidHeader(std::string_view name, std::string_view value)
@@ -42,7 +43,7 @@ bool HttpServer::parseHttpRequestHeaders(std::istringstream &requestStream, Http
 		logger.logMethod("ERROR", "Fail is stream inside request headers");
 		return (false);
 	}
-	if (!isValidMethod(request.method) || !isValidUri(request.uri) || !isValidVersion(request.version))
+	if (!isValidMethod(request, request.method) || !isValidUri(request.uri) || !isValidVersion(request.version))
 	{
 		logger.logMethod("ERROR", "Fail is in valid inside request headers");
 		return (false);
@@ -76,10 +77,14 @@ bool HttpServer::parseHttpRequest(const std::string &requestStr, HttpRequest &re
 {
 
 	std::istringstream requestStream(requestStr);
-
 	if (!parseHttpRequestHeaders(requestStream, request))
 	{
-		sendErrorResponse(client_socket, 400, "Bad request");
+		if (!request.validmethod)
+			sendErrorResponse(client_socket, 405, "Method Not Allowed");
+		else
+		{
+			sendErrorResponse(client_socket, 400, "Bad request");
+		}
 		return (false);
 	}
 	if (!parseHttpRequestBody(requestStream, request, client_socket))

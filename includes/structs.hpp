@@ -29,6 +29,7 @@ struct HttpRequest
 	std::string handler;
 	std::map<std::string, std::string> headers;
 	std::map<std::string, std::string> files;
+	bool		validmethod;
 	userProfile userProfile;
 };
 
@@ -57,6 +58,7 @@ struct routeConfig
 	std::string redirect;
 	std::string rootDirectory;
 	std::string defaultFile;
+	std::string index;
 
 	routeConfig() : directoryListing(false) {}
 };

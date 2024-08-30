@@ -118,6 +118,10 @@ void config::parseRouteBlock(std::ifstream &file, serverInfo &srv)
 		{
 			route.handler = line.substr(line.find(" ") + 1);
 		}
+		else if (line.find("index") != std::string::npos)
+		{
+			route.index = line.substr(line.find(" ") + 1);
+		}
 		else if (line.find("defaultFile") != std::string::npos)
 		{
 			route.defaultFile = line.substr(line.find(" ") + 1);
