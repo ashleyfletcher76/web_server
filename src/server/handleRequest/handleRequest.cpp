@@ -51,13 +51,21 @@ bool HttpServer::validateRouteAndMethod(int client_socket, HttpRequest &request)
 		{
 			request.handler = route.handler;
 		}
-		if (route.directoryListing)
+		if (route.directory)
 		{
-			std::string fullPath = "." + route.rootDirectory + request.uri;
-			if (isDirectory(fullPath))
+			if (route.directoryListing)
 			{
-				handleDirectoryListing(client_socket, fullPath);
-				return (false);
+				std::string fullPath = "." + route.rootDirectory + request.uri;
+				if (isDirectory(fullPath))
+				{
+					handleDirectoryListing(client_socket, fullPath);
+					return (false);
+				}
+				else
+				{
+					sendErrorResponse(client_socket, 403, "Forbidden");
+					return (false);
+				}
 			}
 			else
 			{

@@ -40,7 +40,7 @@ bool config::parseConfig(const std::string &filename)
 				serverInfos.push_back(srv);
 				++size;
 			}
-			catch(const std::exception& e)
+			catch (const std::exception &e)
 			{
 				std::cerr << e.what() << '\n';
 			}
@@ -112,7 +112,20 @@ void config::parseRouteBlock(std::ifstream &file, serverInfo &srv)
 		}
 		else if (line.find("directory_listing") != std::string::npos)
 		{
-			route.directoryListing = (line.find("on") || line.find("1") || line.find("true"));
+			std::string value = line.substr(line.find(" ") + 1);
+			value = trim(value);
+
+			std::transform(value.begin(), value.end(), value.begin(), ::tolower);
+
+			if (value == "on" || value == "1" || value == "true")
+			{
+				route.directoryListing = true;
+			}
+			else
+			{
+				route.directoryListing = false;
+			}
+			route.directory = true;
 		}
 		else if (line.find("handle_uploads") != std::string::npos)
 		{
@@ -226,6 +239,7 @@ void config::parseLine(const std::string &line, serverInfo &srv)
 	else if (key == "directory_listing")
 	{
 		srv.directory_listing = (value == "on" || value == "true" || value == "1");
+		srv.directory = true;
 	}
 }
 

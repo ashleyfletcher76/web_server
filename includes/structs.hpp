@@ -53,6 +53,7 @@ struct routeConfig
 {
 	std::vector<std::string> allowedMethods;
 	std::string path;
+	bool directory;
 	bool directoryListing;
 	std::string handler;
 	std::string redirect;
@@ -60,7 +61,7 @@ struct routeConfig
 	std::string defaultFile;
 	std::string index;
 
-	routeConfig() : directoryListing(false) {}
+	routeConfig() : directory(false), directoryListing(false) {}
 };
 
 struct cgiConfig
@@ -77,6 +78,7 @@ struct serverInfo
 	int listen;
 	int body_size;
 	bool directory_listing;
+	bool directory;
 	std::string host;
 	std::string server_name;
 	std::string document_root;
@@ -85,7 +87,7 @@ struct serverInfo
 	std::unordered_map<int, std::string> errorPages;
 	std::unordered_map<std::string, routeConfig> routes;
 
-	serverInfo() : listen(0), body_size(-1), directory_listing(false) {}
+	serverInfo() : listen(0), body_size(-1), directory_listing(false), directory(false) {}
 };
 
 #endif
