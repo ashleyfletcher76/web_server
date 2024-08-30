@@ -15,7 +15,7 @@ std::string	getMimeType(const std::string& filePath)
 		if (mimeTypes.count(extension))
 			return (mimeTypes[extension]);
 		else
-			return ("application/octet-stream");
+			return ("text/html");
 
 	}
 	return ("text/html");
