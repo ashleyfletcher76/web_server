@@ -32,7 +32,7 @@ To install and set up the project locally, follow the instructions below:
 
 1. **Clone the repository**:
    ```bash
-   git clone https://github.com/username/webserver.git
+   git clone https://github.com/ashleyfletcher76/web_server.git
    cd webserver
    make
 
