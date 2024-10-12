@@ -39,6 +39,7 @@ To install and set up the project locally, follow the instructions below:
 ./webserver [config_file]
 
 ## Configuration
+```bash
 server {
     listen 8080;
     server_name localhost;
