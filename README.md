@@ -37,7 +37,9 @@ To install and set up the project locally, follow the instructions below:
    make
 
 ## Usage
-./webserver [config_file]
+```bash
+./webserver config.conf
+```
 
 ## Configuration
 ```bash
