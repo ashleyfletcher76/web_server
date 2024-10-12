@@ -8,6 +8,7 @@ This is a custom-built web server implemented in **C++** as part of the **42 Sch
 - [Installation](#installation)
 - [Usage](#usage)
 - [Configuration](#configuration)
+- [Authors](#authors)
 
 ## Project Description
 
@@ -51,3 +52,9 @@ server {
 
     error_page 404 /404.html;
 }
+```
+
+## Authors
+
+- **Ashley Fletcher** - *Developer* - [GitHub Profile](https://github.com/ashleyfletcher76)
+- **Muhammet Köse** - *Developer* - [GitHub Profile](https://github.com/masummmm54)
