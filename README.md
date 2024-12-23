@@ -14,11 +14,11 @@ This is a custom-built web server implemented in **C++** as part of the **42 Sch
 
 The **Web Server Project** is a fundamental part of the 42 School curriculum designed to deepen understanding of how HTTP servers work. It challenges students to handle multiple simultaneous client connections, manage file requests, and interpret HTTP requests and responses. The server can be configured with a custom configuration file, allowing for flexibility in routes, error pages, and other server behaviors.
 
-This project provides insight into low-level network programming using **sockets**, **multi-threading** for handling concurrent connections, and **file I/O** operations, building a complete web server that can handle typical client requests, like serving HTML, CSS, JavaScript, and images.
+This project provides insight into low-level network programming using **sockets**, **multiplexing** for handling concurrent connections, and **file I/O** operations, building a complete web server that can handle typical client requests, like serving HTML, CSS, JavaScript, and images.
 
 ## Features
 
-- **Handles multiple connections**: Uses multi-threading or multiplexing to serve several clients at the same time.
+- **Handles multiple connections**: Uses multiplexing to serve several clients at the same time.
 - **Static file serving**: Capable of serving HTML, CSS, JS, images, and other static assets.
 - **Custom error pages**: Supports custom error responses like 404 Not Found, 500 Internal Server Error, etc.
 - **Route configuration**: Allows setting up different endpoints in a configuration file.
